@@ -156,6 +156,8 @@ export default {
           this.netWorkError = false;
           this.connectWallet();
         }
+      }
+      if (window.location.hash == "#/btcSwap") {
       } else {
         if (chainId !== "0x38") {
           this.netWorkError = true;
