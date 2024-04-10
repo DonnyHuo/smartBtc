@@ -1,4 +1,4 @@
-# coindao
+# SmartBTC
 
 ## Project setup
 ```
