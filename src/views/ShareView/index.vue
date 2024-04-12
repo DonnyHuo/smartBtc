@@ -82,7 +82,11 @@
               />
             </div>
             <div class="title">
-              3. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易
+              3.
+              CoinDAO会员把100T钱包导入下载的OKX，迁移跨链到BSC链；比特币铭文SBTC用户跨链转账到BSC
+            </div>
+            <div class="title">
+              4. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易
             </div>
           </div>
         </div>
@@ -340,8 +344,8 @@ export default {
     position: relative;
   }
   .inviteBg {
-    width: 88%;
-    height: 75vh;
+    width: 90%;
+    height: 84vh;
     margin: 0 auto;
     background-color: #16172a;
     text-align: left;
@@ -358,8 +362,8 @@ export default {
     .shareInfo {
       padding-top: 20px;
       .title {
-        padding-top: 40px;
-        padding-bottom: 20px;
+        padding-top: 20px;
+        padding-bottom: 10px;
       }
       .inputBox {
         height: 50px;
