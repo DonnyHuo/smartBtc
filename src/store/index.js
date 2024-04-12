@@ -5,6 +5,7 @@ export default createStore({
   state: {
     address: "",
     t100: "0x38629893f4cedd26e33af93e581d1e3aca178c0a",
+    sBtc: "0xf3669729f30bc4f6ebee1dbad401f26b80e69d5b",
     inviteAddress: "0xdCda96a2A1167D8A8DD7CdcE64448ee3F230a2fe",
     poolAddress: "0xCBa0580fa60C48b43556AdA557C426995488F24e",
     chainId: "",
@@ -36,8 +37,6 @@ export default createStore({
     ETHUnderlyingAssetAddr: "0xFc34f1E683FdE619380600994b3e5cB41DBb351b",
     BrokerAddr: "0x4366B94FfbEe751889b9B621377614d71F357001",
     PerpetualOptionsAddr: "0xab2CC8EbA51c9Dd60Ab9182f9B9e3b1ECbde4400",
-
-
 
     slippage: 3,
     tradeTime: 1,

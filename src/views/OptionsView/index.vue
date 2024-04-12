@@ -5,7 +5,7 @@
         >交易</router-link
       >
       <router-link to="pool" :class="$route.name == 'pool' ? 'active' : ''"
-        >流动性</router-link
+        >做市商</router-link
       >
     </div>
     <router-view class="view"></router-view>

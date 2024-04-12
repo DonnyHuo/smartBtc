@@ -14,12 +14,53 @@
       </div>
       <div class="total-num">{{ apy }}%</div>
     </div>
+    <div class="contactList">
+      <div>
+        <div class="title">
+          <img
+            class="logo"
+            src="../../assets/img/0x6a7555ac8ed893d4f053dd8e20c561b022de4a06.png"
+            alt=""
+          />
+          <span>SBTC合约</span>
+        </div>
+        <div class="address">
+          <span>{{ shortStr($store.state.sBtc) }}</span>
+          <img
+            class="copyImg"
+            @click="copyAddress(this.$store.state.sBtc)"
+            src="../../assets/img/copy.png"
+            alt=""
+          />
+        </div>
+      </div>
+      <div>
+        <div class="title">
+          <img
+            class="logo logoU"
+            src="../../assets/img/0x9839bffdb0702b0b0ae8bb6a7825190574652e5f.png"
+            alt=""
+          />
+          <span>100T合约</span>
+        </div>
+        <div class="address">
+          <span>{{ shortStr($store.state.t100) }}</span>
+          <img
+            class="copyImg"
+            @click="copyAddress($store.state.t100)"
+            src="../../assets/img/copy.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { ethers } from "ethers";
-import { getContract, getOkChainId } from "../../utils";
+import { getContract, getOkChainId, shortStr, copy } from "../../utils";
 import poolABI from "../../abi/pool.json";
+import { showToast } from "vant";
 
 export default {
   name: "",
@@ -36,6 +77,11 @@ export default {
     }
   },
   methods: {
+    copyAddress(msg) {
+      copy(msg);
+      showToast("複製成功");
+    },
+    shortStr,
     async poolsTotalPowers() {
       const res = await getContract(
         this.$store.state.poolAddress,
@@ -78,7 +124,7 @@ export default {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 3px 6px #cfcece;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   .total-tvl {
     display: flex;
     align-items: center;
@@ -96,6 +142,41 @@ export default {
     }
     .total-num {
       font-weight: 600;
+    }
+  }
+  .contactList {
+    font-size: 14px;
+    color: #111;
+    padding: 10px 0;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      .title {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        .logo {
+          width: 20px;
+          margin-right: 8px;
+        }
+        .logoU {
+          width: 16px;
+          margin-left: 2px;
+        }
+      }
+      .address {
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        color: #111;
+
+        .copyImg {
+          width: 15px;
+          margin-left: 2px;
+        }
+      }
     }
   }
 }

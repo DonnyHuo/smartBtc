@@ -66,11 +66,6 @@ const routes = [
     name: 'withdraw',
     component: () => import(/* webpackChunkName: "about" */ '../views/Withdraw/index.vue')
   },
-  {
-    path: '/btcSwap',
-    name: 'btcSwap',
-    component: () => import(/* webpackChunkName: "about" */ '../views/BtcSwap/index.vue')
-  },
 ]
 
 const router = createRouter({

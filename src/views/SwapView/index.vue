@@ -52,6 +52,10 @@
           >跨鏈</van-button
         >
       </div>
+      <div class="tips">
+        因被SmartBTC收购，CoinDAO社区代币100T (HECO)可10: 1置换为比特币铭文100T (BSC)
+        ，请尽快行权!
+      </div>
       <div class="swapRecord">
         <div class="title">
           <span>跨鏈記錄</span>
@@ -408,6 +412,13 @@ export default {
       border: none;
       outline: none;
     }
+  }
+  .tips {
+    padding-top: 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
   }
   .swapRecord {
     margin-top: 30px;

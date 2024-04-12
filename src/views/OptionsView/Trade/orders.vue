@@ -391,10 +391,7 @@ export default {
               startTimes: res[i].startTime.toString(),
               state: res[i].state,
               token: res[i].token,
-              tradingFee: ethers.utils.formatUnits(
-                res[i].tradingFee,
-                this.selectCoinInfo.decimals
-              ),
+              tradingFee: ethers.utils.formatUnits(res[i].tradingFee, decimals),
               holder: res[i].holder,
               tokenInfo: await this.getERC20Token(res[i].token),
             };

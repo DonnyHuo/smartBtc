@@ -1,6 +1,6 @@
 <template>
   <div class="pools">
-    <div class="title">流动性</div>
+    <div class="title">添加池子，坐享做市商收益</div>
     <router-link to="/public">
       <div class="contentList">
         <img src="../../../assets/img/public-pool.png" alt="" />

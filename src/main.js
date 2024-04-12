@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import './assets/css/init.css'
 import 'vant/lib/index.css';
-import { Button, Toast, Loading, Overlay, Popover, Tab, Tabs, Progress,ActionSheet, Search, Notify, Picker, Popup, Image as VanImage, Switch,Empty } from 'vant';
+import { Button, Toast, Loading, Overlay, Popover, Tab, Tabs, Progress,ActionSheet, Search, Notify, Picker, Popup, Image as VanImage, Switch,Empty, Step, Steps } from 'vant';
 import axios from 'axios'
 
 import { Table, Slider } from 'ant-design-vue';
@@ -38,4 +38,4 @@ import 'animate.css';
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios
-app.use(Button).use(Toast).use(Loading).use(Overlay).use(Slider).use(Popover).use(Tab).use(Tabs).use(Progress).use(Table).use(ActionSheet).use(Search).use(Notify).use(Picker).use(Popup).use(VanImage).use(Switch).use(Empty).use(store).use(router).mount('#app')
+app.use(Button).use(Toast).use(Loading).use(Overlay).use(Step).use(Steps).use(Slider).use(Popover).use(Tab).use(Tabs).use(Progress).use(Table).use(ActionSheet).use(Search).use(Notify).use(Picker).use(Popup).use(VanImage).use(Switch).use(Empty).use(store).use(router).mount('#app')

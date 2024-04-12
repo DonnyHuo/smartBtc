@@ -2,12 +2,12 @@
   <div class="home">
     <div class="homeLogoBox">
       <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
-    </div>
-    <div class="wallet">
-      <div>
-        <div>當前連接錢包</div>
-        <div>{{ shortStr($store.state.address) }}</div>
+      <div class="addressBox">
+        <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
+        <div class="address">{{ shortStr($store.state.address) }}</div>
       </div>
+    </div>
+    <!-- <div class="wallet">
       <div class="addressAndBalance">
         <span>100T 合约地址</span>
         <div class="tokenAddress">
@@ -20,134 +20,143 @@
           />
         </div>
       </div>
-    </div>
-    <div class="power">
-      <div>
-        <div><span>錢包餘額</span></div>
-        <div class="data-num">{{ balance }} 100T</div>
-        <a :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.t100}`">
-          <van-button>去購買</van-button>
-        </a>
+    </div> -->
+    <div class="headerInfo">
+      <div class="titleBox">
+        <div class="title">专注比特币生态的VC DAO</div>
+        <div class="nav_title">DAO治理代币 - SBTC | 质押挖矿代币 - 100T</div>
       </div>
-      <div>
-        <div><span> 質押算力 </span></div>
-        <div class="data-num">{{ poolPowers }} H/S</div>
-        <router-link to="lp" class="">
-          <van-button>去質押</van-button>
-        </router-link>
-      </div>
-      <div>
-        <div><span> 邀請算力 </span></div>
-        <div class="data-num">{{ invitePowers }} H/S</div>
-        <router-link to="share?showPoster=true">
-          <van-button>去邀請</van-button>
-        </router-link>
-      </div>
-      <div class="apy">
-        <span>實时APY</span>
-        <span>{{ apy }}%</span>
-        <router-link to="withdraw">
-          <van-button>去领取</van-button>
-        </router-link>
-      </div>
-    </div>
-    <div class="contant">
-      <div class="title">
-        <div>BTC/BRC20 Staking Token 100T</div>
-        <div>去中心化發行機制</div>
-      </div>
-      <div class="contantList">
+      <div class="power">
         <div>
-          <div>
-            <div>
-              <div>BTC和SBTC质押发行50%（1.05亿）</div>
-              <div>BRC20-S协议，已支持质押SBTC</div>
-            </div>
-            <a href="https://www.okx.com/zh-hans/web3/defi/brc20-s">
-              <van-button class="">BRC-20质押</van-button>
-            </a>
-          </div>
+          <div><span>SBTC余额</span></div>
+          <div class="data-num">{{ sBtcBalance }} SBTC</div>
+          <a
+            :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
+          >
+            <van-button>SWAP</van-button>
+          </a>
+        </div>
+        <div>
+          <div><span>100T余额</span></div>
+          <div class="data-num">{{ balance }} 100T</div>
+          <a
+            :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.t100}`"
+          >
+            <van-button>SWAP</van-button>
+          </a>
         </div>
 
         <div>
-          <div>
-            <div>
-              <div>BRC-20质押发行20%（4200万）</div>
-              <div>BRC20-S协议，首批支持质押</div>
-              <div>ORDI、SATS、SBTC、RATS等</div>
-            </div>
-            <a href="https://www.okx.com/zh-hans/web3/defi/brc20-s">
-              <van-button class="">BRC-20质押</van-button>
-            </a>
-          </div>
+          <div><span> 質押算力 </span></div>
+          <div class="data-num">{{ poolPowers }} H/S</div>
+          <router-link to="lp" class="">
+            <van-button>去質押</van-button>
+          </router-link>
         </div>
         <div>
-          <div>
-            <div>流动池LP质押发行20%（4200万）</div>
-            <router-link to="lp">
-              <van-button class="">去參與</van-button>
-            </router-link>
-          </div>
-          <!-- <div>
-            <p class="addressCopy">
-              <span>合约地址：</span>
-              <a
-                href="https://bscscan.com/address/0xCBa0580fa60C48b43556AdA557C426995488F24e"
-              >
-                {{ shortStr("0xCBa0580fa60C48b43556AdA557C426995488F24e") }}</a
-              >
-              <img
-                class="copy"
-                @click="copyAddress('0xCBa0580fa60C48b43556AdA557C426995488F24e')"
-                src="../../assets/img/copy.png"
-                alt=""
-              />
-            </p>
-          </div> -->
+          <div><span> 邀請算力 </span></div>
+          <div class="data-num">{{ invitePowers }} H/S</div>
+          <router-link to="share?showPoster=true">
+            <van-button>去邀請</van-button>
+          </router-link>
         </div>
-        <div>
-          <div>
-            <div>100T社区代币置换发行10%（2100万）</div>
-            <div>
-              <router-link to="swap">
-                <van-button class=""> HECO跨鏈 </van-button>
-              </router-link>
-            </div>
-          </div>
-          <!-- <div class="hecoBuy">
-            <div>
-              <p class="addressCopy">
-                <span>合约地址：</span>
-                <a
-                  href="https://bscscan.com/address/0x771e9e2321DF1fe9dE69fF6edFd9eBb22bcb6A1f"
-                >
-                  {{ shortStr("0x771e9e2321DF1fe9dE69fF6edFd9eBb22bcb6A1f") }}</a
-                >
-                <img
-                  class="copy"
-                  @click="copyAddress('0x771e9e2321DF1fe9dE69fF6edFd9eBb22bcb6A1f')"
-                  src="../../assets/img/copy.png"
-                  alt=""
-                />
-              </p>
-            </div>
-            <a href="http://100t.hk/#/home"
-              ><van-button class="">HECO購買 </van-button></a
-            >
-          </div> -->
+        <div class="apy">
+          <span>挖矿APY</span>
+          <span>{{ apy }}%</span>
+          <router-link to="withdraw">
+            <van-button>去领取</van-button>
+          </router-link>
+        </div>
+        <div class="apy">
+          <span>CoinDAO</span>
+          <span>10 : 1</span>
+          <router-link to="swap">
+            <van-button>去行权</van-button>
+          </router-link>
         </div>
       </div>
     </div>
+
+    <div class="contant">
+      <div class="title">
+        <div>技术路线图</div>
+        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用逐步兼容主流BTC L2</div>
+      </div>
+      <div class="contantList">
+        <van-steps
+          direction="vertical"
+          :active="-1"
+          :inactive-icon="require('../../assets/img/point.png')"
+        >
+          <van-step>
+            <div class="time">2023年3月9日</div>
+            <div class="desc">Ordinals协议首个带BTC字符的铭文SBTC部署发布</div>
+          </van-step>
+          <van-step>
+            <div class="time">2023年5月12日</div>
+            <div class="desc">
+              总量2100万，单次500的SBTC被全部Mint近2000个地址参与2023年7月20日OKX发布BRC20-S协议，首个支持多铭文质押的100T部署发布
+            </div>
+          </van-step>
+
+          <van-step>
+            <div class="time">2023年7月20日</div>
+            <div class="desc">OKX发布BRC20-S协议，首个支持多铭文质押的100T部署发布</div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年1月13日</div>
+            <div class="desc">
+              多家知名华人WEB3品牌共同举办的香港比特币生态峰会，联合发布SmartBTC
+              专注于比特币生态的VC DAO
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年4月</div>
+            <div class="desc">
+              比特币减半前夕，主网SmartBTC.io
+              正式发布，推出流动池LP质押挖矿，上线以比特币为指数，铭文为权利金的永续期权并正式确定SBT
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年4月15日</div>
+            <div class="desc">
+              收购拥有超1万钱包地址的CoinDAO，社区代币100T可10:1置换为铭文100T，迁移加入SmartBTC
+              DAO
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年</div>
+            <div class="desc">
+              SmartBTC继续集成丰富的DeFi应用，逐步向活跃比特币铭文开放服务，SBTC成为市值TOP3主流铭文
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2025年</div>
+            <div class="desc">
+              SmartBTC逐步兼容主流BTC
+              L2，并由铭文扩展到比特币全生态，成为比特币生态的底层应用，SBTC成为铭文新龙头
+            </div>
+          </van-step>
+        </van-steps>
+      </div>
+    </div>
+
+    <div class="tips">
+      <p>BTC~BSC跨链桥即将上线</p>
+      <p>可在推特@SmartBTCdao申请内测</p>
+    </div>
     <div class="footer">
       <div class="iconBox">
-        <a href="https://SmartBTC.io">
-          <img class="footerLogo" src="../../assets/img/footerLogo.png" alt="" />
+        <a href="https://twitter.com/SmartBTCdao">
+          <img class="linkLogo" src="../../assets/img/telgram.png" alt="" />
         </a>
         <a href="https://twitter.com/SmartBTCdao">
-          <img class="twiter" src="../../assets/img/twiter.png" alt="" />
+          <img class="linkLogo" src="../../assets/img/twiter.png" alt="" />
+        </a>
+        <a href="https://twitter.com/SmartBTCdao">
+          <img class="linkLogo" src="../../assets/img/wechat.png" alt="" />
         </a>
       </div>
-      <div>专注比特币生态的VC DAO</div>
       <div>© 2024 SmartBTC.io</div>
     </div>
   </div>
@@ -166,6 +175,7 @@ export default {
   data() {
     return {
       balance: "--",
+      sBtcBalance: "--",
       invitePowers: "--",
       poolPowers: "--",
       apy: "--",
@@ -200,6 +210,21 @@ export default {
           "decimals"
         ).catch((err) => console.log(err));
         this.balance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(6);
+
+        const sBtcBalance = await getContract(
+          this.$store.state.sBtc,
+          erc20ABI,
+          "balanceOf",
+          this.$store.state.address
+        );
+        const sBtcDecimals = await getContract(
+          this.$store.state.sBtc,
+          erc20ABI,
+          "decimals"
+        );
+        this.sBtcBalance = (
+          ethers.utils.formatUnits(sBtcBalance, sBtcDecimals) * 1
+        ).toFixed(6);
       }
     },
 
@@ -253,14 +278,29 @@ export default {
   height: calc(100vh - 50px);
   font-size: 14px;
   overflow: auto;
+  background-color: #fff;
 }
 .homeLogoBox {
-  background: #fff;
   height: 50px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px 15px;
+
   .homeLogo {
     height: 30px;
+  }
+  .addressBox {
+    display: flex;
+    align-items: center;
+    .walletIcon {
+      width: 20px;
+      margin-right: 4px;
+    }
+    .address {
+      color: #111;
+      font-weight: 600;
+    }
   }
 }
 
@@ -289,66 +329,92 @@ export default {
     }
   }
 }
-.power {
-  background-color: #fff;
-  padding: 20px;
-  font-weight: 600;
-  > div {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .van-button {
-      height: 30px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: #ffc519;
-      border: none;
-      color: #333;
+.headerInfo {
+  background: #f8fcff;
+  margin: 20px;
+  border-radius: 10px;
+  .titleBox {
+    padding: 20px;
+    .title {
+      font-size: 18px;
       font-weight: 600;
-      font-size: 12px;
+    }
+    .nav_title {
+      font-size: 14px;
+      color: #919090;
+      padding-top: 10px;
+      font-weight: 500;
+    }
+  }
+  .power {
+    margin: 20px;
+    margin-top: 0;
+    padding: 20px 0;
+    font-weight: 600;
+    border-top: 1px solid rgba(187, 227, 255, 0.5);
+    > div {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .van-button {
+        height: 30px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        background: #ffc519;
+        border: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 12px;
+      }
     }
   }
 }
+
 .contant {
-  padding: 20px 0;
   background-size: 100% 100%;
   background-color: #fff;
   padding: 20px;
-  border-top: 1px solid #eeeeee;
+  margin: 20px;
+  background: #f8fcff;
+  border-radius: 10px;
   .title {
     font-size: 18px;
     font-weight: 600;
     line-height: 30px;
     > div:nth-child(2) {
+      width: 80%;
+      margin: 0 auto;
       color: #919090;
       font-weight: 500;
       font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 40px;
     }
   }
   .contantList {
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
-      text-align: left;
-      padding: 10px 0;
-      > div {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 30px;
-        &:nth-child(1) {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          > div {
-            display: flex;
-            flex-direction: column;
-          }
-        }
-      }
+    text-align: left;
+    .van-steps {
+      background-color: transparent;
+    }
+    .time {
+      font-size: 14px;
+      color: #999;
+    }
+    .desc {
+      font-size: 14px;
+      line-height: 22px;
+      color: #111;
+      font-weight: 500;
+    }
+    .--van-step-circle-size {
+      width: 10px;
+    }
+    ::v-deep .van-step__line {
+      background-color: #ffc519;
+    }
+    ::v-deep .van-step__circle {
+      background-color: #ffc519;
     }
   }
   .apy {
@@ -405,22 +471,28 @@ export default {
     justify-content: space-between;
   }
 }
+.tips {
+  background-color: #fff;
+  color: #ff6719;
+  font-size: 18px;
+  font-weight: 600;
+  p {
+    margin: 0;
+  }
+}
 .footer {
-  padding: 20px 30px 30px 30px;
+  padding: 40px 30px 30px 30px;
   background-color: #fff;
   font-size: 16px;
   color: #111;
   font-weight: 500;
-  border-top: 1px solid #eeeeee;
   .iconBox {
     display: flex;
     align-items: center;
     justify-content: space-around;
     margin-bottom: 20px;
-    .footerLogo {
-      width: 60px;
-    }
-    .twiter {
+
+    .linkLogo {
       width: 30px;
     }
   }

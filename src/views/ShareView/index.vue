@@ -53,9 +53,42 @@
     </div>
     <van-overlay :show="show" @click="show = false">
       <div class="overlayBox">
-        <img class="inviteBg" src="../../assets/img/inviteBg.jpeg" alt="" />
+        <div class="inviteBg">
+          <img class="shareLogo" src="../../assets/img/shareLogo.png" alt="" />
+          <div class="shareInfo">
+            <div class="title">1. 下载OKX Web3钱包</div>
+            <div class="inputBox">
+              <div>https://www.okx.com/zh-hans...</div>
+              <img
+                class="copy"
+                src="../../assets/img/copyWhite.png"
+                alt=""
+                @click="
+                  copyUrlFun('https://www.okx.com/zh-hans/download?first_ref=www.okx.com')
+                "
+              />
+            </div>
+            <div class="title">2. “发现”频道，搜索框输入 smartbtc.io</div>
+            <div class="inputBox">
+              <div class="searchBox">
+                <img class="search" src="../../assets/img/search.png" alt="" />
+                <div>smartbtc.io</div>
+              </div>
+              <img
+                class="copy"
+                src="../../assets/img/copyWhite.png"
+                alt=""
+                @click="copyUrlFun('https://smartbtc.io')"
+              />
+            </div>
+            <div class="title">
+              3. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易
+            </div>
+          </div>
+        </div>
         <div class="copyUrl">
-          <div>http://100t.hk</div>
+          <div class="tips">专注比特币生态的 VC DAO</div>
+          <div class="link">https://smartbtc.io</div>
           <div class="copyUrlBox">
             <span>複製分享連結</span>
             <img
@@ -308,7 +341,47 @@ export default {
   }
   .inviteBg {
     width: 88%;
-    height: auto;
+    height: 75vh;
+    margin: 0 auto;
+    background-color: #16172a;
+    text-align: left;
+    padding: 30px 20px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    background-image: url("http://static.oneplus.cn/data/attachment/forum/201804/06/205451op5up5yu79gocoug.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    .shareLogo {
+      width: 90px;
+    }
+    .shareInfo {
+      padding-top: 20px;
+      .title {
+        padding-top: 40px;
+        padding-bottom: 20px;
+      }
+      .inputBox {
+        height: 50px;
+        padding: 0 10px;
+        border: 1px solid #fff;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .searchBox {
+        display: flex;
+        align-items: center;
+      }
+      .search {
+        width: 20px;
+        margin-right: 10px;
+      }
+    }
+    .copy {
+      width: 16px;
+    }
   }
   .qrcode {
     display: flex;
@@ -324,16 +397,25 @@ export default {
   .copyUrl {
     position: absolute;
     left: 50px;
-    bottom: 60px;
-    > div {
-      color: #fff;
-      text-align: left;
-      font-size: 14px;
+    bottom: 40px;
+    color: #fff;
+    text-align: left;
+    font-size: 14px;
+    .tips {
+      width: 66%;
+      line-height: 30px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .link {
+      font-size: 16px;
+      font-weight: 700;
+      padding-top: 10px;
+      padding-bottom: 6px;
     }
     .copyUrlBox {
       display: flex;
       align-items: center;
-      justify-content: center;
       color: #ffc519;
       font-size: 14px;
       margin-top: 4px;
