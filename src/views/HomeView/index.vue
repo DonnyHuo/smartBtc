@@ -29,7 +29,7 @@
       <div class="power">
         <div>
           <div><span>SBTC余额</span></div>
-          <div class="data-num">{{ sBtcBalance }} SBTC</div>
+          <div class="data-num">{{ sBtcBalance }}</div>
           <a
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
           >
@@ -38,7 +38,7 @@
         </div>
         <div>
           <div><span>100T余额</span></div>
-          <div class="data-num">{{ balance }} 100T</div>
+          <div class="data-num">{{ balance }}</div>
           <a
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.t100}`"
           >
@@ -80,7 +80,7 @@
     <div class="contant">
       <div class="title">
         <div>技术路线图</div>
-        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用逐步兼容主流BTC L2</div>
+        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用 逐步兼容主流BTC L2 ......</div>
       </div>
       <div class="contantList">
         <van-steps
@@ -94,34 +94,33 @@
           </van-step>
           <van-step>
             <div class="time">2023年5月12日</div>
-            <div class="desc">
-              总量2100万，单次500的SBTC被全部Mint近2000个地址参与2023年7月20日OKX发布BRC20-S协议，首个支持多铭文质押的100T部署发布
-            </div>
+            <div class="desc">总量2100万，单次500的SBTC被全部Mint 近2000个地址参与</div>
           </van-step>
 
           <van-step>
             <div class="time">2023年7月20日</div>
-            <div class="desc">OKX发布BRC20-S协议，首个支持多铭文质押的100T部署发布</div>
+            <div class="desc">OKX发布BRC20-S协议，首个支持多铭文质押的 100T部署发布</div>
           </van-step>
           <van-step>
             <div class="time">2024年1月13日</div>
             <div class="desc">
-              多家知名华人WEB3品牌共同举办的香港比特币生态峰会，联合发布SmartBTC
-              专注于比特币生态的VC DAO
+              多家知名华人WEB3品牌共同举办的香港比特币生态 峰会，联合发布SmartBTC ——
+              专注于比特币生态 的VC DAO
             </div>
           </van-step>
           <van-step>
             <div class="time">2024年4月</div>
             <div class="desc">
-              比特币减半前夕，主网SmartBTC.io
-              正式发布，推出流动池LP质押挖矿，上线以比特币为指数，铭文为权利金的永续期权并正式确定SBT
+              比特币减半前夕，主网SmartBTC.io 正式发布，推出
+              流动池LP质押挖矿，上线以比特币为指数，铭文为权
+              利金的永续期权，并正式确定SBTC作为DAO治理代币
             </div>
           </van-step>
           <van-step>
             <div class="time">2024年4月15日</div>
             <div class="desc">
-              收购拥有超1万钱包地址的CoinDAO，社区代币100T可10:1置换为铭文100T，迁移加入SmartBTC
-              DAO
+              收购拥有超1万钱包地址的CoinDAO，社区代币100T
+              可10：1置换为铭文100T，迁移加入SmartBTC DAO
             </div>
           </van-step>
           <van-step>
@@ -133,8 +132,8 @@
           <van-step>
             <div class="time">2025年</div>
             <div class="desc">
-              SmartBTC逐步兼容主流BTC
-              L2，并由铭文扩展到比特币全生态，成为比特币生态的底层应用，SBTC成为铭文新龙头
+              SmartBTC逐步兼容主流BTC L2，并由铭文扩展到
+              比特币全生态，成为比特币生态的底层应用，SBTC 成为铭文新龙头
             </div>
           </van-step>
         </van-steps>

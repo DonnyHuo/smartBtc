@@ -89,25 +89,27 @@
               4. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易
             </div>
           </div>
-        </div>
-        <div class="copyUrl">
-          <div class="tips">专注比特币生态的 VC DAO</div>
-          <div class="link">https://smartbtc.io</div>
-          <div class="copyUrlBox">
-            <span>複製分享連結</span>
-            <img
-              @click="copyUrlFun(`${href}?inviteAddress=${$store.state.address}`)"
-              src="../../assets/img/copyUrl.png"
-              alt=""
-            />
+          <div class="infoBox">
+            <div class="copyUrl">
+              <div class="tips">专注比特币生态的 VC DAO</div>
+              <div class="link">https://smartbtc.io</div>
+              <div class="copyUrlBox">
+                <span>複製分享連結</span>
+                <img
+                  @click="copyUrlFun(`${href}?inviteAddress=${$store.state.address}`)"
+                  src="../../assets/img/copyUrl.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="qrcode">
+              <qrcode-vue
+                :value="`${href}?inviteAddress=${$store.state.address}`"
+                size="100"
+                level="H"
+              />
+            </div>
           </div>
-        </div>
-        <div class="qrcode">
-          <qrcode-vue
-            :value="`${href}?inviteAddress=${$store.state.address}`"
-            size="100"
-            level="H"
-          />
         </div>
       </div>
     </van-overlay>
@@ -345,14 +347,13 @@ export default {
   }
   .inviteBg {
     width: 90%;
-    height: 84vh;
     margin: 0 auto;
     background-color: #16172a;
     text-align: left;
-    padding: 30px 20px;
+    padding: 20px;
     color: #fff;
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 14px;
+    line-height: 20px;
     background-image: url("http://static.oneplus.cn/data/attachment/forum/201804/06/205451op5up5yu79gocoug.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
@@ -360,13 +361,12 @@ export default {
       width: 90px;
     }
     .shareInfo {
-      padding-top: 20px;
       .title {
         padding-top: 20px;
         padding-bottom: 10px;
       }
       .inputBox {
-        height: 50px;
+        height: 40px;
         padding: 0 10px;
         border: 1px solid #fff;
         border-radius: 6px;
@@ -387,6 +387,12 @@ export default {
       width: 16px;
     }
   }
+  .infoBox {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
   .qrcode {
     display: flex;
     align-items: center;
@@ -394,14 +400,8 @@ export default {
     padding: 5px;
     border-radius: 5px;
     background-color: #fff;
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
   }
   .copyUrl {
-    position: absolute;
-    left: 50px;
-    bottom: 40px;
     color: #fff;
     text-align: left;
     font-size: 14px;
