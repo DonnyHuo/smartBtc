@@ -845,6 +845,7 @@ export default {
         .then(async () => {
           this.depositLoading = false;
           this.showDepositSheet = false;
+          this.getMaxAmount(this.index);
           this.getAccountInfo();
           showToast("资金存入成功");
           this.selectedCoin.balanceOf = await getContract(
@@ -878,6 +879,7 @@ export default {
         .then(async () => {
           this.withdrawLoading = false;
           this.showWithdrawSheet = false;
+          this.getMaxAmount(this.index);
           this.getAccountInfo();
           showToast("资金取回成功");
           this.selectedCoin.balanceOf = await getContract(
@@ -1019,9 +1021,10 @@ export default {
         .then((res) => {
           this.tradingLoading = false;
           showToast("开仓成功");
-          this.tradeAmount = 0;
+          this.tradeAmount = "";
           this.sliderValue = 0;
           this.showTradeSheet = false;
+          this.getMaxAmount(this.index);
           this.getAccountInfo();
         })
         .catch((err) => {
@@ -1203,9 +1206,9 @@ export default {
     },
     selectedCoin(value) {
       this.getAllowance(value.address);
+      this.getMaxAmount(this.index);
       this.getAccountInfo();
       this.getInviters();
-      this.getMaxAmount(this.index);
       this.$store.commit("setSelectedCoin", value);
     },
     index(value) {
