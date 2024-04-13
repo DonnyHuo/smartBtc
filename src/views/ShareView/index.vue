@@ -347,7 +347,6 @@ export default {
   }
   .inviteBg {
     width: 90%;
-    min-height: 70vh;
     margin: 0 auto;
     background-color: #16172a;
     text-align: left;
@@ -394,9 +393,6 @@ export default {
     align-items: flex-end;
     justify-content: space-between;
     margin-top: 20px;
-    position: absolute;
-    left: 15px;
-    bottom: 20px;
   }
   .qrcode {
     display: flex;
@@ -411,7 +407,6 @@ export default {
     text-align: left;
     font-size: 14px;
     .tips {
-      width: 66%;
       line-height: 30px;
       font-size: 20px;
       font-weight: 700;
