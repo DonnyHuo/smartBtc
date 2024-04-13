@@ -458,6 +458,7 @@ export default {
       )
         .then((res) => {
           this.$emit("getAccountInfo");
+          this.$emit("getMaxAmount");
           this.closeOrderLoading = false;
           showToast("平仓成功");
           this.showCloseOrderSheet = false;

@@ -270,6 +270,7 @@
     <Orders
       :orderInfo="orderInfo"
       @getAccountInfo="getAccountInfo"
+      @getMaxAmount="getMaxAmount(index)"
       :USDPrice="USDPrice"
     />
     <Pool :selectedCoin="selectedCoin" :activeTabs="activeTabs" />
@@ -794,6 +795,7 @@ export default {
 
     //查询用户账户信息
     async getAccountInfo() {
+      console.log("321321321312321321");
       const info = await getContract(
         this.$store.state.PerpetualOptionsAddr,
         perpetualOptionsAbi,
@@ -846,6 +848,8 @@ export default {
           this.depositLoading = false;
           this.showDepositSheet = false;
           this.getMaxAmount(this.index);
+          this.tradeAmount = "";
+          this.sliderValue = 0;
           this.getAccountInfo();
           showToast("资金存入成功");
           this.selectedCoin.balanceOf = await getContract(
@@ -880,6 +884,8 @@ export default {
           this.withdrawLoading = false;
           this.showWithdrawSheet = false;
           this.getMaxAmount(this.index);
+          this.tradeAmount = "";
+          this.sliderValue = 0;
           this.getAccountInfo();
           showToast("资金取回成功");
           this.selectedCoin.balanceOf = await getContract(
@@ -1207,6 +1213,8 @@ export default {
     selectedCoin(value) {
       this.getAllowance(value.address);
       this.getMaxAmount(this.index);
+      this.tradeAmount = "";
+      this.sliderValue = 0;
       this.getAccountInfo();
       this.getInviters();
       this.$store.commit("setSelectedCoin", value);
