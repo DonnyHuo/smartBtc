@@ -347,6 +347,7 @@ export default {
   }
   .inviteBg {
     width: 90%;
+    min-height: 70vh;
     margin: 0 auto;
     background-color: #16172a;
     text-align: left;
@@ -354,9 +355,10 @@ export default {
     color: #fff;
     font-size: 14px;
     line-height: 20px;
-    background-image: url("http://static.oneplus.cn/data/attachment/forum/201804/06/205451op5up5yu79gocoug.jpg");
+    background-image: url("../../assets/img/shareBg.png");
     background-repeat: no-repeat;
     background-size: 100%;
+    position: relative;
     .shareLogo {
       width: 90px;
     }
@@ -392,6 +394,9 @@ export default {
     align-items: flex-end;
     justify-content: space-between;
     margin-top: 20px;
+    position: absolute;
+    left: 15px;
+    bottom: 20px;
   }
   .qrcode {
     display: flex;

@@ -80,7 +80,7 @@
     <div class="contant">
       <div class="title">
         <div>技术路线图</div>
-        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用 逐步兼容主流BTC L2 ......</div>
+        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用，逐步兼容主流BTC L2 ......</div>
       </div>
       <div class="contantList">
         <van-steps
