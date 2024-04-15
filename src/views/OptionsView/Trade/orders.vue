@@ -475,7 +475,7 @@ export default {
         "https://api.thegraph.com/subgraphs/name/garlicwilliam/shield-history-bsc";
       const query = `{
             orders(
-              first: 10,
+              first: 100,
               orderBy: closeTimestamp,
               orderDirection: desc,
               where: {taker: "${this.$store.state.address}", status_gt: 0}
