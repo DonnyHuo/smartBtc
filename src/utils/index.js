@@ -1,8 +1,7 @@
-import useClipboard from "vue-clipboard3";
 
-export const copy = async (msg) => {
-  const { toClipboard } = useClipboard();
-  await toClipboard(msg);
+
+export const copy =  (msg) => {
+   navigator.clipboard.writeText(msg);
 };
 
 export const shortStr = (address, first = 7, last = 5) => {
