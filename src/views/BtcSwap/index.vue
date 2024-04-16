@@ -316,6 +316,8 @@ export default {
       }
     }
     .selectBox {
+      display: flex;
+      align-items: center;
       span {
         font-weight: 600;
         font-size: 14px;
@@ -323,6 +325,7 @@ export default {
       }
       .chainLogo {
         width: 30px;
+        margin-left: 2px;
       }
       .down {
         width: 10px;
