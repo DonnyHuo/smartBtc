@@ -44,6 +44,14 @@ export default {
           iconUrlAct: require("./assets/img/daoAct.png"),
         },
         {
+          name: "btcSwap",
+          route: "/btcSwap",
+          text: "跨鏈橋",
+          active: false,
+          iconUrl: require("./assets/img/swap.png"),
+          iconUrlAct: require("./assets/img/swapAct.png"),
+        },
+        {
           name: "lp",
           route: "/lp",
           text: "LP挖矿",
@@ -156,6 +164,8 @@ export default {
           this.netWorkError = false;
           this.connectWallet();
         }
+      } else if (window.location.hash == "#/btcSwap") {
+        console.log("btcSwap");
       } else {
         if (chainId !== "0x38") {
           this.netWorkError = true;
@@ -200,9 +210,7 @@ body {
   min-height: 100vh;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Poppins-Regular !important;
   text-align: center;
   color: #2c3e50;
   position: relative;

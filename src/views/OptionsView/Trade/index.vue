@@ -1290,7 +1290,7 @@ export default {
         margin-left: 10px;
         text-align: left;
         .line {
-          font-size: 30px;
+          font-size: 20px;
           margin: 0 4px;
           color: #333;
           line-height: 1;

@@ -6,7 +6,7 @@ export const copy = async (msg) => {
 };
 
 export const shortStr = (address, first = 7, last = 5) => {
-  return address.slice(0, first) + "..." + address.slice(-last);
+  return address && address.slice(0, first) + "..." + address.slice(-last);
 };
 
 export const formatNumber = (num, digits) => {

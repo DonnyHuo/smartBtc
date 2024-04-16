@@ -1,4 +1,18 @@
-html {
+@font-face {
+  font-family: Poppins-Regular;
+  src: url("../family/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: Poppins-Medium;
+  src: url("../family/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url("../family/Poppins-SemiBold.ttf");
+}
+
+html,body {
+  font-family: Poppins-Regular;
   box-sizing: border-box;
 }
 
@@ -64,7 +78,6 @@ fieldset {
   min-width: 0;
   /*Reset the font size and family*/
   font-size: 1rem;
-  font-family: inherit;
 }
 
 /* For IE, we want to remove the default cross ('X') that appears in input fields when a user starts typing - Make sure you add your own! */
