@@ -24,7 +24,7 @@
     </div>
     <div class="swapBox">
       <div class="from">
-        <div>
+        <div class="fromLeft">
           <div class="tips">先铭刻，再發送</div>
           <input class="inputBox" type="text" :value="selectedCoin.price" disabled />
           <div class="buyOrMining">购买</div>
@@ -248,8 +248,8 @@ export default {
         margin-right: 4px;
       }
       .address {
+        font-size: 14px;
         color: #111;
-        font-weight: 600;
       }
     }
   }
@@ -302,10 +302,14 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .fromLeft {
+        width: 50%;
+      }
       .tips {
         font-size: 14px;
       }
       .inputBox {
+        width: 100%;
         height: 30px;
         background-color: transparent;
         margin: 20px 0;
