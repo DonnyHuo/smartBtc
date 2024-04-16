@@ -5,6 +5,12 @@
       <div class="addressBox">
         <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
         <div class="address">{{ shortStr($store.state.address) }}</div>
+        <img
+          class="copy"
+          src="../../assets/img/copy.png"
+          @click="copyAddress($store.state.address)"
+          alt=""
+        />
       </div>
     </div>
     <!-- <div class="wallet">
@@ -299,6 +305,10 @@ export default {
     .address {
       color: #111;
       font-weight: 600;
+    }
+    .copy {
+      width: 15px;
+      margin-left: 2px;
     }
   }
 }
