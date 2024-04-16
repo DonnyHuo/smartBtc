@@ -303,8 +303,8 @@ export default {
       margin-right: 4px;
     }
     .address {
+      font-size: 14px;
       color: #111;
-      font-weight: 600;
     }
     .copy {
       width: 15px;
