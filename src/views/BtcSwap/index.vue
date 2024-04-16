@@ -26,7 +26,7 @@
       <div class="from">
         <div class="fromLeft">
           <div class="tips">先铭刻，再發送</div>
-          <input class="inputBox" type="text" :value="selectedCoin.price" disabled />
+          <input class="inputBox" type="text" v-model="selectedCoin.price" disabled />
           <div class="buyOrMining">购买</div>
         </div>
         <div class="selectBox" @click="showCoin = true">
@@ -40,8 +40,8 @@
       <div class="to">
         <p>接收地址</p>
         <div class="inputBox">
-          <input type="text" :value="toAddress" />
-          <!-- <div @click="readText">粘贴</div> -->
+          <input type="text" v-model="toAddress" />
+          <div @click="readText">粘贴</div>
         </div>
         <!-- <p class="max">Max</p> -->
       </div>
@@ -209,11 +209,11 @@ export default {
       const inscriptions = await window.okxwallet.bitcoin.getInscriptions();
       console.log("inscriptions", inscriptions);
     },
-    // readText() {
-    //   navigator.clipboard.readText().then((clipboardText) => {
-    //     this.toAddress = clipboardText;
-    //   });
-    // },
+    readText() {
+      navigator.clipboard.readText().then((clipboardText) => {
+        this.toAddress = clipboardText;
+      });
+    },
     onSelect(value) {
       this.selectedChain = value;
       this.show = false;
