@@ -41,7 +41,7 @@
         <p>接收地址</p>
         <div class="inputBox">
           <input type="text" v-model="toAddress" />
-          <!-- <div @click="readText">粘贴</div> -->
+          <div @click="readText">粘贴</div>
         </div>
         <!-- <p class="max">Max</p> -->
       </div>
@@ -175,6 +175,10 @@ export default {
     this.checkWallet();
   },
   methods: {
+    copyAddress(msg) {
+      copy(msg);
+      showToast("複製成功");
+    },
     shortStr,
     async checkWallet() {
       if (typeof window.okxwallet !== "undefined") {
@@ -209,11 +213,11 @@ export default {
       const inscriptions = await window.okxwallet.bitcoin.getInscriptions();
       console.log("inscriptions", inscriptions);
     },
-    // readText() {
-    //   navigator.clipboard.readText().then((clipboardText) => {
-    //     this.toAddress = clipboardText;
-    //   });
-    // },
+    readText() {
+      navigator.clipboard.readText().then((clipboardText) => {
+        this.toAddress = clipboardText;
+      });
+    },
     onSelect(value) {
       this.selectedChain = value;
       this.show = false;
