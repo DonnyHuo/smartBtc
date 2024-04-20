@@ -232,7 +232,7 @@ export default {
     getTokenList() {
       this.$axios({
         method: "GET",
-        url: "http://8.218.52.137:8090/brc20/token_list",
+        url: "https://smartbtc.io/brc20/token_list",
       })
         .then((res) => {
           const newData =
@@ -309,7 +309,7 @@ export default {
       this.showLoading = true;
       this.$axios({
         method: "POST",
-        url: "http://8.218.52.137:8090/brc20/bridge_record",
+        url: "https://smartbtc.io/brc20/bridge_record",
         data: {
           address: this.address,
         },
@@ -342,7 +342,7 @@ export default {
         console.log("txid", txid);
         this.$axios({
           method: "POST",
-          url: "http://8.218.52.137:8090/brc20/bridge",
+          url: "https://smartbtc.io/brc20/bridge",
           data: {
             symbol: this.selectedChain,
             from_net_address: this.address,
