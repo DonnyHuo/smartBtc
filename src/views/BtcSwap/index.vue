@@ -7,97 +7,99 @@
         <div class="address">{{ shortStr(address) }}</div>
       </div>
     </div>
-    <div class="titleBox">
-      <div class="title">
-        <span>跨链</span>
-        <span class="btoB">From BTC To BSC</span>
-      </div>
-      <div class="selectChain" @click="show = true">
-        <!-- <img
-          class="chainLogo"
-          src="../../assets/img/0x56950c545e365d33175ed07cb294f95126df3635.png"
-          alt=""
-        /> -->
-        <span>{{ selectedChain }}</span>
-        <img class="down" src="../../assets/img/down.png" alt="" />
-      </div>
-    </div>
-    <div class="swapBox">
-      <div class="from">
-        <div class="fromLeft">
-          <div class="tips">先铭刻，再發送</div>
-          <input class="inputBox" type="text" v-model="selectedCoin.price" disabled />
-          <div class="buyOrMining">购买</div>
+    <div class="btcSwapContent">
+      <div class="titleBox">
+        <div class="title">
+          <span>跨链</span>
+          <span class="btoB">From BTC To BSC</span>
         </div>
-        <div class="selectBox" @click="showCoin = true">
-          <span>{{ selectedCoin.name }}</span>
+        <div class="selectChain" @click="show = true">
+          <span>{{ selectedChain }}</span>
           <img class="down" src="../../assets/img/down.png" alt="" />
         </div>
       </div>
-      <div class="swapDownBox">
-        <img class="swapDown" src="../../assets/img/swapDown.png" alt="" />
-      </div>
-      <div class="to">
-        <p>接收地址</p>
-        <div class="inputBox">
-          <input type="text" v-model="toAddress" />
-          <div @click="readText">粘贴</div>
+      <div class="swapBox">
+        <div class="from">
+          <div class="fromLeft">
+            <div class="tips">先铭刻，再發送</div>
+            <input class="inputBox" type="text" v-model="selectedCoin.amount" disabled />
+            <div class="buyOrMining">购买</div>
+          </div>
+          <div class="selectBox" @click="showCoin = true">
+            <span
+              >{{ selectedCoin.tokenName }} {{ selectedCoin.inscriptionNumber && "#" }}
+              {{ selectedCoin.inscriptionNumber }}</span
+            >
+            <img class="down" src="../../assets/img/down.png" alt="" />
+          </div>
         </div>
-        <!-- <p class="max">Max</p> -->
+        <div class="swapDownBox">
+          <img class="swapDown" src="../../assets/img/swapDown.png" alt="" />
+        </div>
+        <div class="to">
+          <p>接收地址</p>
+          <div class="inputBox">
+            <input type="text" v-model="toAddress" />
+            <div @click="readText">粘贴</div>
+          </div>
+          <!-- <p class="max">Max</p> -->
+        </div>
       </div>
-    </div>
-    <van-button class="sure" disabled>提交跨链</van-button>
-    <div class="swapRecord">
-      <div class="title">
-        <span>跨鏈記錄</span>
-        <img
-          v-if="showLoading"
-          @click="refreshData"
-          class="refresh-btn"
-          src="../../assets/img/refresh.png"
-          alt=""
-        />
-        <van-loading v-else color="#333" size="20"></van-loading>
-      </div>
-      <div v-if="recordList.length > 0">
-        <div v-for="(list, index) in recordList">
-          <div class="swapRecordList" :key="index">
-            <div>
-              <span>訂單編號</span> <span>{{ list.order_id }}</span>
-            </div>
-            <div v-if="list.convert_txid">
-              <span>交易Hash</span>
-              <span>
-                <a :href="`https://bscscan.com/tx/${list.convert_txid}`">{{
-                  shortStr(list.convert_txid)
-                }}</a>
-                <img
-                  @click="copyAddress(list.convert_txid)"
-                  src="../../assets/img/copy.png"
-                  alt=""
-                  class="copyAddress"
-              /></span>
-            </div>
-            <div>
-              <span>From</span> <span>{{ list.from_network }}</span>
-            </div>
-            <div>
-              <span>To</span> <span>{{ list.to_network }}</span>
-            </div>
-            <div>
-              <span>數量</span>
-              <span>{{ list.real_amount }} (100T)</span>
-            </div>
-            <div>
-              <span>訂單狀態</span> <span>{{ list.order_state }}</span>
+      <van-button
+        class="sure"
+        :loading="postLoading"
+        :disabled="!(selectedCoin.amount * 1 > 0 && isAddress(this.toAddress))"
+        @click="postSwap"
+        >提交跨链</van-button
+      >
+      <div class="swapRecord">
+        <div class="title">
+          <span>跨鏈記錄</span>
+          <img
+            v-if="!showLoading"
+            @click="getRecordList"
+            class="refresh-btn"
+            src="../../assets/img/refresh.png"
+            alt=""
+          />
+          <van-loading v-else color="#333" size="20"></van-loading>
+        </div>
+        <div v-if="recordList.length > 0">
+          <div v-for="(list, index) in recordList">
+            <div class="swapRecordList" :key="index">
+              <div v-if="list.brc20_txid">
+                <span>交易Hash</span>
+                <span>
+                  <a :href="`https://www.oklink.com/zh-hans/btc/tx/${list.brc20_txid}`">{{
+                    shortStr(list.brc20_txid)
+                  }}</a>
+                  <img
+                    @click="copyAddress(list.brc20_txid)"
+                    src="../../assets/img/copy.png"
+                    alt=""
+                    class="copyAddress"
+                /></span>
+              </div>
+              <div>
+                <span>From ({{ list.from_net }})</span>
+                <span>{{ shortStr(list.from_net_address) }}</span>
+              </div>
+              <div>
+                <span>To ({{ list.to_net }})</span>
+                <span>{{ shortStr(list.to_net_address) }}</span>
+              </div>
+              <div>
+                <span>數量</span>
+                <span>{{ list.amount }} {{ list.symbol }}</span>
+              </div>
+              <div>
+                <span>訂單狀態</span> <span>{{ getStatus(list.order_state) }}</span>
+              </div>
             </div>
           </div>
         </div>
+        <div class="allData" v-else>{{ allData }}</div>
       </div>
-      <div v-if="loading" class="noData">
-        <van-loading />
-      </div>
-      <div class="allData" v-if="allData">{{ allData }}</div>
     </div>
     <van-action-sheet v-model:show="show" title="选择铭文">
       <div class="content">
@@ -114,22 +116,33 @@
 
     <van-action-sheet v-model:show="showCoin" title="选择铭文">
       <div class="content">
-        <div
-          v-for="(list, index) in coinList"
-          :key="index"
-          class="chainList"
-          @click="onSelectCoin(list)"
-        >
-          <span :class="selectedCoin.name == list.name ? 'active' : ''">{{
-            list.name
-          }}</span>
+        <div v-if="coinList.length > 0">
+          <div
+            v-for="(list, index) in coinList"
+            :key="index"
+            class="coinList"
+            @click="onSelectCoin(list)"
+          >
+            <span
+              :class="
+                selectedCoin.inscriptionNumber == list.inscriptionNumber ? 'active' : ''
+              "
+            >
+              <!--  -->
+              <span>{{ list.token }}#{{ list.inscriptionNumber }}</span>
+
+              <span>{{ list.amount }}</span>
+            </span>
+          </div>
         </div>
+        <div class="noCoin" v-else>没有可以发送的 {{ selectedChain }} 铭文</div>
       </div>
     </van-action-sheet>
   </div>
 </template>
 <script>
-import { shortStr } from "../../utils";
+import { ethers } from "ethers";
+import { shortStr, copy } from "../../utils";
 import { showToast } from "vant";
 
 export default {
@@ -140,41 +153,27 @@ export default {
       recordList: [],
       value1: 0,
       value2: "a",
-      option1: [
-        { text: "SBTC", value: 0 },
-        { text: "BNB", value: 1 },
-      ],
       option2: [{ text: "选择铭文", value: "a" }],
       toAddress: "",
-      actions: [{ name: "SBTC" }, { name: "ODEF" }],
-      selectedChain: "SBTC",
+      actions: [],
+      selectedChain: "",
       show: false,
       showCoin: false,
 
-      selectedCoin: {
-        name: "选择铭文",
-        price: "0.00",
-      },
-      coinList: [
-        {
-          name: "SBTC1",
-          price: "234",
-        },
-        {
-          name: "SBTC2",
-          price: "4532",
-        },
-        {
-          name: "SBTC3",
-          price: "2300",
-        },
-      ],
+      selectedCoin: { tokenName: "选择铭文", amount: 0 },
+      coinList: [],
+      allData: "已載入全部數據",
+      showLoading: false,
+      postLoading: false,
     };
   },
   created() {
     this.checkWallet();
   },
   methods: {
+    isAddress(address) {
+      return ethers.utils.isAddress(address);
+    },
     copyAddress(msg) {
       copy(msg);
       showToast("複製成功");
@@ -190,10 +189,13 @@ export default {
       try {
         let accounts = await window.okxwallet.bitcoin.requestAccounts();
         this.address = accounts[0];
+
         if (accounts[0]) {
           this.getAccounts();
           this.getInscriptions();
           this.getBalance();
+          this.getRecordList();
+          this.getTokenList();
         } else {
           showToast("请连接BTC钱包!");
         }
@@ -221,11 +223,145 @@ export default {
     onSelect(value) {
       this.selectedChain = value;
       this.show = false;
-      console.log(value);
+      this.getBTCBalance(value);
     },
     onSelectCoin(value) {
       this.selectedCoin = value;
       this.showCoin = false;
+    },
+    getTokenList() {
+      this.$axios({
+        method: "GET",
+        url: "http://8.218.52.137:8090/brc20/token_list",
+      })
+        .then((res) => {
+          const newData =
+            res.data.data &&
+            res.data.data.map((list) => {
+              return {
+                name: list.symbol,
+              };
+            });
+          this.actions = newData;
+          this.selectedChain = newData[0].name;
+          this.getBTCBalance(newData[0].name);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    getBTCBalance(name) {
+      if (this.address && this.selectedChain) {
+        console.log("111");
+
+        this.$axios({
+          method: "GET",
+          headers: {
+            "Ok-Access-Key": "1d048c1a-578e-44f3-aa80-ff5415a66860",
+          },
+          url: `https://www.oklink.com/api/v5/explorer/btc/address-balance-details?address=${this.address}&token=${name}&page=1&limit=50`,
+        })
+          .then((res) => {
+            let tokenList = [];
+
+            tokenList =
+              res.data[0]?.transferBalanceList &&
+              res.data[0]?.transferBalanceList.map((list) => {
+                return {
+                  tokenName: res.data[0].token,
+                  tokenType: res.data[0].tokenType,
+                  balance: res.data[0].balance,
+                  availableBalance: res.data[0].availableBalance,
+                  transferBalance: res.data[0].transferBalance,
+                  inscriptionId: list.inscriptionId,
+                  inscriptionNumber: list.inscriptionNumber,
+                  amount: list.amount,
+                };
+              });
+
+            this.selectedCoin = tokenList[0];
+            this.coinList = tokenList;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+
+    getStatus(status) {
+      switch (status) {
+        case 0:
+          return "新建";
+        case 1:
+          return "進行中";
+        case 2:
+          return "已完成";
+        case 3:
+          return "失敗";
+        default:
+          return "進行中";
+      }
+    },
+
+    // 获取跨链记录
+    getRecordList() {
+      this.showLoading = true;
+      this.$axios({
+        method: "POST",
+        url: "http://8.218.52.137:8090/brc20/bridge_record",
+        data: {
+          address: this.address,
+        },
+      })
+        .then((res) => {
+          this.showLoading = false;
+          this.recordList = res.data.data;
+        })
+        .catch((err) => {
+          this.showLoading = false;
+          console.log(err);
+        });
+    },
+
+    // 提交跨链请求
+    async postSwap() {
+      if (this.selectedCoin.amount * 1 <= 0) {
+        return showToast("请选择要发送的铭文");
+      }
+      if (!ethers.utils.isAddress(this.toAddress)) {
+        return showToast("请填写正确的接受地址");
+      }
+      try {
+        this.postLoading = true;
+
+        let txid = await okxwallet.bitcoin.sendInscription(
+          "111", // 写死 boss的btc地址
+          this.selectedCoin.inscriptionId
+        );
+        console.log("txid", txid);
+        this.$axios({
+          method: "POST",
+          url: "http://8.218.52.137:8090/brc20/bridge",
+          data: {
+            symbol: this.selectedChain,
+            from_net_address: this.address,
+            to_net_address: this.toAddress,
+            amount: this.selectedCoin.amount,
+            brc20_txid: txid,
+          },
+        })
+          .then((res) => {
+            this.postLoading = false;
+            this.getRecordList();
+          })
+          .catch((err) => {
+            this.postLoading = false;
+            console.log(err);
+          });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
@@ -233,13 +369,11 @@ export default {
 <style lang="scss" scoped>
 .btcSwap {
   background-color: #fff;
-  min-height: 100vh;
-  padding: 0 20px;
   .headerBox {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 10px 20px 0;
     background: #fff;
     .homeLogo {
       height: 30px;
@@ -256,6 +390,11 @@ export default {
         color: #111;
       }
     }
+  }
+  .btcSwapContent {
+    padding: 20px;
+    height: 100vh;
+    overflow: auto;
   }
   .titleBox {
     display: flex;
@@ -442,12 +581,25 @@ export default {
   }
 }
 ::v-deep .van-action-sheet__header {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 .chainList {
-  padding: 20px 0;
+  padding: 20px;
+}
+.coinList {
+  padding: 20px;
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 .active {
   color: #ffc519;
+}
+.noCoin {
+  color: #999;
+  font-size: 12px;
+  padding-bottom: 30px;
 }
 </style>
