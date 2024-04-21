@@ -27,8 +27,8 @@
           </div>
           <div class="selectBox" @click="showCoin = true">
             <span
-              >{{ selectedCoin.tokenName }} {{ selectedCoin.inscriptionNumber && "#" }}
-              {{ selectedCoin.inscriptionNumber }}</span
+              >{{ selectedCoin.tokenName }} {{ selectedCoin.inscriptionNumber && "#"
+              }}{{ selectedCoin.inscriptionNumber }}</span
             >
             <img class="down" src="../../assets/img/down.png" alt="" />
           </div>
@@ -263,25 +263,22 @@ export default {
           url: `https://www.oklink.com/api/v5/explorer/btc/address-balance-details?address=${this.address}&token=${name}&page=1&limit=50`,
         })
           .then((res) => {
-            let tokenList = [];
-
-            tokenList =
-              res.data[0]?.transferBalanceList &&
-              res.data[0]?.transferBalanceList.map((list) => {
+            if (res.data.data[0]?.transferBalanceList.length > 0) {
+              const tokenList = res.data.data[0]?.transferBalanceList.map((list) => {
                 return {
-                  tokenName: res.data[0].token,
-                  tokenType: res.data[0].tokenType,
-                  balance: res.data[0].balance,
-                  availableBalance: res.data[0].availableBalance,
-                  transferBalance: res.data[0].transferBalance,
+                  tokenName: res.data.data[0].token,
+                  tokenType: res.data.data[0].tokenType,
+                  balance: res.data.data[0].balance,
+                  availableBalance: res.data.data[0].availableBalance,
+                  transferBalance: res.data.data[0].transferBalance,
                   inscriptionId: list.inscriptionId,
                   inscriptionNumber: list.inscriptionNumber,
                   amount: list.amount,
                 };
               });
-
-            this.selectedCoin = tokenList[0];
-            this.coinList = tokenList;
+              this.selectedCoin = tokenList[0];
+              this.coinList = tokenList;
+            }
           })
           .catch((err) => {
             console.log(err);
