@@ -23,7 +23,12 @@
           <div class="fromLeft">
             <div class="tips">先铭刻，再發送</div>
             <input class="inputBox" type="text" v-model="selectedCoin.amount" disabled />
-            <div class="buyOrMining">购买</div>
+            <div class="buyOrMining">
+              <a
+                href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/SBTC"
+                >购买</a
+              >
+            </div>
           </div>
           <div class="selectBox" @click="showCoin = true">
             <span
