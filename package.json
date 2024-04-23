@@ -12,6 +12,7 @@
     "@babel/plugin-transform-private-methods": "^7.23.3",
     "@okee-uikit/m-vue": "^0.1.5",
     "@okxweb3/coin-bitcoin": "^1.0.15",
+    "@vueuse/core": "^10.9.0",
     "animate.css": "^4.1.1",
     "ant-design-vue": "4.x",
     "axios": "^1.6.5",

@@ -1,7 +1,13 @@
+import useClipboard from "vue-clipboard3";
 
-
-export const copy =  (msg) => {
-   navigator.clipboard.writeText(msg);
+export const copy = async (msg) => {
+  const { toClipboard } = useClipboard();
+  try {
+    await toClipboard(msg);
+    console.log("Copied to clipboard");
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const shortStr = (address, first = 7, last = 5) => {
@@ -26,20 +32,20 @@ export const formatNumber = (num, digits) => {
 };
 
 export const formatNum = (number) => {
-  return String(number).replace(/^(.*\..{4}).*$/,"$1");
-}
+  return String(number).replace(/^(.*\..{4}).*$/, "$1");
+};
 
 export const realPic = (address) => {
-  if(address) {
+  if (address) {
     try {
-      return require(`@/assets/img/${address.toLowerCase()}.png`)
+      return require(`@/assets/img/${address.toLowerCase()}.png`);
     } catch {
-      return require('@/assets/img/default.png')
+      return require("@/assets/img/default.png");
     }
   } else {
-    return require('@/assets/img/default.png')
+    return require("@/assets/img/default.png");
   }
-}
+};
 
 export {
   getContract,
