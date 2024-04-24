@@ -1,12 +1,16 @@
-import useClipboard from "vue-clipboard3";
+import { useClipboard } from "@vueuse/core";
 
 export const copy = async (msg) => {
-  const { toClipboard } = useClipboard();
-  try {
-    await toClipboard(msg);
-    console.log("Copied to clipboard");
-  } catch (e) {
-    console.error(e);
+  const { copy, isSupported } = useClipboard();
+  if (isSupported) {
+    try {
+      await copy(msg);
+      console.log('copied')
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    console.log('不支持copy')
   }
 };
 
