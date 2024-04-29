@@ -4,8 +4,9 @@
       <span class="title">流动池LP质押发行</span>
       <div class="selectBox" @click="showCoin = true">
         <img
+          v-if="selectToken.name !== '--'"
           class="coinLogo"
-          src="../../assets/img/0x56950c545e365d33175ed07cb294f95126df3635.png"
+          :src="require(`../../assets/img/tokenList/brc20-${selectToken?.name}.png`)"
           alt=""
         />
         <span>{{ selectToken.name }}</span>
@@ -55,9 +56,14 @@
             class="coinList"
             @click="onSelectCoin(list)"
           >
-            <span :class="list.name == selectToken.name && 'active'">{{
-              list.name
-            }}</span>
+            <span :class="list.name == selectToken.name && 'active'">
+              <img
+                class="listLogo"
+                :src="require(`../../assets/img/tokenList/brc20-${list?.name}.png`)"
+                alt=""
+              />
+              <span>{{ list.name }}</span>
+            </span>
           </div>
         </div>
         <div class="noCoin" v-else>No Exchange Token</div>
@@ -243,6 +249,7 @@ export default {
       .coinLogo {
         width: 20px;
         height: 20px;
+        border-radius: 50%;
       }
       span {
         padding: 0 5px;
@@ -318,10 +325,17 @@ export default {
   }
 
   .coinList {
-    padding: 20px;
+    padding: 10px 20px;
     text-align: center;
+    font-size: 16px;
     .active {
       color: #ffc519;
+    }
+    .listLogo {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
     }
   }
 }
