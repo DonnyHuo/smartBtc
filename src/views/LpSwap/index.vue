@@ -20,14 +20,16 @@
     <div class="contractAddress">
       <span>合约地址</span>
       <span class="line"> | </span>
-      <a :href="`https://testnet.bscscan.com/address/${selectToken.address}`">{{
-        shortStr(selectToken.address)
-      }}</a>
+      <a
+        class="address"
+        :href="`https://testnet.bscscan.com/token/${selectToken.address}#balances`"
+        >{{ shortStr(selectToken.address) }}</a
+      >
     </div>
 
     <div class="line">
       <div class="lineTitle title">流动池LP质押发行进度</div>
-      <van-progress :percentage="50" stroke-width="8" />
+      <van-progress :percentage="percentage" stroke-width="8" />
     </div>
     <div class="lpList">
       <div>
@@ -74,6 +76,7 @@ import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
 
 import { getContract, shortStr } from "@/utils";
+import { ethers } from "ethers";
 
 export default {
   name: "lpSwap",
@@ -125,6 +128,7 @@ export default {
         address: "",
       },
       selectPair: [],
+      percentage: "",
     };
   },
   mounted() {
@@ -148,7 +152,7 @@ export default {
       for (let i = 0; i < getExchangeTokens.length; i++) {
         const tokenInfo = {
           address: getExchangeTokens[i],
-          name: await getContract(getExchangeTokens[i], erc20ABI, "name"),
+          name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
           decimals: await getContract(getExchangeTokens[i], erc20ABI, "decimals"),
           index: await this.getExchangePairs(getExchangeTokens[i]),
         };
@@ -192,10 +196,27 @@ export default {
 
       this.selectPair = pairsInfo;
     },
+
+    async getBalance(value) {
+      const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
+      const total = ethers.utils.formatUnits(totalSupply, value.decimals);
+      console.log("total", total);
+
+      const balanceOf = await getContract(
+        value.address,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.lpExchange
+      );
+      const balance = ethers.utils.formatUnits(balanceOf, value.decimals);
+      const percentage = (((total * 0.1 - balance) * 100) / (total * 0.1)).toFixed(2);
+      this.percentage = percentage;
+    },
   },
   watch: {
     async selectToken(value) {
       await this.getPairs(value.index);
+      await this.getBalance(value);
     },
   },
 };
@@ -292,6 +313,9 @@ export default {
     .line {
       color: #cac7c7;
       padding: 0 10px;
+    }
+    .address {
+      text-decoration: underline;
     }
   }
 

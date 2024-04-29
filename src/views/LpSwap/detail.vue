@@ -152,7 +152,7 @@ export default {
     realPic,
 
     async getTokenInfo() {
-      const res = await getContract(this.lpInfo.changeToken, erc20ABI, "name");
+      const res = await getContract(this.lpInfo.changeToken, erc20ABI, "symbol");
       this.tokenName = res;
     },
     async getLpBalance() {
