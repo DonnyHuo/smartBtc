@@ -116,17 +116,6 @@ export default {
         },
       },
       showCoin: false,
-      coinList: [
-        {
-          name: "SBTC",
-        },
-        {
-          name: "USDT",
-        },
-        {
-          name: "BTC",
-        },
-      ],
       exchangeTokens: [],
       selectToken: {
         name: "--",
