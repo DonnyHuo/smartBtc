@@ -1,12 +1,14 @@
 <template>
   <div class="lpDetail">
     <div class="header">
-      <span>Token地址</span>
+      <span>{{ tokenName }} 地址</span>
       <a
         :href="`https://testnet.bscscan.com/address/${lpInfo.changeToken}`"
         target="_blank"
       >
-        <span>{{ shortStr(lpInfo.changeToken) }}</span>
+        <span>
+          {{ shortStr(lpInfo.changeToken) }}
+        </span>
       </a>
     </div>
     <div class="staking-wrap">
