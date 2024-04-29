@@ -20,7 +20,9 @@
     <div class="contractAddress">
       <span>合约地址</span>
       <span class="line"> | </span>
-      <a href="">https:// 231321312321</a>
+      <a :href="`https://testnet.bscscan.com/address/${selectToken.address}`">{{
+        shortStr(selectToken.address)
+      }}</a>
     </div>
 
     <div class="line">
@@ -43,7 +45,7 @@
         </div>
       </div>
     </div>
-    <van-action-sheet v-model:show="showCoin" title="选择List">
+    <van-action-sheet v-model:show="showCoin" title="选择代币">
       <div class="content">
         <div v-if="exchangeTokens.length > 0">
           <div
@@ -71,7 +73,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
 
-import { getContract } from "@/utils";
+import { getContract, shortStr } from "@/utils";
 
 export default {
   name: "lpSwap",
@@ -119,7 +121,8 @@ export default {
       exchangeTokens: [],
       selectToken: {
         name: "--",
-        decimals: 18,
+        decimals: 0,
+        address: "",
       },
       selectPair: [],
     };
@@ -128,6 +131,7 @@ export default {
     this.getChangeList();
   },
   methods: {
+    shortStr,
     onSelectCoin(list) {
       this.selectToken = list;
       this.showCoin = false;
@@ -143,6 +147,7 @@ export default {
 
       for (let i = 0; i < getExchangeTokens.length; i++) {
         const tokenInfo = {
+          address: getExchangeTokens[i],
           name: await getContract(getExchangeTokens[i], erc20ABI, "name"),
           decimals: await getContract(getExchangeTokens[i], erc20ABI, "decimals"),
           index: await this.getExchangePairs(getExchangeTokens[i]),
