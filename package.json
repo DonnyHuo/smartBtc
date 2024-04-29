@@ -29,7 +29,8 @@
     "vue-qr": "^4.0.9",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "ethers": "^5.0.31"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
