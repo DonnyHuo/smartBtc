@@ -52,17 +52,17 @@ export default {
           iconUrlAct: require("./assets/img/swapAct.png"),
         },
         {
-          name: "lp",
-          route: "/lp",
-          text: "LP挖矿",
+          name: "lpSwap",
+          route: "/lpSwap",
+          text: "LP质押",
           active: false,
           iconUrl: require("./assets/img/lp.png"),
           iconUrlAct: require("./assets/img/lpAct.png"),
         },
         {
-          name: "options",
-          route: "/options",
-          text: "期權",
+          name: "lp",
+          route: "/lp",
+          text: "启动池",
           active: false,
           iconUrl: require("./assets/img/options.png"),
           iconUrlAct: require("./assets/img/optionsAct.png"),
@@ -166,6 +166,22 @@ export default {
         }
       } else if (window.location.hash == "#/btcSwap") {
         console.log("btcSwap");
+      } else if (
+        window.location.hash == "#/lpSwap" ||
+        window.location.hash.includes("#/lpSwapDetail")
+      ) {
+        console.log("lpSwap");
+        this.getChainId(
+          "0x61",
+          "BNB Smart Chain Testnet",
+          ["https://bsc-testnet.blockpi.network/v1/rpc/public"],
+          {
+            decimals: 18,
+            name: "Staked BNB",
+            symbol: "tBNB",
+          },
+          ["https://testnet.bscscan.com"]
+        );
       } else {
         if (chainId !== "0x38") {
           this.netWorkError = true;

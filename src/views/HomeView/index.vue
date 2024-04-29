@@ -27,11 +27,7 @@
         </div>
       </div>
     </div> -->
-    <div class="headerInfo">
-      <div class="titleBox">
-        <div class="title">专注比特币生态的VC DAO</div>
-        <div class="nav_title">DAO治理代币 - SBTC | 质押挖矿代币 - 100T</div>
-      </div>
+    <div class="headerInfo headerInfo1">
       <div class="power">
         <div>
           <div><span>SBTC余额</span></div>
@@ -51,34 +47,39 @@
             <van-button>SWAP</van-button>
           </a>
         </div>
-
+      </div>
+    </div>
+    <div class="headerInfo">
+      <div class="titleBox">
+        <div class="title">BRC852新资产发行协议</div>
+        <div class="nav_title">
+          赋予锚定的BRC20资产不可撤销的流动性和丰富的DeFi应用让比特币铭文焕发新生命.....
+        </div>
+      </div>
+      <div class="powerLists">
         <div>
-          <div><span> 質押算力 </span></div>
-          <div class="data-num">{{ poolPowers }} H/S</div>
-          <router-link to="lp" class="">
-            <van-button>去質押</van-button>
+          <span>锚定主流BRC20资产<br />从BTC到BSC跨链发行BRC852</span>
+          <router-link to="btcSwap" class="">
+            <van-button>去跨链</van-button>
           </router-link>
         </div>
         <div>
-          <div><span> 邀請算力 </span></div>
-          <div class="data-num">{{ invitePowers }} H/S</div>
-          <router-link to="share?showPoster=true">
-            <van-button>去邀請</van-button>
+          <span>流动池LP质押发行<br />提供流动性以获取BRC852新资产</span>
+          <router-link to="lpSwap">
+            <van-button>去兑换</van-button>
           </router-link>
         </div>
         <div class="apy">
-          <span>挖矿APY</span>
-          <span>{{ apy }}%</span>
-          <router-link to="withdraw">
-            <van-button>去领取</van-button>
+          <span>依托BRC852 - 100T启动池<br />经部署即刻拥有流动性</span>
+          <router-link to="lp">
+            <van-button>去挖矿</van-button>
           </router-link>
         </div>
         <div class="apy">
-          <span>CoinDAO</span>
-          <span>10 : 1</span>
-          <router-link to="swap">
-            <van-button>去行权</van-button>
-          </router-link>
+          <span>向BRC20社区Builders<br />(Twitter、Telegram)空投BRC852</span>
+          <a href="https://twitter.com/SmartBTCdao" target="_blank">
+            <van-button>推特申报</van-button>
+          </a>
         </div>
       </div>
     </div>
@@ -100,37 +101,47 @@
           </van-step>
           <van-step>
             <div class="time">2023年5月12日</div>
-            <div class="desc">总量2100万，单次500的SBTC被全部Mint 近2000个地址参与</div>
-          </van-step>
-
-          <van-step>
-            <div class="time">2023年7月20日</div>
-            <div class="desc">OKX发布BRC20-S协议，首个支持多铭文质押的 100T部署发布</div>
+            <div class="desc">总量2100万，单次500的SBTC被全部Mint近2000个地址参与</div>
           </van-step>
           <van-step>
             <div class="time">2024年1月13日</div>
             <div class="desc">
-              多家知名华人WEB3品牌共同举办的香港比特币生态 峰会，联合发布SmartBTC ——
-              专注于比特币生态 的VC DAO
-            </div>
-          </van-step>
-          <van-step>
-            <div class="time">2024年4月</div>
-            <div class="desc">
-              比特币减半前夕，主网SmartBTC.io 正式发布，推出
-              流动池LP质押挖矿，上线以比特币为指数，铭文为权
-              利金的永续期权，并正式确定SBTC作为DAO治理代币
+              多家知名华人WEB3品牌共同举办的香港比特币生态峰会，联合发布SmartBTC
+              一专注于比特币生态的VC DAO
             </div>
           </van-step>
           <van-step>
             <div class="time">2024年4月15日</div>
             <div class="desc">
-              收购拥有超1万钱包地址的CoinDAO，社区代币100T
-              可10：1置换为铭文100T，迁移加入SmartBTC DAO
+              收购拥有超1万钱包地址的CoinDAO，社区代币100T可10:1置换为BSC链挖矿奖励代币100T，迁移加入SmartBTCdao,并为BRC852新资产提供基础流动性
+              <div>
+                <router-link to="swap">
+                  <van-button>去行权</van-button>
+                </router-link>
+              </div>
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年</div>
+            <div class="time">2024年4月26日</div>
+            <div class="desc">
+              主网SmartBTC.io
+              正式发布，开通第一个跨链资产SBTC，提供SWAP交易，推出流动池LP质押挖矿，上线以比特币为指数铭文为权利金的永续期权
+              <div>
+                <router-link to="options">
+                  <van-button>期权</van-button>
+                </router-link>
+              </div>
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年5月10日</div>
+            <div class="desc">
+              香港Bitcoin Asia大会，SmartBTC正式发布锚定BRC20的新资产发行协议 --
+              BRC852协议，为比特币生态注入新的想象空间
+            </div>
+          </van-step>
+          <van-step>
+            <div class="time">2024年下半年</div>
             <div class="desc">
               SmartBTC继续集成丰富的DeFi应用，逐步向活跃比特币铭文开放服务，SBTC成为市值TOP3主流铭文
             </div>
@@ -138,8 +149,8 @@
           <van-step>
             <div class="time">2025年</div>
             <div class="desc">
-              SmartBTC逐步兼容主流BTC L2，并由铭文扩展到
-              比特币全生态，成为比特币生态的底层应用，SBTC 成为铭文新龙头
+              SmartBTC逐步兼容主流BTC
+              L2，并由BRC20(铭文)扩展到比特币全生态，BRC852成为主流资产发行协议，SmartBTC.io成为比特币生态底层应用，SBTC成为铭文新龙头
             </div>
           </van-step>
         </van-steps>
@@ -338,10 +349,9 @@ export default {
     }
   }
 }
+
 .headerInfo {
-  background: #f8fcff;
   margin: 20px;
-  border-radius: 10px;
   .titleBox {
     padding: 20px;
     .title {
@@ -353,22 +363,58 @@ export default {
       color: #919090;
       padding-top: 10px;
       font-weight: 500;
+      line-height: 20px;
     }
   }
-  .power {
-    margin: 20px;
-    margin-top: 0;
-    padding: 20px 0;
-    font-weight: 600;
-    border-top: 1px solid rgba(187, 227, 255, 0.5);
+  .powerLists {
     > div {
-      height: 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 10px;
+      background: #f8fcff;
+      padding: 10px;
+      border-radius: 10px;
+
+      > span:first-child {
+        width: 70%;
+        text-align: left;
+        line-height: 20px;
+      }
       .van-button {
         height: 30px;
-        padding: 4px 10px;
+        line-height: 30px;
+        border-radius: 4px;
+        background: #ffc519;
+        border: none;
+        color: #333;
+        font-weight: 600;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.headerInfo1 {
+  padding: 0;
+  margin: 10px 20px;
+  .power {
+    border-top: none;
+    padding: 10px;
+    margin: 0;
+    background-color: #f8fcff;
+    border-radius: 10px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .van-button {
+        height: 30px;
+        line-height: 30px;
         border-radius: 4px;
         background: #ffc519;
         border: none;
@@ -383,9 +429,8 @@ export default {
 .contant {
   background-size: 100% 100%;
   background-color: #fff;
-  padding: 20px;
+  padding: 10px 0;
   margin: 20px;
-  background: #f8fcff;
   border-radius: 10px;
   .title {
     font-size: 18px;
@@ -398,7 +443,7 @@ export default {
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
   }
   .contantList {
@@ -445,7 +490,7 @@ export default {
   }
   button {
     height: 30px;
-    padding: 4px 10px;
+    line-height: 30px;
     border-radius: 4px;
     background: #ffc519;
     border: none;

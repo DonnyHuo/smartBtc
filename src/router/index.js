@@ -71,6 +71,17 @@ const routes = [
     name: 'btcSwap',
     component: () => import(/* webpackChunkName: "about" */ '../views/BtcSwap/index.vue')
   },
+  {
+    path: '/lpSwap',
+    name: 'lpSwap',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LpSwap/index.vue')
+  },
+  {
+    path: '/lpSwapDetail',
+    name: 'lpSwapDetail',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LpSwap/detail.vue')
+  },
+  
 
   
 ]
