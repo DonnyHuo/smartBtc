@@ -19,7 +19,6 @@
 
     <div class="contractAddress">
       <span>合约地址</span>
-      <span class="line"> | </span>
       <a
         class="address"
         :href="`https://testnet.bscscan.com/token/${selectToken.address}#balances`"
@@ -310,10 +309,9 @@ export default {
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
-    .line {
-      color: #cac7c7;
-      padding: 0 10px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     .address {
       text-decoration: underline;
     }
