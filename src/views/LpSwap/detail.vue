@@ -91,14 +91,14 @@
                 v-if="lpAllowance * 1 == 0"
                 @click="getLpApprove"
                 class="staking-btn"
-                >授權LP
+                >授權 LP
               </van-button>
               <van-button
                 :loading="depositLoading"
                 v-else
                 @click="exchangeLpTokenForTokens"
                 class="staking-btn"
-                >兑换LP</van-button
+                >兑换 LP</van-button
               >
             </div>
           </div>
@@ -213,19 +213,19 @@ export default {
       }
     },
     async exchangeLpTokenForTokens() {
-      console.log("this.lpInfo.pairId", this.lpInfo.pairId, this.inputValue);
+      if (this.inputValue > this.lpBalance) {
+        showToast("余额不足");
+      }
+      if (this.inputValue * 1 <= 0) {
+        showToast("请输入正确数量的LP");
+      }
       this.depositLoading = true;
-      // const overrides = {
-      //   gasLimit: 500000,
-      //   gasPrice: ethers.utils.parseUnits("5", "gwei"),
-      // };
       await getWriteContractLoad(
         this.$store.state.lpExchange,
         lpExchangeABI,
         "exchangeLpTokenForTokens",
         this.lpInfo.pairId,
         ethers.utils.parseUnits(this.inputValue, 18)
-        // overrides
       )
         .then((res) => {
           console.log(res);
