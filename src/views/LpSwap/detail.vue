@@ -32,7 +32,9 @@
               <img
                 class="tokenLogo"
                 v-if="tokenName !== '--'"
-                :src="require(`../../assets/img/tokenList/brc20-${tokenName}.png`)"
+                :src="
+                  require(`../../assets/img/tokenList/brc20-${tokenName.toLowerCase()}.png`)
+                "
                 onerror='onerror=null;this.src="/img/default.492b60fb.png"'
               />
               <span>{{ lpInfo.disPlayName }}</span>
@@ -181,17 +183,23 @@ export default {
     },
     async getLpApprove() {
       this.approveLoading = true;
-      const res = await getWriteContractLoad(
+      await getWriteContractLoad(
         this.lpInfo.lpToken,
         erc20ABI,
         "approve",
         this.$store.state.lpExchange,
         ethers.constants.MaxUint256
-      ).catch((err) => console.log(err));
-      console.log(res);
-      this.approveLoading = false;
-      showToast("授权成功");
-      this.getAllowance();
+      )
+        .then((res) => {
+          this.approveLoading = false;
+          showToast("授权成功");
+          this.getAllowance();
+        })
+        .catch((err) => {
+          showToast("授权失败");
+          console.log(err);
+          this.approveLoading = false;
+        });
     },
     changeValue(e) {
       const value = e.target.value;
@@ -238,6 +246,7 @@ export default {
         .catch((err) => {
           this.depositLoading = false;
           console.log(err);
+          showToast("兑换失败");
         });
     },
   },

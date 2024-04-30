@@ -4,9 +4,11 @@
       <span class="title">流动池LP质押发行</span>
       <div class="selectBox" @click="showCoin = true">
         <img
-          v-if="selectToken.name !== '--'"
+          v-if="selectToken?.name !== '--'"
           class="coinLogo"
-          :src="require(`../../assets/img/tokenList/brc20-${selectToken?.name}.png`)"
+          :src="
+            require(`../../assets/img/tokenList/brc20-${selectToken?.name.toLowerCase()}.png`)
+          "
           alt=""
         />
         <span>{{ selectToken.name }}</span>
@@ -32,7 +34,7 @@
       <div class="lineTitle title">流动池LP质押发行进度</div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
-    <div class="lpList">
+    <div v-if="selectPair.length > 0" class="lpList">
       <div>
         <div v-for="(list, index) in selectPair" :key="index">
           <div>
@@ -60,7 +62,9 @@
             <span :class="list.name == selectToken.name && 'active'">
               <img
                 class="listLogo"
-                :src="require(`../../assets/img/tokenList/brc20-${list?.name}.png`)"
+                :src="
+                  require(`../../assets/img/tokenList/brc20-${list?.name.toLowerCase()}.png`)
+                "
                 alt=""
               />
               <span>{{ list.name }}</span>
@@ -132,7 +136,7 @@ export default {
       showCoin: false,
       exchangeTokens: [],
       selectToken: {
-        name: "--",
+        name: "100t",
         decimals: 0,
         address: "",
       },
@@ -170,9 +174,10 @@ export default {
         };
         tokensInfo.push(tokenInfo);
       }
-      this.selectToken = tokensInfo[0];
-
-      this.exchangeTokens = tokensInfo;
+      if (tokensInfo.length > 0) {
+        this.selectToken = tokensInfo[0];
+        this.exchangeTokens = tokensInfo;
+      }
     },
     async getExchangePairs(token) {
       const getExchangePairs = await getContract(
@@ -210,12 +215,11 @@ export default {
     },
 
     async getBalance(value) {
-      this.chartConfig.data.datasets[0].data = lpSwap[value.name].percent;
+      console.log("value", value);
+      this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()].percent;
       this.chartPie.update();
       const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
       const total = ethers.utils.formatUnits(totalSupply, value.decimals);
-      console.log("total", total);
-
       const balanceOf = await getContract(
         value.address,
         erc20ABI,
@@ -223,7 +227,11 @@ export default {
         this.$store.state.lpExchange
       );
       const balance = ethers.utils.formatUnits(balanceOf, value.decimals);
-      const percentage = (((total * 0.1 - balance) * 100) / (total * 0.1)).toFixed(2);
+      const lpPercent = lpSwap[value.name.toUpperCase()].percent[1] / 100;
+      const percentage = (
+        ((total * lpPercent - balance) * 100) /
+        (total * lpPercent)
+      ).toFixed(2);
       this.percentage = percentage;
     },
   },
@@ -346,6 +354,10 @@ export default {
       border-radius: 50%;
       margin-right: 10px;
     }
+  }
+  .noCoin {
+    text-align: center;
+    padding: 40px 0;
   }
 }
 </style>
