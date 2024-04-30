@@ -136,7 +136,7 @@ export default {
       showCoin: false,
       exchangeTokens: [],
       selectToken: {
-        name: "100t",
+        name: "--",
         decimals: 0,
         address: "",
       },
