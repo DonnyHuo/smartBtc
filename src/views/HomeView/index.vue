@@ -156,11 +156,6 @@
         </van-steps>
       </div>
     </div>
-
-    <div class="tips">
-      <p>BTC~BSC跨链桥即将上线</p>
-      <p>可在推特@SmartBTCdao申请内测</p>
-    </div>
     <div class="footer">
       <div class="iconBox">
         <a href="https://t.me/SmartBTCdao">
@@ -169,9 +164,7 @@
         <a href="https://twitter.com/SmartBTCdao">
           <img class="linkLogo" src="../../assets/img/twiter.png" alt="" />
         </a>
-        <a href="https://t.me/SmartBTCdao">
-          <img class="linkLogo" src="../../assets/img/wechat.png" alt="" />
-        </a>
+        <img class="linkLogo" src="../../assets/img/discord.png" alt="" />
       </div>
       <div>© 2024 SmartBTC.io</div>
     </div>
@@ -535,7 +528,7 @@ export default {
   }
 }
 .footer {
-  padding: 40px 30px 30px 30px;
+  padding: 10px 30px 30px;
   background-color: #fff;
   font-size: 16px;
   color: #111;
