@@ -30,7 +30,9 @@
           <div class="staking-content">
             <div class="selectPicker">
               <img
-                :src="realPic(lpInfo.lpToken)"
+                class="tokenLogo"
+                v-if="tokenName !== '--'"
+                :src="require(`../../assets/img/tokenList/brc20-${tokenName}.png`)"
                 onerror='onerror=null;this.src="/img/default.492b60fb.png"'
               />
               <span>{{ lpInfo.disPlayName }}</span>
@@ -141,7 +143,7 @@ export default {
       t100Address: this.$store.state.t100,
       noLp: false,
       exchangeTokens: "--",
-      tokenName: "",
+      tokenName: "--",
     };
   },
   created() {
@@ -327,8 +329,10 @@ export default {
         margin-bottom: 10px;
         font-size: 16px;
         font-weight: 600;
-        > img {
-          width: 24px;
+        .tokenLogo {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
           margin-right: 10px;
         }
       }

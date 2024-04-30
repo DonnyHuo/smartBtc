@@ -15,7 +15,8 @@
     </div>
     <div class="title">锚定BRC20-SBTC，总供应量2100万</div>
     <div class="pieBox">
-      <Pie :data="chartConfig.data" :options="chartConfig.options" />
+      <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
+      <canvas ref="myChart"></canvas>
     </div>
 
     <div class="contractAddress">
@@ -72,10 +73,10 @@
   </div>
 </template>
 <script>
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "vue-chartjs";
+import { Chart, registerables } from "chart.js";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+Chart.register(...registerables);
+import { markRaw } from "vue";
 
 import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
@@ -83,20 +84,23 @@ import erc20ABI from "../../abi/erc20.json";
 import { getContract, shortStr } from "@/utils";
 import { ethers } from "ethers";
 
+import lpSwap from "../../config/lpSwap.json";
+
 export default {
   name: "lpSwap",
-  components: {
-    Pie,
-  },
+  // components: {
+  //   Pie,
+  // },
   data() {
     return {
       chartConfig: {
+        type: "pie",
         data: {
           labels: ["跨链", "LP质押", "启动池", "社区空投"],
           datasets: [
             {
               backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2"],
-              data: [60, 10, 10, 20],
+              data: [],
               borderWidth: 0,
               usePointStyle: true,
             },
@@ -134,9 +138,12 @@ export default {
       },
       selectPair: [],
       percentage: "",
+      chartPie: null,
     };
   },
   mounted() {
+    this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
+
     this.getChangeList();
   },
   methods: {
@@ -203,6 +210,8 @@ export default {
     },
 
     async getBalance(value) {
+      this.chartConfig.data.datasets[0].data = lpSwap[value.name].percent;
+      this.chartPie.update();
       const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
       const total = ethers.utils.formatUnits(totalSupply, value.decimals);
       console.log("total", total);

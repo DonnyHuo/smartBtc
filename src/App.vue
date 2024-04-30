@@ -166,11 +166,12 @@ export default {
         }
       } else if (window.location.hash == "#/btcSwap") {
         console.log("btcSwap");
+        this.netWorkError = false;
       } else if (
         window.location.hash == "#/lpSwap" ||
         window.location.hash.includes("#/lpSwapDetail")
       ) {
-        console.log("lpSwap");
+        this.netWorkError = false;
         this.getChainId(
           "0x61",
           "BNB Smart Chain Testnet",
