@@ -2,10 +2,7 @@
   <div class="lpDetail">
     <div class="header">
       <span>{{ tokenName }} 地址</span>
-      <a
-        :href="`https://testnet.bscscan.com/address/${lpInfo.changeToken}`"
-        target="_blank"
-      >
+      <a :href="`https://bscscan.com/address/${lpInfo.changeToken}`" target="_blank">
         <span>
           {{ shortStr(lpInfo.changeToken) }}
         </span>
@@ -43,7 +40,7 @@
               <div class="selectLpInfo">
                 <span>LP 地址：</span>
                 <a
-                  :href="`https://testnet.bscscan.com/address/${lpInfo.lpToken}`"
+                  :href="`https://bscscan.com/address/${lpInfo.lpToken}`"
                   target="_blank"
                 >
                   {{ lpInfo.lpToken ? shortStr(lpInfo.lpToken) : "--" }}</a

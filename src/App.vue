@@ -167,25 +167,7 @@ export default {
       } else if (window.location.hash == "#/btcSwap") {
         console.log("btcSwap");
         this.netWorkError = false;
-      }
-      // else if (
-      //   window.location.hash == "#/lpSwap" ||
-      //   window.location.hash.includes("#/lpSwapDetail")
-      // ) {
-      //   this.netWorkError = false;
-      //   this.getChainId(
-      //     "0x61",
-      //     "BNB Smart Chain Testnet",
-      //     ["https://bsc-testnet.blockpi.network/v1/rpc/public"],
-      //     {
-      //       decimals: 18,
-      //       name: "Staked BNB",
-      //       symbol: "tBNB",
-      //     },
-      //     ["https://testnet.bscscan.com"]
-      //   );
-      // }
-      else {
+      } else {
         if (chainId !== "0x38") {
           this.netWorkError = true;
           this.getChainId(

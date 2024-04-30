@@ -25,7 +25,7 @@
       <span>合约地址</span>
       <a
         class="address"
-        :href="`https://testnet.bscscan.com/token/${selectToken.address}#balances`"
+        :href="`https://bscscan.com/token/${selectToken.address}#balances`"
         >{{ shortStr(selectToken.address) }}</a
       >
     </div>
