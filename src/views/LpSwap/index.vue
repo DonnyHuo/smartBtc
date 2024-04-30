@@ -15,7 +15,7 @@
         <img class="down" src="../../assets/img/down.png" alt="" />
       </div>
     </div>
-    <div class="title">锚定BRC20-SBTC，总供应量2100万</div>
+    <div class="title">锚定BRC20-{{ selectToken?.name }}，总供应量2100万</div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
       <canvas ref="myChart"></canvas>
@@ -39,7 +39,7 @@
         <div v-for="(list, index) in selectPair" :key="index">
           <div>
             <div class="listTitle">{{ list?.disPlayName }}</div>
-            <div>
+            <div class="rate">
               <span>实时兑换率 </span>
               <span>{{ list?.rate }}%</span>
             </div>
@@ -316,7 +316,11 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding-bottom: 20px;
         &:last-child {
+          padding-bottom: 0;
+        }
+        .rate {
           color: #999;
           font-size: 12px;
         }
