@@ -15,7 +15,9 @@
         <img class="down" src="../../assets/img/down.png" alt="" />
       </div>
     </div>
-    <div class="title">锚定BRC20-{{ selectToken?.name }}，总供应量2100万</div>
+    <div class="title">
+      锚定BRC20-{{ selectToken?.name }}，总供应量 {{ total / 10000 }}万
+    </div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
       <canvas ref="myChart"></canvas>
@@ -143,6 +145,7 @@ export default {
       selectPair: [],
       percentage: "",
       chartPie: null,
+      total: "",
     };
   },
   mounted() {
@@ -215,7 +218,6 @@ export default {
     },
 
     async getBalance(value) {
-      console.log("value", value);
       this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()].percent;
       this.chartPie.update();
       const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
@@ -233,6 +235,7 @@ export default {
         (total * lpPercent)
       ).toFixed(2);
       this.percentage = percentage;
+      this.total = total;
     },
   },
   watch: {
