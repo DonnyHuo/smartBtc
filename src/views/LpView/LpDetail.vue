@@ -119,7 +119,7 @@
       </div>
     </div>
     <div class="outLink">
-      <a href="https://t.me/+SEPZJQ41Pxs1ZGE9">
+      <a href="https://t.me/SmartBTCdao">
         <img src="../../assets/img/telegram.png" alt="" />
       </a>
       <a href="https://twitter.com/SmartBTCdao">

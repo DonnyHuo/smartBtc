@@ -340,6 +340,9 @@ export default {
       text-decoration: underline;
     }
   }
+  .content {
+    padding: 20px 0;
+  }
 
   .coinList {
     padding: 10px 20px;
@@ -357,7 +360,7 @@ export default {
   }
   .noCoin {
     text-align: center;
-    padding: 40px 0;
+    padding: 20px 0;
   }
 }
 </style>

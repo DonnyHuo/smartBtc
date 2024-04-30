@@ -163,13 +163,13 @@
     </div>
     <div class="footer">
       <div class="iconBox">
-        <a href="https://twitter.com/SmartBTCdao">
+        <a href="https://t.me/SmartBTCdao">
           <img class="linkLogo" src="../../assets/img/telgram.png" alt="" />
         </a>
         <a href="https://twitter.com/SmartBTCdao">
           <img class="linkLogo" src="../../assets/img/twiter.png" alt="" />
         </a>
-        <a href="https://twitter.com/SmartBTCdao">
+        <a href="https://t.me/SmartBTCdao">
           <img class="linkLogo" src="../../assets/img/wechat.png" alt="" />
         </a>
       </div>

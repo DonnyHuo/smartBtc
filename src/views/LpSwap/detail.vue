@@ -107,15 +107,13 @@
       </div>
     </div>
     <div class="outLink">
-      <a href="https://twitter.com/SmartBTCdao">
+      <a href="https://t.me/SmartBTCdao">
         <img src="../../assets/img/telegram.png" alt="" />
       </a>
       <a href="https://twitter.com/SmartBTCdao">
         <img src="../../assets/img/twitter.png" alt="" class="twitter" />
       </a>
-      <a href="https://twitter.com/SmartBTCdao">
-        <img src="../../assets/img/email.png" alt="" />
-      </a>
+      <img src="../../assets/img/email.png" alt="" />
     </div>
   </div>
 </template>
