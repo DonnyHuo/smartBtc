@@ -38,7 +38,7 @@
         <div class="title">
           <img
             class="logo logoU"
-            src="../../assets/img/0x9839bffdb0702b0b0ae8bb6a7825190574652e5f.png"
+            src="../../assets/img/tokenList/brc20-100t.png"
             alt=""
           />
           <span>100T合约</span>
@@ -163,6 +163,8 @@ export default {
         }
         .logoU {
           width: 16px;
+          height: 16px;
+          border-radius: 50%;
           margin-left: 2px;
         }
       }

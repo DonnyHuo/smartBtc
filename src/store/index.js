@@ -44,7 +44,7 @@ export default createStore({
     selectedList: [],
     tokenList: [],
 
-    lpExchange: "0xa4D53c4a0FA70968CF1bDEB229db1d797e7E84Fb",
+    lpExchange: "0x976C825844fa939938110e05119EA0b7cDB77ceA",
   },
   mutations: {
     setAddress(state, data) {
