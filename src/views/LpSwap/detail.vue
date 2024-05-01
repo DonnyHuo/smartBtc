@@ -220,7 +220,9 @@ export default {
           this.lpInfo.pairId,
           ethers.utils.parseUnits(value.toString(), 18)
         );
-        this.exchangeTokens = (ethers.utils.formatUnits(res, 18) * 1).toFixed(2);
+        const decimals = await getContract(this.lpInfo.changeToken, erc20ABI, "decimals");
+
+        this.exchangeTokens = (ethers.utils.formatUnits(res, decimals) * 1).toFixed(2);
       } else {
         this.exchangeTokens = 0;
       }
