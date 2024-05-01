@@ -69,5 +69,5 @@ export default createStore({
       return (state.tokenList = data);
     },
   },
-  plugins: [createPersistedState({ storage: window.localStorage })],
+  plugins: [createPersistedState({ storage: window.sessionStorage })],
 });
