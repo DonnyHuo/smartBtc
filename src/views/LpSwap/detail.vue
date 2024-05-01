@@ -171,7 +171,7 @@ export default {
         "balanceOf",
         this.$store.state.address
       ).catch((err) => console.log(err));
-      this.lpBalance = ethers.utils.formatUnits(res, 18) * 1;
+      this.lpBalance = ethers.utils.formatUnits(res, 18);
       this.noLp = this.lpBalance * 1 == 0;
     },
     async getAllowance() {
