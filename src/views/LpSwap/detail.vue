@@ -58,7 +58,7 @@
             </div>
             <div class="staking-input-box no-lp">
               <input
-                placeholder="本次輸入需 ≥ 0"
+                placeholder="本次輸入需 > 0"
                 oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
                 class="input-border"
                 :value="inputValue"
