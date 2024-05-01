@@ -219,10 +219,10 @@ export default {
     },
     async exchangeLpTokenForTokens() {
       if (this.inputValue > this.lpBalance) {
-        showToast("余额不足");
+        return showToast("余额不足");
       }
       if (this.inputValue * 1 <= 0) {
-        showToast("请输入正确数量的LP");
+        return showToast("请输入正确数量的LP");
       }
       this.depositLoading = true;
       await getWriteContractLoad(

@@ -213,7 +213,6 @@ export default {
         };
         pairsInfo.push(pairInfo);
       }
-
       this.selectPair = pairsInfo;
     },
 
