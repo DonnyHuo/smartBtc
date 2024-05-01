@@ -2,11 +2,16 @@
   <div class="lpDetail">
     <div class="header">
       <span>{{ tokenName }} 地址</span>
-      <a :href="`https://bscscan.com/address/${lpInfo.changeToken}`" target="_blank">
+      <div class="addressBox">
         <span>
           {{ shortStr(lpInfo.changeToken) }}
         </span>
-      </a>
+        <img
+          class="copyImg"
+          @click="copyAddress(lpInfo.changeToken)"
+          src="../../assets/img/copy.png"
+        />
+      </div>
     </div>
     <div class="staking-wrap">
       <div class="dialog-wrap">
@@ -119,7 +124,7 @@
 </template>
 <script>
 import { ethers } from "ethers";
-import { shortStr, getContract, getWriteContractLoad, realPic } from "@/utils";
+import { shortStr, getContract, getWriteContractLoad, realPic, copy } from "@/utils";
 import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
 import { showToast } from "vant";
@@ -151,7 +156,10 @@ export default {
   methods: {
     shortStr,
     realPic,
-
+    copyAddress(msg) {
+      copy(msg);
+      showToast("複製成功");
+    },
     async getTokenInfo() {
       const res = await getContract(this.lpInfo.changeToken, erc20ABI, "symbol");
       this.tokenName = res;
@@ -268,8 +276,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  a {
-    text-decoration: underline;
+  .addressBox {
+    display: flex;
+    align-items: center;
+    .copyImg {
+      width: 16px;
+      height: 16px;
+      margin-left: 2px;
+    }
   }
 }
 .staking-wrap {
