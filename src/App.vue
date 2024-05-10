@@ -133,7 +133,7 @@ export default {
           ],
         })
         .then(() => {
-          // this.connectWallet()
+          this.connectWallet();
         })
         .catch((e) => {
           console.log("wallet_switchEthereumChain error: ", e);
@@ -149,7 +149,7 @@ export default {
       if (window.location.hash == "#/swap") {
         if (chainId !== "0x80") {
           this.netWorkError = true;
-          this.getChainId(
+          return this.getChainId(
             "0x80",
             "Huobi ECO Chain Mainnet",
             ["https://http-mainnet.hecochain.com"],
@@ -170,7 +170,7 @@ export default {
       } else {
         if (chainId !== "0x38") {
           this.netWorkError = true;
-          this.getChainId(
+          return this.getChainId(
             "0x38",
             "BNB Smart Chain Mainnet",
             ["https://bsc-dataseed.bnbchain.org"],
