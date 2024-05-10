@@ -146,46 +146,46 @@ export default {
       this.chainId = chainId;
       this.$store.commit("setChainId", chainId);
       console.log("window.location.hash", window.location.hash);
-      if (window.location.hash == "#/swap") {
-        if (chainId !== "0x80") {
-          this.netWorkError = true;
-          return this.getChainId(
-            "0x80",
-            "Huobi ECO Chain Mainnet",
-            ["https://http-mainnet.hecochain.com"],
-            {
-              decimals: 18,
-              name: "HT",
-              symbol: "HT",
-            },
-            ["https://hecoscan.io"]
-          );
-        } else {
-          this.netWorkError = false;
-          this.connectWallet();
-        }
-      } else if (window.location.hash == "#/btcSwap") {
-        console.log("btcSwap");
-        this.netWorkError = false;
+      // if (window.location.hash == "#/swap") {
+      //   if (chainId !== "0x80") {
+      //     this.netWorkError = true;
+      //     return this.getChainId(
+      //       "0x80",
+      //       "Huobi ECO Chain Mainnet",
+      //       ["https://http-mainnet.hecochain.com"],
+      //       {
+      //         decimals: 18,
+      //         name: "HT",
+      //         symbol: "HT",
+      //       },
+      //       ["https://hecoscan.io"]
+      //     );
+      //   } else {
+      //     this.netWorkError = false;
+      //     this.connectWallet();
+      //   }
+      // } else if (window.location.hash == "#/btcSwap") {
+      //   console.log("btcSwap");
+      //   this.netWorkError = false;
+      // } else {
+      if (chainId !== "0x38") {
+        this.netWorkError = true;
+        return this.getChainId(
+          "0x38",
+          "BNB Smart Chain Mainnet",
+          ["https://bsc-dataseed.bnbchain.org"],
+          {
+            decimals: 18,
+            name: "Staked BNB",
+            symbol: "BNB",
+          },
+          ["https://bscscan.com"]
+        );
       } else {
-        if (chainId !== "0x38") {
-          this.netWorkError = true;
-          return this.getChainId(
-            "0x38",
-            "BNB Smart Chain Mainnet",
-            ["https://bsc-dataseed.bnbchain.org"],
-            {
-              decimals: 18,
-              name: "Staked BNB",
-              symbol: "BNB",
-            },
-            ["https://bscscan.com"]
-          );
-        } else {
-          this.netWorkError = false;
-          this.connectWallet();
-        }
+        this.netWorkError = false;
+        this.connectWallet();
       }
+      // }
     },
   },
   watch: {
