@@ -235,7 +235,7 @@ export default {
       const percentage = (
         ((total * lpPercent - balance) * 100) /
         (total * lpPercent)
-      ).toFixed(2);
+      ).toFixed(4);
       this.percentage = percentage;
       this.total = total;
     },
