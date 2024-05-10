@@ -121,6 +121,7 @@ export default {
         width: 30px;
         height: 30px;
         margin-right: 10px;
+        border-radius: 50%;
       }
       > span {
         font-size: 16px;

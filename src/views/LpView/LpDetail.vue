@@ -209,7 +209,7 @@ export default {
         "balanceOf",
         this.$store.state.address
       ).catch((err) => console.log(err));
-      this.lpBalance = (ethers.utils.formatUnits(res, 18) * 1).toFixed(8);
+      this.lpBalance = ethers.utils.formatUnits(res, 18);
       this.noLp = this.lpBalance * 1 == 0;
     },
     async getAllowance() {
@@ -248,7 +248,7 @@ export default {
     },
     async depositFun() {
       if (this.depositPower >= this.lpInfo.minDepositLimit) {
-        if (this.inputValue > this.lpBalance) {
+        if (this.inputValue * 1 > this.lpBalance * 1) {
           return showToast(`LP不足`);
         }
         this.depositLoading = true;
@@ -346,6 +346,8 @@ export default {
         font-weight: 600;
         > img {
           width: 24px;
+          height: 24px;
+          border-radius: 50%;
           margin-right: 10px;
         }
       }

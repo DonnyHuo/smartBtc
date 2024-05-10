@@ -170,6 +170,7 @@ export default {
 
       for (let i = 0; i < getExchangeTokens.length; i++) {
         const tokenInfo = {
+          id: i,
           address: getExchangeTokens[i],
           name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
           decimals: await getContract(getExchangeTokens[i], erc20ABI, "decimals"),
@@ -177,7 +178,9 @@ export default {
         };
         tokensInfo.push(tokenInfo);
       }
+
       if (tokensInfo.length > 0) {
+        tokensInfo.sort((a, b) => (a.id === 1 ? -1 : 0));
         this.selectToken = tokensInfo[0];
         this.exchangeTokens = tokensInfo;
       }
