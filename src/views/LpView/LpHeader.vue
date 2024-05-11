@@ -17,11 +17,7 @@
     <div class="contactList">
       <div>
         <div class="title">
-          <img
-            class="logo"
-            src="../../assets/img/0x6a7555ac8ed893d4f053dd8e20c561b022de4a06.png"
-            alt=""
-          />
+          <img class="logo" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
           <span>SBTC合约</span>
         </div>
         <div class="address">

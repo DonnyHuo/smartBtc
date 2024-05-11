@@ -6,7 +6,7 @@
         <div v-if="poolList.length > 0">
           <div v-for="(list, index) in poolList" class="lpList">
             <div :key="index" class="lpName">
-              <img :src="realPic(list.lpToken)" />
+              <img :src="realIconLogo(list.lpTokenName)" />
               <span>{{ list.lpTokenName }}</span>
               <div @click="goToDetail(index)">去質押</div>
             </div>
@@ -27,7 +27,7 @@
 <script>
 import { ethers } from "ethers";
 import LpHeader from "./LpHeader.vue";
-import { getContract, getOkChainId, realPic } from "../../utils";
+import { getContract, getOkChainId, realIconLogo } from "../../utils";
 import poolABI from "../../abi/pool.json";
 
 export default {
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    realPic,
+    realIconLogo,
     goToDetail(index) {
       this.$router.push({ path: "/lpDetail", query: { index } });
     },

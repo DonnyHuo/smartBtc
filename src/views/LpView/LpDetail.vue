@@ -19,10 +19,7 @@
         <div class="staking-box">
           <div class="staking-content">
             <div class="selectPicker">
-              <img
-                :src="realPic(lpInfo.lpToken)"
-                onerror='onerror=null;this.src="/img/default.492b60fb.png"'
-              />
+              <img :src="realIconLogo(lpInfo.lpTokenName)" />
               <span>{{ lpInfo.lpTokenName }}</span>
             </div>
             <div>
@@ -136,7 +133,7 @@ import {
   getContract,
   getWriteContractLoad,
   getOkChainId,
-  realPic,
+  realIconLogo,
 } from "@/utils";
 import LpHeader from "./LpHeader.vue";
 import poolABI from "../../abi/pool.json";
@@ -168,7 +165,7 @@ export default {
   },
   methods: {
     shortStr,
-    realPic,
+    realIconLogo,
     async poolInfoLists() {
       const res = await getContract(
         this.$store.state.poolAddress,

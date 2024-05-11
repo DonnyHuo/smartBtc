@@ -39,10 +39,10 @@ export const formatNum = (number) => {
   return String(number).replace(/^(.*\..{4}).*$/, "$1");
 };
 
-export const realPic = (address) => {
-  if (address) {
+export const realIconLogo = (name) => {
+  if (name) {
     try {
-      return require(`@/assets/img/${address.toLowerCase()}.png`);
+      return require(`@/assets/img/tokenList/brc20-${name.split('-')[1].toLowerCase()}.png`);
     } catch {
       return require("@/assets/img/default.png");
     }
@@ -50,6 +50,8 @@ export const realPic = (address) => {
     return require("@/assets/img/default.png");
   }
 };
+
+
 
 export {
   getContract,

@@ -124,7 +124,7 @@
 </template>
 <script>
 import { ethers } from "ethers";
-import { shortStr, getContract, getWriteContractLoad, realPic, copy } from "@/utils";
+import { shortStr, getContract, getWriteContractLoad, realIconLogo, copy } from "@/utils";
 import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
 import { showToast } from "vant";
@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     shortStr,
-    realPic,
+    realIconLogo,
     copyAddress(msg) {
       copy(msg);
       showToast("複製成功");
