@@ -24,12 +24,22 @@
     </div>
 
     <div class="contractAddress">
-      <span>合约地址</span>
-      <a
-        class="address"
-        :href="`https://bscscan.com/token/${selectToken.address}#balances`"
-        >{{ shortStr(selectToken.address) }}</a
-      >
+      <div>
+        <span>合约地址</span>
+        <a
+          class="address"
+          :href="`https://bscscan.com/token/${selectToken.address}#balances`"
+          >{{ shortStr(selectToken.address) }}</a
+        >
+      </div>
+      <div>
+        <span>我的持仓(占比)</span>
+        <span>
+          {{ selectTokenBalance }}
+          <span>{{ selectToken.name }}</span>
+          ({{ myBalanceRate }}%)</span
+        >
+      </div>
     </div>
 
     <div class="line">
@@ -146,6 +156,8 @@ export default {
       percentage: "",
       chartPie: null,
       total: "",
+      selectTokenBalance: "--",
+      myBalanceRate: "",
     };
   },
   mounted() {
@@ -239,11 +251,30 @@ export default {
       this.percentage = percentage;
       this.total = total;
     },
+    async getAddressBalance(value) {
+      const balanceOf = await getContract(
+        value.address,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.lpExchange
+      );
+      const balance = ethers.utils.formatUnits(balanceOf, value.decimals) * 1;
+      const myBalance = await getContract(
+        value.address,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.address
+      );
+      const myBalances = ethers.utils.formatUnits(myBalance, value.decimals) * 1;
+      this.selectTokenBalance = myBalances.toFixed(4);
+      this.myBalanceRate = ((myBalances * 100) / balance).toFixed(4);
+    },
   },
   watch: {
     async selectToken(value) {
       await this.getPairs(value.index);
       await this.getBalance(value);
+      await this.getAddressBalance(value);
     },
   },
 };
@@ -342,11 +373,14 @@ export default {
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .address {
-      text-decoration: underline;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 0;
+      .address {
+        text-decoration: underline;
+      }
     }
   }
   .content {
