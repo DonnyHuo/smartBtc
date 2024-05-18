@@ -44,6 +44,12 @@ export default {
       this.getPoolsCount();
     }
   },
+  mounted() {
+    const poolList = localStorage.getItem("poolList");
+    if (poolList) {
+      this.poolList = JSON.parse(poolList);
+    }
+  },
   methods: {
     realIconLogo,
     goToDetail(index) {
@@ -57,9 +63,13 @@ export default {
       ).catch((err) => console.log(err));
       this.poolsCount = res.toString() * 1;
       if (this.poolsCount) {
+        const poolList = [];
         for (let i = 0; i < this.poolsCount; i++) {
-          await this.poolInfoLists(i);
+          poolList.push(await this.poolInfoLists(i));
         }
+        this.poolList = poolList;
+
+        localStorage.setItem("poolList", JSON.stringify(poolList));
       }
     },
     async poolInfoLists(index) {
@@ -75,7 +85,7 @@ export default {
         lpTokenName: res.lpTokenName,
         lpToken: res.lpToken,
       };
-      this.poolList.push(newArr);
+      return newArr;
     },
     async getLpPrice(index) {
       const res = await getContract(

@@ -161,6 +161,13 @@ export default {
     };
   },
   mounted() {
+    const exchangeTokens = JSON.parse(localStorage.getItem("exchangeTokens"));
+    const selectToken = JSON.parse(localStorage.getItem("selectToken"));
+    if (exchangeTokens && selectToken) {
+      this.exchangeTokens = exchangeTokens;
+      this.selectToken = selectToken;
+    }
+
     this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
 
     this.getChangeList();
@@ -185,7 +192,9 @@ export default {
           id: i,
           address: getExchangeTokens[i],
           name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
-          decimals: await getContract(getExchangeTokens[i], erc20ABI, "decimals"),
+          decimals: (
+            await getContract(getExchangeTokens[i], erc20ABI, "decimals")
+          ).toString(),
           index: await this.getExchangePairs(getExchangeTokens[i]),
         };
         tokensInfo.push(tokenInfo);
@@ -195,6 +204,8 @@ export default {
         tokensInfo.sort((a, b) => (a.id === 1 ? -1 : 0));
         this.selectToken = tokensInfo[0];
         this.exchangeTokens = tokensInfo;
+        localStorage.setItem("exchangeTokens", JSON.stringify(tokensInfo));
+        localStorage.setItem("selectToken", JSON.stringify(tokensInfo[0]));
       }
     },
     async getExchangePairs(token) {
@@ -204,7 +215,7 @@ export default {
         "getExchangePairs",
         token
       );
-      return getExchangePairs;
+      return getExchangePairs.map((list) => list.toString());
     },
 
     async getPairs(index) {
@@ -272,6 +283,7 @@ export default {
   },
   watch: {
     async selectToken(value) {
+      console.log(value);
       await this.getPairs(value.index);
       await this.getBalance(value);
       await this.getAddressBalance(value);
