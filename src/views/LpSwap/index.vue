@@ -263,13 +263,8 @@ export default {
       this.total = total;
     },
     async getAddressBalance(value) {
-      const balanceOf = await getContract(
-        value.address,
-        erc20ABI,
-        "balanceOf",
-        this.$store.state.lpExchange
-      );
-      const balance = ethers.utils.formatUnits(balanceOf, value.decimals) * 1;
+      const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
+      const total = ethers.utils.formatUnits(totalSupply, value.decimals) * 1;
       const myBalance = await getContract(
         value.address,
         erc20ABI,
@@ -278,7 +273,7 @@ export default {
       );
       const myBalances = ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
-      this.myBalanceRate = ((myBalances * 100) / balance).toFixed(4);
+      this.myBalanceRate = ((myBalances * 100) / total).toFixed(4);
     },
   },
   watch: {
