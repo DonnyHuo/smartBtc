@@ -2,13 +2,17 @@
   <div class="lp">
     <div class="content">
       <LpHeader />
+      <div class="searchBox">
+        <img class="searchIcon" src="../../assets//img/searchB.png" alt="" />
+        <input v-model="searchValue" type="text" placeholder="请输入名称搜索" />
+      </div>
       <div class="lpListBox">
-        <div v-if="poolList.length > 0">
-          <div v-for="(list, index) in poolList" class="lpList">
+        <div v-if="viewList.length > 0">
+          <div v-for="(list, index) in viewList" class="lpList">
             <div :key="index" class="lpName">
               <img :src="realIconLogo(list.lpTokenName)" />
               <span>{{ list.lpTokenName }}</span>
-              <div @click="goToDetail(index)">去質押</div>
+              <div @click="goToDetail(list.index)">去挖矿</div>
             </div>
             <div class="totalBalance">
               <div>管理規模</div>
@@ -36,9 +40,16 @@ export default {
     return {
       poolList: [],
       poolsCount: 0,
+      searchValue: "",
+      filterList: [],
     };
   },
   components: { LpHeader },
+  computed: {
+    viewList() {
+      return this.searchValue ? this.filterList : this.poolList;
+    },
+  },
   async created() {
     if (this.$store.state.address && (await getOkChainId())) {
       this.getPoolsCount();
@@ -84,6 +95,7 @@ export default {
         totalBalance: (ethers.utils.formatUnits(res.totalBalance, 18) * price).toFixed(6),
         lpTokenName: res.lpTokenName,
         lpToken: res.lpToken,
+        index: index,
       };
       return newArr;
     },
@@ -97,6 +109,14 @@ export default {
       return ethers.utils.formatUnits(res, this.$store.state.usdtDecimals);
     },
   },
+  watch: {
+    searchValue(value) {
+      const filterList = this.poolList.filter((list) =>
+        list.lpTokenName.toUpperCase().includes(value.toUpperCase())
+      );
+      this.filterList = filterList;
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -104,6 +124,24 @@ export default {
   height: 100vh;
   padding-top: 20px;
   overflow: auto;
+}
+.searchBox {
+  width: 90%;
+  height: 50px;
+  padding: 20px;
+  font-size: 14px;
+  margin: 10px auto;
+  box-shadow: 0 3px 6px #cfcece;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  .searchIcon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
 }
 .content {
   border-bottom: 1px solid transparent;

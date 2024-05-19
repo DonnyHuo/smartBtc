@@ -27,7 +27,7 @@
         </div>
       </div>
     </div> -->
-    <div class="headerInfo headerInfo1">
+    <!-- <div class="headerInfo headerInfo1">
       <div class="power">
         <div>
           <div><span>SBTC余额</span></div>
@@ -48,8 +48,8 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="headerInfo">
+    </div> -->
+    <!-- <div class="headerInfo">
       <div class="titleBox">
         <div class="title">BRC852新资产发行协议</div>
         <div class="nav_title">
@@ -82,6 +82,14 @@
           </a>
         </div>
       </div>
+    </div> -->
+    <div class="homeTop">
+      <div class="homeTopTitle">
+        <p>BRC20 Launchpad</p>
+        <p>铭文流动性聚合平台</p>
+        <p>跨链桥Bridge</p>
+      </div>
+      <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
     </div>
 
     <div class="contant">
@@ -418,7 +426,24 @@ export default {
     }
   }
 }
-
+.homeTop {
+  padding-bottom: 50px;
+  background-image: url("../../assets/img/homeBg2.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  .homeTopTitle {
+    font-size: 25px;
+    line-height: 40px;
+    font-weight: 500;
+    padding: 30px 0;
+    p {
+      margin: 0;
+    }
+  }
+  .homeBg {
+    width: 60%;
+  }
+}
 .contant {
   background-size: 100% 100%;
   background-color: #fff;

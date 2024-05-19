@@ -54,7 +54,7 @@ export default {
         {
           name: "lpSwap",
           route: "/lpSwap",
-          text: "LP质押",
+          text: "质押发行",
           active: false,
           iconUrl: require("./assets/img/lp.png"),
           iconUrlAct: require("./assets/img/lpAct.png"),
@@ -62,7 +62,7 @@ export default {
         {
           name: "lp",
           route: "/lp",
-          text: "启动池",
+          text: "啟動池",
           active: false,
           iconUrl: require("./assets/img/options.png"),
           iconUrlAct: require("./assets/img/optionsAct.png"),

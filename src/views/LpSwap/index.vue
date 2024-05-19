@@ -112,7 +112,7 @@ export default {
       chartConfig: {
         type: "pie",
         data: {
-          labels: ["跨链", "LP质押", "启动池", "社区空投"],
+          labels: ["跨链", "质押发行", "启动池", "社区空投"],
           datasets: [
             {
               backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2"],
