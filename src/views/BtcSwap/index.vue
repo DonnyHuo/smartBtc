@@ -149,6 +149,7 @@
 import { ethers } from "ethers";
 import { shortStr, copy } from "../../utils";
 import { showToast } from "vant";
+import { toHandlers } from "vue";
 
 export default {
   name: "btcSwap",
@@ -342,28 +343,35 @@ export default {
           this.selectedCoin.inscriptionId
         );
         console.log("txid", txid);
-        this.$axios({
-          method: "POST",
-          url: "https://smartbtc.io/bridge/brc20/bridge",
-          data: {
-            symbol: this.selectedChain,
-            from_net_address: this.address,
-            to_net_address: this.toAddress,
-            amount: this.selectedCoin.amount,
-            brc20_txid: txid,
-          },
-        })
-          .then((res) => {
-            this.postLoading = false;
-            this.getRecordList();
-          })
-          .catch((err) => {
-            this.postLoading = false;
-            console.log(err);
-          });
+        this.noticeService(txid);
       } catch (e) {
         console.log(e);
       }
+    },
+    noticeService(txid) {
+      this.$axios({
+        method: "POST",
+        url: "https://smartbtc.io/bridge/brc20/bridge",
+        data: {
+          symbol: this.selectedChain,
+          from_net_address: this.address,
+          to_net_address: this.toAddress,
+          amount: this.selectedCoin.amount,
+          brc20_txid: txid,
+        },
+      })
+        .then((res) => {
+          if (res.data.data.order_id) {
+            this.postLoading = false;
+            this.getRecordList();
+          } else {
+            this.noticeService(txid);
+          }
+        })
+        .catch((err) => {
+          this.postLoading = false;
+          console.log(err);
+        });
     },
   },
 };
