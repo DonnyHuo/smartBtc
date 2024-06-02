@@ -1,7 +1,7 @@
 <template>
   <div class="lpSwap">
     <div class="headerBox">
-      <span class="title">流动池LP质押发行</span>
+      <span class="title">流动池发行</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -15,8 +15,11 @@
         <img class="down" src="../../assets/img/down.png" alt="" />
       </div>
     </div>
-    <div class="title">
+    <div v-if="selectToken.name !== '100T'" class="title">
       锚定BRC20-{{ selectToken?.name }}，总供应量 {{ total / 10000 }}万
+    </div>
+    <div v-else class="title">
+      锚定符文IOOT•SMARTBTC•IOs，总供应量 {{ total / 10000 }}万
     </div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
@@ -43,7 +46,7 @@
     </div>
 
     <div class="line">
-      <div class="lineTitle title">流动池LP质押发行进度</div>
+      <div class="lineTitle title">流动池发行进度</div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
     <div v-if="selectPair.length > 0" class="lpList">
@@ -115,7 +118,7 @@ export default {
           labels: ["跨链", "流动性发行", "启动池", "社区空投"],
           datasets: [
             {
-              backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2"],
+              backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2", "#f079f6"],
               data: [],
               borderWidth: 0,
               usePointStyle: true,

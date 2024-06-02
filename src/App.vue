@@ -54,7 +54,7 @@ export default {
         {
           name: "lpSwap",
           route: "/lpSwap",
-          text: "質押發行",
+          text: "流动性發行",
           active: false,
           iconUrl: require("./assets/img/lp.png"),
           iconUrlAct: require("./assets/img/lpAct.png"),
