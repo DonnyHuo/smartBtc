@@ -112,7 +112,7 @@ export default {
       chartConfig: {
         type: "pie",
         data: {
-          labels: ["跨链", "质押发行", "启动池", "社区空投"],
+          labels: ["跨链", "流动性发行", "启动池", "社区空投"],
           datasets: [
             {
               backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2"],
@@ -244,6 +244,18 @@ export default {
 
     async getBalance(value) {
       this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()].percent;
+
+      if (value.name == "100T") {
+        this.chartConfig.data.labels = [
+          "社区公平铸造",
+          "收购CoinDAO",
+          "LP质押挖矿",
+          "流动性发行",
+          "启动池部署",
+        ];
+      } else {
+        this.chartConfig.data.labels = ["跨链", "流动性发行", "启动池", "社区空投"];
+      }
       this.chartPie.update();
       const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
       const total = ethers.utils.formatUnits(totalSupply, value.decimals);
