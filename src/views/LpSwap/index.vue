@@ -1,7 +1,7 @@
 <template>
   <div class="lpSwap">
     <div class="headerBox">
-      <span class="title">流动性发行</span>
+      <span class="title">提供流动性兑换发行资产</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
