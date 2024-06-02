@@ -32,11 +32,7 @@
       </div>
       <div>
         <div class="title">
-          <img
-            class="logo logoU"
-            src="../../assets/img/tokenList/brc20-100t.png"
-            alt=""
-          />
+          <img class="logo" src="../../assets/img/tokenList/brc20-100t.png" alt="" />
           <span>100T合约</span>
         </div>
         <div class="address">
