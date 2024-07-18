@@ -161,6 +161,11 @@
               L2，并由BRC20(铭文)扩展到比特币全生态，BRC852成为主流资产发行协议，SmartBTC.io成为比特币生态底层应用，SBTC成为铭文新龙头
             </div>
           </van-step>
+          <van-step>
+            <router-link to="kol">
+              <van-button>KOL申请</van-button>
+            </router-link>
+          </van-step>
         </van-steps>
       </div>
     </div>

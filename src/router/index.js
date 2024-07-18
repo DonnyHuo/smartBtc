@@ -81,8 +81,16 @@ const routes = [
     name: 'lpSwapDetail',
     component: () => import(/* webpackChunkName: "about" */ '../views/LpSwap/detail.vue')
   },
-  
-
+  {
+    path: '/kol',
+    name: 'kol',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Kol/index.vue')
+  },
+  {
+    path: '/review',
+    name: 'review',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Review/index.vue')
+  },
   
 ]
 
