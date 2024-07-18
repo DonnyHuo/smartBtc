@@ -87,6 +87,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Kol/index.vue')
   },
   {
+    path: '/kolDetail',
+    name: 'kolDetail',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Kol/detail.vue')
+  },
+  {
+    path: '/kolAdd',
+    name: 'kolAdd',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Kol/add.vue')
+  },
+  {
     path: '/review',
     name: 'review',
     component: () => import(/* webpackChunkName: "about" */ '../views/Review/index.vue')
