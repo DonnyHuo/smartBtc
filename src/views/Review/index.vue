@@ -317,17 +317,21 @@ export default {
       kolWaitAgreeList: [],
       projectWaitAgreeList: [],
       bindProjectWaitList: [],
+      timer: null,
     };
   },
-  created() {
+  mounted() {
     this.getInfo();
     this.getProjectWaitAgreeList();
     this.getBindProjectWaitList();
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.getInfo();
       this.getProjectWaitAgreeList();
       this.getBindProjectWaitList();
     }, 5000);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
   },
   methods: {
     shortStr,

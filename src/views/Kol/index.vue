@@ -39,7 +39,7 @@
           <img class="icon" src="../../assets/img/btc.svg" alt="" />
           <span>100T-BTC</span>
         </div>
-        <van-button size="small" @click="bindProject('c')">去认领</van-button>
+        <van-button size="small" @click="bindProject('ccc')">去认领</van-button>
       </div>
       <div class="list">
         <div>
@@ -190,16 +190,21 @@ export default {
       xAddress: "",
       accountInfo: "",
       projectVotingList: [],
+      timer: null,
     };
   },
   mounted() {
     this.getInfo();
     this.getVotingList();
     this.registerAddress = this.address;
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.getInfo();
       this.getVotingList();
     }, 5000);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
   },
   methods: {
     shortStr,
@@ -286,6 +291,7 @@ export default {
         });
     },
   },
+
   watch: {
     address() {
       this.getInfo();
