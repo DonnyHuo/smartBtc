@@ -116,7 +116,9 @@
       </div>
     </div>
 
-    <div v-if="![0, 1].includes(accountInfo.status) && active === 0">
+    <div
+      v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status) && active === 0"
+    >
       <div class="hadProject">已认领项目 {{ accountInfo.project_name }}</div>
     </div>
 
