@@ -1,112 +1,86 @@
 <template>
   <div class="kolContent">
     <div class="header">添加项目</div>
-    <div class="tabs">
-      <div :class="active === 0 && 'active'" @click="changeTabs(0)">申请</div>
-      <div :class="active === 1 && 'active'" @click="changeTabs(1)">申请记录</div>
-    </div>
-    <div v-if="!active" class="form">
+    <div class="form">
       <div class="list">
         <span>币种名称</span>
-        <input type="text" />
+        <input type="text" v-model="name" />
       </div>
       <div class="list">
         <span>币种symbol</span>
-        <input type="text" />
+        <input type="text" v-model="symbol" />
       </div>
       <div class="list">
         <span>发行数量</span>
-        <input type="text" />
+        <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
         <div class="title">发行比例</div>
         <div class="listDiv">
           <div class="listS">
             <span>跨链</span>
-            <div class="inputBox"><input type="text" /> %</div>
+            <div class="inputBox"><input type="text" v-model="percents[0]" /> %</div>
           </div>
           <div class="listS">
             <span>流动性发行</span>
-            <div class="inputBox"><input type="text" /> %</div>
+            <div class="inputBox"><input type="text" v-model="percents[1]" /> %</div>
           </div>
         </div>
         <div class="listDiv">
           <div class="listS">
             <span>启动池</span>
-            <div class="inputBox"><input type="text" /> %</div>
+            <div class="inputBox"><input type="text" v-model="percents[2]" /> %</div>
           </div>
           <div class="listS">
             <span>社区空头</span>
-            <div class="inputBox"><input type="text" /> %</div>
+            <div class="inputBox"><input type="text" v-model="percents[3]" /> %</div>
           </div>
         </div>
-      </div>
-      <div class="list">
-        <span>合约地址</span>
-        <input type="text" />
       </div>
       <div class="sure">
-        <van-button>KOL申请</van-button>
-      </div>
-    </div>
-    <div v-else class="form">
-      <div class="list">
-        <span>币种名称</span>
-        <span>BNB</span>
-      </div>
-      <div class="list">
-        <span>币种symbol</span>
-        <span>BNB</span>
-      </div>
-      <div class="list">
-        <span>发行数量</span>
-        <span>10000000</span>
-      </div>
-      <div class="listBox">
-        <div class="title">发行比例</div>
-        <div class="listDiv">
-          <div class="listS">
-            <span>跨链</span>
-            <div class="inputBox">20 %</div>
-          </div>
-          <div class="listS">
-            <span>流动性发行</span>
-            <div class="inputBox">30 %</div>
-          </div>
-        </div>
-        <div class="listDiv">
-          <div class="listS">
-            <span>启动池</span>
-            <div class="inputBox">40 %</div>
-          </div>
-          <div class="listS">
-            <span>社区空头</span>
-            <div class="inputBox">10 %</div>
-          </div>
-        </div>
-      </div>
-      <div class="list">
-        <span>合约地址</span>
-        <span>0x321312g32131283213daw</span>
-      </div>
-      <div class="list">
-        <span>审核进度</span>
-        <span>审核中</span>
+        <van-button @click="newProject">添加项目</van-button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { showToast } from "vant";
+
 export default {
   name: "kolAdd",
   data() {
     return {
       active: 0,
+      name: "",
+      symbol: "",
+      totalSupply: "",
+      percents: ["", "", "", ""],
     };
   },
   methods: {
     changeTabs(number) {
       this.active = number;
+    },
+    newProject() {
+      const project_info = {
+        name: this.name,
+        symbol: this.symbol,
+        total_supply: this.totalSupply,
+        percents: this.percents.map((list) => list * 100),
+      };
+      console.log("project_info", project_info);
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol/new_project", {
+          kol_address: this.$store.state.address,
+          project_info,
+        })
+        .then((res) => {
+          showToast("申请成功");
+        })
+        .catch((err) => {
+          console.log(err);
+          showToast(err);
+        });
     },
   },
 };
@@ -122,7 +96,7 @@ export default {
   height: 50px;
   line-height: 50px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
 }
 .form {
   width: 90%;
@@ -191,14 +165,14 @@ input {
   margin-top: 30px;
   button {
     width: 90%;
-    height: 44px;
+    height: 35px;
     line-height: 30px;
     border-radius: 10px;
     background: #ffc519;
     border: none;
     color: #333;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 .tabs {
@@ -212,7 +186,7 @@ input {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
   padding: 5px;
   > div {
     width: 50%;
