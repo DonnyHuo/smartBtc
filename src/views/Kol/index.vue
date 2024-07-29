@@ -196,6 +196,10 @@ export default {
     this.getInfo();
     this.getVotingList();
     this.registerAddress = this.address;
+    setInterval(() => {
+      this.getInfo();
+      this.getVotingList();
+    }, 5000);
   },
   methods: {
     shortStr,

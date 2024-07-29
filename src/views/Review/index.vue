@@ -323,6 +323,11 @@ export default {
     this.getInfo();
     this.getProjectWaitAgreeList();
     this.getBindProjectWaitList();
+    setInterval(() => {
+      this.getInfo();
+      this.getProjectWaitAgreeList();
+      this.getBindProjectWaitList();
+    }, 5000);
   },
   methods: {
     shortStr,
