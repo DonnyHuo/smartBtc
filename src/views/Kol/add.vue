@@ -68,7 +68,6 @@ export default {
         total_supply: this.totalSupply,
         percents: this.percents.map((list) => list * 100),
       };
-      console.log("project_info", project_info);
       this.$axios
         .post("https://smartbtc.io/bridge/kol/new_project", {
           kol_address: this.$store.state.address,
@@ -76,6 +75,9 @@ export default {
         })
         .then((res) => {
           showToast("申请成功");
+          setTimeout(() => {
+            this.$router.push("/kol");
+          }, 1000);
         })
         .catch((err) => {
           console.log(err);

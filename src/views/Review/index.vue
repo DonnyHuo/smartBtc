@@ -123,11 +123,7 @@
               <span>{{ formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm") }}</span>
             </div>
             <div class="list btnList">
-              <button
-                @click="bindProjectAggree(item.address, item.project_name, true, 200)"
-              >
-                审核通过
-              </button>
+              <button @click="openModel(item)">审核通过</button>
               <button
                 @click="bindProjectAggree(item.address, item.project_name, false, 200)"
               >
@@ -143,166 +139,22 @@
           <div>暂无数据</div>
         </div>
       </div>
-
-      <!-- <div class="listBox">
-        <div class="list">
-          <div class="listContent">
-            <div class="listHeader">
-              <img class="icon" src="../../assets/img/btc.svg" alt="" />
-              <span>100T-BTC</span>
-              <img class="down" src="../../assets//img/doubleDown.png" alt="" />
-            </div>
-            <div class="contentList">
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="list">
-          <div class="listContent">
-            <div class="listHeader">
-              <img class="icon" src="../../assets/img/tokenList/brc20-merm.png" alt="" />
-              <span>100T-MERM</span>
-              <img class="down" src="../../assets//img/doubleDown.png" alt="" />
-            </div>
-            <div class="contentList">
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="list">
-          <div class="listContent">
-            <div class="listHeader">
-              <img class="icon" src="../../assets/img/tokenList/brc20-bnb.png" alt="" />
-              <span>100T-BNB</span>
-              <img class="down" src="../../assets//img/doubleDown.png" alt="" />
-            </div>
-            <div class="contentList">
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="list">
-          <div class="listContent">
-            <div class="listHeader">
-              <img class="icon" src="../../assets/img/tokenList/brc20-btcs.png" alt="" />
-              <span>100T-BTCS</span>
-              <img class="down" src="../../assets//img/doubleDown.png" alt="" />
-            </div>
-            <div class="contentList">
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-              <div class="contentL">
-                <div>
-                  <div>申请地址</div>
-                  <div>0x2131231312</div>
-                </div>
-                <div>
-                  <div>twitter地址</div>
-                  <div>twitter.com/home</div>
-                </div>
-                <div>
-                  <van-button>通过</van-button>
-                  <van-button>不通过</van-button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
+    <van-action-sheet class="model" v-model:show="model" title="审核认领项目">
+      <div class="content">
+        <div class="inputBox">
+          <div class="coinName">分配比例</div>
+          <div class="inputDiv"><input v-model="percent" type="text" /> %</div>
+        </div>
+        <van-button
+          :loading="withdrawLoading"
+          class="modelBtn"
+          size="small"
+          @click="bindProject(selectedItem.address, selectedItem.project_name)"
+          >审核通过</van-button
+        >
+      </div>
+    </van-action-sheet>
   </div>
 </template>
 <script>
@@ -318,6 +170,9 @@ export default {
       projectWaitAgreeList: [],
       bindProjectWaitList: [],
       timer: null,
+      model: false,
+      percent: "",
+      selectedItem: {},
     };
   },
   mounted() {
@@ -448,10 +303,22 @@ export default {
         .then((res) => {
           showToast("审核通过");
           this.getBindProjectWaitList();
+          this.model = false;
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    openModel(item) {
+      this.model = true;
+      this.selectedItem = item;
+    },
+    bindProject(address, project_name) {
+      let reg = /^[1-9]\d*$/;
+      if (!reg.test(this.percent) || this.percent * 1 > 100) {
+        return showToast("请输入正确的分配比例");
+      }
+      this.bindProjectAggree(address, project_name, true, this.percent * 100);
     },
   },
 };
@@ -623,5 +490,30 @@ button {
 }
 .mt-20 {
   margin-top: 20px;
+}
+.model {
+  padding: 30px 0;
+  .modelBtn {
+    margin-bottom: 20px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .inputBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    font-size: 14px;
+    .inputDiv {
+      margin-left: 40px;
+      input {
+        width: 100px;
+        border: 1px solid #999;
+        border-radius: 10px;
+        height: 30px;
+        padding: 5px 10px;
+      }
+    }
+  }
 }
 </style>

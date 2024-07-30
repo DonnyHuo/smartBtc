@@ -34,39 +34,14 @@
     </div>
 
     <div v-if="accountInfo.status === 1 && active === 0" class="listBoxs">
-      <div class="list">
+      <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
         <div>
-          <img class="icon" src="../../assets/img/btc.svg" alt="" />
-          <span>100T-BTC</span>
+          <img class="icon" src="../../assets/img/default.png" alt="" />
+          <span>{{ item.project_name }}</span>
         </div>
-        <van-button size="small" @click="bindProject('ccc')">去认领</van-button>
-      </div>
-      <div class="list">
-        <div>
-          <img class="icon" src="../../assets/img/tokenList/brc20-merm.png" alt="" />
-          <span>100T-MERM</span>
-        </div>
-        <router-link to="/kolDetail?name=100T-MERM&claim=0">
-          <van-button size="small">去认领</van-button>
-        </router-link>
-      </div>
-      <div class="list">
-        <div>
-          <img class="icon" src="../../assets/img/tokenList/brc20-bnb.png" alt="" />
-          <span>100T-BNB</span>
-        </div>
-        <router-link to="/kolDetail?name=100T-BNB&claim=2">
-          <van-button size="small">去认领</van-button>
-        </router-link>
-      </div>
-      <div class="list">
-        <div>
-          <img class="icon" src="../../assets/img/tokenList/brc20-btcs.png" alt="" />
-          <span>100T-BTCS</span>
-        </div>
-        <router-link to="/kolDetail?name=100T-BTCS&claim=3">
-          <van-button size="small">去认领</van-button>
-        </router-link>
+        <van-button size="small" @click="bindProject(item.project_name)"
+          >去认领</van-button
+        >
       </div>
     </div>
 
@@ -117,9 +92,18 @@
     </div>
 
     <div
+      class="listBoxs"
       v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status) && active === 0"
     >
-      <div class="hadProject">已认领项目 {{ accountInfo.project_name }}</div>
+      <div class="list">
+        <div>
+          <img class="icon" src="../../assets/img/default.png" alt="" />
+          <span>{{ accountInfo.project_name }}</span>
+        </div>
+        <van-button size="small" disabled>{{
+          accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
+        }}</van-button>
+      </div>
     </div>
 
     <div
@@ -167,16 +151,25 @@
             </div>
           </div>
         </div>
+        <div>
+          <span>结束时间</span>
+          <span>{{ formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm") }}</span>
+        </div>
         <div class="btnBox">
-          <van-button @click="vote(item.project_name)">发起投票</van-button>
+          <van-button :disabled="item.isVoted" @click="vote(item.project_name)"
+            >发起投票</van-button
+          >
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import { shortStr } from "@/utils";
 import { showToast } from "vant";
+import erc20ABI from "../../abi/erc20.json";
+import { ethers } from "ethers";
+import { formatDate, shortStr, getContract } from "@/utils";
 
 export default {
   name: "kol",
@@ -191,15 +184,22 @@ export default {
       accountInfo: "",
       projectVotingList: [],
       timer: null,
+      projectIssuedList: [],
+      repMinThreshold: "",
+      sBtcBalance: "",
     };
   },
   mounted() {
     this.getInfo();
     this.getVotingList();
+    this.getProjectIssuedList();
+    this.getMinThreshold();
+    this.getSBtcBalance();
     this.registerAddress = this.address;
     this.timer = setInterval(() => {
       this.getInfo();
       this.getVotingList();
+      this.getProjectIssuedList();
     }, 5000);
   },
   beforeUnmount() {
@@ -208,6 +208,7 @@ export default {
   },
   methods: {
     shortStr,
+    formatDate,
     changeTabs(number) {
       this.active = number;
     },
@@ -255,7 +256,7 @@ export default {
           project_name: project_name,
         })
         .then((res) => {
-          showToast();
+          showToast("认领成功");
         })
         .catch((err) => {
           showToast(err.message);
@@ -265,14 +266,27 @@ export default {
     getVotingList() {
       this.$axios
         .get("https://smartbtc.io/bridge/kol/project_voting_list")
-        .then((res) => {
-          this.projectVotingList = res.data.data;
+        .then(async (res) => {
+          const data = res.data.data;
+          for (let i = 0; i < data.length; i++) {
+            const isVoted = await this.isVoted(data[i].project_name);
+            data[i].voted = isVoted;
+          }
+          this.projectVotingList = data;
         })
         .catch((err) => {
           console.log(err);
         });
     },
     vote(project_name) {
+      console.log(
+        "this.sBtcBalance * 1 < this.repMinThreshold",
+        this.sBtcBalance * 1,
+        this.repMinThreshold
+      );
+      if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
+        return showToast("SBTC余额不足");
+      }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
@@ -289,6 +303,48 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    getProjectIssuedList() {
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/project_issued_list")
+        .then((res) => {
+          this.projectIssuedList = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async getSBtcBalance() {
+      const sBtcBalance = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.address
+      );
+      const sBtcDecimals = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "decimals"
+      );
+      this.sBtcBalance = ethers.utils.formatUnits(sBtcBalance, sBtcDecimals);
+    },
+    getMinThreshold() {
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/min_threshold")
+        .then((res) => {
+          this.repMinThreshold = res.data.data.RepMinThreshold;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async isVoted(project_name) {
+      const data = await this.$axios.post("https://smartbtc.io/bridge/kol/is_voted", {
+        kol_address: this.$store.state.address,
+        project_name,
+      });
+
+      return data.data.data;
     },
   },
 
