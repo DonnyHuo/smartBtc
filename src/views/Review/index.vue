@@ -245,7 +245,7 @@ export default {
     adminAgree(list, agree) {
       this.$axios
         .post("https://smartbtc.io/bridge/kol_admin/aggree", {
-          admin_address: "0x5665f159122980C683B385B91Ca03190d4DF96BE",
+          admin_address: this.$store.state.address,
           kol_address: list.address,
           aggree: agree,
         })
@@ -269,7 +269,7 @@ export default {
     projectAgree(list, agree) {
       this.$axios
         .post("https://smartbtc.io/bridge/kol_admin/project_aggree", {
-          admin_address: "0x5665f159122980C683B385B91Ca03190d4DF96BE",
+          admin_address: this.$store.state.address,
           project_name: list.project_name,
           aggree: agree,
         })
@@ -294,7 +294,7 @@ export default {
     bindProjectAggree(kol_address, project_name, aggree, percent) {
       this.$axios
         .post("https://smartbtc.io/bridge/kol_admin/bind_project_aggree", {
-          admin_address: "0x5665f159122980C683B385B91Ca03190d4DF96BE",
+          admin_address: this.$store.state.address,
           kol_address,
           project_name,
           aggree,
