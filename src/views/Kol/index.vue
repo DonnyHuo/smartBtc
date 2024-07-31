@@ -34,31 +34,113 @@
     </div>
 
     <div v-if="accountInfo.status === 1 && active === 0" class="listBoxs">
-      <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
-        <div>
-          <img class="icon" src="../../assets/img/default.png" alt="" />
-          <span>{{ item.project_name }}</span>
+      <div v-if="projectIssuedList.length">
+        <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
+          <div>
+            <img class="icon" src="../../assets/img/default.png" alt="" />
+            <span>{{ item.project_name }}</span>
+          </div>
+          <van-button size="small" @click="openModel(item)">去认领</van-button>
         </div>
-        <van-button size="small" @click="bindProject(item.project_name)"
-          >去认领</van-button
-        >
+      </div>
+
+      <div v-else class="noData">
+        <div>
+          <img src="../../assets/img/noData.png" />
+          <div>暂无数据</div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status) && active === 0"
+    >
+      <div class="hadPro">
+        <div class="hadProList">
+          <div>
+            <img class="icon" src="../../assets/img/default.png" alt="" />
+            <span>{{ accountInfo.project_name }}</span>
+          </div>
+          <van-button size="small" disabled>{{
+            accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
+          }}</van-button>
+        </div>
+        <div v-if="accountInfo.status > 2" class="reserve">
+          <div>当前收益：xxx {{ reserveInfo?.symbol }}</div>
+          <van-button size="small">领取收益</van-button>
+        </div>
       </div>
     </div>
 
-    <div v-if="false" class="kolContent">
-      <div class="name">
-        <div>
-          <img class="icon" src="../../assets/img/btc.svg" alt="" />
-          <span>BNB-100T</span>
+    <div
+      v-if="accountInfo && accountInfo.status !== 0 && active === 1"
+      class="votingListBox"
+    >
+      <div v-if="projectVotingList.length">
+        <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
+          <div>
+            <span>项目名称</span>
+            <span>{{ item.project_name }}</span>
+          </div>
+          <div>
+            <span>币种名称</span>
+            <span>{{ item.name }}</span>
+          </div>
+          <div>
+            <span>币种Symbol</span>
+            <span>{{ item.symbol }}</span>
+          </div>
+
+          <div>
+            <span>发行数量</span>
+            <span>{{ item.total_supply }}</span>
+          </div>
+          <div class="listBox">
+            <div class="title">发行比例</div>
+            <div class="listDiv">
+              <div class="listS">
+                <span>跨链</span>
+                <span>{{ item.cross_percent / 100 }}%</span>
+              </div>
+              <div class="listS">
+                <span>流动性发行</span>
+                <span>{{ item.le_percent / 100 }}%</span>
+              </div>
+            </div>
+            <div class="listDiv">
+              <div class="listS">
+                <span>启动池</span>
+                <span>{{ item.lm_percent / 100 }}%</span>
+              </div>
+              <div class="listS">
+                <span>社区空头</span>
+                <span>{{ item.kol_percent / 100 }}%</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span>结束时间</span>
+            <span>{{
+              formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
+            }}</span>
+          </div>
+          <div class="btnBox">
+            <van-button :disabled="item.isVoted" @click="vote(item.project_name)"
+              >发起投票</van-button
+            >
+          </div>
         </div>
-        <span v-if="claim === 0">未认领</span>
-        <span v-if="claim === 1">已认领</span>
-        <span v-if="claim === 2" class="orange">审核中...</span>
-        <span v-if="claim === 3" class="green">审核通过</span>
       </div>
-      <div class="content">
-        <div class="title">认领说明</div>
+      <div v-else class="noData">
         <div>
+          <img src="../../assets/img/noData.png" />
+          <div>暂无数据</div>
+        </div>
+      </div>
+    </div>
+
+    <van-action-sheet class="model" v-model:show="model" title="认领说明">
+      <div class="content">
+        <div class="contentDesc">
           <p>1.必须发推特满足xxxx必须发推特满足xxxx</p>
           <p>2.必须发推特满足xxxx必须发推特满足xxxx</p>
           <p>3.必须发推特满足xxxx必须发推特满足xxxx</p>
@@ -73,95 +155,15 @@
             7.必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx
           </p>
         </div>
+        <van-button
+          :loading="reserveLoading"
+          class="modelBtn"
+          size="small"
+          @click="bindProject(selectedItem.project_name)"
+          >已完成说明 去认领</van-button
+        >
       </div>
-      <div class="form">
-        <div class="list">
-          <span>收益地址</span>
-          <span>31212321321321321</span>
-        </div>
-        <div class="list">
-          <span>twitter地址</span>
-          <span>31212321321321321</span>
-        </div>
-      </div>
-      <div class="sure">
-        <van-button v-if="claim === 0">去认领</van-button>
-        <van-button v-if="claim === 1">已完成 去提交审核</van-button>
-        <van-button v-if="claim === 3">领取收益</van-button>
-      </div>
-    </div>
-
-    <div
-      class="listBoxs"
-      v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status) && active === 0"
-    >
-      <div class="list">
-        <div>
-          <img class="icon" src="../../assets/img/default.png" alt="" />
-          <span>{{ accountInfo.project_name }}</span>
-        </div>
-        <van-button size="small" disabled>{{
-          accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
-        }}</van-button>
-      </div>
-    </div>
-
-    <div
-      v-if="accountInfo && accountInfo.status !== 0 && active === 1"
-      class="votingListBox"
-    >
-      <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
-        <div>
-          <span>项目名称</span>
-          <span>{{ item.project_name }}</span>
-        </div>
-        <div>
-          <span>币种名称</span>
-          <span>{{ item.name }}</span>
-        </div>
-        <div>
-          <span>币种Symbol</span>
-          <span>{{ item.symbol }}</span>
-        </div>
-
-        <div>
-          <span>发行数量</span>
-          <span>{{ item.total_supply }}</span>
-        </div>
-        <div class="listBox">
-          <div class="title">发行比例</div>
-          <div class="listDiv">
-            <div class="listS">
-              <span>跨链</span>
-              <span>{{ item.cross_percent / 100 }}%</span>
-            </div>
-            <div class="listS">
-              <span>流动性发行</span>
-              <span>{{ item.le_percent / 100 }}%</span>
-            </div>
-          </div>
-          <div class="listDiv">
-            <div class="listS">
-              <span>启动池</span>
-              <span>{{ item.lm_percent / 100 }}%</span>
-            </div>
-            <div class="listS">
-              <span>社区空头</span>
-              <span>{{ item.kol_percent / 100 }}%</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <span>结束时间</span>
-          <span>{{ formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm") }}</span>
-        </div>
-        <div class="btnBox">
-          <van-button :disabled="item.isVoted" @click="vote(item.project_name)"
-            >发起投票</van-button
-          >
-        </div>
-      </div>
-    </div>
+    </van-action-sheet>
   </div>
 </template>
 
@@ -170,6 +172,7 @@ import { showToast } from "vant";
 import erc20ABI from "../../abi/erc20.json";
 import { ethers } from "ethers";
 import { formatDate, shortStr, getContract } from "@/utils";
+import { Select } from "ant-design-vue";
 
 export default {
   name: "kol",
@@ -187,6 +190,10 @@ export default {
       projectIssuedList: [],
       repMinThreshold: "",
       sBtcBalance: "",
+      reserveInfo: {},
+      model: false,
+      reserveLoading: false,
+      selectedItem: {},
     };
   },
   mounted() {
@@ -206,6 +213,7 @@ export default {
     clearInterval(this.timer);
     this.timer = null;
   },
+
   methods: {
     shortStr,
     formatDate,
@@ -257,6 +265,7 @@ export default {
         })
         .then((res) => {
           showToast("认领成功");
+          this.model = false;
         })
         .catch((err) => {
           showToast(err.message);
@@ -309,6 +318,11 @@ export default {
         .get("https://smartbtc.io/bridge/kol/project_issued_list")
         .then((res) => {
           this.projectIssuedList = res.data.data;
+
+          const reserveInfo = this.projectIssuedList.filter(
+            (list) => list.project_name == this.accountInfo.project_name
+          );
+          this.reserveInfo = reserveInfo[0];
         })
         .catch((err) => {
           console.log(err);
@@ -345,6 +359,10 @@ export default {
       });
 
       return data.data.data;
+    },
+    openModel(item) {
+      this.model = true;
+      this.selectedItem = item;
     },
   },
 
@@ -421,8 +439,13 @@ export default {
     }
   }
   button {
+    height: 30px;
+    border-radius: 5px;
+    background: #ffc519;
+    border: none;
+    color: #333;
+    font-weight: 600;
     font-size: 12px;
-    font-weight: 400;
   }
 }
 .kolRequest {
@@ -597,11 +620,74 @@ export default {
     }
   }
 }
-.hadProject {
+.hadPro {
+  font-size: 14px;
+  background-color: #fff;
+  margin: 0 5%;
+  border-radius: 10px;
+  padding: 20px;
+  .hadProList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .icon {
+      width: 30px;
+      margin-right: 10px;
+    }
+    button {
+      height: 30px;
+      border-radius: 5px;
+      background: #ffc519;
+      border: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 12px;
+    }
+  }
+  .reserve {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    button {
+      height: 30px;
+      border-radius: 5px;
+      background: #ffc519;
+      border: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 12px;
+    }
+  }
+}
+.noData {
   height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  color: #333;
+  img {
+    width: 70px;
+    margin-bottom: 20px;
+  }
+}
+.content {
+  font-size: 14px;
+  .contentDesc {
+    padding: 20px;
+    text-align: left;
+  }
+  button {
+    height: 36px;
+    line-height: 30px;
+    border-radius: 10px;
+    background: #ffc519;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
 }
 </style>
