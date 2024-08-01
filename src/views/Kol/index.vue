@@ -66,7 +66,11 @@
         </div>
         <div v-if="accountInfo.status > 2" class="reserve">
           <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
-          <van-button size="small" :loading="withdrawLoading" @click="withdraw()"
+          <van-button
+            size="small"
+            :loading="withdrawLoading"
+            @click="withdraw()"
+            :disabled="!(viewCanWithdrawValue * 1)"
             >领取收益</van-button
           >
         </div>
