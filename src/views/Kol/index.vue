@@ -173,7 +173,13 @@
 import { showToast } from "vant";
 import erc20ABI from "../../abi/erc20.json";
 import { ethers } from "ethers";
-import { formatDate, shortStr, getContract, getWriteContractLoad } from "@/utils";
+import {
+  formatDate,
+  shortStr,
+  getContract,
+  getWriteContract,
+  getWriteContractLoad,
+} from "@/utils";
 import kolAbi from "../../abi/kol.json";
 
 export default {
@@ -381,13 +387,12 @@ export default {
 
       this.tokenId = tokenId.toString();
 
-      const viewCanWithdrawValue = await getContract(
+      const viewCanWithdrawValue = await getWriteContract(
         "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
         kolAbi,
         "viewCanWithdrawValue",
-        this.tokenId
+        tokenId.toString()
       );
-      console.log("viewCanWithdrawValue", viewCanWithdrawValue);
       this.viewCanWithdrawValue = ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1;
     },
     async withdraw() {
