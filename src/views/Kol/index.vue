@@ -65,8 +65,10 @@
           }}</van-button>
         </div>
         <div v-if="accountInfo.status > 2" class="reserve">
-          <div>当前收益：xxx {{ reserveInfo?.symbol }}</div>
-          <van-button size="small">领取收益</van-button>
+          <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
+          <van-button size="small" :loading="withdrawLoading" @click="withdraw()"
+            >领取收益</van-button
+          >
         </div>
       </div>
     </div>
@@ -171,8 +173,8 @@
 import { showToast } from "vant";
 import erc20ABI from "../../abi/erc20.json";
 import { ethers } from "ethers";
-import { formatDate, shortStr, getContract } from "@/utils";
-import { Select } from "ant-design-vue";
+import { formatDate, shortStr, getContract, getWriteContractLoad } from "@/utils";
+import kolAbi from "../../abi/kol.json";
 
 export default {
   name: "kol",
@@ -194,6 +196,9 @@ export default {
       model: false,
       reserveLoading: false,
       selectedItem: {},
+      viewCanWithdrawValue: "",
+      tokenId: "",
+      withdrawLoading: false,
     };
   },
   mounted() {
@@ -201,7 +206,6 @@ export default {
     this.getVotingList();
     this.getProjectIssuedList();
     this.getMinThreshold();
-    this.getSBtcBalance();
     this.registerAddress = this.address;
     this.timer = setInterval(() => {
       this.getInfo();
@@ -277,6 +281,9 @@ export default {
         .get("https://smartbtc.io/bridge/kol/project_voting_list")
         .then(async (res) => {
           const data = res.data.data;
+          if (data.length > 0) {
+            this.getSBtcBalance();
+          }
           for (let i = 0; i < data.length; i++) {
             const isVoted = await this.isVoted(data[i].project_name);
             data[i].voted = isVoted;
@@ -364,11 +371,50 @@ export default {
       this.model = true;
       this.selectedItem = item;
     },
+    async getWithdraw() {
+      const tokenId = await getContract(
+        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        kolAbi,
+        "getTokenRatiosIndexByProjectName",
+        this.accountInfo.project_name
+      );
+
+      this.tokenId = tokenId.toString();
+
+      const viewCanWithdrawValue = await getContract(
+        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        kolAbi,
+        "viewCanWithdrawValue",
+        this.tokenId
+      );
+      console.log("viewCanWithdrawValue", viewCanWithdrawValue);
+      this.viewCanWithdrawValue = viewCanWithdrawValue;
+    },
+    async withdraw() {
+      this.withdrawLoading = true;
+      await getWriteContractLoad(
+        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        kolAbi,
+        "withdrawKolAirdrop",
+        this.tokenId
+      )
+        .then((res) => {
+          this.withdrawLoading = false;
+          showToast("领取成功");
+        })
+        .catch((err) => {
+          this.withdrawLoading = false;
+          console.log(err);
+        });
+    },
   },
 
   watch: {
     address() {
       this.getInfo();
+    },
+    reserveInfo(value) {
+      value && this.getWithdraw();
     },
   },
 };
