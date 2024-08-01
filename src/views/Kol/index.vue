@@ -393,7 +393,9 @@ export default {
         "viewCanWithdrawValue",
         tokenId.toString()
       );
-      this.viewCanWithdrawValue = ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1;
+      this.viewCanWithdrawValue = (
+        ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
+      ).toFixed(4);
     },
     async withdraw() {
       this.withdrawLoading = true;
