@@ -388,7 +388,7 @@ export default {
         this.tokenId
       );
       console.log("viewCanWithdrawValue", viewCanWithdrawValue);
-      this.viewCanWithdrawValue = viewCanWithdrawValue;
+      this.viewCanWithdrawValue = ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1;
     },
     async withdraw() {
       this.withdrawLoading = true;
