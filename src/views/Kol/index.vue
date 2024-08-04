@@ -470,7 +470,7 @@ export default {
 .hadPro {
   font-size: 14px;
   background-color: #fff;
-  margin: 0 5%;
+  margin: 20px 5%;
   border-radius: 10px;
   padding: 20px;
   .hadProList {
