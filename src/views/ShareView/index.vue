@@ -55,7 +55,7 @@
           <router-link to="/kol">KOL申请</router-link>
         </div>
         <div class="friend-btn">
-          <router-link to="/voting">投票</router-link>
+          <router-link to="/voting">项目发行投票</router-link>
         </div>
       </div>
     </div>
