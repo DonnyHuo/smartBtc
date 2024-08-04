@@ -6,11 +6,11 @@
         >新增项目</router-link
       >
     </div>
-    <div v-if="accountInfo && accountInfo.status !== 0" class="tabs">
+    <div class="tabs">
       <div :class="active === 0 && 'active'" @click="changeTabs(0)">认领</div>
       <div :class="active === 1 && 'active'" @click="changeTabs(1)">投票</div>
     </div>
-    <div v-if="!accountInfo" class="kolRequest">
+    <div v-if="!accountInfo && active === 0" class="kolRequest">
       <div>
         <span>收益地址</span>
         <input type="text" v-model="registerAddress" />
@@ -77,10 +77,7 @@
       </div>
     </div>
 
-    <div
-      v-if="accountInfo && accountInfo.status !== 0 && active === 1"
-      class="votingListBox"
-    >
+    <div v-if="active === 1" class="votingListBox">
       <div v-if="projectVotingList.length">
         <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
           <div>

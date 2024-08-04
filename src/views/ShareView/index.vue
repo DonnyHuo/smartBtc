@@ -50,6 +50,9 @@
         <div @click="shareBox" class="invite-btn">分享好友</div>
         <div class="friend-btn"><router-link to="partner">我的好友</router-link></div>
       </div>
+      <div class="kol-btn">
+        <router-link to="kol"> KOL申请 </router-link>
+      </div>
     </div>
     <van-overlay :show="show" @click="show = false">
       <div class="overlayBox">
@@ -313,7 +316,7 @@ export default {
   }
   .btn-group {
     width: 90%;
-    margin: 30px auto 100px auto;
+    margin: 30px auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -338,6 +341,19 @@ export default {
       color: #fff;
     }
   }
+  .kol-btn {
+    width: 90%;
+    margin: 30px auto;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ffc519;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2a2b33;
+  }
+
   .overlayBox {
     position: absolute;
     left: 50%;
