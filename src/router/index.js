@@ -101,6 +101,13 @@ const routes = [
     name: 'review',
     component: () => import(/* webpackChunkName: "about" */ '../views/Review/index.vue')
   },
+  {
+    path: '/voting',
+    name: 'voting',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Voting/index.vue')
+  },
+
+  
   
 ]
 

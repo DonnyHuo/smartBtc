@@ -6,11 +6,7 @@
         >新增项目</router-link
       >
     </div>
-    <div class="tabs">
-      <div :class="active === 0 && 'active'" @click="changeTabs(0)">认领</div>
-      <div :class="active === 1 && 'active'" @click="changeTabs(1)">投票</div>
-    </div>
-    <div v-if="!accountInfo && active === 0" class="kolRequest">
+    <div v-if="!accountInfo" class="kolRequest">
       <div>
         <span>收益地址</span>
         <input type="text" v-model="registerAddress" />
@@ -33,7 +29,7 @@
       <van-button disabled>KOL审核中...</van-button>
     </div>
 
-    <div v-if="accountInfo.status === 1 && active === 0" class="listBoxs">
+    <div v-if="accountInfo.status === 1" class="listBoxs">
       <div v-if="projectIssuedList.length">
         <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
           <div>
@@ -51,9 +47,7 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status) && active === 0"
-    >
+    <div v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status)">
       <div class="hadPro">
         <div class="hadProList">
           <div>
@@ -73,70 +67,6 @@
             :disabled="!(viewCanWithdrawValue * 1)"
             >领取收益</van-button
           >
-        </div>
-      </div>
-    </div>
-
-    <div v-if="active === 1" class="votingListBox">
-      <div v-if="projectVotingList.length">
-        <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
-          <div>
-            <span>项目名称</span>
-            <span>{{ item.project_name }}</span>
-          </div>
-          <div>
-            <span>币种名称</span>
-            <span>{{ item.name }}</span>
-          </div>
-          <div>
-            <span>币种Symbol</span>
-            <span>{{ item.symbol }}</span>
-          </div>
-
-          <div>
-            <span>发行数量</span>
-            <span>{{ item.total_supply }}</span>
-          </div>
-          <div class="listBox">
-            <div class="title">发行比例</div>
-            <div class="listDiv">
-              <div class="listS">
-                <span>跨链</span>
-                <span>{{ item.cross_percent / 100 }}%</span>
-              </div>
-              <div class="listS">
-                <span>流动性发行</span>
-                <span>{{ item.le_percent / 100 }}%</span>
-              </div>
-            </div>
-            <div class="listDiv">
-              <div class="listS">
-                <span>启动池</span>
-                <span>{{ item.lm_percent / 100 }}%</span>
-              </div>
-              <div class="listS">
-                <span>社区空头</span>
-                <span>{{ item.kol_percent / 100 }}%</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <span>结束时间</span>
-            <span>{{
-              formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
-            }}</span>
-          </div>
-          <div class="btnBox">
-            <van-button :disabled="item.isVoted" @click="vote(item.project_name)"
-              >发起投票</van-button
-            >
-          </div>
-        </div>
-      </div>
-      <div v-else class="noData">
-        <div>
-          <img src="../../assets/img/noData.png" />
-          <div>暂无数据</div>
         </div>
       </div>
     </div>
@@ -187,7 +117,6 @@ export default {
   name: "kol",
   data() {
     return {
-      active: 0,
       kol: 2,
       claim: 3,
       address: this.$store.state.address,
@@ -197,8 +126,6 @@ export default {
       projectVotingList: [],
       timer: null,
       projectIssuedList: [],
-      repMinThreshold: "",
-      sBtcBalance: "",
       reserveInfo: {},
       model: false,
       reserveLoading: false,
@@ -210,13 +137,10 @@ export default {
   },
   mounted() {
     this.getInfo();
-    this.getVotingList();
     this.getProjectIssuedList();
-    this.getMinThreshold();
     this.registerAddress = this.address;
     this.timer = setInterval(() => {
       this.getInfo();
-      this.getVotingList();
       this.getProjectIssuedList();
     }, 5000);
   },
@@ -228,9 +152,6 @@ export default {
   methods: {
     shortStr,
     formatDate,
-    changeTabs(number) {
-      this.active = number;
-    },
     /**
      * 0: 认证未审核,
      * 1: 认证通过，未认领项目
@@ -283,50 +204,6 @@ export default {
           console.log(err);
         });
     },
-    getVotingList() {
-      this.$axios
-        .get("https://smartbtc.io/bridge/kol/project_voting_list")
-        .then(async (res) => {
-          const data = res.data.data;
-          if (data.length > 0) {
-            this.getSBtcBalance();
-          }
-          for (let i = 0; i < data.length; i++) {
-            const isVoted = await this.isVoted(data[i].project_name);
-            data[i].voted = isVoted;
-          }
-          this.projectVotingList = data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    vote(project_name) {
-      console.log(
-        "this.sBtcBalance * 1 < this.repMinThreshold",
-        this.sBtcBalance * 1,
-        this.repMinThreshold
-      );
-      if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("SBTC余额不足");
-      }
-      this.$axios
-        .post("https://smartbtc.io/bridge/kol/vote", {
-          address: this.$store.state.address,
-          project_name,
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.message === "success") {
-            showToast("投票成功");
-          } else {
-            showToast(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     getProjectIssuedList() {
       this.$axios
         .get("https://smartbtc.io/bridge/kol/project_issued_list")
@@ -342,38 +219,7 @@ export default {
           console.log(err);
         });
     },
-    async getSBtcBalance() {
-      const sBtcBalance = await getContract(
-        this.$store.state.sBtc,
-        erc20ABI,
-        "balanceOf",
-        this.$store.state.address
-      );
-      const sBtcDecimals = await getContract(
-        this.$store.state.sBtc,
-        erc20ABI,
-        "decimals"
-      );
-      this.sBtcBalance = ethers.utils.formatUnits(sBtcBalance, sBtcDecimals);
-    },
-    getMinThreshold() {
-      this.$axios
-        .get("https://smartbtc.io/bridge/kol/min_threshold")
-        .then((res) => {
-          this.repMinThreshold = res.data.data.RepMinThreshold;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    async isVoted(project_name) {
-      const data = await this.$axios.post("https://smartbtc.io/bridge/kol/is_voted", {
-        kol_address: this.$store.state.address,
-        project_name,
-      });
 
-      return data.data.data;
-    },
     openModel(item) {
       this.model = true;
       this.selectedItem = item;
@@ -619,59 +465,6 @@ export default {
   }
   .green {
     color: green;
-  }
-}
-.votingList {
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 5%;
-  padding: 20px;
-  font-size: 14px;
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  .listBox {
-    display: block;
-    .title {
-      margin-top: 20px;
-    }
-    .listDiv {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      .listS {
-        width: 50%;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 10px;
-        padding: 0 20px;
-        color: #666;
-      }
-    }
-    .title {
-      text-align: left;
-      color: #111;
-    }
-  }
-  .btnBox {
-    margin-top: 30px;
-    margin-bottom: 0;
-    justify-content: center;
-    button {
-      width: 50%;
-      height: 40px;
-      border-radius: 10px;
-      background: #ffc519;
-      border: none;
-      color: #333;
-      font-weight: 600;
-      font-size: 12px;
-    }
   }
 }
 .hadPro {

@@ -50,8 +50,13 @@
         <div @click="shareBox" class="invite-btn">分享好友</div>
         <div class="friend-btn"><router-link to="partner">我的好友</router-link></div>
       </div>
-      <div class="kol-btn">
-        <router-link to="kol"> KOL申请 </router-link>
+      <div class="btn-group">
+        <div class="invite-btn">
+          <router-link to="/kol">KOL申请</router-link>
+        </div>
+        <div class="friend-btn">
+          <router-link to="/voting">投票</router-link>
+        </div>
       </div>
     </div>
     <van-overlay :show="show" @click="show = false">
@@ -340,18 +345,6 @@ export default {
       background: #16172a;
       color: #fff;
     }
-  }
-  .kol-btn {
-    width: 90%;
-    margin: 30px auto;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #ffc519;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #2a2b33;
   }
 
   .overlayBox {
