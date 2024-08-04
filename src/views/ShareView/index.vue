@@ -50,7 +50,7 @@
         <div @click="shareBox" class="invite-btn">分享好友</div>
         <div class="friend-btn"><router-link to="partner">我的好友</router-link></div>
       </div>
-      <div class="btn-group">
+      <div class="btn-group mb-30">
         <div class="invite-btn">
           <router-link to="/kol">KOL申请</router-link>
         </div>
@@ -439,5 +439,8 @@ export default {
       }
     }
   }
+}
+.mb-30 {
+  margin-bottom: 100px;
 }
 </style>
