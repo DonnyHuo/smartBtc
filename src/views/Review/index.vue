@@ -2,8 +2,9 @@
   <div class="kolContent">
     <div class="header">
       <div :class="active === 0 && 'active'" @click="changeTabs(0)">审核KOL</div>
-      <div :class="active === 1 && 'active'" @click="changeTabs(1)">审核新增项目</div>
-      <div :class="active === 2 && 'active'" @click="changeTabs(2)">审核认领项目</div>
+      <div :class="active === 1 && 'active'" @click="changeTabs(1)">审核新增</div>
+      <div :class="active === 2 && 'active'" @click="changeTabs(2)">审核认领</div>
+      <div :class="active === 3 && 'active'" @click="changeTabs(3)">迁移</div>
     </div>
     <div v-if="active === 0">
       <div v-if="kolWaitAgreeList.length">
@@ -140,6 +141,82 @@
         </div>
       </div>
     </div>
+    <div v-if="active === 3">
+      <div class="form migrateBox">
+        <div class="list" :key="index">
+          <span>项目名称</span>
+          <div class="inputDiv">
+            <input v-model="migrate_token.project_name" type="text" />
+          </div>
+        </div>
+        <div class="list">
+          <span>合约地址</span>
+          <div class="inputDiv">
+            <input v-model="migrate_token.contract_addr" type="text" />
+          </div>
+        </div>
+        <div class="list">
+          <span>币种名称</span>
+          <div class="inputDiv">
+            <input v-model="migrate_token.token_name" type="text" />
+          </div>
+        </div>
+        <div class="list">
+          <span>币种Symbol</span>
+          <div class="inputDiv">
+            <input v-model="migrate_token.token_symbol" type="text" />
+          </div>
+        </div>
+        <div class="list">
+          <span>总供应量</span>
+          <div class="inputDiv">
+            <input v-model="migrate_token.total_supply" type="text" />
+          </div>
+        </div>
+        <div class="lastList">
+          <p>分配比例</p>
+          <div class="listBox">
+            <div class="inputDiv">
+              <span>跨链 </span>
+              <input
+                v-model="migrate_token.percents[0]"
+                style="width: 100px"
+                type="text"
+              />
+            </div>
+            <div class="inputDiv">
+              <span>流动性发行 </span>
+              <input
+                v-model="migrate_token.percents[1]"
+                style="width: 100px"
+                type="text"
+              />
+            </div>
+            <div class="inputDiv">
+              <span>启动池 </span>
+              <input
+                v-model="migrate_token.percents[2]"
+                style="width: 100px"
+                type="text"
+              />
+            </div>
+            <div class="inputDiv">
+              <span>社区空投 </span>
+              <input
+                v-model="migrate_token.percents[3]"
+                style="width: 100px"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="migrateBtn">
+          <van-button @click="migrateToken" :loading="migrateTokenLoading"
+            >迁移Token</van-button
+          >
+        </div>
+      </div>
+    </div>
     <van-action-sheet class="model" v-model:show="model" title="审核认领项目">
       <div class="content">
         <div class="inputBox">
@@ -165,7 +242,7 @@ export default {
   name: "review",
   data() {
     return {
-      active: 0,
+      active: 3,
       kolWaitAgreeList: [],
       projectWaitAgreeList: [],
       bindProjectWaitList: [],
@@ -173,6 +250,15 @@ export default {
       model: false,
       percent: "",
       selectedItem: {},
+      migrate_token: {
+        project_name: "",
+        contract_addr: "",
+        token_name: "",
+        token_symbol: "",
+        total_supply: "",
+        percents: ["", "", "", ""],
+      },
+      migrateTokenLoading: false,
     };
   },
   mounted() {
@@ -319,6 +405,41 @@ export default {
         return showToast("请输入正确的分配比例");
       }
       this.bindProjectAggree(address, project_name, true, this.percent * 100);
+    },
+    migrateToken() {
+      for (var key in this.migrate_token) {
+        if (!this.migrate_token[key]) {
+          return showToast("请将必填项补充完整");
+        }
+        if (Array.isArray(this.migrate_token[key])) {
+          const isOk = this.migrate_token[key].every((value) => {
+            return value == "" || value * 1 == 0 ? false : true;
+          });
+          if (!isOk) {
+            return showToast("请将必填项补充完整");
+          }
+        }
+      }
+      this.migrateTokenLoading = true;
+      const newPercents = this.migrate_token.percents.map((list) => {
+        return (list * this.migrate_token.total_supply) / 10000;
+      });
+      const migrate_token = {
+        ...this.migrate_token,
+        percents: newPercents,
+      };
+      console.log("migrate_token", migrate_token);
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol_admin/migrate_token", migrate_token)
+        .then((res) => {
+          showToast("迁移成功");
+          this.migrateTokenLoading = false;
+        })
+        .catch((err) => {
+          this.migrateTokenLoading = false;
+          showToast(err.message);
+          console.log(err);
+        });
     },
   },
 };
@@ -512,6 +633,37 @@ button {
         border-radius: 10px;
         height: 30px;
         padding: 5px 10px;
+      }
+    }
+  }
+}
+.migrateBox {
+  .inputDiv {
+    input {
+      width: 200px;
+      border: 1px solid #999;
+      border-radius: 10px;
+      height: 30px;
+      padding: 5px 10px;
+    }
+  }
+  .migrateBtn {
+    margin-top: 40px;
+  }
+  .lastList {
+    padding: 20px;
+    text-align: left;
+    .listBox {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0;
+      .inputDiv {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #666;
+        font-weight: 400;
       }
     }
   }
