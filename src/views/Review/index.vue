@@ -645,6 +645,7 @@ button {
       border-radius: 10px;
       height: 30px;
       padding: 5px 10px;
+      font-size: 14px;
     }
   }
   .migrateBtn {
