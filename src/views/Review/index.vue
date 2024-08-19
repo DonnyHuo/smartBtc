@@ -242,7 +242,7 @@ export default {
   name: "review",
   data() {
     return {
-      active: 3,
+      active: 0,
       kolWaitAgreeList: [],
       projectWaitAgreeList: [],
       bindProjectWaitList: [],
