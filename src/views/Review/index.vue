@@ -422,7 +422,7 @@ export default {
       }
       this.migrateTokenLoading = true;
       const newPercents = this.migrate_token.percents.map((list) => {
-        return (list * this.migrate_token.total_supply) / 10000;
+        return list * 100;
       });
       const migrate_token = {
         ...this.migrate_token,
