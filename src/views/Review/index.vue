@@ -654,6 +654,9 @@ button {
   .lastList {
     padding: 20px;
     text-align: left;
+    > p {
+      margin-bottom: 20px;
+    }
     .listBox {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
