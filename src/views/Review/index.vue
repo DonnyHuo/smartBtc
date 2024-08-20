@@ -436,7 +436,7 @@ export default {
 
         this.sendToken(
           migrate_token.contract_addr,
-          "0xe369AEc574D5408604DAA3d12E95d5624fAE9112",
+          "0x50333FcC802BBEac62F196aB8C7Fc5125d10C382",
           migrate_token
         );
       } else {
