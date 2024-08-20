@@ -235,8 +235,10 @@
   </div>
 </template>
 <script>
-import { shortStr, formatDate } from "@/utils";
+import { shortStr, formatDate, getWriteContractLoad, getContract } from "@/utils";
 import { showToast } from "vant";
+import erc20Abi from "../../abi/erc20.json";
+import { ethers } from "ethers";
 
 export default {
   name: "review",
@@ -420,7 +422,6 @@ export default {
           }
         }
       }
-      this.migrateTokenLoading = true;
       const newPercents = this.migrate_token.percents.map((list) => {
         return list * 100;
       });
@@ -429,15 +430,55 @@ export default {
         percents: newPercents,
       };
       console.log("migrate_token", migrate_token);
-      this.$axios
-        .post("https://smartbtc.io/bridge/kol_admin/migrate_token", migrate_token)
+
+      if (ethers.utils.isAddress(migrate_token.contract_addr)) {
+        this.migrateTokenLoading = true;
+
+        this.sendToken(
+          migrate_token.contract_addr,
+          "0xe369AEc574D5408604DAA3d12E95d5624fAE9112",
+          migrate_token
+        );
+      } else {
+        return showToast("请填写正确的token地址");
+      }
+    },
+
+    async sendToken(tokenAddress, toAddress, migrate_token) {
+      const decimals = await getContract(tokenAddress, erc20Abi, "decimals");
+      const overrides = {
+        gasLimit: 100000,
+        gasPrice: ethers.utils.parseUnits("5", "gwei"),
+      };
+      getWriteContractLoad(
+        tokenAddress,
+        erc20Abi,
+        "transfer",
+        toAddress,
+        ethers.utils.parseUnits(
+          (
+            (this.migrate_token.total_supply * this.migrate_token.percents[3]) /
+            10000
+          ).toString(),
+          decimals
+        ),
+        overrides
+      )
         .then((res) => {
-          showToast("迁移成功");
-          this.migrateTokenLoading = false;
+          this.$axios
+            .post("https://smartbtc.io/bridge/kol_admin/migrate_token", migrate_token)
+            .then((res) => {
+              showToast("迁移成功");
+              this.migrateTokenLoading = false;
+            })
+            .catch((err) => {
+              this.migrateTokenLoading = false;
+              showToast(err.message);
+              console.log(err);
+            });
         })
         .catch((err) => {
           this.migrateTokenLoading = false;
-          showToast(err.message);
           console.log(err);
         });
     },
