@@ -1,7 +1,7 @@
 <template>
   <div class="lpSwap">
     <div class="headerBox">
-      <span class="title">提供流动性兑换发行资产</span>
+      <span class="title">提供流动性发行资产</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -46,7 +46,7 @@
     </div>
 
     <div class="line">
-      <div class="lineTitle title">流动性发行进度</div>
+      <div class="lineTitle title">流动性发行兑换进度</div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
     <div v-if="selectPair.length > 0" class="lpList">
@@ -257,7 +257,7 @@ export default {
           "启动池部署",
         ];
       } else {
-        this.chartConfig.data.labels = ["跨链", "流动性发行", "启动池", "社区空投"];
+        this.chartConfig.data.labels = ["跨链", "流动性兑换发行", "启动池", "社区空投"];
       }
       this.chartPie.update();
       const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");

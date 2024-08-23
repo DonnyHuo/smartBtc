@@ -50,14 +50,6 @@
         <div @click="shareBox" class="invite-btn">分享好友</div>
         <div class="friend-btn"><router-link to="partner">我的好友</router-link></div>
       </div>
-      <div class="btn-group pb-30">
-        <div class="invite-btn">
-          <router-link to="/kol">KOL申请</router-link>
-        </div>
-        <div class="friend-btn">
-          <router-link to="/voting">项目发行投票</router-link>
-        </div>
-      </div>
     </div>
     <van-overlay :show="show" @click="show = false">
       <div class="overlayBox">

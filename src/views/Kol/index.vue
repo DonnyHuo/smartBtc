@@ -240,9 +240,33 @@ export default {
         "viewCanWithdrawValue",
         tokenId.toString()
       );
+
       this.viewCanWithdrawValue = (
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
       ).toFixed(4);
+
+      // const crossProgress = await getWriteContract(
+      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+      //   kolAbi,
+      //   "getCrossProgress",
+      //   tokenId.toString()
+      // );
+
+      // const lpExProgress = await getWriteContract(
+      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+      //   kolAbi,
+      //   "getLpExProgress",
+      //   tokenId.toString()
+      // );
+
+      // const kolProgress = await getWriteContract(
+      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+      //   kolAbi,
+      //   "getKolProgress",
+      //   tokenId.toString()
+      // );
+
+      // console.log(crossProgress, lpExProgress, kolProgress);
     },
     async withdraw() {
       this.withdrawLoading = true;

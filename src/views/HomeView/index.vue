@@ -13,76 +13,7 @@
         />
       </div>
     </div>
-    <!-- <div class="wallet">
-      <div class="addressAndBalance">
-        <span>100T 合约地址</span>
-        <div class="tokenAddress">
-          <a :href="link">{{ shortStr($store.state.t100) }}</a>
-          <img
-            @click="copyAddress($store.state.t100)"
-            src="../../assets/img/copy.png"
-            alt=""
-            class="copyAddress"
-          />
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="headerInfo headerInfo1">
-      <div class="power">
-        <div>
-          <div><span>SBTC余额</span></div>
-          <div class="data-num">{{ sBtcBalance }}</div>
-          <a
-            :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
-          >
-            <van-button>SWAP</van-button>
-          </a>
-        </div>
-        <div>
-          <div><span>100T余额</span></div>
-          <div class="data-num">{{ balance }}</div>
-          <a
-            :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.t100}`"
-          >
-            <van-button>SWAP</van-button>
-          </a>
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="headerInfo">
-      <div class="titleBox">
-        <div class="title">BRC852新资产发行协议</div>
-        <div class="nav_title">
-          赋予锚定的BRC20资产不可撤销的流动性和丰富的DeFi应用让比特币铭文焕发新生命.....
-        </div>
-      </div>
-      <div class="powerLists">
-        <div>
-          <span>锚定主流BRC20资产<br />从BTC到BSC跨链发行BRC852</span>
-          <router-link to="btcSwap" class="">
-            <van-button>去跨链</van-button>
-          </router-link>
-        </div>
-        <div>
-          <span>流动池LP质押发行<br />提供流动性以获取BRC852新资产</span>
-          <router-link to="lpSwap">
-            <van-button>去兑换</van-button>
-          </router-link>
-        </div>
-        <div class="apy">
-          <span>依托BRC852 - 100T启动池<br />经部署即刻拥有流动性</span>
-          <router-link to="lp">
-            <van-button>去挖矿</van-button>
-          </router-link>
-        </div>
-        <div class="apy">
-          <span>向BRC20社区Builders<br />(Twitter、Telegram)空投BRC852</span>
-          <a href="https://twitter.com/SmartBTCdao" target="_blank">
-            <van-button>推特申报</van-button>
-          </a>
-        </div>
-      </div>
-    </div> -->
+
     <div class="homeTop">
       <div class="homeTopTitle">
         <p>BRC20 Launchpad</p>
@@ -91,7 +22,14 @@
       </div>
       <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
     </div>
-
+    <div class="btn-group">
+      <div class="invite-btn">
+        <router-link to="/kol">KOL申请</router-link>
+      </div>
+      <div class="friend-btn">
+        <router-link to="/voting">项目发行投票</router-link>
+      </div>
+    </div>
     <div class="contant">
       <div class="title">
         <div>技术路线图</div>
@@ -427,7 +365,7 @@ export default {
   }
 }
 .homeTop {
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   background-image: url("../../assets/img/homeBg2.png");
   background-repeat: no-repeat;
   background-size: 100%;
@@ -573,6 +511,14 @@ export default {
     font-size: 12px;
     color: #333;
     padding-top: 10px;
+  }
+}
+.btn-group {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  a {
+    text-decoration: underline;
+    color: #2c3e50;
   }
 }
 </style>
