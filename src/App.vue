@@ -167,13 +167,15 @@ export default {
       } else if (window.location.hash == "#/btcSwap") {
         console.log("btcSwap");
         this.netWorkError = false;
-      } else if (window.location.hash == "#/kol") {
-        this.netWorkError = false;
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x89" }], // chainId must be in hexadecimal numbers
-        });
-      } else {
+      }
+      //  else if (window.location.hash == "#/kol") {
+      //   this.netWorkError = false;
+      //   await window.ethereum.request({
+      //     method: "wallet_switchEthereumChain",
+      //     params: [{ chainId: "0x89" }], // chainId must be in hexadecimal numbers
+      //   });
+      // }
+      else {
         if (chainId !== "0x38") {
           this.netWorkError = true;
           return this.getChainId(

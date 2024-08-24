@@ -59,14 +59,28 @@
           }}</van-button>
         </div>
         <div v-if="accountInfo.status > 2" class="reserve">
-          <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
-          <van-button
-            size="small"
-            :loading="withdrawLoading"
-            @click="withdraw()"
-            :disabled="!(viewCanWithdrawValue * 1)"
-            >领取收益</van-button
-          >
+          <div>
+            <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
+            <van-button
+              size="small"
+              :loading="withdrawLoading"
+              @click="withdraw()"
+              :disabled="!(viewCanWithdrawValue * 1)"
+              >领取收益</van-button
+            >
+          </div>
+          <div>
+            <div>跨链进度</div>
+            <div>{{ crossProgressValue }} %</div>
+          </div>
+          <div>
+            <div>lp兑换发行进度</div>
+            <div>{{ lpExProgressValue }} %</div>
+          </div>
+          <div>
+            <div>kol奖励发行比例</div>
+            <div>{{ kolProgressValue }} %</div>
+          </div>
         </div>
       </div>
     </div>
@@ -133,6 +147,9 @@ export default {
       viewCanWithdrawValue: "",
       tokenId: "",
       withdrawLoading: false,
+      crossProgressValue: "",
+      lpExProgressValue: "",
+      kolProgressValue: "",
     };
   },
   mounted() {
@@ -226,7 +243,7 @@ export default {
     },
     async getWithdraw() {
       const tokenId = await getContract(
-        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        this.$store.state.kolAddress,
         kolAbi,
         "getTokenRatiosIndexByProjectName",
         this.accountInfo.project_name
@@ -235,7 +252,7 @@ export default {
       this.tokenId = tokenId.toString();
 
       const viewCanWithdrawValue = await getWriteContract(
-        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        this.$store.state.kolAddress,
         kolAbi,
         "viewCanWithdrawValue",
         tokenId.toString()
@@ -245,28 +262,30 @@ export default {
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
       ).toFixed(4);
 
-      // const crossProgress = await getWriteContract(
-      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
-      //   kolAbi,
-      //   "getCrossProgress",
-      //   tokenId.toString()
-      // );
+      const crossProgress = await getWriteContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getCrossProgress",
+        tokenId.toString()
+      );
 
-      // const lpExProgress = await getWriteContract(
-      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
-      //   kolAbi,
-      //   "getLpExProgress",
-      //   tokenId.toString()
-      // );
+      const lpExProgress = await getWriteContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getLpExProgress",
+        tokenId.toString()
+      );
 
-      // const kolProgress = await getWriteContract(
-      //   "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
-      //   kolAbi,
-      //   "getKolProgress",
-      //   tokenId.toString()
-      // );
+      const kolProgress = await getWriteContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getKolProgress",
+        tokenId.toString()
+      );
 
-      // console.log(crossProgress, lpExProgress, kolProgress);
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(4);
+      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
+      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
     },
     async withdraw() {
       this.withdrawLoading = true;
