@@ -193,6 +193,12 @@ export default {
         });
     },
     register() {
+      if (!ethers.utils.isAddress(this.registerAddress)) {
+        return showToast("请填写正确的钱包地址");
+      }
+      if (this.xAddress == "") {
+        return showToast("请填写正确的X地址");
+      }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/register", {
           address: this.registerAddress,
