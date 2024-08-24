@@ -29,6 +29,9 @@
       <div class="friend-btn">
         <router-link to="/voting">项目发行投票</router-link>
       </div>
+      <div v-if="adminShow" class="friend-btn">
+        <router-link to="/review">审核</router-link>
+      </div>
     </div>
     <div class="contant">
       <div class="title">
@@ -136,6 +139,13 @@ export default {
       apy: "--",
       link: `https://bscscan.com/address/${this.$store.state.address}`,
     };
+  },
+  computed: {
+    adminShow() {
+      return this.$store.state.adminAddress.includes(
+        this.$store.state.address.toLowerCase()
+      );
+    },
   },
   async created() {
     if (this.$store.state.address && (await getOkChainId())) {
@@ -515,7 +525,7 @@ export default {
 }
 .btn-group {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   a {
     text-decoration: underline;
     color: #2c3e50;

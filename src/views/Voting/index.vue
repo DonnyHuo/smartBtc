@@ -67,7 +67,7 @@
 </template>
 <script>
 import erc20ABI from "../../abi/erc20.json";
-import { getContract } from "@/utils";
+import { getContract, formatDate } from "@/utils";
 import { ethers } from "ethers";
 
 export default {
@@ -84,6 +84,7 @@ export default {
     this.getMinThreshold();
   },
   methods: {
+    formatDate,
     async getSBtcBalance() {
       const sBtcBalance = await getContract(
         this.$store.state.sBtc,
@@ -170,12 +171,12 @@ export default {
   border-radius: 10px;
   margin: 5%;
   padding: 20px;
-  font-size: 14px;
+  font-size: 12px;
   > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   .listBox {
     display: block;

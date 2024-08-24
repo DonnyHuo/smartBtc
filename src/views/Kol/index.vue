@@ -268,21 +268,22 @@ export default {
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
       ).toFixed(4);
 
-      const crossProgress = await getWriteContract(
+      const crossProgress = await getContract(
         this.$store.state.kolAddress,
         kolAbi,
         "getCrossProgress",
         tokenId.toString()
       );
+      console.log("crossProgress1111", crossProgress);
 
-      const lpExProgress = await getWriteContract(
+      const lpExProgress = await getContract(
         this.$store.state.kolAddress,
         kolAbi,
         "getLpExProgress",
         tokenId.toString()
       );
 
-      const kolProgress = await getWriteContract(
+      const kolProgress = await getContract(
         this.$store.state.kolAddress,
         kolAbi,
         "getKolProgress",
@@ -541,10 +542,15 @@ export default {
     }
   }
   .reserve {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin-top: 20px;
+    font-size: 12px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
     button {
       height: 30px;
       border-radius: 5px;
