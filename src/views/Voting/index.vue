@@ -138,9 +138,6 @@ export default {
       return data.data.data;
     },
     vote(project_name) {
-      if (this.sBtcBalance * 1 < 100) {
-        return showToast("SBTC余额不足");
-      }
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
         return showToast("SBTC余额不足");
       }
