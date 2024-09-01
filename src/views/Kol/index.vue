@@ -36,7 +36,26 @@
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ item.project_name }}</span>
           </div>
-          <van-button size="small" @click="openModel(item)">去认领</van-button>
+          <div>
+            <van-button
+              v-if="!activeAmount"
+              class="activeBtn"
+              size="small"
+              @click="openActiveModal(item)"
+              >去激活</van-button
+            >
+            <van-button
+              v-else
+              class="activeBtn"
+              size="small"
+              :loading="quitKolLoading"
+              @click="quitKol(item)"
+              >退出KOl</van-button
+            >
+            <van-button size="small" :disabled="!activeAmount" @click="openModel(item)"
+              >去认领</van-button
+            >
+          </div>
         </div>
       </div>
 
@@ -111,6 +130,37 @@
         >
       </div>
     </van-action-sheet>
+
+    <van-action-sheet class="model" v-model:show="activeModal" title="激活质押">
+      <div class="content">
+        <div class="balanceBox">余额：{{ sBtcBalance }} SBTC</div>
+        <div class="inputBox">
+          <input
+            v-model="depositAmount"
+            type="text"
+            placeholder="请输入激活数量 >=5000 sBTC"
+            @change="changeDepositAmount"
+          />
+          <button size="small" @click="maxFun">最大</button>
+        </div>
+        <van-button
+          v-if="!allowance"
+          :loading="approveLoading"
+          class="modelBtn"
+          size="small"
+          @click="approveActive()"
+          >去授权</van-button
+        >
+        <van-button
+          v-else
+          :loading="activeLoading"
+          class="modelBtn"
+          size="small"
+          @click="userDeposit()"
+          >去激活</van-button
+        >
+      </div>
+    </van-action-sheet>
   </div>
 </template>
 
@@ -150,12 +200,24 @@ export default {
       crossProgressValue: "",
       lpExProgressValue: "",
       kolProgressValue: "",
+      activeModal: false,
+      activeAmount: 0,
+      activeLoading: false,
+      approveLoading: false,
+      allowance: 0,
+      sBtcBalance: 0,
+      depositAmount: "",
+      sBtcDecimals: 18,
+      quitKolLoading: false,
     };
   },
   mounted() {
     this.getInfo();
     this.getProjectIssuedList();
     this.registerAddress = this.address;
+    this.getActiveAmount();
+    this.getBalance();
+
     this.timer = setInterval(() => {
       this.getInfo();
       this.getProjectIssuedList();
@@ -245,6 +307,115 @@ export default {
 
     openModel(item) {
       this.model = true;
+      this.selectedItem = item;
+    },
+
+    async getBalance() {
+      const decimals = await getContract(this.$store.state.sBtc, erc20ABI, "decimals");
+      this.sBtcDecimals = decimals.toString();
+      const balance = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.address
+      );
+      this.sBtcBalance = ethers.utils.formatUnits(balance, decimals) * 1;
+    },
+
+    async getActiveAmount() {
+      const res = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "viewUserDepositedAmount",
+        this.$store.state.address
+      );
+      this.activeAmount = res.toString() * 1;
+
+      const allowance = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "allowance",
+        this.$store.state.address,
+        this.$store.state.kolAddress
+      );
+      this.allowance = allowance.toString() * 1;
+    },
+
+    approveActive() {
+      this.approveLoading = true;
+      getWriteContractLoad(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "approve",
+        this.$store.state.kolAddress,
+        ethers.constants.MaxUint256
+      )
+        .then((res) => {
+          console.log(res);
+          this.approveLoading = false;
+          this.getActiveAmount();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.approveLoading = false;
+        });
+    },
+    maxFun() {
+      this.depositAmount = this.sBtcBalance;
+    },
+
+    changeDepositAmount(e) {
+      this.depositAmount = e.target.value;
+    },
+
+    userDeposit() {
+      if (this.depositAmount * 1 < 5000) return showToast("激活金额必须大于等于5000sBTC");
+      if (this.depositAmount * 1 > this.sBtcBalance * 1) return showToast("余额不足");
+      this.activeLoading = true;
+      getWriteContractLoad(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "userDeposit",
+        ethers.utils.parseUnits(this.depositAmount, this.sBtcDecimals * 1)
+      )
+        .then((res) => {
+          console.log(res);
+          this.activeLoading = false;
+          this.activeModal = false;
+          showToast("激活成功");
+          this.getActiveAmount();
+        })
+        .catch(() => {
+          this.activeLoading = false;
+        });
+    },
+    async quitKol() {
+      this.quitKolLoading = true;
+
+      const tokenId = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getTokenRatiosIndexByProjectName",
+        this.accountInfo.project_name
+      );
+
+      getWriteContractLoad(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "quitKol",
+        tokenId.toString()
+      )
+        .then((res) => {
+          this.quitKolLoading = false;
+          showToast("退出KOL成功");
+        })
+        .catch(() => {
+          this.quitKolLoading = false;
+        });
+    },
+
+    openActiveModal(item) {
+      this.activeModal = true;
       this.selectedItem = item;
     },
     async getWithdraw() {
@@ -387,6 +558,9 @@ export default {
       width: 25px;
       margin-right: 10px;
     }
+  }
+  .activeBtn {
+    margin-right: 4px;
   }
   button {
     height: 30px;
@@ -576,20 +750,54 @@ export default {
 }
 .content {
   font-size: 14px;
+  padding: 20px 20px 0;
+  text-align: center;
   .contentDesc {
     padding: 20px;
     text-align: left;
   }
+  .inputBox {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    input {
+      width: 100%;
+      height: 36px;
+      padding: 10px;
+      border: 1px solid #999;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+    button {
+      width: 50px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+  }
+  .balanceBox {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
   button {
-    height: 36px;
-    line-height: 30px;
     border-radius: 10px;
     background: #ffc519;
     border: none;
     color: #333;
     font-weight: bold;
     font-size: 14px;
+    line-height: 30px;
+  }
+  > button {
+    width: 80%;
+    height: 36px;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
 }
 </style>

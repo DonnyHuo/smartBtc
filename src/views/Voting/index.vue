@@ -50,7 +50,7 @@
             }}</span>
           </div>
           <div class="btnBox">
-            <van-button :disabled="item.isVoted" @click="vote(item.project_name)"
+            <van-button :disabled="item.voted" @click="vote(item.project_name)"
               >发起投票</van-button
             >
           </div>

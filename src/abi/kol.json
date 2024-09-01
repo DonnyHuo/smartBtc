@@ -10,6 +10,11 @@
 				"internalType": "address",
 				"name": "lpExchangeAddress_",
 				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "sbtc_",
+				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -123,6 +128,25 @@
 			}
 		],
 		"name": "PublishToken",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenId_",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "kol_",
+				"type": "address"
+			}
+		],
+		"name": "QuitKol",
 		"type": "event"
 	},
 	{
@@ -254,6 +278,38 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "depositToken",
+		"outputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "deposits",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -413,6 +469,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "minDeposit",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
@@ -484,8 +553,34 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId_",
+				"type": "uint256"
+			}
+		],
+		"name": "quitKol",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "minDeposit_",
+				"type": "uint256"
+			}
+		],
+		"name": "setDepoistMin",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -602,11 +697,43 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "depositAmount_",
+				"type": "uint256"
+			}
+		],
+		"name": "userDeposit",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "tokenId_",
 				"type": "uint256"
 			}
 		],
 		"name": "viewCanWithdrawValue",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user_",
+				"type": "address"
+			}
+		],
+		"name": "viewUserDepositedAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
