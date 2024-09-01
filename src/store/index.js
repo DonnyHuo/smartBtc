@@ -45,7 +45,7 @@ export default createStore({
     tokenList: [],
 
     lpExchange: "0x976C825844fa939938110e05119EA0b7cDB77ceA",
-    kolAddress: "0x7FB3e5a58f91085df35085F945CE6A47a73bD1Bb",
+    kolAddress: "0xd13E649FD8f50239a5657087e5620fed37016FDa",
     adminAddress: [
       "0x4789fa23bf3f03b536d34c3b597fb907c44bd210",
       "0x2706c4587510c470a6825ae33bb13e5d1718677c",

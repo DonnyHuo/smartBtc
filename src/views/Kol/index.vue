@@ -138,7 +138,7 @@
           <input
             v-model="depositAmount"
             type="text"
-            placeholder="请输入激活数量 >=5000 sBTC"
+            :placeholder="`请输入激活数量 >= ${minDeposit} sBTC`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">最大</button>
@@ -209,6 +209,7 @@ export default {
       depositAmount: "",
       sBtcDecimals: 18,
       quitKolLoading: false,
+      minDeposit: "",
     };
   },
   mounted() {
@@ -217,6 +218,7 @@ export default {
     this.registerAddress = this.address;
     this.getActiveAmount();
     this.getBalance();
+    this.minDepositFun();
 
     this.timer = setInterval(() => {
       this.getInfo();
@@ -368,8 +370,18 @@ export default {
       this.depositAmount = e.target.value;
     },
 
+    async minDepositFun() {
+      const decimals = await getContract(this.$store.state.sBtc, erc20ABI, "decimals");
+      const minDeposit = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "minDeposit"
+      );
+      this.minDeposit = ethers.utils.formatUnits(minDeposit, decimals) * 1;
+    },
     userDeposit() {
-      if (this.depositAmount * 1 < 5000) return showToast("激活金额必须大于等于5000sBTC");
+      if (this.depositAmount * 1 < this.minDeposit * 1)
+        return showToast(`激活金额必须大于等于${this.minDeposit}sBTC`);
       if (this.depositAmount * 1 > this.sBtcBalance * 1) return showToast("余额不足");
       this.activeLoading = true;
       getWriteContractLoad(
