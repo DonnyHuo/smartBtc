@@ -51,9 +51,9 @@
           </div>
           <div>
             <span>投票进度</span>
-            <span>{{ ((item.vote_num * 100) / this.votePassNum).toFixed(2) }} %</span>
+            <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span>
             <van-progress
-              :percentage="((item.vote_num * 100) / this.votePassNum).toFixed(2)"
+              :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
               stroke-width="8"
             />
           </div>
