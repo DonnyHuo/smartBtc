@@ -51,7 +51,11 @@
           </div>
           <div>
             <span>投票进度</span>
-            <span>{{ item.vote_num }} %</span>
+            <span>{{ ((item.vote_num * 100) / this.votePassNum).toFixed(2) }} %</span>
+            <van-progress
+              :percentage="((item.vote_num * 100) / this.votePassNum).toFixed(2)"
+              stroke-width="8"
+            />
           </div>
           <div class="records">
             <div class="recordTitle">投票记录</div>
@@ -97,6 +101,7 @@ export default {
       repMinThreshold: 0,
       sBtcBalance: 0,
       timer: null,
+      votePassNum: 0,
     };
   },
   mounted() {
@@ -155,6 +160,7 @@ export default {
         .get("https://smartbtc.io/bridge/kol/min_threshold")
         .then((res) => {
           this.repMinThreshold = res.data.data.RepMinThreshold;
+          this.votePassNum = res.data.data.vote_pass_nums;
         })
         .catch((err) => {
           console.log(err);

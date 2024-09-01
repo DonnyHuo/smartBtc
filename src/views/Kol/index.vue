@@ -2,7 +2,10 @@
   <div class="kolIndex">
     <div class="header">
       <span>KOL</span>
-      <router-link v-if="accountInfo.status === 1" to="/kolAdd" class="addBtn"
+      <router-link
+        v-if="accountInfo.status === 1 && activeAmount"
+        to="/kolAdd"
+        class="addBtn"
         >新增项目</router-link
       >
     </div>
@@ -28,6 +31,24 @@
       </div>
       <van-button disabled>KOL审核中...</van-button>
     </div>
+    <div v-if="[1, 3, 4, 5, 6, 7, 8].includes(accountInfo.status)" class="activeBtnBox">
+      <span>{{ !activeAmount ? "认领和创建项目前 先激活" : "可随时退出KOL" }}</span>
+      <van-button
+        v-if="!activeAmount"
+        class="activeBtn"
+        size="small"
+        @click="openActiveModal(item)"
+        >去激活</van-button
+      >
+      <van-button
+        v-else
+        class="activeBtn"
+        size="small"
+        :loading="quitKolLoading"
+        @click="quitKol(item)"
+        >解除激活</van-button
+      >
+    </div>
 
     <div v-if="accountInfo.status === 1" class="listBoxs">
       <div v-if="projectIssuedList.length">
@@ -37,21 +58,6 @@
             <span>{{ item.project_name }}</span>
           </div>
           <div>
-            <van-button
-              v-if="!activeAmount"
-              class="activeBtn"
-              size="small"
-              @click="openActiveModal(item)"
-              >去激活</van-button
-            >
-            <van-button
-              v-else
-              class="activeBtn"
-              size="small"
-              :loading="quitKolLoading"
-              @click="quitKol(item)"
-              >退出KOl</van-button
-            >
             <van-button size="small" :disabled="!activeAmount" @click="openModel(item)"
               >去认领</van-button
             >
@@ -74,14 +80,6 @@
             <span>{{ accountInfo.project_name }}</span>
           </div>
           <div>
-            <van-button
-              v-if="activeAmount"
-              class="activeBtn"
-              size="small"
-              :loading="quitKolLoading"
-              @click="quitKol(item)"
-              >退出KOl</van-button
-            >
             <van-button size="small" disabled>{{
               accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
             }}</van-button>
@@ -822,6 +820,25 @@ export default {
     height: 36px;
     margin-bottom: 20px;
     margin-top: 20px;
+  }
+}
+.activeBtnBox {
+  font-size: 12px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > span {
+    padding-right: 10px;
+  }
+  button {
+    border-radius: 5px;
+    background: #ffc519;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 28px;
   }
 }
 </style>
