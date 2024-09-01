@@ -105,7 +105,7 @@ export default {
   margin: 20px auto;
   padding: 20px 0;
   border-radius: 10px;
-  background-color: #fafafa;
+  background-color: #f5f5f5;
   font-size: 12px;
   font-weight: bold;
 }
@@ -115,13 +115,18 @@ export default {
   align-items: center;
   justify-content: space-between;
   > span:first-child {
-    color: #666;
+    color: #111;
+    font-weight: 600;
   }
 }
 .listBox {
   font-size: 12px;
   .title {
     margin-top: 20px;
+    font-weight: 600;
+    color: #111;
+    text-align: left;
+    padding-left: 20px;
   }
   .listDiv {
     display: flex;
@@ -148,16 +153,10 @@ export default {
       }
     }
   }
-  .title {
-    font-size: 12px;
-    text-align: left;
-    padding-left: 20px;
-    color: #666;
-  }
 }
 input {
   width: 70%;
-  border: 1px solid #d0cfcf;
+  border: 1px solid #999;
   border-radius: 10px;
   height: 32px;
   padding: 0 15px;

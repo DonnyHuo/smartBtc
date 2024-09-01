@@ -49,6 +49,25 @@
               formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
             }}</span>
           </div>
+          <div>
+            <span>投票进度</span>
+            <span>{{ item.vote_num }} %</span>
+          </div>
+          <div class="records">
+            <div class="recordTitle">投票记录</div>
+            <div
+              class="recordList"
+              v-for="(list, index) in item.projectVotes"
+              :key="index"
+            >
+              <div>
+                {{ shortStr(list.address) }}
+              </div>
+              <div>
+                {{ formatDate(new Date(list.created_at), "yyyy-MM-dd hh:mm") }}
+              </div>
+            </div>
+          </div>
           <div class="btnBox">
             <van-button :disabled="item.voted" @click="vote(item.project_name)"
               >发起投票</van-button
@@ -67,7 +86,7 @@
 </template>
 <script>
 import erc20ABI from "../../abi/erc20.json";
-import { getContract, formatDate } from "@/utils";
+import { getContract, formatDate, shortStr } from "@/utils";
 import { ethers } from "ethers";
 import { showToast } from "vant";
 
@@ -77,15 +96,25 @@ export default {
       projectVotingList: [],
       repMinThreshold: 0,
       sBtcBalance: 0,
+      timer: null,
     };
   },
   mounted() {
     this.getSBtcBalance();
     this.getVotingList();
     this.getMinThreshold();
+
+    this.timer = setInterval(() => {
+      this.getVotingList();
+    }, 5000);
   },
+  unmounted() {
+    clearInterval(this.timer);
+  },
+
   methods: {
     formatDate,
+    shortStr,
     async getSBtcBalance() {
       const sBtcBalance = await getContract(
         this.$store.state.sBtc,
@@ -110,7 +139,10 @@ export default {
           }
           for (let i = 0; i < data.length; i++) {
             const isVoted = await this.isVoted(data[i].project_name);
+            const projectVotes = await this.projectVotes(data[i].project_name);
+            console.log("projectVotes", projectVotes);
             data[i].voted = isVoted;
+            data[i].projectVotes = projectVotes;
           }
           this.projectVotingList = data;
         })
@@ -137,6 +169,19 @@ export default {
 
       return data.data.data;
     },
+
+    async projectVotes(project_name) {
+      const data = await this.$axios.post(
+        "https://smartbtc.io/bridge/kol/project_votes",
+        {
+          project_name,
+          limit: 10,
+        }
+      );
+
+      return data.data.data;
+    },
+
     vote(project_name) {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
         return showToast("SBTC余额不足");
@@ -150,6 +195,7 @@ export default {
           console.log(res);
           if (res.data.message === "success") {
             showToast("投票成功");
+            this.getVotingList();
           } else {
             showToast(res.data.message);
           }
@@ -173,6 +219,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
+    font-weight: 600;
   }
   .listBox {
     display: block;
@@ -225,6 +272,23 @@ export default {
   img {
     width: 70px;
     margin-bottom: 20px;
+  }
+}
+.votingList {
+  .records {
+    text-align: left;
+    display: inherit;
+    .recordTitle {
+      margin-bottom: 10px;
+      color: #111;
+      font-weight: 600;
+    }
+    .recordList {
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
 </style>
