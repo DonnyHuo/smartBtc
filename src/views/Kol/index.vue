@@ -79,13 +79,11 @@
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ accountInfo.project_name }}</span>
           </div>
-          <div>
-            <van-button size="small" disabled>{{
-              accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
-            }}</van-button>
+          <div class="tips">
+            {{ getStatus(accountInfo.status) }}
           </div>
         </div>
-        <div v-if="accountInfo.status > 2" class="reserve">
+        <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
           <div>
             <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
             <van-button
@@ -241,6 +239,28 @@ export default {
   methods: {
     shortStr,
     formatDate,
+    getStatus(status) {
+      switch (status) {
+        case 1:
+          return "认证通过";
+        case 2:
+          return "已认领项目,审核中。。。";
+        case 3:
+          return "待执行合约设置kol";
+        case 4:
+          return "kol合约已执行";
+        case 5:
+          return "项目kol已生效";
+        case 6:
+          return "项目kol设置执行失败";
+        case 7:
+          return "认证审核未通过";
+        case 8:
+          return "项目kol设置为失效";
+        default:
+          return "";
+      }
+    },
     /**
      * 0: 认证未审核,
      * 1: 认证通过，未认领项目
@@ -840,5 +860,9 @@ export default {
     font-size: 12px;
     line-height: 28px;
   }
+}
+.tips {
+  font-size: 12px;
+  color: #999;
 }
 </style>
