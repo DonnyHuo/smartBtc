@@ -73,9 +73,19 @@
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ accountInfo.project_name }}</span>
           </div>
-          <van-button size="small" disabled>{{
-            accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
-          }}</van-button>
+          <div>
+            <van-button
+              disabled="!activeAmount"
+              class="activeBtn"
+              size="small"
+              :loading="quitKolLoading"
+              @click="quitKol(item)"
+              >退出KOl</van-button
+            >
+            <van-button size="small" disabled>{{
+              accountInfo.status > 2 ? "认领完成" : "已认领 , 审核中..."
+            }}</van-button>
+          </div>
         </div>
         <div v-if="accountInfo.status > 2" class="reserve">
           <div>
@@ -420,6 +430,7 @@ export default {
         .then((res) => {
           this.quitKolLoading = false;
           showToast("退出KOL成功");
+          this.getActiveAmount();
         })
         .catch(() => {
           this.quitKolLoading = false;
@@ -571,9 +582,6 @@ export default {
       margin-right: 10px;
     }
   }
-  .activeBtn {
-    margin-right: 4px;
-  }
   button {
     height: 30px;
     border-radius: 5px;
@@ -583,6 +591,10 @@ export default {
     font-weight: 600;
     font-size: 12px;
   }
+}
+
+.activeBtn {
+  margin-right: 4px;
 }
 .kolRequest {
   width: 90%;
