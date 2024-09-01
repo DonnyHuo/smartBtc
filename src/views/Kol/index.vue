@@ -762,7 +762,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 12px;
     input {
       width: 100%;
       height: 36px;
@@ -770,6 +769,7 @@ export default {
       border: 1px solid #999;
       border-radius: 10px;
       margin-right: 10px;
+      font-size: 12px;
     }
     button {
       width: 50px;
