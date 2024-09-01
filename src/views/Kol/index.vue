@@ -75,7 +75,7 @@
           </div>
           <div>
             <van-button
-              disabled="!activeAmount"
+              v-if="activeAmount"
               class="activeBtn"
               size="small"
               :loading="quitKolLoading"
