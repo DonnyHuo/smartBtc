@@ -416,7 +416,7 @@ export default {
         this.$store.state.kolAddress,
         kolAbi,
         "userDeposit",
-        ethers.utils.parseUnits(this.depositAmount, this.sBtcDecimals)
+        ethers.utils.parseUnits(this.depositAmount.toString(), this.sBtcDecimals)
       )
         .then((res) => {
           console.log(res);
