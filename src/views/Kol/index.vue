@@ -213,7 +213,7 @@ export default {
       allowance: 0,
       sBtcBalance: 0,
       depositAmount: "",
-      sBtcDecimals: 18,
+      sBtcDecimals: "18",
       quitKolLoading: false,
       minDeposit: "",
     };
@@ -416,7 +416,7 @@ export default {
         this.$store.state.kolAddress,
         kolAbi,
         "userDeposit",
-        ethers.utils.parseUnits(this.depositAmount, this.sBtcDecimals * 1)
+        ethers.utils.parseUnits(this.depositAmount, this.sBtcDecimals)
       )
         .then((res) => {
           console.log(res);
@@ -805,7 +805,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     input {
-      width: 100%;
+      width: 80%;
       height: 36px;
       padding: 10px;
       border: 1px solid #999;
@@ -814,7 +814,7 @@ export default {
       font-size: 12px;
     }
     button {
-      width: 50px;
+      width: 20%;
       border-radius: 5px;
       font-size: 12px;
     }
