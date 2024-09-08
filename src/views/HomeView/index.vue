@@ -21,18 +21,100 @@
         <p>跨链桥Bridge</p>
       </div>
       <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
+      <div class="progress">
+        <div>
+          <div>
+            <img class="icon" src="../../assets/img/core.png" alt="" />
+            <span class="name">Core</span>
+          </div>
+          <div style="width: 80%">
+            <van-progress
+              stroke-width="8"
+              color="#ffc519"
+              track-color="#FFF2C9"
+              pivot-color="#D9A504"
+              pivot-text="已上市"
+              text-color="#fff"
+              percentage="100"
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <img class="icon" src="../../assets/img/piin.png" alt="" />
+            <span class="name">piin</span>
+          </div>
+          <div style="width: 80%">
+            <van-progress
+              stroke-width="8"
+              color="#ffc519"
+              track-color="#FFF2C9"
+              pivot-color="#D9A504"
+              pivot-text="已上市"
+              text-color="#fff"
+              percentage="100"
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <img class="icon" src="../../assets/img/pizza.png" alt="" />
+            <span class="name">pizza</span>
+          </div>
+          <div style="width: 80%">
+            <van-progress
+              stroke-width="8"
+              color="#ffc519"
+              track-color="#FFF2C9"
+              pivot-color="#D9A504"
+              text-color="#fff"
+              pivot-text="投票中 20%"
+              percentage="20"
+            />
+          </div>
+        </div>
+
+        <!-- <van-progress pivot-text="红色" color="#ee0a24" :percentage="50" /> -->
+      </div>
     </div>
-    <div class="btn-group">
-      <div class="invite-btn">
-        <router-link to="/kol">KOL申请</router-link>
+
+    <div class="kolContent">
+      <img class="kolBg" src="../../assets/img/kol.png" alt="" />
+      <div class="title">
+        <p>KOL认证与空投奖励</p>
+        <p>发起项目与推广项目</p>
       </div>
-      <div class="friend-btn">
-        <router-link to="/voting">项目发行投票</router-link>
+      <div class="content">
+        拥有活跃的推特账户，并质押至少2100个SBTC，即可提交KOL认证；<br />
+        通过KOL认证，即可发起项目投票或选择已上币项目，推广项目以获得代币空投奖励；<br />
+        根据推特粉丝数，认证推文的阅读、评论、点赞和转发数，以及实际质押的SBTC数量，综合计算绑定项目的代币空投分配权重。
       </div>
-      <div v-if="adminShow" class="friend-btn">
-        <router-link to="/review">审核</router-link>
+      <div class="btn-group">
+        <router-link to="/voting">
+          <van-button>投票支持</van-button>
+        </router-link>
+        <router-link to="/kol">
+          <van-button>发起项目</van-button>
+        </router-link>
+        <router-link v-if="adminShow" to="/review">
+          <van-button>审核</van-button>
+        </router-link>
       </div>
     </div>
+    <div class="bridgeContent">
+      <div class="title">
+        跨链桥Bridge<br />
+        SBTC治理与回购
+      </div>
+      <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
+      <div class="content">
+        BSC链的SBTC
+        代币50%发行至跨链桥合约，以供活跃的SBTC铭文账户跨链转移；30%以LP兑换的方式智能合约发行，即奖励给流动性提供者（LP）；18%以空投的方式奖励给参与社区推广建设的KOL；2%发行至启动池合约。<br />
+        SmartBTC定期以网站收入和项目空投所得回购SBTC并转入跨链桥合约，不断激活跨链额度直至100%，全部激活后，双向跨链同步生效。<br />
+        持有SBTC可参与项目投票，质押SBTC可领取项目空投。
+      </div>
+    </div>
+
     <div class="contant">
       <div class="title">
         <div>技术路线图</div>
@@ -244,6 +326,7 @@ export default {
   font-size: 14px;
   overflow: auto;
   background-color: #fff;
+  color: #24232a;
 }
 .homeLogoBox {
   height: 50px;
@@ -391,6 +474,62 @@ export default {
   .homeBg {
     width: 60%;
   }
+  .progress {
+    margin: 20px;
+    > div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      > div:nth-child(1) {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        .icon {
+          width: 24px;
+        }
+        .name {
+          padding: 0 10px 0 4px;
+        }
+      }
+    }
+  }
+}
+.kolContent {
+  margin: 20px;
+  .kolBg {
+    width: 170px;
+  }
+  .title {
+    font-size: 18px;
+    padding-top: 20px;
+    > p {
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+  }
+  .content {
+    font-size: 14px;
+    line-height: 30px;
+    text-align: left;
+  }
+}
+.bridgeContent {
+  margin: 20px;
+  margin-top: 40px;
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+  .bridgeBg {
+    width: 100%;
+    margin: 20px auto;
+  }
+  .content {
+    font-size: 14px;
+    line-height: 30px;
+    text-align: left;
+  }
 }
 .contant {
   background-size: 100% 100%;
@@ -424,8 +563,7 @@ export default {
     .desc {
       font-size: 14px;
       line-height: 22px;
-      color: #111;
-      font-weight: 500;
+      color: #24232a;
     }
     .--van-step-circle-size {
       width: 10px;
@@ -524,11 +662,20 @@ export default {
   }
 }
 .btn-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   a {
-    text-decoration: underline;
-    color: #2c3e50;
+    display: block;
+    margin-top: 20px;
+  }
+  a:nth-child(2) {
+    button {
+      background: #ffc519;
+      border: none;
+      color: #333;
+    }
+  }
+  button {
+    width: 100%;
+    font-weight: 600;
   }
 }
 </style>

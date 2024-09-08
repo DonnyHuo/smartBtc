@@ -11,13 +11,22 @@
     </div>
     <div v-if="!accountInfo" class="kolRequest">
       <div>
-        <span>收益地址</span>
+        <span><span class="must">*</span>收益地址</span>
         <input type="text" v-model="registerAddress" />
       </div>
       <div>
-        <span>X地址</span>
+        <span><span class="must">*</span>X地址</span>
         <input type="text" v-model="xAddress" />
       </div>
+      <div>
+        <span>TG地址</span>
+        <input type="text" v-model="tgAddress" />
+      </div>
+      <div>
+        <span>discord地址</span>
+        <input type="text" v-model="disAddress" />
+      </div>
+
       <van-button @click="register">KOL认证</van-button>
     </div>
     <div v-if="accountInfo.status === 0" class="kolRequest">
@@ -192,6 +201,8 @@ export default {
       address: this.$store.state.address,
       registerAddress: "",
       xAddress: "",
+      tgAddress: "",
+      disAddress: "",
       accountInfo: "",
       projectVotingList: [],
       timer: null,
@@ -295,6 +306,8 @@ export default {
         .post("https://smartbtc.io/bridge/kol/register", {
           address: this.registerAddress,
           twitter_account: this.xAddress,
+          tg_account: this.tgAddress,
+          discord_account: this.disAddress,
         })
         .then((res) => {
           showToast("已提交认证申请");
@@ -864,5 +877,9 @@ export default {
 .tips {
   font-size: 12px;
   color: #999;
+}
+.must {
+  color: rgb(235, 58, 58);
+  padding-right: 2px;
 }
 </style>
