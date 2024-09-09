@@ -14,11 +14,11 @@
             <span>{{ shortStr(item.address) }}</span>
           </div>
           <div class="list">
-            <span>X地址</span>
+            <span>Twitter地址</span>
             <span>{{ item.twitter_account }}</span>
           </div>
           <div class="list">
-            <span>TG地址</span>
+            <span>Telegram地址</span>
             <span>{{ item.tg_account || "--" }}</span>
           </div>
           <div class="list">

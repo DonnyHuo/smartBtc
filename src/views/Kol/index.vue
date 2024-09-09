@@ -15,11 +15,11 @@
         <input type="text" v-model="registerAddress" />
       </div>
       <div>
-        <span><span class="must">*</span>X地址</span>
+        <span><span class="must">*</span>Twitter地址</span>
         <input type="text" v-model="xAddress" />
       </div>
       <div>
-        <span>TG地址</span>
+        <span>Telegram地址</span>
         <input type="text" v-model="tgAddress" />
       </div>
       <div>
@@ -35,7 +35,7 @@
         <span>{{ shortStr(accountInfo.address) }}</span>
       </div>
       <div>
-        <span>X地址</span>
+        <span>Twitter地址</span>
         <span>{{ accountInfo.twitter_account }}</span>
       </div>
       <van-button disabled>KOL审核中...</van-button>
@@ -640,7 +640,7 @@ export default {
     justify-content: space-between;
     margin-bottom: 20px;
     input {
-      width: 70%;
+      width: 68%;
       height: 40px;
       border: 1px solid #c8c7c7;
       border-radius: 10px;

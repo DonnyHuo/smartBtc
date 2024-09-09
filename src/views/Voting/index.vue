@@ -51,11 +51,20 @@
           </div>
           <div>
             <span>投票进度</span>
-            <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span>
-            <van-progress
-              :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
-              stroke-width="8"
-            />
+            <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
+            <div style="width: 80%">
+              <van-progress
+                :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
+                stroke-width="8"
+                color="#ffc519"
+                track-color="#FFF2C9"
+                pivot-color="#D9A504"
+                text-color="#fff"
+                :pivot-text="`投票中 ${parseInt(
+                  (item.vote_num * 100) / this.votePassNum
+                )}%`"
+              />
+            </div>
           </div>
           <div class="records">
             <div class="recordTitle">投票记录</div>

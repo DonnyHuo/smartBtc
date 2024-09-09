@@ -16,9 +16,8 @@
 
     <div class="homeTop">
       <div class="homeTopTitle">
-        <p>BRC20 Launchpad</p>
-        <p>铭文流动性聚合平台</p>
-        <p>跨链桥Bridge</p>
+        BRC20 Launchpad <br />
+        铭文流动性聚合平台
       </div>
       <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
       <div class="progress">
@@ -56,30 +55,39 @@
             />
           </div>
         </div>
-        <div>
-          <div>
-            <img class="icon" src="../../assets/img/pizza.png" alt="" />
-            <span class="name">pizza</span>
-          </div>
+        <div class="progressBox">
           <div style="width: 80%">
-            <van-progress
-              stroke-width="8"
-              color="#ffc519"
-              track-color="#FFF2C9"
-              pivot-color="#D9A504"
-              text-color="#fff"
-              pivot-text="投票中 20%"
-              percentage="20"
-            />
+            <div>
+              <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
+              <span class="name">{{ voting.symbol }}</span>
+            </div>
+            <div style="width: 75%">
+              <van-progress
+                stroke-width="8"
+                color="#ffc519"
+                track-color="#FFF2C9"
+                pivot-color="#D9A504"
+                :pivot-text="`投票中 ${parseInt((voting.vote_num * 100) / votePassNum)}%`"
+                text-color="#fff"
+                :percentage="parseInt((voting.vote_num * 100) / votePassNum)"
+              />
+            </div>
+          </div>
+
+          <div class="btnBox">
+            <van-button :disabled="voting.voted" @click="vote(voting.project_name)"
+              >投票</van-button
+            >
           </div>
         </div>
-
+        <router-link to="/voting">
+          <van-button class="votingBtn">投票支持</van-button>
+        </router-link>
         <!-- <van-progress pivot-text="红色" color="#ee0a24" :percentage="50" /> -->
       </div>
     </div>
 
     <div class="kolContent">
-      <img class="kolBg" src="../../assets/img/kol.png" alt="" />
       <div class="title">
         <p>KOL认证与空投奖励</p>
         <p>发起项目与推广项目</p>
@@ -90,10 +98,10 @@
         根据推特粉丝数，认证推文的阅读、评论、点赞和转发数，以及实际质押的SBTC数量，综合计算绑定项目的代币空投分配权重。
       </div>
       <div class="btn-group">
-        <router-link to="/voting">
-          <van-button>投票支持</van-button>
-        </router-link>
         <router-link to="/kol">
+          <van-button>KOL认证</van-button>
+        </router-link>
+        <router-link :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'">
           <van-button>发起项目</van-button>
         </router-link>
         <router-link v-if="adminShow" to="/review">
@@ -174,7 +182,7 @@
           <van-step>
             <div class="time">2024年下半年</div>
             <div class="desc">
-              SmartBTC继续集成丰富的DeFi应用，逐步向活跃比特币铭文开放服务，SBTC成为市值TOP3主流铭文
+              新加坡Token2049会议期间，SmartBTC.io发布2.0版本，SmartBTC继续集成丰富的DeFi应用，逐步向活跃比特币铭文开放服务，SBTC成为市值TOP3主流铭文
             </div>
           </van-step>
           <van-step>
@@ -208,6 +216,7 @@ import { shortStr, getContract, copy, getOkChainId } from "../../utils";
 import erc20ABI from "../../abi/erc20.json";
 import inviteABI from "../../abi/invite.json";
 import poolABI from "../../abi/pool.json";
+import kolAbi from "../../abi/kol.json";
 import { showToast } from "vant";
 
 export default {
@@ -220,6 +229,11 @@ export default {
       poolPowers: "--",
       apy: "--",
       link: `https://bscscan.com/address/${this.$store.state.address}`,
+      voting: "",
+      votePassNum: "",
+      repMinThreshold: "",
+      activeAmount: 0,
+      accountInfo: "",
     };
   },
   computed: {
@@ -235,6 +249,10 @@ export default {
       this.totalInvitePowers();
       this.totalPoolPowers();
       this.getAPY();
+      this.getVotingList();
+      this.getMinThreshold();
+      this.getInfo();
+      this.getActiveAmount();
     }
   },
   methods: {
@@ -316,6 +334,81 @@ export default {
         ethers.utils.formatUnits(MTokenAddress, this.$store.state.usdtDecimals) *
         100
       ).toFixed(2);
+    },
+
+    getVotingList() {
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/project_voting_list")
+        .then(async (res) => {
+          this.voting = res.data.data[0];
+          this.voting.voted = await this.isVoted(res.data.data[0].project_name);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getMinThreshold() {
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/min_threshold")
+        .then((res) => {
+          this.repMinThreshold = res.data.data.RepMinThreshold;
+          this.votePassNum = res.data.data.vote_pass_nums * 1;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    vote(project_name) {
+      if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
+        return showToast("SBTC余额不足");
+      }
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol/vote", {
+          address: this.$store.state.address,
+          project_name,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.message === "success") {
+            showToast("投票成功");
+            this.getVotingList();
+          } else {
+            showToast(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async isVoted(project_name) {
+      const data = await this.$axios.post("https://smartbtc.io/bridge/kol/is_voted", {
+        kol_address: this.$store.state.address,
+        project_name,
+      });
+
+      return data.data.data;
+    },
+    async getActiveAmount() {
+      const res = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "viewUserDepositedAmount",
+        this.$store.state.address
+      );
+      this.activeAmount = res.toString() * 1;
+    },
+    getInfo() {
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol/query_kol", {
+          address: this.$store.state.address,
+        })
+        .then((res) => {
+          this.accountInfo = res.data.data;
+        })
+        .catch((err) => {
+          this.accountInfo = "";
+          console.log(err);
+        });
     },
   },
 };
@@ -463,9 +556,9 @@ export default {
   background-repeat: no-repeat;
   background-size: 100%;
   .homeTopTitle {
-    font-size: 25px;
-    line-height: 40px;
-    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 600;
     padding: 30px 0;
     p {
       margin: 0;
@@ -492,6 +585,14 @@ export default {
         }
       }
     }
+  }
+  .votingBtn {
+    width: 100%;
+    margin-top: 20px;
+    background: #ffc519;
+    border: none;
+    color: #333;
+    font-weight: 600;
   }
 }
 .kolContent {
@@ -676,6 +777,23 @@ export default {
   button {
     width: 100%;
     font-weight: 600;
+  }
+}
+.progressBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .btnBox {
+    width: 54px;
+    button {
+      height: 30px;
+      border-radius: 10px;
+      background: #ffc519;
+      border: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 12px;
+    }
   }
 }
 </style>
