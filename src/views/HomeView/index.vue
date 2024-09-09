@@ -55,7 +55,7 @@
             />
           </div>
         </div>
-        <div class="progressBox">
+        <div v-if="voting.symbol" class="progressBox">
           <div style="width: 80%">
             <div>
               <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
