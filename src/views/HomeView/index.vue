@@ -56,11 +56,11 @@
           </div>
         </div>
         <div v-if="voting.symbol" class="progressBox">
-          <div style="width: 80%">
-            <div>
-              <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
-              <span class="name">{{ voting.symbol }}</span>
-            </div>
+          <div>
+            <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
+            <span class="name">{{ voting.symbol }}</span>
+          </div>
+          <div class="progressBox" style="width: 80%">
             <div style="width: 75%">
               <van-progress
                 stroke-width="8"
@@ -72,12 +72,11 @@
                 :percentage="parseInt((voting.vote_num * 100) / votePassNum)"
               />
             </div>
-          </div>
-
-          <div class="btnBox">
-            <van-button :disabled="voting.voted" @click="vote(voting.project_name)"
-              >投票</van-button
-            >
+            <div class="btnBox">
+              <van-button :disabled="voting.voted" @click="vote(voting.project_name)"
+                >投票</van-button
+              >
+            </div>
           </div>
         </div>
         <router-link to="/voting">
