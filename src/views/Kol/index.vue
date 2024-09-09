@@ -23,7 +23,7 @@
         <input type="text" v-model="tgAddress" />
       </div>
       <div>
-        <span>discord地址</span>
+        <span>Discord地址</span>
         <input type="text" v-model="disAddress" />
       </div>
 
