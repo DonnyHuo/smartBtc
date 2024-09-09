@@ -18,6 +18,14 @@
             <span>{{ item.twitter_account }}</span>
           </div>
           <div class="list">
+            <span>TG地址</span>
+            <span>{{ item.tg_account || "--" }}</span>
+          </div>
+          <div class="list">
+            <span>Discord地址</span>
+            <span>{{ item.discord_account || "--" }}</span>
+          </div>
+          <div class="list">
             <span>状态</span>
             <span>{{ statusFun(item.status) }}</span>
           </div>
