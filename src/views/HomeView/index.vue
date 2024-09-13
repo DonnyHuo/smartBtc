@@ -29,9 +29,6 @@
           <div style="width: 80%">
             <van-progress
               stroke-width="8"
-              color="#ffc519"
-              track-color="#FFF2C9"
-              pivot-color="#D9A504"
               pivot-text="已上市"
               text-color="#fff"
               percentage="100"
@@ -46,9 +43,6 @@
           <div style="width: 80%">
             <van-progress
               stroke-width="8"
-              color="#ffc519"
-              track-color="#FFF2C9"
-              pivot-color="#D9A504"
               pivot-text="已上市"
               text-color="#fff"
               percentage="100"
@@ -64,9 +58,6 @@
             <div style="width: 75%">
               <van-progress
                 stroke-width="8"
-                color="#ffc519"
-                track-color="#FFF2C9"
-                pivot-color="#D9A504"
                 :pivot-text="`投票中 ${parseInt((voting.vote_num * 100) / votePassNum)}%`"
                 text-color="#fff"
                 :percentage="parseInt((voting.vote_num * 100) / votePassNum)"
@@ -80,7 +71,7 @@
           </div>
         </div>
         <router-link to="/voting">
-          <van-button class="votingBtn">投票支持</van-button>
+          <van-button class="votingBtn">项目详情</van-button>
         </router-link>
         <!-- <van-progress pivot-text="红色" color="#ee0a24" :percentage="50" /> -->
       </div>
@@ -92,13 +83,54 @@
         <p>发起项目与推广项目</p>
       </div>
       <div class="content">
-        拥有活跃的推特账户，并质押至少2100个SBTC，即可提交KOL认证；<br />
-        通过KOL认证，即可发起项目投票或选择已上币项目，推广项目以获得代币空投奖励；<br />
-        根据推特粉丝数，认证推文的阅读、评论、点赞和转发数，以及实际质押的SBTC数量，综合计算绑定项目的代币空投分配权重。
+        拥有活跃的Twitter等社交账户，并质押至少2100个SBTC，即可提交KOL认证；<br />
+        通过KOL认证，即可发起项目投票或选择上币项目，推广项目以获得代币空投奖励；<br />
+        根据推特粉丝数，认证推文的阅读、评论、点赞和转发数，以及实际质押的SBTC数量，并参考Telegram、Discord账户粉丝数和活跃度，综合计算绑定项目的代币空投分配权重。
       </div>
-      <div class="btn-group">
+
+      <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
+        <div class="weight">我的项目</div>
+        <div class="weight">{{ reserveInfo?.name }}</div>
+        <div>
+          <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
+          <van-button
+            size="small"
+            :loading="withdrawLoading"
+            @click="withdraw()"
+            :disabled="!(viewCanWithdrawValue * 1)"
+            >领取收益</van-button
+          >
+        </div>
+        <div>
+          <div>跨链进度</div>
+          <div>{{ crossProgressValue }} %</div>
+        </div>
+        <div>
+          <div>LP兑换发行进度</div>
+          <div>{{ lpExProgressValue }} %</div>
+        </div>
+        <div>
+          <div>KOL奖励发行比例</div>
+          <div>{{ kolProgressValue }} %</div>
+        </div>
+        <div class="desc">
+          备注：每发生一笔新的跨链或LP兑换，均将根据当笔数量对应比例触发一次新的社区空投，认证KOL将根据增加的分配权重得到对应的项目代币空投奖励，可随时领取。
+        </div>
+        <div>
+          <div>质押数量: {{ activeAmount }} SBTC</div>
+          <van-button
+            class="activeBtn"
+            size="small"
+            :loading="quitKolLoading"
+            @click="quitKol(item)"
+            >解除质押</van-button
+          >
+        </div>
+        <p class="desc">解除SBTC质押，将即时终止KOL资格，谨慎操作。</p>
+      </div>
+      <div v-else class="btn-group">
         <router-link to="/kol">
-          <van-button>KOL认证</van-button>
+          <van-button type="primary">KOL认证</van-button>
         </router-link>
         <router-link :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'">
           <van-button>发起项目</van-button>
@@ -211,12 +243,19 @@
 
 <script>
 import { ethers } from "ethers";
-import { shortStr, getContract, copy, getOkChainId } from "../../utils";
+import {
+  shortStr,
+  getContract,
+  copy,
+  getOkChainId,
+  getWriteContract,
+  getWriteContractLoad,
+} from "../../utils";
 import erc20ABI from "../../abi/erc20.json";
 import inviteABI from "../../abi/invite.json";
 import poolABI from "../../abi/pool.json";
 import kolAbi from "../../abi/kol.json";
-import { showToast } from "vant";
+import { showToast, showConfirmDialog } from "vant";
 
 export default {
   name: "HomeView",
@@ -233,6 +272,14 @@ export default {
       repMinThreshold: "",
       activeAmount: 0,
       accountInfo: "",
+      viewCanWithdrawValue: "",
+      reserveInfo: {},
+      timer: null,
+      withdrawLoading: false,
+      crossProgressValue: "",
+      lpExProgressValue: "",
+      kolProgressValue: "",
+      quitKolLoading: false,
     };
   },
   computed: {
@@ -252,7 +299,15 @@ export default {
       this.getMinThreshold();
       this.getInfo();
       this.getActiveAmount();
+      this.getProjectIssuedList();
     }
+    this.timer = setInterval(() => {
+      this.getProjectIssuedList();
+    }, 5000);
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
   },
   methods: {
     copyAddress(msg) {
@@ -394,7 +449,7 @@ export default {
         "viewUserDepositedAmount",
         this.$store.state.address
       );
-      this.activeAmount = res.toString() * 1;
+      this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(4);
     },
     getInfo() {
       this.$axios
@@ -408,6 +463,123 @@ export default {
           this.accountInfo = "";
           console.log(err);
         });
+    },
+    getProjectIssuedList() {
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/project_issued_list")
+        .then((res) => {
+          this.projectIssuedList = res.data.data;
+
+          const reserveInfo = this.projectIssuedList.filter(
+            (list) => list.project_name == this.accountInfo.project_name
+          );
+          this.reserveInfo = reserveInfo[0];
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    async getWithdraw() {
+      const tokenId = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getTokenRatiosIndexByProjectName",
+        this.accountInfo.project_name
+      );
+
+      this.tokenId = tokenId.toString();
+
+      const viewCanWithdrawValue = await getWriteContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "viewCanWithdrawValue",
+        tokenId.toString()
+      );
+
+      this.viewCanWithdrawValue = (
+        ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
+      ).toFixed(4);
+
+      const crossProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getCrossProgress",
+        tokenId.toString()
+      );
+
+      const lpExProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getLpExProgress",
+        tokenId.toString()
+      );
+
+      const kolProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getKolProgress",
+        tokenId.toString()
+      );
+
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(4);
+      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
+      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
+    },
+    async withdraw() {
+      this.withdrawLoading = true;
+      await getWriteContractLoad(
+        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        kolAbi,
+        "withdrawKolAirdrop",
+        this.tokenId
+      )
+        .then((res) => {
+          this.withdrawLoading = false;
+          showToast("领取成功");
+        })
+        .catch((err) => {
+          this.withdrawLoading = false;
+          console.log(err);
+        });
+    },
+    async quitKol() {
+      showConfirmDialog({
+        title: "解除质押",
+        message: "解除质押即终止KOL资格。",
+      })
+        .then(async () => {
+          this.quitKolLoading = true;
+
+          const tokenId = await getContract(
+            this.$store.state.kolAddress,
+            kolAbi,
+            "getTokenRatiosIndexByProjectName",
+            this.accountInfo.project_name
+          );
+
+          getWriteContractLoad(
+            this.$store.state.kolAddress,
+            kolAbi,
+            "quitKol",
+            tokenId.toString()
+          )
+            .then((res) => {
+              this.quitKolLoading = false;
+              showToast("退出KOL成功");
+              this.getActiveAmount();
+            })
+            .catch(() => {
+              this.quitKolLoading = false;
+            });
+        })
+        .catch(() => {
+          // on cancel
+        });
+    },
+  },
+  watch: {
+    reserveInfo(value) {
+      value && this.getWithdraw();
     },
   },
 };
@@ -473,7 +645,13 @@ export default {
     }
   }
 }
-
+.nav_title {
+  font-size: 14px;
+  color: #919090;
+  padding-top: 10px;
+  font-weight: 500;
+  line-height: 20px;
+}
 .headerInfo {
   margin: 20px;
   .titleBox {
@@ -481,13 +659,6 @@ export default {
     .title {
       font-size: 18px;
       font-weight: 600;
-    }
-    .nav_title {
-      font-size: 14px;
-      color: #919090;
-      padding-top: 10px;
-      font-weight: 500;
-      line-height: 20px;
     }
   }
   .powerLists {
@@ -586,12 +757,13 @@ export default {
     }
   }
   .votingBtn {
-    width: 100%;
+    width: 30%;
     margin-top: 20px;
     background: #ffc519;
     border: none;
     color: #333;
     font-weight: 600;
+    border-radius: 10px;
   }
 }
 .kolContent {
@@ -793,6 +965,44 @@ export default {
       font-weight: 600;
       font-size: 12px;
     }
+  }
+}
+.reserve {
+  margin-top: 20px;
+  font-size: 14px;
+  background-color: #f8fcff;
+  border-radius: 10px;
+  padding: 20px;
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  button {
+    height: 30px;
+    border-radius: 5px;
+    background: #ffc519;
+    border: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .desc {
+    text-align: left;
+    font-size: 12px;
+    color: #999;
+    line-height: 20px;
+  }
+  .weight {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 0 !important;
+    padding-bottom: 10px;
+  }
+  .right {
+    text-align: right;
   }
 }
 </style>

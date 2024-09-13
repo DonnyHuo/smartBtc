@@ -18,21 +18,21 @@
         <div class="title">发行比例</div>
         <div class="listDiv">
           <div class="listS">
-            <span>跨链</span>
+            <span>跨链桥合约</span>
             <div class="inputBox"><input type="text" v-model="percents[0]" /> %</div>
           </div>
           <div class="listS">
-            <span>流动性发行</span>
+            <span>LP兑换合约</span>
             <div class="inputBox"><input type="text" v-model="percents[1]" /> %</div>
           </div>
         </div>
         <div class="listDiv">
           <div class="listS">
-            <span>启动池</span>
+            <span>启动池合约</span>
             <div class="inputBox"><input type="text" v-model="percents[2]" /> %</div>
           </div>
           <div class="listS">
-            <span>社区空头</span>
+            <span>KOL贡献分配合约</span>
             <div class="inputBox"><input type="text" v-model="percents[3]" /> %</div>
           </div>
         </div>

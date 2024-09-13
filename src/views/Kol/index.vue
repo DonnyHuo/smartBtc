@@ -1,22 +1,23 @@
 <template>
   <div class="kolIndex">
     <div class="header">
-      <span>KOL</span>
-      <router-link
-        v-if="accountInfo.status === 1 && activeAmount"
-        to="/kolAdd"
-        class="addBtn"
-        >新增项目</router-link
-      >
+      <span v-if="!accountInfo.status">KOL认证 — 社交账户</span>
+      <div v-else>
+        <span v-if="!activeAmount">KOL认证 — 质押SBTC</span>
+        <span v-if="activeAmount">KOL认证 — 成为项目方</span>
+      </div>
     </div>
     <div v-if="!accountInfo" class="kolRequest">
       <div>
         <span><span class="must">*</span>收益地址</span>
-        <input type="text" v-model="registerAddress" />
+        <input disabled type="text" :value="registerAddress" />
       </div>
       <div>
         <span><span class="must">*</span>Twitter地址</span>
         <input type="text" v-model="xAddress" />
+      </div>
+      <div class="desc">
+        发布Twitter认证推文，包含SmartBTC、SBTC和想认领的铭文项目信息，文案自定义，主要考察该推文24小时阅读数、转发数和点赞数。
       </div>
       <div>
         <span>Telegram地址</span>
@@ -27,7 +28,10 @@
         <input type="text" v-model="disAddress" />
       </div>
 
-      <van-button @click="register">KOL认证</van-button>
+      <van-button @click="register">提交认证</van-button>
+      <div class="desc mt-20">
+        KOL贡献分配权重计算方法：初始权重主要取决于社交账户总粉丝数、认证推文24小时活跃度和实际质押的SBTC数量这三大维度，运营中不定期抓取认证社交账户（Twitter为主，Telegram、Discord为辅）对认领铭文项目和SmartBTC平台的关注与推广数据，根据算法提高KOL贡献分配权重。
+      </div>
     </div>
     <div v-if="accountInfo.status === 0" class="kolRequest">
       <div>
@@ -40,23 +44,25 @@
       </div>
       <van-button disabled>KOL审核中...</van-button>
     </div>
-    <div v-if="[1, 3, 4, 5, 6, 7, 8].includes(accountInfo.status)" class="activeBtnBox">
-      <span>{{ !activeAmount ? "认领和创建项目前 先激活" : "可随时退出KOL" }}</span>
+    <div v-if="[1].includes(accountInfo.status)" class="activeBtnBox">
       <van-button
         v-if="!activeAmount"
         class="activeBtn"
         size="small"
         @click="openActiveModal(item)"
-        >去激活</van-button
+        >去质押</van-button
       >
-      <van-button
-        v-else
-        class="activeBtn"
-        size="small"
-        :loading="quitKolLoading"
-        @click="quitKol(item)"
-        >解除激活</van-button
-      >
+      <router-link v-else to="/kolAdd" class="addBtn">
+        <van-button class="activeBtn" size="small">发起项目</van-button>
+      </router-link>
+
+      <div v-if="!activeAmount" class="desc mt-20">
+        认领和创建项目前，需要质押SBTC，数量2100个起，质押越多，分配权重越高，可以随时撤销质押。
+      </div>
+      <div v-else class="desc mt-20">
+        推荐新的铭文项目，在SmartBTC BRC20
+        Launchpad发起投票，7天内满100个有效投票，即获得上市资格并自动部署相关合约，同时完成KOL绑定为项目方，自动获得该项目的社区空投。
+      </div>
     </div>
 
     <div v-if="accountInfo.status === 1" class="listBoxs">
@@ -64,11 +70,11 @@
         <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
           <div>
             <img class="icon" src="../../assets/img/default.png" alt="" />
-            <span>{{ item.project_name }}</span>
+            <span>{{ item.name }}</span>
           </div>
           <div>
             <van-button size="small" :disabled="!activeAmount" @click="openModel(item)"
-              >去认领</van-button
+              >认领</van-button
             >
           </div>
         </div>
@@ -86,35 +92,9 @@
         <div class="hadProList">
           <div>
             <img class="icon" src="../../assets/img/default.png" alt="" />
-            <span>{{ accountInfo.project_name }}</span>
+            <span>{{ accountInfo?.project_name?.split("100T-")[1] }}</span>
           </div>
-          <div class="tips">
-            {{ getStatus(accountInfo.status) }}
-          </div>
-        </div>
-        <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
-          <div>
-            <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
-            <van-button
-              size="small"
-              :loading="withdrawLoading"
-              @click="withdraw()"
-              :disabled="!(viewCanWithdrawValue * 1)"
-              >领取收益</van-button
-            >
-          </div>
-          <div>
-            <div>跨链进度</div>
-            <div>{{ crossProgressValue }} %</div>
-          </div>
-          <div>
-            <div>lp兑换发行进度</div>
-            <div>{{ lpExProgressValue }} %</div>
-          </div>
-          <div>
-            <div>kol奖励发行比例</div>
-            <div>{{ kolProgressValue }} %</div>
-          </div>
+          <div class="tips">{{ getStatus(accountInfo.status) }}</div>
         </div>
       </div>
     </div>
@@ -146,14 +126,14 @@
       </div>
     </van-action-sheet>
 
-    <van-action-sheet class="model" v-model:show="activeModal" title="激活质押">
+    <van-action-sheet class="model" v-model:show="activeModal" title="质押SBTC">
       <div class="content">
         <div class="balanceBox">余额：{{ sBtcBalance }} SBTC</div>
         <div class="inputBox">
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`请输入激活数量 >= ${minDeposit} sBTC`"
+            :placeholder="`请输入质押数量 >= ${minDeposit} sBTC`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">最大</button>
@@ -172,7 +152,7 @@
           class="modelBtn"
           size="small"
           @click="userDeposit()"
-          >去激活</van-button
+          >去质押</van-button
         >
       </div>
     </van-action-sheet>
@@ -211,12 +191,7 @@ export default {
       model: false,
       reserveLoading: false,
       selectedItem: {},
-      viewCanWithdrawValue: "",
       tokenId: "",
-      withdrawLoading: false,
-      crossProgressValue: "",
-      lpExProgressValue: "",
-      kolProgressValue: "",
       activeModal: false,
       activeAmount: 0,
       activeLoading: false,
@@ -225,14 +200,13 @@ export default {
       sBtcBalance: 0,
       depositAmount: "",
       sBtcDecimals: "18",
-      quitKolLoading: false,
       minDeposit: "",
     };
   },
   mounted() {
     this.getInfo();
     this.getProjectIssuedList();
-    this.registerAddress = this.address;
+    this.registerAddress = shortStr(this.address);
     this.getActiveAmount();
     this.getBalance();
     this.minDepositFun();
@@ -255,7 +229,7 @@ export default {
         case 1:
           return "认证通过";
         case 2:
-          return "已认领项目,审核中。。。";
+          return "已认领或创建项目,审核中。。。";
         case 3:
           return "待执行合约设置kol";
         case 4:
@@ -296,7 +270,7 @@ export default {
         });
     },
     register() {
-      if (!ethers.utils.isAddress(this.registerAddress)) {
+      if (!ethers.utils.isAddress(this.address)) {
         return showToast("请填写正确的钱包地址");
       }
       if (this.xAddress == "") {
@@ -304,7 +278,7 @@ export default {
       }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/register", {
-          address: this.registerAddress,
+          address: this.address,
           twitter_account: this.xAddress,
           tg_account: this.tgAddress,
           discord_account: this.disAddress,
@@ -422,7 +396,7 @@ export default {
     },
     userDeposit() {
       if (this.depositAmount * 1 < this.minDeposit * 1)
-        return showToast(`激活金额必须大于等于${this.minDeposit}sBTC`);
+        return showToast(`质押金额必须大于等于${this.minDeposit}sBTC`);
       if (this.depositAmount * 1 > this.sBtcBalance * 1) return showToast("余额不足");
       this.activeLoading = true;
       getWriteContractLoad(
@@ -435,36 +409,11 @@ export default {
           console.log(res);
           this.activeLoading = false;
           this.activeModal = false;
-          showToast("激活成功");
+          showToast("质押成功");
           this.getActiveAmount();
         })
         .catch(() => {
           this.activeLoading = false;
-        });
-    },
-    async quitKol() {
-      this.quitKolLoading = true;
-
-      const tokenId = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getTokenRatiosIndexByProjectName",
-        this.accountInfo.project_name
-      );
-
-      getWriteContractLoad(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "quitKol",
-        tokenId.toString()
-      )
-        .then((res) => {
-          this.quitKolLoading = false;
-          showToast("退出KOL成功");
-          this.getActiveAmount();
-        })
-        .catch(() => {
-          this.quitKolLoading = false;
         });
     },
 
@@ -518,23 +467,6 @@ export default {
       this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(4);
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
       this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
-    },
-    async withdraw() {
-      this.withdrawLoading = true;
-      await getWriteContractLoad(
-        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
-        kolAbi,
-        "withdrawKolAirdrop",
-        this.tokenId
-      )
-        .then((res) => {
-          this.withdrawLoading = false;
-          showToast("领取成功");
-        })
-        .catch((err) => {
-          this.withdrawLoading = false;
-          console.log(err);
-        });
     },
   },
 
@@ -647,6 +579,7 @@ export default {
       padding: 5px 10px;
     }
   }
+
   button {
     width: 50%;
     height: 40px;
@@ -658,6 +591,15 @@ export default {
     font-size: 12px;
     margin-top: 30px;
   }
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.desc {
+  font-size: 12px;
+  color: #999;
+  text-align: left;
+  line-height: 20px;
 }
 
 .kolContent {
@@ -770,26 +712,6 @@ export default {
       font-size: 12px;
     }
   }
-  .reserve {
-    margin-top: 20px;
-    font-size: 12px;
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    button {
-      height: 30px;
-      border-radius: 5px;
-      background: #ffc519;
-      border: none;
-      color: #333;
-      font-weight: 600;
-      font-size: 12px;
-    }
-  }
 }
 .noData {
   height: 50vh;
@@ -857,10 +779,14 @@ export default {
 }
 .activeBtnBox {
   font-size: 12px;
-  padding-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 20px;
+  .activeBtnDesc {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
   > span {
     padding-right: 10px;
   }

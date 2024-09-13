@@ -4,10 +4,6 @@
       <div v-if="projectVotingList.length">
         <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
           <div>
-            <span>项目名称</span>
-            <span>{{ item.project_name }}</span>
-          </div>
-          <div>
             <span>币种名称</span>
             <span>{{ item.name }}</span>
           </div>
@@ -22,23 +18,26 @@
           </div>
           <div class="listBox">
             <div class="title">发行比例</div>
+            <div class="desc">
+              项目方（KOL）可以借鉴SBTC治理与回购方案，在项目运营发展中，不断回购BSC链流通中的代币转入跨链桥合约，提高跨链额度直至100%。
+            </div>
             <div class="listDiv">
               <div class="listS">
-                <span>跨链</span>
+                <span>跨链桥合约</span>
                 <span>{{ item.cross_percent / 100 }}%</span>
               </div>
               <div class="listS">
-                <span>流动性发行</span>
+                <span>LP兑换合约</span>
                 <span>{{ item.le_percent / 100 }}%</span>
               </div>
             </div>
             <div class="listDiv">
               <div class="listS">
-                <span>启动池</span>
+                <span>启动池合约</span>
                 <span>{{ item.lm_percent / 100 }}%</span>
               </div>
               <div class="listS">
-                <span>社区空头</span>
+                <span>KOL贡献分配合约</span>
                 <span>{{ item.kol_percent / 100 }}%</span>
               </div>
             </div>
@@ -56,9 +55,6 @@
               <van-progress
                 :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
                 stroke-width="8"
-                color="#ffc519"
-                track-color="#FFF2C9"
-                pivot-color="#D9A504"
                 text-color="#fff"
                 :pivot-text="`投票中 ${parseInt(
                   (item.vote_num * 100) / this.votePassNum
@@ -83,9 +79,10 @@
           </div>
           <div class="btnBox">
             <van-button :disabled="item.voted" @click="vote(item.project_name)"
-              >发起投票</van-button
+              >投票支持</van-button
             >
           </div>
+          <p class="desc center">当前投票规则：投票有效期7天，投票完成门槛100票</p>
         </div>
       </div>
       <div v-else class="noData">
@@ -198,9 +195,9 @@ export default {
     },
 
     vote(project_name) {
-      if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("SBTC余额不足");
-      }
+      // if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
+      //   return showToast("SBTC余额不足");
+      // }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
@@ -241,6 +238,7 @@ export default {
     .title {
       margin-top: 20px;
     }
+
     .listDiv {
       display: flex;
       align-items: center;
@@ -260,6 +258,17 @@ export default {
       text-align: left;
       color: #111;
     }
+  }
+  .desc {
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+    text-align: left;
+    line-height: 20px;
+    padding: 10px 0;
+  }
+  .center {
+    text-align: center;
   }
   .btnBox {
     margin-top: 30px;
