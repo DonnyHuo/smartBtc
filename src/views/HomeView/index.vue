@@ -55,7 +55,7 @@
             />
           </div>
         </div>
-        <div v-if="voting.symbol" class="progressBox">
+        <div v-if="voting" class="progressBox">
           <div>
             <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
             <span class="name">{{ voting.symbol }}</span>
