@@ -1,9 +1,9 @@
 <template>
   <div class="kolContent">
-    <div class="header">添加项目</div>
+    <div class="header">KOL认证 — 推荐新项目</div>
     <div class="form">
       <div class="list">
-        <span>币种名称</span>
+        <span>铭文BRC20</span>
         <input type="text" v-model="name" />
       </div>
       <div class="list">
@@ -11,34 +11,45 @@
         <input type="text" v-model="symbol" />
       </div>
       <div class="list">
-        <span>发行数量</span>
+        <span>代币总量</span>
         <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
-        <div class="title">发行比例</div>
+        <div class="title">BSC链初始发行分配比例</div>
         <div class="listDiv">
           <div class="listS">
-            <span>跨链桥合约</span>
-            <div class="inputBox"><input type="text" v-model="percents[0]" /> %</div>
+            <span>跨链</span>
+            <div class="inputBox">
+              <input type="text" v-model="percents[0]" placeholder=">=50" /> %
+            </div>
           </div>
           <div class="listS">
-            <span>LP兑换合约</span>
-            <div class="inputBox"><input type="text" v-model="percents[1]" /> %</div>
+            <span>流动性发行</span>
+            <div class="inputBox">
+              <input type="text" v-model="percents[1]" placeholder=">=10" /> %
+            </div>
           </div>
         </div>
         <div class="listDiv">
           <div class="listS">
-            <span>启动池合约</span>
-            <div class="inputBox"><input type="text" v-model="percents[2]" /> %</div>
+            <span>启动池</span>
+            <div class="inputBox">
+              <input type="text" v-model="percents[2]" placeholder="1-3" /> %
+            </div>
           </div>
           <div class="listS">
-            <span>KOL贡献分配合约</span>
-            <div class="inputBox"><input type="text" v-model="percents[3]" /> %</div>
+            <span>社区KOL空投奖励</span>
+            <div class="inputBox">
+              <input type="text" v-model="percents[3]" placeholder="<=20" /> %
+            </div>
           </div>
         </div>
       </div>
       <div class="sure">
-        <van-button @click="newProject">添加项目</van-button>
+        <van-button @click="newProject">提交初审</van-button>
+      </div>
+      <div class="desc">
+        说明：项目初审通过后，将进入社区投票阶段，有效投票期7天，持有SBTC社区会员可参与投票推荐，满100票获取上市权益，自动部署相关合约。
       </div>
     </div>
   </div>
@@ -89,7 +100,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .kolContent {
-  background-color: #fff;
+  background-color: #f1f1f1;
   height: 100vh;
   padding-bottom: 100px;
   overflow: auto;
@@ -99,13 +110,14 @@ export default {
   line-height: 50px;
   font-weight: bold;
   font-size: 14px;
+  background-color: #fff;
 }
 .form {
   width: 90%;
   margin: 20px auto;
   padding: 20px 0;
   border-radius: 10px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   font-size: 12px;
   font-weight: bold;
 }
@@ -150,6 +162,7 @@ export default {
       input {
         width: 80%;
         height: 26px;
+        padding: 0 10px;
       }
     }
   }
@@ -197,5 +210,13 @@ input {
   .active {
     background-color: #ffc519;
   }
+}
+.desc {
+  text-align: left;
+  font-size: 12px;
+  color: #999;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 20px;
 }
 </style>

@@ -319,7 +319,7 @@ export default {
       this.getProjectIssuedList();
     }
     this.timer = setInterval(() => {
-      this.getProjectIssuedList();
+      // this.getProjectIssuedList();
     }, 5000);
   },
   beforeUnmount() {

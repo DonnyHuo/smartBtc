@@ -52,22 +52,31 @@
         @click="openActiveModal(item)"
         >去质押</van-button
       >
-      <router-link v-else to="/kolAdd" class="addBtn">
-        <van-button class="activeBtn" size="small">发起项目</van-button>
-      </router-link>
+      <div v-else class="inputSearch">
+        <input
+          class="searchBox"
+          type="text"
+          v-model="searchValue"
+          placeholder="输入项目名称搜索"
+          @change="searchValueFun"
+        />
+        <router-link to="/kolAdd" class="addBtn">
+          <van-button class="activeBtn" size="small">发起项目</van-button>
+        </router-link>
+      </div>
 
-      <div v-if="!activeAmount" class="desc mt-20">
+      <div v-if="!activeAmount" class="desc mt-10">
         认领和创建项目前，需要质押SBTC，数量2100个起，质押越多，分配权重越高，可以随时撤销质押。
       </div>
-      <div v-else class="desc mt-20">
+      <div v-else class="desc mt-10">
         推荐新的铭文项目，在SmartBTC BRC20
         Launchpad发起投票，7天内满100个有效投票，即获得上市资格并自动部署相关合约，同时完成KOL绑定为项目方，自动获得该项目的社区空投。
       </div>
     </div>
 
     <div v-if="accountInfo.status === 1" class="listBoxs">
-      <div v-if="projectIssuedList.length">
-        <div v-for="(item, index) in projectIssuedList" class="list" :key="index">
+      <div v-if="searchList.length">
+        <div v-for="(item, index) in searchList" class="list" :key="index">
           <div>
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ item.name }}</span>
@@ -203,6 +212,8 @@ export default {
       depositAmount: "",
       sBtcDecimals: "18",
       minDeposit: "",
+      searchValue: "",
+      searchList: "",
     };
   },
   mounted() {
@@ -215,7 +226,7 @@ export default {
 
     this.timer = setInterval(() => {
       this.getInfo();
-      this.getProjectIssuedList();
+      // this.getProjectIssuedList();
     }, 5000);
   },
   beforeUnmount() {
@@ -313,6 +324,7 @@ export default {
         .get("https://smartbtc.io/bridge/kol/project_issued_list")
         .then((res) => {
           this.projectIssuedList = res.data.data;
+          this.searchList = this.projectIssuedList;
 
           const reserveInfo = this.projectIssuedList.filter(
             (list) => list.project_name == this.accountInfo.project_name
@@ -470,6 +482,9 @@ export default {
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
       this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
     },
+    searchValueFun(e) {
+      this.searchValue = e.target.value;
+    },
   },
 
   watch: {
@@ -478,6 +493,15 @@ export default {
     },
     reserveInfo(value) {
       value && this.getWithdraw();
+    },
+    searchValue(value) {
+      if (value !== "") {
+        this.searchList = this.projectIssuedList.filter((item) =>
+          item.name.toLowerCase().includes(value.toLowerCase())
+        );
+      } else {
+        this.searchList = this.projectIssuedList;
+      }
     },
   },
 };
@@ -593,6 +617,9 @@ export default {
     font-size: 12px;
     margin-top: 30px;
   }
+}
+.mt-10 {
+  margin-top: 10px;
 }
 .mt-20 {
   margin-top: 20px;
@@ -802,6 +829,22 @@ export default {
     font-weight: bold;
     font-size: 12px;
     line-height: 28px;
+  }
+  .inputSearch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    .searchBox {
+      width: calc(100% - 80px);
+      height: 36px;
+      background-color: transparent;
+      border: 1px solid #999;
+      border-radius: 10px;
+      padding: 10px;
+    }
   }
 }
 .tips {
