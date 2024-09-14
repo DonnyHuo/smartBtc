@@ -56,6 +56,9 @@
                 :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
                 stroke-width="8"
                 text-color="#fff"
+                pivot-color="#D9A504"
+                color="#ffc519"
+                track-color="#FFF2C9"
                 :pivot-text="`投票中 ${parseInt(
                   (item.vote_num * 100) / this.votePassNum
                 )}%`"
@@ -195,9 +198,9 @@ export default {
     },
 
     vote(project_name) {
-      // if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-      //   return showToast("SBTC余额不足");
-      // }
+      if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
+        return showToast("SBTC余额不足");
+      }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,

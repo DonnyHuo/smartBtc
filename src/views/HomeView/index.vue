@@ -88,7 +88,10 @@
 
       <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
         <div class="weight">我的项目</div>
-        <div class="weight">{{ reserveInfo?.name }}</div>
+        <div>
+          <div>{{ reserveInfo?.name }}</div>
+          <div>{{ reserveBalance }} {{ reserveInfo?.symbol }}</div>
+        </div>
         <div>
           <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
           <van-button
@@ -119,6 +122,7 @@
           <van-button
             class="activeBtn"
             size="small"
+            :disabled="!(activeAmount * 1)"
             :loading="quitKolLoading"
             @click="quitKol(item)"
             >解除质押</van-button
@@ -278,6 +282,7 @@ export default {
       lpExProgressValue: "",
       kolProgressValue: "",
       quitKolLoading: false,
+      reserveBalance: 0,
     };
   },
   computed: {
@@ -465,7 +470,7 @@ export default {
     getProjectIssuedList() {
       this.$axios
         .get("https://smartbtc.io/bridge/kol/project_issued_list")
-        .then((res) => {
+        .then(async (res) => {
           this.projectIssuedList = res.data.data;
 
           const reserveInfo = this.projectIssuedList.filter(
@@ -476,6 +481,22 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    async getReserveBalance() {
+      const decimals = await getContract(
+        this.reserveInfo.contract_addr,
+        erc20ABI,
+        "decimals"
+      );
+      const balanceOf = await getContract(
+        this.reserveInfo.contract_addr,
+        erc20ABI,
+        "balanceOf",
+        this.$store.state.address
+      );
+      this.reserveBalance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(
+        2
+      );
     },
     async getWithdraw() {
       const tokenId = await getContract(
@@ -578,6 +599,7 @@ export default {
   watch: {
     reserveInfo(value) {
       value && this.getWithdraw();
+      value && this.getReserveBalance();
     },
   },
 };
