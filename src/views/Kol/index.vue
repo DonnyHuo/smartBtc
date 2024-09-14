@@ -99,21 +99,23 @@
       </div>
     </div>
 
-    <van-action-sheet class="model" v-model:show="model" title="认领说明">
+    <van-action-sheet class="model" v-model:show="model" title="认领规则">
       <div class="content">
         <div class="contentDesc">
-          <p>1.必须发推特满足xxxx必须发推特满足xxxx</p>
-          <p>2.必须发推特满足xxxx必须发推特满足xxxx</p>
-          <p>3.必须发推特满足xxxx必须发推特满足xxxx</p>
-          <p>4.必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx</p>
           <p>
-            5.必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx
+            1、原则上，KOL应保持常态通过Twitter、Telegram等社交网络，或组织线下活动等方式，积极参与某铭文项目的推广布道，才能认领成为该项目的社区KOL（项目方）；
           </p>
           <p>
-            6.必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx
+            2、提交认领时，SmartBTC.io会多维度测算KOL的质押SBTC数量、社交账户活跃度、认证推文阅读点赞转发数、社交账户历史动态与项目的关联度、认领地址项目代币持仓数量等综合因素，通过算法自动测算出当前KOL对应的社区空投奖励分配权重；
           </p>
           <p>
-            7.必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx必须发推特满足xxxx
+            3、一个KOL（对应认证的钱包地址）只能唯一认领一个项目，且认领完成不可更改；
+          </p>
+          <p>
+            4、可以随时撤销认领，解除收回质押的SBTC，一经解除KOL权益即时终止且不可申请复效；
+          </p>
+          <p>
+            5、认领完成后，KOL应保持对该项目的推广布道，积极参与社区建设，SmartBTC.io平台算法不定期根据KOL多维度动态数据调整其空投奖励分配权益，并对长时间不参与社区建设的KOL暂停或终止分配权益。
           </p>
         </div>
         <van-button
@@ -121,7 +123,7 @@
           class="modelBtn"
           size="small"
           @click="bindProject(selectedItem.project_name)"
-          >已完成说明 去认领</van-button
+          >我已阅读并认可认领规则，同意认领此项目</van-button
         >
       </div>
     </van-action-sheet>
@@ -732,6 +734,8 @@ export default {
   .contentDesc {
     padding: 20px;
     text-align: left;
+    line-height: 20px;
+    font-size: 12px;
   }
   .inputBox {
     width: 80%;

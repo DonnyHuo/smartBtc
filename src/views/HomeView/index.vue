@@ -2,15 +2,27 @@
   <div class="home">
     <div class="homeLogoBox">
       <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
-      <div class="addressBox">
-        <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
-        <div class="address">{{ shortStr($store.state.address) }}</div>
-        <img
-          class="copy"
-          src="../../assets/img/copy.png"
-          @click="copyAddress($store.state.address)"
-          alt=""
-        />
+
+      <div>
+        <div class="addressBox">
+          <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
+          <div class="address">{{ shortStr($store.state.address) }}</div>
+          <img
+            class="copy"
+            src="../../assets/img/copy.png"
+            @click="copyAddress($store.state.address)"
+            alt=""
+          />
+        </div>
+        <div style="text-align: right; padding-top: 10px">
+          <span>{{ sBtcBalance }} SBTC</span>
+          <a
+            :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
+            target="_blank"
+          >
+            <span style="padding-left: 10px; font-size: 12px; color: #1989fa">购买</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -128,7 +140,9 @@
             >解除质押</van-button
           >
         </div>
-        <p class="desc">解除SBTC质押，将即时终止KOL资格，谨慎操作。</p>
+        <p class="desc" style="width: 60%">
+          解除SBTC质押，将即时终止KOL资格，且不可申请复效，谨慎操作。
+        </p>
       </div>
       <div v-else class="btn-group">
         <router-link to="/kol">
@@ -346,7 +360,7 @@ export default {
         );
         this.sBtcBalance = (
           ethers.utils.formatUnits(sBtcBalance, sBtcDecimals) * 1
-        ).toFixed(6);
+        ).toFixed(2);
       }
     },
 
@@ -615,7 +629,7 @@ export default {
 .homeLogoBox {
   height: 50px;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   padding: 10px 15px;
 
