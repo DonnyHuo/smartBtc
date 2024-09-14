@@ -117,12 +117,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Kol/index.vue"),
   },
   {
-    path: "/kolDetail",
-    name: "kolDetail",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Kol/detail.vue"),
-  },
-  {
     path: "/kolAdd",
     name: "kolAdd",
     component: () =>

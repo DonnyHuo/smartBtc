@@ -1,96 +1,88 @@
 <template>
-  <div>
-    <div class="votingListBox">
-      <div v-if="projectVotingList.length">
-        <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
-          <div>
-            <span>币种名称</span>
-            <span>{{ item.name }}</span>
-          </div>
-          <div>
-            <span>币种Symbol</span>
-            <span>{{ item.symbol }}</span>
-          </div>
-
-          <div>
-            <span>发行数量</span>
-            <span>{{ item.total_supply }}</span>
-          </div>
-          <div class="listBox">
-            <div class="title">发行比例</div>
-            <div class="desc">
-              项目方（KOL）可以借鉴SBTC治理与回购方案，在项目运营发展中，不断回购BSC链流通中的代币转入跨链桥合约，提高跨链额度直至100%。
-            </div>
-            <div class="listDiv">
-              <div class="listS">
-                <span>跨链桥合约</span>
-                <span>{{ item.cross_percent / 100 }}%</span>
-              </div>
-              <div class="listS">
-                <span>LP兑换合约</span>
-                <span>{{ item.le_percent / 100 }}%</span>
-              </div>
-              <div class="listS">
-                <span>启动池合约</span>
-                <span>{{ item.lm_percent / 100 }}%</span>
-              </div>
-              <div class="listS">
-                <span>KOL贡献分配合约</span>
-                <span>{{ item.kol_percent / 100 }}%</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <span>结束时间</span>
-            <span>{{
-              formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
-            }}</span>
-          </div>
-          <div>
-            <span>投票进度</span>
-            <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
-            <div style="width: 80%">
-              <van-progress
-                :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
-                stroke-width="8"
-                text-color="#fff"
-                pivot-color="#D9A504"
-                color="#ffc519"
-                track-color="#FFF2C9"
-                :pivot-text="`投票中 ${parseInt(
-                  (item.vote_num * 100) / this.votePassNum
-                )}%`"
-              />
-            </div>
-          </div>
-          <div class="records">
-            <div class="recordTitle">投票记录</div>
-            <div
-              class="recordList"
-              v-for="(list, index) in item.projectVotes"
-              :key="index"
-            >
-              <div>
-                {{ shortStr(list.address) }}
-              </div>
-              <div>
-                {{ formatDate(new Date(list.created_at), "yyyy-MM-dd hh:mm") }}
-              </div>
-            </div>
-          </div>
-          <div class="btnBox">
-            <van-button :disabled="item.voted" @click="vote(item.project_name)"
-              >投票支持</van-button
-            >
-          </div>
-          <p class="desc center">当前投票规则：投票有效期7天，投票完成门槛100票</p>
-        </div>
-      </div>
-      <div v-else class="noData">
+  <div class="votingListBox">
+    <div v-if="projectVotingList.length">
+      <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
         <div>
-          <img src="../../assets/img/noData.png" />
-          <div>暂无数据</div>
+          <span>币种名称</span>
+          <span>{{ item.name }}</span>
         </div>
+        <div>
+          <span>币种Symbol</span>
+          <span>{{ item.symbol }}</span>
+        </div>
+
+        <div>
+          <span>发行数量</span>
+          <span>{{ item.total_supply }}</span>
+        </div>
+        <div class="listBox">
+          <div class="title">发行比例</div>
+          <div class="desc">
+            项目方（KOL）可以借鉴SBTC治理与回购方案，在项目运营发展中，不断回购BSC链流通中的代币转入跨链桥合约，提高跨链额度直至100%。
+          </div>
+          <div class="listDiv">
+            <div class="listS">
+              <span>跨链桥合约</span>
+              <span>{{ item.cross_percent / 100 }}%</span>
+            </div>
+            <div class="listS">
+              <span>LP兑换合约</span>
+              <span>{{ item.le_percent / 100 }}%</span>
+            </div>
+            <div class="listS">
+              <span>启动池合约</span>
+              <span>{{ item.lm_percent / 100 }}%</span>
+            </div>
+            <div class="listS">
+              <span>KOL贡献分配合约</span>
+              <span>{{ item.kol_percent / 100 }}%</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span>结束时间</span>
+          <span>{{ formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm") }}</span>
+        </div>
+        <div>
+          <span>投票进度</span>
+          <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
+          <div style="width: 80%">
+            <van-progress
+              :percentage="parseInt((item.vote_num * 100) / this.votePassNum)"
+              stroke-width="8"
+              text-color="#fff"
+              pivot-color="#D9A504"
+              color="#ffc519"
+              track-color="#FFF2C9"
+              :pivot-text="`投票中 ${parseInt(
+                (item.vote_num * 100) / this.votePassNum
+              )}%`"
+            />
+          </div>
+        </div>
+        <div class="records">
+          <div class="recordTitle">投票记录</div>
+          <div class="recordList" v-for="(list, index) in item.projectVotes" :key="index">
+            <div>
+              {{ shortStr(list.address) }}
+            </div>
+            <div>
+              {{ formatDate(new Date(list.created_at), "yyyy-MM-dd hh:mm") }}
+            </div>
+          </div>
+        </div>
+        <div class="btnBox">
+          <van-button :disabled="item.voted" @click="vote(item.project_name)"
+            >投票支持</van-button
+          >
+        </div>
+        <p class="desc center">当前投票规则：投票有效期7天，投票完成门槛100票</p>
+      </div>
+    </div>
+    <div v-else class="noData">
+      <div>
+        <img src="../../assets/img/noData.png" />
+        <div>暂无数据</div>
       </div>
     </div>
   </div>
@@ -221,6 +213,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.votingListBox {
+  height: calc(100vh - 60px);
+  overflow: auto;
+}
 .votingList {
   background-color: #fff;
   border-radius: 10px;

@@ -1,10 +1,10 @@
 <template>
   <div class="kolIndex">
     <div class="header">
-      <span v-if="!accountInfo.status">KOL认证 — 社交账户</span>
+      <span v-if="!accountInfo.status">KOL認證 — 社交帳戶</span>
       <div v-else>
-        <span v-if="!activeAmount">KOL认证 — 质押SBTC</span>
-        <span v-if="activeAmount">KOL认证 — 成为项目方</span>
+        <span v-if="!activeAmount">KOL認證 — 質押SBTC</span>
+        <span v-if="activeAmount">KOL認證 — 成為项目方</span>
       </div>
     </div>
     <div v-if="!accountInfo" class="kolRequest">
@@ -17,7 +17,7 @@
         <input type="text" v-model="xAddress" />
       </div>
       <div class="desc">
-        发布Twitter认证推文，包含SmartBTC、SBTC和想认领的铭文项目信息，文案自定义，主要考察该推文24小时阅读数、转发数和点赞数。
+        發布Twitter認證推文，包含SmartBTC、SBTC和想認領的銘文項目信息，文案自定義，主要考察該推文24小時閱讀數、轉發數和點贊數。
       </div>
       <div>
         <span>Telegram地址</span>
@@ -30,7 +30,8 @@
 
       <van-button @click="register">提交认证</van-button>
       <div class="desc mt-20">
-        KOL贡献分配权重计算方法：初始权重主要取决于社交账户总粉丝数、认证推文24小时活跃度和实际质押的SBTC数量这三大维度，运营中不定期抓取认证社交账户（Twitter为主，Telegram、Discord为辅）对认领铭文项目和SmartBTC平台的关注与推广数据，根据算法提高KOL贡献分配权重。
+        KOL貢獻分配權重計算方法：初始權重主要取決於社交帳戶總粉絲數、認證推文24小時活躍度和實際質押的SBTC數量這三大維度，運營中不定期抓取認證社交帳戶（Twitter為主，
+        Telegram、Discord為輔）對認領銘文项目與SmartBTC平台的關注與推廣數據，根據演算法提高KOL貢獻分配權重。
       </div>
     </div>
     <div v-if="accountInfo.status === 0" class="kolRequest">
@@ -66,11 +67,11 @@
       </div>
 
       <div v-if="!activeAmount" class="desc mt-10">
-        认领和创建项目前，需要质押SBTC，数量2100个起，质押越多，分配权重越高，可以随时撤销质押。
+        認領和創建项目前，需要質押SBTC，數量2100個起，質押越多，分配權重越高，可以隨時撤銷質押。
       </div>
       <div v-else class="desc mt-10">
-        推荐新的铭文项目，在SmartBTC BRC20
-        Launchpad发起投票，7天内满100个有效投票，即获得上市资格并自动部署相关合约，同时完成KOL绑定为项目方，自动获得该项目的社区空投。
+        推薦新的銘文項目，在SmartBTC BRC20
+        Launchpad發起投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的社區空投。
       </div>
     </div>
 
@@ -83,7 +84,7 @@
           </div>
           <div>
             <van-button size="small" :disabled="!activeAmount" @click="openModel(item)"
-              >认领</van-button
+              >認領</van-button
             >
           </div>
         </div>
@@ -92,7 +93,7 @@
       <div v-else class="noData">
         <div>
           <img src="../../assets/img/noData.png" />
-          <div>暂无数据</div>
+          <div>暫無數據</div>
         </div>
       </div>
     </div>
@@ -112,19 +113,17 @@
       <div class="content">
         <div class="contentDesc">
           <p>
-            1、原则上，KOL应保持常态通过Twitter、Telegram等社交网络，或组织线下活动等方式，积极参与某铭文项目的推广布道，才能认领成为该项目的社区KOL（项目方）；
+            1.原則上，KOL應保持常態透過Twitter、Telegram等社交網絡，或組織線下活動等方式，積極參與某銘文項目的推廣佈道，才能認領成為該項目的社區KOL（項目方）；
           </p>
           <p>
-            2、提交认领时，SmartBTC.io会多维度测算KOL的质押SBTC数量、社交账户活跃度、认证推文阅读点赞转发数、社交账户历史动态与项目的关联度、认领地址项目代币持仓数量等综合因素，通过算法自动测算出当前KOL对应的社区空投奖励分配权重；
+            2.提交認領時，SmartBTC.io會多維度測算KOL的質押SBTC數量、社交帳戶活躍度、認證推文閱讀點讚轉發數、社交帳戶歷史動態與項目的關聯度、認領地址項目代幣持倉數量等綜合因素，透過演算法自動計算出當前KOL對應的社群空投獎勵分配權重；
+          </p>
+          <p>3.一個KOL（對應認證的錢包位址）只能唯一認領一個項目，且認領完成不可更改；</p>
+          <p>
+            4.可以隨時撤銷認領，解除收回質押的SBTC，一經解除KOL權益即時終止且不可申請複效；
           </p>
           <p>
-            3、一个KOL（对应认证的钱包地址）只能唯一认领一个项目，且认领完成不可更改；
-          </p>
-          <p>
-            4、可以随时撤销认领，解除收回质押的SBTC，一经解除KOL权益即时终止且不可申请复效；
-          </p>
-          <p>
-            5、认领完成后，KOL应保持对该项目的推广布道，积极参与社区建设，SmartBTC.io平台算法不定期根据KOL多维度动态数据调整其空投奖励分配权益，并对长时间不参与社区建设的KOL暂停或终止分配权益。
+            5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。
           </p>
         </div>
         <van-button
@@ -132,19 +131,19 @@
           class="modelBtn"
           size="small"
           @click="bindProject(selectedItem.project_name)"
-          >我已阅读并认可认领规则，同意认领此项目</van-button
+          >我已閱讀並認可認領規則，同意認領此項目</van-button
         >
       </div>
     </van-action-sheet>
 
     <van-action-sheet class="model" v-model:show="activeModal" title="质押SBTC">
       <div class="content">
-        <div class="balanceBox">余额：{{ sBtcBalance }} SBTC</div>
+        <div class="balanceBox">餘額：{{ sBtcBalance }} SBTC</div>
         <div class="inputBox">
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`请输入质押数量 >= ${minDeposit} sBTC`"
+            :placeholder="`請輸入質押數量 >= ${minDeposit} sBTC`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">最大</button>
@@ -155,7 +154,7 @@
           class="modelBtn"
           size="small"
           @click="approveActive()"
-          >去授权</van-button
+          >去授權</van-button
         >
         <van-button
           v-else
@@ -163,7 +162,7 @@
           class="modelBtn"
           size="small"
           @click="userDeposit()"
-          >去质押</van-button
+          >去質押</van-button
         >
       </div>
     </van-action-sheet>
@@ -240,21 +239,21 @@ export default {
     getStatus(status) {
       switch (status) {
         case 1:
-          return "认证通过";
+          return "認證通過";
         case 2:
-          return "已认领或创建项目,审核中。。。";
+          return "已認領或建立项目,審核中。。。";
         case 3:
-          return "待执行合约设置kol";
+          return "待執行合約設定KOL";
         case 4:
-          return "kol合约已执行";
+          return "KOL合約已執行";
         case 5:
-          return "项目kol已生效";
+          return "項目KOL已生效";
         case 6:
-          return "项目kol设置执行失败";
+          return "项目KOL設定執行失敗";
         case 7:
-          return "认证审核未通过";
+          return "認證審核未通過";
         case 8:
-          return "项目kol设置为失效";
+          return "項目KOL設定為失效";
         default:
           return "";
       }
@@ -284,10 +283,10 @@ export default {
     },
     register() {
       if (!ethers.utils.isAddress(this.address)) {
-        return showToast("请填写正确的钱包地址");
+        return showToast("請填寫正確的錢包地址");
       }
       if (this.xAddress == "") {
-        return showToast("请填写正确的X地址");
+        return showToast("請填寫正確的X位址");
       }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/register", {
@@ -297,7 +296,7 @@ export default {
           discord_account: this.disAddress,
         })
         .then((res) => {
-          showToast("已提交认证申请");
+          showToast("已提交認證申請");
           this.getInfo();
         })
         .catch((err) => {
@@ -311,7 +310,7 @@ export default {
           project_name: project_name,
         })
         .then((res) => {
-          showToast("认领成功");
+          showToast("認領成功");
           this.model = false;
         })
         .catch((err) => {

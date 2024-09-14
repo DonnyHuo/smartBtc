@@ -1,42 +1,42 @@
 <template>
   <div class="kolContent">
-    <div class="header">KOL认证 — 推荐新项目</div>
+    <div class="header">KOL認證 — 推薦新項目</div>
     <div class="form">
       <div class="list">
-        <span>铭文BRC20</span>
+        <span>銘文BRC20</span>
         <input type="text" v-model="name" />
       </div>
       <div class="list">
-        <span>币种symbol</span>
+        <span>幣種symbol</span>
         <input type="text" v-model="symbol" />
       </div>
       <div class="list">
-        <span>代币总量</span>
+        <span>代幣總量</span>
         <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
-        <div class="title">BSC链初始发行分配比例</div>
+        <div class="title">BSC鏈初始發行分配比例</div>
         <div class="listDiv">
           <div class="listS">
-            <span>跨链</span>
+            <span>跨鏈</span>
             <div class="inputBox">
               <input type="text" v-model="percents[0]" placeholder=">=50" /> %
             </div>
           </div>
           <div class="listS">
-            <span>流动性发行</span>
+            <span>流動性發行</span>
             <div class="inputBox">
               <input type="text" v-model="percents[1]" placeholder=">=10" /> %
             </div>
           </div>
           <div class="listS">
-            <span>启动池</span>
+            <span>啟動池</span>
             <div class="inputBox">
               <input type="text" v-model="percents[2]" placeholder="1-3" /> %
             </div>
           </div>
           <div class="listS">
-            <span>社区KOL空投奖励</span>
+            <span>社區KOL空投獎勵</span>
             <div class="inputBox">
               <input type="text" v-model="percents[3]" placeholder="<=20" /> %
             </div>
@@ -44,10 +44,10 @@
         </div>
       </div>
       <div class="sure">
-        <van-button @click="newProject">提交初审</van-button>
+        <van-button @click="newProject">提交初審</van-button>
       </div>
       <div class="desc">
-        说明：项目初审通过后，将进入社区投票阶段，有效投票期7天，持有SBTC社区会员可参与投票推荐，满100票获取上市权益，自动部署相关合约。
+        說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@ export default {
           project_info,
         })
         .then((res) => {
-          showToast("申请成功");
+          showToast("申請成功");
           setTimeout(() => {
             this.$router.push("/kol");
           }, 1000);

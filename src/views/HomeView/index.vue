@@ -20,7 +20,7 @@
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
             target="_blank"
           >
-            <span style="padding-left: 10px; font-size: 12px; color: #1989fa">购买</span>
+            <span style="padding-left: 10px; font-size: 12px; color: #1989fa">購買</span>
           </a>
         </div>
       </div>
@@ -29,7 +29,7 @@
     <div class="homeTop">
       <div class="homeTopTitle">
         BRC20 Launchpad <br />
-        铭文流动性聚合平台
+        銘文流動性聚合平台
       </div>
       <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
       <div class="progress">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <router-link to="/voting">
-          <van-button class="votingBtn">项目详情</van-button>
+          <van-button class="votingBtn">項目詳情</van-button>
         </router-link>
         <!-- <van-progress pivot-text="红色" color="#ee0a24" :percentage="50" /> -->
       </div>
@@ -89,17 +89,17 @@
 
     <div class="kolContent">
       <div class="title">
-        <p>KOL认证与空投奖励</p>
-        <p>发起项目与推广项目</p>
+        <p>KOL認證與空投獎勵</p>
+        <p>發起项目與推廣項目</p>
       </div>
       <div class="content">
-        拥有活跃的Twitter等社交账户，并质押至少2100个SBTC，即可提交KOL认证；<br />
-        通过KOL认证，即可发起项目投票或选择上币项目，推广项目以获得代币空投奖励；<br />
-        根据推特粉丝数，认证推文的阅读、评论、点赞和转发数，以及实际质押的SBTC数量，并参考Telegram、Discord账户粉丝数和活跃度，综合计算绑定项目的代币空投分配权重。
+        擁有活躍的Twitter等社交帳戶，並質押至少2100個SBTC，即可提交KOL認證；<br />
+        通過KOL認證，即可發起項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；<br />
+        根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SBTC數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。
       </div>
 
       <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
-        <div class="weight">我的项目</div>
+        <div class="weight">我的項目</div>
         <div>
           <div>{{ reserveInfo?.name }}</div>
           <div>{{ reserveBalance }} {{ reserveInfo?.symbol }}</div>
@@ -111,45 +111,45 @@
             :loading="withdrawLoading"
             @click="withdraw()"
             :disabled="!(viewCanWithdrawValue * 1)"
-            >领取收益</van-button
+            >領取收益</van-button
           >
         </div>
         <div>
-          <div>跨链进度</div>
+          <div>跨鏈進度</div>
           <div>{{ crossProgressValue }} %</div>
         </div>
         <div>
-          <div>LP兑换发行进度</div>
+          <div>LP兌換發行進度</div>
           <div>{{ lpExProgressValue }} %</div>
         </div>
         <div>
-          <div>KOL奖励发行进度</div>
+          <div>KOL獎勵發行進度</div>
           <div>{{ kolProgressValue }} %</div>
         </div>
         <div class="desc">
-          备注：每发生一笔新的跨链或LP兑换，均将根据当笔数量对应比例触发一次新的社区空投，认证KOL将根据增加的分配权重得到对应的项目代币空投奖励，可随时领取。
+          備註：每發生一筆新的跨鍊或LP兌換，均將根據當筆數量對應比例觸發一次新的社區空投，認證KOL將根據增加的分配權重得到對應的項目代幣空投獎勵，可隨時領取。
         </div>
         <div>
-          <div>质押数量: {{ activeAmount }} SBTC</div>
+          <div>質押數量: {{ activeAmount }} SBTC</div>
           <van-button
             class="activeBtn"
             size="small"
             :disabled="!(activeAmount * 1)"
             :loading="quitKolLoading"
             @click="quitKol(item)"
-            >解除质押</van-button
+            >解除質押</van-button
           >
         </div>
         <p class="desc" style="width: 60%">
-          解除SBTC质押，将即时终止KOL资格，且不可申请复效，谨慎操作。
+          解除SBTC質押，將即時終止KOL資格，且不可申請複效，謹慎操作。
         </p>
       </div>
       <div v-else class="btn-group">
         <router-link to="/kol">
-          <van-button type="primary">KOL认证</van-button>
+          <van-button type="primary">KOL認證</van-button>
         </router-link>
         <router-link :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'">
-          <van-button>发起项目</van-button>
+          <van-button>發起项目</van-button>
         </router-link>
         <router-link v-if="adminShow" to="/review">
           <van-button>审核</van-button>
@@ -158,22 +158,24 @@
     </div>
     <div class="bridgeContent">
       <div class="title">
-        跨链桥Bridge<br />
-        SBTC治理与回购
+        跨鏈橋Bridge<br />
+        SBTC治理與回購
       </div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
       <div class="content">
-        BSC链的SBTC
-        代币50%发行至跨链桥合约，以供活跃的SBTC铭文账户跨链转移；30%以LP兑换的方式智能合约发行，即奖励给流动性提供者（LP）；18%以空投的方式奖励给参与社区推广建设的KOL；2%发行至启动池合约。<br />
-        SmartBTC定期以网站收入和项目空投所得回购SBTC并转入跨链桥合约，不断激活跨链额度直至100%，全部激活后，双向跨链同步生效。<br />
-        持有SBTC可参与项目投票，质押SBTC可领取项目空投。
+        BSC鏈的SBTC
+        代幣50%發行至跨鏈橋合約，以供活躍的SBTC銘文帳戶跨鏈轉移；30%以LP兌換的方式智能合約發行，即獎勵給流動性提供者（LP）；18%以空投的方式獎勵給參與社區推廣建設的KOL；2%發行至啟動池合約。
+        <br />
+        SmartBTC定期以網站收入和项目空投所得回購SBTC並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。
+        <br />
+        持有SBTC可參與项目投票，質押SBTC可領取项目空投。
       </div>
     </div>
 
     <div class="contant">
       <div class="title">
-        <div>技术路线图</div>
-        <div>BTC公平发行资产，跨链BSC集成丰富DeFi应用，逐步兼容主流BTC L2 ......</div>
+        <div>技術路線圖</div>
+        <div>BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......</div>
       </div>
       <div class="contantList">
         <van-steps
@@ -183,26 +185,26 @@
         >
           <van-step>
             <div class="time">2023年3月9日</div>
-            <div class="desc">Ordinals协议首个带BTC字符的铭文SBTC部署发布</div>
+            <div class="desc">Ordinals協定首個帶有BTC字元的銘文SBTC部署發布</div>
           </van-step>
           <van-step>
             <div class="time">2023年5月12日</div>
-            <div class="desc">总量2100万，单次500的SBTC被全部Mint近2000个地址参与</div>
+            <div class="desc">總量2100萬，單次500的SBTC被全部Mint近2000個地址參與</div>
           </van-step>
           <van-step>
             <div class="time">2024年1月13日</div>
             <div class="desc">
-              多家知名华人WEB3品牌共同举办的香港比特币生态峰会，联合发布SmartBTC
-              一专注于比特币生态的VC DAO
+              多家知名華人WEB3品牌共同舉辦的香港比特幣生態高峰會，共同發表SmartBTC
+              一專注於比特幣生態的VC DAO
             </div>
           </van-step>
           <van-step>
             <div class="time">2024年4月15日</div>
             <div class="desc">
-              收购拥有超1万钱包地址的CoinDAO，社区代币100T可10:1置换为BSC链挖矿奖励代币100T，迁移加入SmartBTCdao,并为BRC852新资产提供基础流动性
+              收購擁有超1萬錢包地址的CoinDAO，社區代幣100T可10:1置換為BSC鏈挖礦獎勵代幣100T，遷移加入SmartBTCdao,並為BRC852新資產提供基礎流動性
               <div>
                 <router-link to="swap">
-                  <van-button>去行权</van-button>
+                  <van-button>去行權</van-button>
                 </router-link>
               </div>
             </div>
@@ -210,8 +212,8 @@
           <van-step>
             <div class="time">2024年4月26日</div>
             <div class="desc">
-              主网SmartBTC.io
-              正式发布，开通第一个跨链资产SBTC，提供SWAP交易，推出流动池LP质押挖矿，上线以比特币为指数铭文为权利金的永续期权
+              主網SmartBTC.io
+              正式發布，開通第一個跨鏈資產SBTC，提供SWAP交易，推出流動池LP質押挖礦，上線以比特幣為指數銘文為權利金的永續選擇權
               <div>
                 <router-link to="options">
                   <van-button>期权</van-button>
@@ -222,21 +224,21 @@
           <van-step>
             <div class="time">2024年5月10日</div>
             <div class="desc">
-              香港Bitcoin Asia大会，SmartBTC正式发布锚定BRC20的新资产发行协议 --
-              BRC852协议，为比特币生态注入新的想象空间
+              香港Bitcoin Asia大會，SmartBTC正式發布錨定BRC20的新資產發行協議 --
+              BRC852協議，為比特幣生態注入新的想像空間
             </div>
           </van-step>
           <van-step>
             <div class="time">2024年下半年</div>
             <div class="desc">
-              新加坡Token2049会议期间，SmartBTC.io发布2.0版本，SmartBTC继续集成丰富的DeFi应用，逐步向活跃比特币铭文开放服务，SBTC成为市值TOP3主流铭文
+              新加坡Token2049會議期間，SmartBTC.io發布2.0版本，SmartBTC繼續整合豐富的DeFi應用，逐步向活躍比特幣銘文開放服務，SBTC成為市值TOP3主流銘文
             </div>
           </van-step>
           <van-step>
             <div class="time">2025年</div>
             <div class="desc">
-              SmartBTC逐步兼容主流BTC
-              L2，并由BRC20(铭文)扩展到比特币全生态，BRC852成为主流资产发行协议，SmartBTC.io成为比特币生态底层应用，SBTC成为铭文新龙头
+              SmartBTC逐步相容主流BTC
+              L2，並由BRC20(銘文)擴展到比特幣全生態，BRC852成為主流資產發行協議，SmartBTC.io成為比特幣生態底層應用，SBTC成為銘文新龍頭
             </div>
           </van-step>
         </van-steps>
