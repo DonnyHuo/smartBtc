@@ -673,7 +673,7 @@ export default {
   }
   .content {
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
   }
   .form {
     border: 1px solid #e1dede;
@@ -798,7 +798,7 @@ export default {
     border: none;
     color: #333;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 30px;
   }
   > button {
@@ -844,6 +844,7 @@ export default {
       border: 1px solid #999;
       border-radius: 10px;
       padding: 10px;
+      font-size: 12px;
     }
   }
 }

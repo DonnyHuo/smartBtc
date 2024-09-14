@@ -126,6 +126,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 12px;
   > span:first-child {
     color: #111;
     font-weight: 600;
@@ -163,6 +164,7 @@ export default {
         width: 80%;
         height: 26px;
         padding: 0 10px;
+        font-size: 12px;
       }
     }
   }
