@@ -322,6 +322,9 @@ export default {
     }
     this.timer = setInterval(() => {
       this.getProjectIssuedList();
+      this.getVotingList();
+      this.getBalance();
+      this.getInfo();
     }, 5000);
   },
   beforeUnmount() {
