@@ -763,6 +763,7 @@ export default {
     text-align: left;
     line-height: 20px;
     font-size: 12px;
+    padding-top: 0;
   }
   .inputBox {
     width: 80%;
