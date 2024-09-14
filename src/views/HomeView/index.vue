@@ -345,7 +345,7 @@ export default {
           erc20ABI,
           "decimals"
         ).catch((err) => console.log(err));
-        this.balance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(6);
+        this.balance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(2);
 
         const sBtcBalance = await getContract(
           this.$store.state.sBtc,
@@ -466,7 +466,7 @@ export default {
         "viewUserDepositedAmount",
         this.$store.state.address
       );
-      this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(4);
+      this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(2);
     },
     getInfo() {
       this.$axios
@@ -531,7 +531,7 @@ export default {
 
       this.viewCanWithdrawValue = (
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
-      ).toFixed(4);
+      ).toFixed(2);
 
       const crossProgress = await getContract(
         this.$store.state.kolAddress,
@@ -554,9 +554,9 @@ export default {
         tokenId.toString()
       );
 
-      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(4);
-      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
-      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(2);
+      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
+      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
     },
     async withdraw() {
       this.withdrawLoading = true;
