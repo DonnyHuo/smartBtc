@@ -78,6 +78,7 @@ fieldset {
   min-width: 0;
   /*Reset the font size and family*/
   font-size: 12px;
+  color: #111;
 }
 
 /* For IE, we want to remove the default cross ('X') that appears in input fields when a user starts typing - Make sure you add your own! */
