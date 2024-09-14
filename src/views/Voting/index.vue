@@ -30,8 +30,6 @@
                 <span>LP兑换合约</span>
                 <span>{{ item.le_percent / 100 }}%</span>
               </div>
-            </div>
-            <div class="listDiv">
               <div class="listS">
                 <span>启动池合约</span>
                 <span>{{ item.lm_percent / 100 }}%</span>
@@ -243,18 +241,25 @@ export default {
     }
 
     .listDiv {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      //display: flex;
+      //align-items: center;
+      //justify-content: space-between;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+      padding: 0 20px;
+
       .listS {
-        width: 50%;
         height: 30px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        //justify-content: space-between;
         margin-top: 10px;
-        padding: 0 20px;
+        //padding: 0 20px;
         color: #666;
+        > span:last-child {
+          padding-left: 10px;
+        }
       }
     }
     .title {

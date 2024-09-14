@@ -346,6 +346,7 @@ export default {
           aggree: agree,
         })
         .then((res) => {
+          showToast(agree ? "审核通过" : "审核不通过");
           this.getInfo();
         })
         .catch((err) => {
@@ -370,7 +371,7 @@ export default {
           aggree: agree,
         })
         .then((res) => {
-          showToast("审核通过");
+          showToast(agree ? "审核通过" : "审核不通过");
           this.getProjectWaitAgreeList();
         })
         .catch((err) => {
@@ -397,7 +398,7 @@ export default {
           percent,
         })
         .then((res) => {
-          showToast("审核通过");
+          showToast(aggree ? "审核通过" : "审核不通过");
           this.getBindProjectWaitList();
           this.model = false;
         })

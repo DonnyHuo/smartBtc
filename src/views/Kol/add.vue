@@ -29,8 +29,6 @@
               <input type="text" v-model="percents[1]" placeholder=">=10" /> %
             </div>
           </div>
-        </div>
-        <div class="listDiv">
           <div class="listS">
             <span>启动池</span>
             <div class="inputBox">
@@ -142,20 +140,22 @@ export default {
     padding-left: 20px;
   }
   .listDiv {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(80%, 1fr));
+    padding: 0 20px;
+    margin-top: 10px;
+
     .listS {
-      width: 50%;
       height: 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 10px;
-      padding: 0 20px;
+      //margin-top: 10px;
       color: #666;
+      padding: 0 10px;
       > span {
-        width: 80px;
+        //width: 80px;
       }
       .inputBox {
         width: 80px;
