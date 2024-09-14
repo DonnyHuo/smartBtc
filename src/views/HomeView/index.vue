@@ -62,7 +62,7 @@
             <span class="name">{{ voting.symbol }}</span>
           </div>
           <div class="progressBox" style="width: 80%">
-            <div style="width: calc(100% - 60px)">
+            <div style="width: calc(100% - 64px)">
               <van-progress
                 stroke-width="8"
                 :pivot-text="`投票中 ${parseInt((voting.vote_num * 100) / votePassNum)}%`"
@@ -991,7 +991,6 @@ export default {
   align-items: center;
   justify-content: space-between;
   .btnBox {
-    width: 54px;
     button {
       height: 30px;
       border-radius: 10px;
