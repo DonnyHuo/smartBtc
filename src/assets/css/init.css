@@ -77,7 +77,7 @@ fieldset {
   /*inputs and fieldset defaults to having a min-width equal to its content in Chrome and Firefox (https://code.google.com/p/chromium/issues/detail?id=560762), we may not want that*/
   min-width: 0;
   /*Reset the font size and family*/
-  font-size: 1rem;
+  font-size: 12px;
 }
 
 /* For IE, we want to remove the default cross ('X') that appears in input fields when a user starts typing - Make sure you add your own! */
