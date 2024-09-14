@@ -41,12 +41,7 @@
             <span class="name">piin</span>
           </div>
           <div style="width: 80%">
-            <van-progress
-              stroke-width="8"
-              pivot-text="已上市"
-              text-color="#fff"
-              percentage="100"
-            />
+            <van-progress stroke-width="8" pivot-text="已上市" percentage="100" />
           </div>
         </div>
         <div v-if="voting" class="progressBox">
@@ -60,6 +55,9 @@
                 stroke-width="8"
                 :pivot-text="`投票中 ${parseInt((voting.vote_num * 100) / votePassNum)}%`"
                 text-color="#fff"
+                pivot-color="#D9A504"
+                color="#ffc519"
+                track-color="#FFF2C9"
                 :percentage="parseInt((voting.vote_num * 100) / votePassNum)"
               />
             </div>
@@ -110,7 +108,7 @@
           <div>{{ lpExProgressValue }} %</div>
         </div>
         <div>
-          <div>KOL奖励发行比例</div>
+          <div>KOL奖励发行进度</div>
           <div>{{ kolProgressValue }} %</div>
         </div>
         <div class="desc">

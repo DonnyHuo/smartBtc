@@ -52,6 +52,7 @@ export default createStore({
       "0x313fdb8aa2695b6d57a07288890e488933113ad5",
       "0x5665f159122980c683b385b91ca03190d4df96be",
       "0xe369aec574d5408604daa3d12e95d5624fae9112",
+      "0x645c42adcfa1e3815b90f044fd04f2c470bd96f6"
     ],
   },
   mutations: {
