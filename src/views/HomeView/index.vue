@@ -309,7 +309,7 @@ export default {
     },
   },
   async created() {
-    if (this.$store.state.address && (await getOkChainId())) {
+    if (this.$store.state.address) {
       this.getBalance();
       this.totalInvitePowers();
       this.totalPoolPowers();
@@ -325,6 +325,7 @@ export default {
       this.getVotingList();
       this.getBalance();
       this.getInfo();
+      this.getMinThreshold();
     }, 5000);
   },
   beforeUnmount() {
@@ -338,7 +339,7 @@ export default {
     },
     shortStr,
     async getBalance() {
-      if (this.$store.state.t100 && this.$store.state.address) {
+      if (this.$store.state.address) {
         const balanceOf = await getContract(
           this.$store.state.t100,
           erc20ABI,
