@@ -161,21 +161,20 @@
         跨鏈橋Bridge<br />
         SBTC治理與回購
       </div>
+      <div class="text-grey font-[400] text-[14px] mt-2"> 持有SBTC可參與项目投票，質押SBTC可領取项目空投。</div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
       <div class="content">
         BSC鏈的SBTC
         代幣50%發行至跨鏈橋合約，以供活躍的SBTC銘文帳戶跨鏈轉移；30%以LP兌換的方式智能合約發行，即獎勵給流動性提供者（LP）；18%以空投的方式獎勵給參與社區推廣建設的KOL；2%發行至啟動池合約。
         <br />
         SmartBTC定期以網站收入和项目空投所得回購SBTC並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。
-        <br />
-        持有SBTC可參與项目投票，質押SBTC可領取项目空投。
       </div>
     </div>
 
     <div class="contant">
       <div class="title">
         <div>技術路線圖</div>
-        <div>BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......</div>
+        <div class="text-grey font-[400] text-[14px] mb-4 mt-2 leading-5 w-4/5 m-auto">BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......</div>
       </div>
       <div class="contantList">
         <van-steps
@@ -855,15 +854,6 @@ export default {
     font-size: 18px;
     font-weight: 600;
     line-height: 30px;
-    > div:nth-child(2) {
-      width: 80%;
-      margin: 0 auto;
-      color: #919090;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 20px;
-      margin-bottom: 20px;
-    }
   }
   .contantList {
     text-align: left;
