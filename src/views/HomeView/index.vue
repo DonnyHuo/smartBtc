@@ -31,7 +31,7 @@
         BRC20 Launchpad <br />
         銘文流動性聚合平台
       </div>
-      <img class="homeBg" src="../../assets/img/homeBg.png" alt="" />
+      <img class="homeBg m-auto" src="../../assets/img/homeBg.png" alt="" />
       <div class="progress">
         <div>
           <div>

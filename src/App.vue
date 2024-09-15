@@ -11,7 +11,12 @@
   <div v-if="noWallet" class="netWorkError">未偵測到錢包</div>
   <router-view />
   <div class="nav">
-    <router-link v-for="(list, index) in navList" :key="list.name" :to="list.route">
+    <router-link
+      class="flex flex-col items-center"
+      v-for="(list, index) in navList"
+      :key="list.name"
+      :to="list.route"
+    >
       <img
         v-if="
           list.name == $route.name ||

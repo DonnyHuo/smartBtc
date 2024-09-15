@@ -45,7 +45,7 @@
       </div>
       <van-button disabled>KOL审核中...</van-button>
     </div>
-    <div v-if="[1].includes(accountInfo.status)" class="activeBtnBox">
+    <div v-if="accountInfo.status === 1" class="activeBtnBox">
       <van-button
         v-if="!activeAmount"
         class="activeBtn"
@@ -79,7 +79,7 @@
     <div v-if="accountInfo.status === 1" class="listBoxs">
       <div v-if="searchList.length">
         <div v-for="(item, index) in searchList" class="list" :key="index">
-          <div>
+          <div class="flex items-center">
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ item.name }}</span>
           </div>
@@ -101,7 +101,7 @@
     <div v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status)">
       <div class="hadPro">
         <div class="hadProList">
-          <div>
+          <div class="flex items-center">
             <img class="icon" src="../../assets/img/default.png" alt="" />
             <span>{{ accountInfo?.project_name?.split("100T-")[1] }}</span>
           </div>
