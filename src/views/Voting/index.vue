@@ -34,7 +34,7 @@
               <span>{{ item.lm_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>KOL贡献分配合约</span>
+              <span>KOL分配合约</span>
               <span>{{ item.kol_percent / 100 }}%</span>
             </div>
           </div>

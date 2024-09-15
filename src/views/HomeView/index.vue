@@ -246,13 +246,15 @@
     </div>
     <div class="footer">
       <div class="iconBox">
-        <a href="https://t.me/SmartBTCdao">
+        <a href="https://t.me/SmartBTCdao" target="_blank">
           <img class="linkLogo" src="../../assets/img/telgram.png" alt="" />
         </a>
-        <a href="https://twitter.com/SmartBTCdao">
+        <a href="https://twitter.com/SmartBTCdao" target="_blank">
           <img class="linkLogo" src="../../assets/img/twiter.png" alt="" />
         </a>
-        <img class="linkLogo" src="../../assets/img/discord.png" alt="" />
+        <a href="https://discord.com/invite/YHx7DXgm" target="_blank">
+          <img class="linkLogo" src="../../assets/img/discord.png" alt="" />
+        </a>
       </div>
       <div>© 2024 SmartBTC.io</div>
     </div>
