@@ -468,6 +468,7 @@ export default {
       const migrate_token = {
         ...this.migrate_token,
         percents: newPercents,
+        admin_address: this.$store.state.address,
       };
 
       if (ethers.utils.isAddress(migrate_token.contract_addr)) {
