@@ -161,7 +161,7 @@
         跨鏈橋Bridge<br />
         SBTC治理與回購
       </div>
-      <div class="text-grey font-[400] text-[14px] mt-2"> 持有SBTC可參與项目投票，質押SBTC可領取项目空投。</div>
+      <div class="text-grey font-[400] text-[14px] mt-2"> 持有SBTC项目投票，質押SBTC项目空投。</div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
       <div class="content">
         BSC鏈的SBTC
