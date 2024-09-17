@@ -200,35 +200,47 @@
           <div class="listBox">
             <div class="inputDiv">
               <span>跨链 </span>
-              <input
-                v-model="migrate_token.percents[0]"
-                style="width: 100px"
-                type="text"
-              />
+              <div>
+                <input
+                  v-model="migrate_token.percents[0]"
+                  style="width: 100px"
+                  type="text"
+                />
+                %
+              </div>
             </div>
             <div class="inputDiv">
               <span>流动性发行 </span>
-              <input
-                v-model="migrate_token.percents[1]"
-                style="width: 100px"
-                type="text"
-              />
+              <div>
+                <input
+                  v-model="migrate_token.percents[1]"
+                  style="width: 100px"
+                  type="text"
+                />
+                %
+              </div>
             </div>
             <div class="inputDiv">
               <span>启动池 </span>
-              <input
-                v-model="migrate_token.percents[2]"
-                style="width: 100px"
-                type="text"
-              />
+              <div>
+                <input
+                  v-model="migrate_token.percents[2]"
+                  style="width: 100px"
+                  type="text"
+                />
+                %
+              </div>
             </div>
             <div class="inputDiv">
               <span>社区空投 </span>
-              <input
-                v-model="migrate_token.percents[3]"
-                style="width: 100px"
-                type="text"
-              />
+              <div>
+                <input
+                  v-model="migrate_token.percents[3]"
+                  style="width: 100px"
+                  type="text"
+                />
+                %
+              </div>
             </div>
           </div>
         </div>
