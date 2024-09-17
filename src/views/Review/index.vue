@@ -1,9 +1,15 @@
 <template>
   <div class="kolContent">
     <div class="header">
-      <div :class="active === 0 && 'active'" @click="changeTabs(0)">审核KOL</div>
-      <div :class="active === 1 && 'active'" @click="changeTabs(1)">审核新增</div>
-      <div :class="active === 2 && 'active'" @click="changeTabs(2)">审核认领</div>
+      <div :class="active === 0 && 'active'" @click="changeTabs(0)">
+        审核KOL
+      </div>
+      <div :class="active === 1 && 'active'" @click="changeTabs(1)">
+        审核新增
+      </div>
+      <div :class="active === 2 && 'active'" @click="changeTabs(2)">
+        审核认领
+      </div>
       <div :class="active === 3 && 'active'" @click="changeTabs(3)">迁移</div>
     </div>
     <div v-if="active === 0">
@@ -31,7 +37,9 @@
           </div>
           <div class="list">
             <span>创建时间</span>
-            <span>{{ formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm") }}</span>
+            <span>{{
+              formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm")
+            }}</span>
           </div>
           <div class="list btnBox">
             <van-button
@@ -95,7 +103,9 @@
             </div>
             <div class="list mt-20">
               <span>创建时间</span>
-              <span>{{ formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm") }}</span>
+              <span>{{
+                formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm")
+              }}</span>
             </div>
             <div class="list btnList">
               <button @click="projectAgree(item, true)">审核通过</button>
@@ -129,12 +139,16 @@
             </div>
             <div class="list">
               <span>创建时间</span>
-              <span>{{ formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm") }}</span>
+              <span>{{
+                formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm")
+              }}</span>
             </div>
             <div class="list btnList">
               <button @click="openModel(item)">审核通过</button>
               <button
-                @click="bindProjectAggree(item.address, item.project_name, false, 200)"
+                @click="
+                  bindProjectAggree(item.address, item.project_name, false, 200)
+                "
               >
                 审核不通过
               </button>
@@ -243,7 +257,12 @@
   </div>
 </template>
 <script>
-import { shortStr, formatDate, getWriteContractLoad, getContract } from "@/utils";
+import {
+  shortStr,
+  formatDate,
+  getWriteContractLoad,
+  getContract,
+} from "@/utils";
 import { showToast } from "vant";
 import erc20Abi from "../../abi/erc20.json";
 import { ethers } from "ethers";
@@ -438,7 +457,6 @@ export default {
         ...this.migrate_token,
         percents: newPercents,
       };
-      console.log("migrate_token", migrate_token);
 
       if (ethers.utils.isAddress(migrate_token.contract_addr)) {
         this.migrateTokenLoading = true;
@@ -459,6 +477,7 @@ export default {
         gasLimit: 100000,
         gasPrice: ethers.utils.parseUnits("5", "gwei"),
       };
+
       getWriteContractLoad(
         tokenAddress,
         erc20Abi,
@@ -475,7 +494,10 @@ export default {
       )
         .then((res) => {
           this.$axios
-            .post("https://smartbtc.io/bridge/kol_admin/migrate_token", migrate_token)
+            .post(
+              "https://smartbtc.io/bridge/kol_admin/migrate_token",
+              migrate_token
+            )
             .then((res) => {
               showToast("迁移成功");
               this.migrateTokenLoading = false;
@@ -700,7 +722,7 @@ button {
   }
   .migrateBtn {
     margin-top: 40px;
-    button{
+    button {
       height: 40px;
     }
   }
