@@ -467,7 +467,7 @@ export default {
         ethers.utils.parseUnits(
           (
             (this.migrate_token.total_supply * this.migrate_token.percents[3]) /
-            10000
+            100
           ).toString(),
           decimals
         ),
@@ -700,6 +700,9 @@ button {
   }
   .migrateBtn {
     margin-top: 40px;
+    button{
+      height: 40px;
+    }
   }
   .lastList {
     padding: 20px;
@@ -709,8 +712,7 @@ button {
     }
     .listBox {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 10px;
       padding: 0;
       .inputDiv {
         display: flex;
@@ -718,6 +720,7 @@ button {
         justify-content: space-between;
         color: #666;
         font-weight: 400;
+        padding-left: 20px;
       }
     }
   }
