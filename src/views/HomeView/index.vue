@@ -20,7 +20,9 @@
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
             target="_blank"
           >
-            <span style="padding-left: 10px; font-size: 12px; color: #1989fa">購買</span>
+            <span style="padding-left: 10px; font-size: 12px; color: #1989fa"
+              >購買</span
+            >
           </a>
         </div>
       </div>
@@ -53,19 +55,29 @@
             <span class="name">piin</span>
           </div>
           <div style="width: 80%">
-            <van-progress stroke-width="8" pivot-text="已上市" percentage="100" />
+            <van-progress
+              stroke-width="8"
+              pivot-text="已上市"
+              percentage="100"
+            />
           </div>
         </div>
         <div v-if="voting" class="progressBox">
           <div>
-            <img class="icon" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
+            <img
+              class="icon"
+              src="../../assets/img/tokenList/brc20-sbtc.png"
+              alt=""
+            />
             <span class="name">{{ voting.symbol }}</span>
           </div>
           <div class="progressBox" style="width: 80%">
             <div style="width: calc(100% - 64px)">
               <van-progress
                 stroke-width="8"
-                :pivot-text="`投票中 ${parseInt((voting.vote_num * 100) / votePassNum)}%`"
+                :pivot-text="`投票中 ${parseInt(
+                  (voting.vote_num * 100) / votePassNum
+                )}%`"
                 text-color="#fff"
                 pivot-color="#D9A504"
                 color="#ffc519"
@@ -74,7 +86,9 @@
               />
             </div>
             <div class="btnBox">
-              <van-button :disabled="voting.voted" @click="vote(voting.project_name)"
+              <van-button
+                :disabled="voting.voted"
+                @click="vote(voting.project_name)"
                 >投票</van-button
               >
             </div>
@@ -105,7 +119,9 @@
           <div>{{ reserveBalance }} {{ reserveInfo?.symbol }}</div>
         </div>
         <div>
-          <div>待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</div>
+          <div>
+            待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}
+          </div>
           <van-button
             size="small"
             :loading="withdrawLoading"
@@ -129,7 +145,23 @@
         <div class="desc">
           備註：每發生一筆新的跨鍊或LP兌換，均將根據當筆數量對應比例觸發一次新的社區空投，認證KOL將根據增加的分配權重得到對應的項目代幣空投獎勵，可隨時領取。
         </div>
-        <div>
+      </div>
+
+      <div v-else class="btn-group">
+        <router-link to="/kol">
+          <van-button type="primary">KOL認證</van-button>
+        </router-link>
+        <router-link
+          :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'"
+        >
+          <van-button>發起项目</van-button>
+        </router-link>
+        <router-link v-if="adminShow" to="/review">
+          <van-button>审核</van-button>
+        </router-link>
+      </div>
+      <div v-if="activeAmount * 1" class="mt-10">
+        <div class="flex item-center justify-between">
           <div>質押數量: {{ activeAmount }} SBTC</div>
           <van-button
             class="activeBtn"
@@ -144,24 +176,15 @@
           解除SBTC質押，將即時終止KOL資格，且不可申請複效，謹慎操作。
         </p>
       </div>
-      <div v-else class="btn-group">
-        <router-link to="/kol">
-          <van-button type="primary">KOL認證</van-button>
-        </router-link>
-        <router-link :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'">
-          <van-button>發起项目</van-button>
-        </router-link>
-        <router-link v-if="adminShow" to="/review">
-          <van-button>审核</van-button>
-        </router-link>
-      </div>
     </div>
     <div class="bridgeContent">
       <div class="title">
         跨鏈橋Bridge<br />
         SBTC治理與回購
       </div>
-      <div class="text-grey font-[400] text-[14px] mt-2"> 持有SBTC项目投票，質押SBTC项目空投。</div>
+      <div class="text-grey font-[400] text-[14px] mt-2">
+        持有SBTC项目投票，質押SBTC项目空投。
+      </div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
       <div class="content">
         BSC鏈的SBTC
@@ -174,7 +197,11 @@
     <div class="contant">
       <div class="title">
         <div>技術路線圖</div>
-        <div class="text-grey font-[400] text-[14px] mb-4 mt-2 leading-5 w-4/5 m-auto">BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......</div>
+        <div
+          class="text-grey font-[400] text-[14px] mb-4 mt-2 leading-5 w-4/5 m-auto"
+        >
+          BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......
+        </div>
       </div>
       <div class="contantList">
         <van-steps
@@ -184,11 +211,15 @@
         >
           <van-step>
             <div class="time">2023年3月9日</div>
-            <div class="desc">Ordinals協定首個帶有BTC字元的銘文SBTC部署發布</div>
+            <div class="desc">
+              Ordinals協定首個帶有BTC字元的銘文SBTC部署發布
+            </div>
           </van-step>
           <van-step>
             <div class="time">2023年5月12日</div>
-            <div class="desc">總量2100萬，單次500的SBTC被全部Mint近2000個地址參與</div>
+            <div class="desc">
+              總量2100萬，單次500的SBTC被全部Mint近2000個地址參與
+            </div>
           </van-step>
           <van-step>
             <div class="time">2024年1月13日</div>
@@ -352,7 +383,9 @@ export default {
           erc20ABI,
           "decimals"
         ).catch((err) => console.log(err));
-        this.balance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(2);
+        this.balance = (
+          ethers.utils.formatUnits(balanceOf, decimals) * 1
+        ).toFixed(2);
 
         const sBtcBalance = await getContract(
           this.$store.state.sBtc,
@@ -409,7 +442,10 @@ export default {
         60 *
         20 *
         365 *
-        ethers.utils.formatUnits(MTokenAddress, this.$store.state.usdtDecimals) *
+        ethers.utils.formatUnits(
+          MTokenAddress,
+          this.$store.state.usdtDecimals
+        ) *
         100
       ).toFixed(2);
     },
@@ -459,10 +495,13 @@ export default {
         });
     },
     async isVoted(project_name) {
-      const data = await this.$axios.post("https://smartbtc.io/bridge/kol/is_voted", {
-        kol_address: this.$store.state.address,
-        project_name,
-      });
+      const data = await this.$axios.post(
+        "https://smartbtc.io/bridge/kol/is_voted",
+        {
+          kol_address: this.$store.state.address,
+          project_name,
+        }
+      );
 
       return data.data.data;
     },
@@ -515,9 +554,9 @@ export default {
         "balanceOf",
         this.$store.state.address
       );
-      this.reserveBalance = (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(
-        2
-      );
+      this.reserveBalance = (
+        ethers.utils.formatUnits(balanceOf, decimals) * 1
+      ).toFixed(2);
     },
     async getWithdraw() {
       const tokenId = await getContract(
@@ -561,7 +600,9 @@ export default {
         tokenId.toString()
       );
 
-      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(2);
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
+        2
+      );
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
       this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
     },
@@ -1020,12 +1061,6 @@ export default {
     font-weight: 600;
     font-size: 12px;
   }
-  .desc {
-    text-align: left;
-    font-size: 12px;
-    color: #999;
-    line-height: 20px;
-  }
   .weight {
     font-weight: 600;
     font-size: 16px;
@@ -1035,5 +1070,21 @@ export default {
   .right {
     text-align: right;
   }
+}
+
+.desc {
+  text-align: left;
+  font-size: 12px;
+  color: #999;
+  line-height: 20px;
+}
+.activeBtn {
+  height: 30px;
+  border-radius: 5px;
+  background: #ffc519;
+  border: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 12px;
 }
 </style>
