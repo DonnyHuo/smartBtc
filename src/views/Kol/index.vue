@@ -84,7 +84,10 @@
             <span>{{ item.name }}</span>
           </div>
           <div>
-            <van-button size="small" :disabled="!activeAmount" @click="openModel(item)"
+            <van-button
+              size="small"
+              :disabled="!activeAmount"
+              @click="openModel(item)"
               >認領</van-button
             >
           </div>
@@ -119,7 +122,9 @@
           <p>
             2.提交認領時，SmartBTC.io會多維度測算KOL的質押SBTC數量、社交帳戶活躍度、認證推文閱讀點讚轉發數、社交帳戶歷史動態與項目的關聯度、認領地址項目代幣持倉數量等綜合因素，透過演算法自動計算出當前KOL對應的社群空投獎勵分配權重；
           </p>
-          <p>3.一個KOL（對應認證的錢包位址）只能唯一認領一個項目，且認領完成不可更改；</p>
+          <p>
+            3.一個KOL（對應認證的錢包位址）只能唯一認領一個項目，且認領完成不可更改；
+          </p>
           <p>
             4.可以隨時撤銷認領，解除收回質押的SBTC，一經解除KOL權益即時終止且不可申請複效；
           </p>
@@ -342,7 +347,11 @@ export default {
     },
 
     async getBalance() {
-      const decimals = await getContract(this.$store.state.sBtc, erc20ABI, "decimals");
+      const decimals = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "decimals"
+      );
       this.sBtcDecimals = decimals.toString();
       const balance = await getContract(
         this.$store.state.sBtc,
@@ -355,7 +364,7 @@ export default {
 
     async getActiveAmount() {
       const res = await getContract(
-        this.$store.state.kolAddress,
+        this.$store.state.pledgeAddress,
         kolAbi,
         "viewUserDepositedAmount",
         this.$store.state.address
@@ -367,7 +376,7 @@ export default {
         erc20ABI,
         "allowance",
         this.$store.state.address,
-        this.$store.state.kolAddress
+        this.$store.state.pledgeAddress
       );
       this.allowance = allowance.toString() * 1;
     },
@@ -378,7 +387,7 @@ export default {
         this.$store.state.sBtc,
         erc20ABI,
         "approve",
-        this.$store.state.kolAddress,
+        this.$store.state.pledgeAddress,
         ethers.constants.MaxUint256
       )
         .then((res) => {
@@ -400,9 +409,13 @@ export default {
     },
 
     async minDepositFun() {
-      const decimals = await getContract(this.$store.state.sBtc, erc20ABI, "decimals");
+      const decimals = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "decimals"
+      );
       const minDeposit = await getContract(
-        this.$store.state.kolAddress,
+        this.$store.state.pledgeAddress,
         kolAbi,
         "minDeposit"
       );
@@ -411,13 +424,17 @@ export default {
     userDeposit() {
       if (this.depositAmount * 1 < this.minDeposit * 1)
         return showToast(`质押金额必须大于等于${this.minDeposit}sBTC`);
-      if (this.depositAmount * 1 > this.sBtcBalance * 1) return showToast("余额不足");
+      if (this.depositAmount * 1 > this.sBtcBalance * 1)
+        return showToast("余额不足");
       this.activeLoading = true;
       getWriteContractLoad(
-        this.$store.state.kolAddress,
+        this.$store.state.pledgeAddress,
         kolAbi,
         "userDeposit",
-        ethers.utils.parseUnits(this.depositAmount.toString(), this.sBtcDecimals)
+        ethers.utils.parseUnits(
+          this.depositAmount.toString(),
+          this.sBtcDecimals
+        )
       )
         .then((res) => {
           console.log(res);
@@ -478,7 +495,9 @@ export default {
         tokenId.toString()
       );
 
-      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(4);
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
+        4
+      );
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
       this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
     },

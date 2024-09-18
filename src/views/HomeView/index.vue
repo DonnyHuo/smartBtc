@@ -507,7 +507,7 @@ export default {
     },
     async getActiveAmount() {
       const res = await getContract(
-        this.$store.state.kolAddress,
+        this.$store.state.pledgeAddress,
         kolAbi,
         "viewUserDepositedAmount",
         this.$store.state.address
@@ -639,7 +639,7 @@ export default {
           );
 
           getWriteContractLoad(
-            this.$store.state.kolAddress,
+            this.$store.state.pledgeAddress,
             kolAbi,
             "quitKol",
             tokenId.toString()
