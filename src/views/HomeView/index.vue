@@ -307,6 +307,7 @@ import erc20ABI from "../../abi/erc20.json";
 import inviteABI from "../../abi/invite.json";
 import poolABI from "../../abi/pool.json";
 import kolAbi from "../../abi/kol.json";
+import depositAbi from "../../abi/deposit.json";
 import { showToast, showConfirmDialog } from "vant";
 
 export default {
@@ -456,8 +457,12 @@ export default {
       this.$axios
         .get("https://smartbtc.io/bridge/kol/project_voting_list")
         .then(async (res) => {
-          this.voting = res.data.data[0];
-          this.voting.voted = await this.isVoted(res.data.data[0].project_name);
+          if (res.data.data.length > 0) {
+            this.voting = res.data.data[0];
+            this.voting.voted = await this.isVoted(
+              res.data.data[0].project_name
+            );
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -510,7 +515,7 @@ export default {
     async getActiveAmount() {
       const res = await getContract(
         this.$store.state.pledgeAddress,
-        kolAbi,
+        depositAbi,
         "viewUserDepositedAmount",
         this.$store.state.address
       );
@@ -533,12 +538,13 @@ export default {
       this.$axios
         .get("https://smartbtc.io/bridge/kol/project_issued_list")
         .then(async (res) => {
-          this.projectIssuedList = res.data.data;
-
-          const reserveInfo = this.projectIssuedList.filter(
-            (list) => list.project_name == this.accountInfo.project_name
-          );
-          this.reserveInfo = reserveInfo[0];
+          if (res.data.data.length > 0) {
+            this.projectIssuedList = res.data.data;
+            const reserveInfo = this.projectIssuedList.filter(
+              (list) => list.project_name == this.accountInfo.project_name
+            );
+            this.reserveInfo = reserveInfo[0];
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -581,32 +587,33 @@ export default {
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
       ).toFixed(2);
 
-      const crossProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getCrossProgress",
-        tokenId.toString()
-      );
+      // const crossProgress = await getContract(
+      //   this.$store.state.kolAddress,
+      //   kolAbi,
+      //   "getCrossProgress",
+      //   tokenId.toString()
+      // );
+      // console.log("crossProgress", crossProgress);
 
-      const lpExProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getLpExProgress",
-        tokenId.toString()
-      );
+      // const lpExProgress = await getContract(
+      //   this.$store.state.kolAddress,
+      //   kolAbi,
+      //   "getLpExProgress",
+      //   tokenId.toString()
+      // );
 
-      const kolProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getKolProgress",
-        tokenId.toString()
-      );
+      // const kolProgress = await getContract(
+      //   this.$store.state.kolAddress,
+      //   kolAbi,
+      //   "getKolProgress",
+      //   tokenId.toString()
+      // );
 
-      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
-        2
-      );
-      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
-      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
+      // this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
+      //   2
+      // );
+      // this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
+      // this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
     },
     async withdraw() {
       this.withdrawLoading = true;
@@ -639,14 +646,16 @@ export default {
             "getTokenRatiosIndexByProjectName",
             this.accountInfo.project_name
           );
+          console.log("tokenId.toString()", tokenId.toString());
 
           getWriteContractLoad(
-            this.$store.state.pledgeAddress,
+            this.$store.state.kolAddress,
             kolAbi,
             "quitKol",
             tokenId.toString()
           )
             .then((res) => {
+              console.log(res);
               this.quitKolLoading = false;
               showToast("退出KOL成功");
               this.getActiveAmount();

@@ -187,6 +187,7 @@ import {
   getWriteContractLoad,
 } from "@/utils";
 import kolAbi from "../../abi/kol.json";
+import depositAbi from "../../abi/deposit.json";
 
 export default {
   name: "kol",
@@ -365,7 +366,7 @@ export default {
     async getActiveAmount() {
       const res = await getContract(
         this.$store.state.pledgeAddress,
-        kolAbi,
+        depositAbi,
         "viewUserDepositedAmount",
         this.$store.state.address
       );
@@ -416,7 +417,7 @@ export default {
       );
       const minDeposit = await getContract(
         this.$store.state.pledgeAddress,
-        kolAbi,
+        depositAbi,
         "minDeposit"
       );
       this.minDeposit = ethers.utils.formatUnits(minDeposit, decimals) * 1;
@@ -429,7 +430,7 @@ export default {
       this.activeLoading = true;
       getWriteContractLoad(
         this.$store.state.pledgeAddress,
-        kolAbi,
+        depositAbi,
         "userDeposit",
         ethers.utils.parseUnits(
           this.depositAmount.toString(),
@@ -452,55 +453,6 @@ export default {
       this.activeModal = true;
       this.selectedItem = item;
     },
-    async getWithdraw() {
-      const tokenId = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getTokenRatiosIndexByProjectName",
-        this.accountInfo.project_name
-      );
-
-      this.tokenId = tokenId.toString();
-
-      const viewCanWithdrawValue = await getWriteContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "viewCanWithdrawValue",
-        tokenId.toString()
-      );
-
-      this.viewCanWithdrawValue = (
-        ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
-      ).toFixed(4);
-
-      const crossProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getCrossProgress",
-        tokenId.toString()
-      );
-      console.log("crossProgress1111", crossProgress);
-
-      const lpExProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getLpExProgress",
-        tokenId.toString()
-      );
-
-      const kolProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getKolProgress",
-        tokenId.toString()
-      );
-
-      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
-        4
-      );
-      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(4);
-      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(4);
-    },
     searchValueFun(e) {
       this.searchValue = e.target.value;
     },
@@ -509,9 +461,6 @@ export default {
   watch: {
     address() {
       this.getInfo();
-    },
-    reserveInfo(value) {
-      value && this.getWithdraw();
     },
     searchValue(value) {
       if (value !== "") {
