@@ -10,7 +10,7 @@
     <div class="btcSwapContent">
       <div class="titleBox">
         <div class="title">
-          <span>跨链</span>
+          <span>跨鏈</span>
           <span class="btoB">From BTC To BSC</span>
         </div>
         <div class="selectChain" @click="show = true">
@@ -22,17 +22,23 @@
         <div class="from">
           <div class="fromLeft">
             <div class="tips">先铭刻，再發送</div>
-            <input class="inputBox" type="text" v-model="selectedCoin.amount" disabled />
+            <input
+              class="inputBox"
+              type="text"
+              v-model="selectedCoin.amount"
+              disabled
+            />
             <div class="buyOrMining">
               <a
                 href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/SBTC"
-                >购买</a
+                >購買</a
               >
             </div>
           </div>
           <div class="selectBox" @click="showCoin = true">
             <span
-              >{{ selectedCoin.tokenName }} {{ selectedCoin.inscriptionNumber && "#"
+              >{{ selectedCoin.tokenName }}
+              {{ selectedCoin.inscriptionNumber && "#"
               }}{{ selectedCoin.inscriptionNumber }}</span
             >
             <img class="down" src="../../assets/img/down.png" alt="" />
@@ -55,7 +61,7 @@
         :loading="postLoading"
         :disabled="!(selectedCoin.amount * 1 > 0 && isAddress(this.toAddress))"
         @click="postSwap"
-        >提交跨链</van-button
+        >提交跨鏈</van-button
       >
       <div class="swapRecord">
         <div class="title">
@@ -75,9 +81,10 @@
               <div v-if="list.brc20_txid">
                 <span>交易Hash</span>
                 <span>
-                  <a :href="`https://www.oklink.com/zh-hans/btc/tx/${list.brc20_txid}`">{{
-                    shortStr(list.brc20_txid)
-                  }}</a>
+                  <a
+                    :href="`https://www.oklink.com/zh-hans/btc/tx/${list.brc20_txid}`"
+                    >{{ shortStr(list.brc20_txid) }}</a
+                  >
                   <img
                     @click="copyAddress(list.brc20_txid)"
                     src="../../assets/img/copy.png"
@@ -98,7 +105,8 @@
                 <span>{{ list.amount }} {{ list.symbol }}</span>
               </div>
               <div>
-                <span>訂單狀態</span> <span>{{ getStatus(list.order_state) }}</span>
+                <span>訂單狀態</span>
+                <span>{{ getStatus(list.order_state) }}</span>
               </div>
             </div>
           </div>
@@ -114,7 +122,9 @@
           class="chainList"
           @click="onSelect(list.name)"
         >
-          <span :class="selectedChain == list.name ? 'active' : ''">{{ list.name }}</span>
+          <span :class="selectedChain == list.name ? 'active' : ''">{{
+            list.name
+          }}</span>
         </div>
       </div>
     </van-action-sheet>
@@ -130,7 +140,9 @@
           >
             <span
               :class="
-                selectedCoin.inscriptionNumber == list.inscriptionNumber ? 'active' : ''
+                selectedCoin.inscriptionNumber == list.inscriptionNumber
+                  ? 'active'
+                  : ''
               "
             >
               <!--  -->
@@ -140,7 +152,7 @@
             </span>
           </div>
         </div>
-        <div class="noCoin" v-else>没有可以发送的 {{ selectedChain }} 铭文</div>
+        <div class="noCoin" v-else>沒有可以發送的 {{ selectedChain }} 銘文</div>
       </div>
     </van-action-sheet>
   </div>
@@ -159,14 +171,14 @@ export default {
       recordList: [],
       value1: 0,
       value2: "a",
-      option2: [{ text: "选择铭文", value: "a" }],
+      option2: [{ text: "選擇銘文", value: "a" }],
       toAddress: "",
       actions: [],
       selectedChain: "",
       show: false,
       showCoin: false,
 
-      selectedCoin: { tokenName: "选择铭文", amount: 0 },
+      selectedCoin: { tokenName: "選擇銘文", amount: 0 },
       coinList: [],
       allData: "已載入全部數據",
       showLoading: false,
@@ -203,7 +215,7 @@ export default {
           this.getRecordList();
           this.getTokenList();
         } else {
-          showToast("请连接BTC钱包!");
+          showToast("請連接BTC錢包!");
         }
       } catch (e) {
         console.log("connect failed");
@@ -259,8 +271,6 @@ export default {
 
     getBTCBalance(name) {
       if (this.address && this.selectedChain) {
-        console.log("111");
-
         this.$axios({
           method: "GET",
           headers: {
@@ -270,18 +280,20 @@ export default {
         })
           .then((res) => {
             if (res.data.data[0]?.transferBalanceList.length > 0) {
-              const tokenList = res.data.data[0]?.transferBalanceList.map((list) => {
-                return {
-                  tokenName: res.data.data[0].token,
-                  tokenType: res.data.data[0].tokenType,
-                  balance: res.data.data[0].balance,
-                  availableBalance: res.data.data[0].availableBalance,
-                  transferBalance: res.data.data[0].transferBalance,
-                  inscriptionId: list.inscriptionId,
-                  inscriptionNumber: list.inscriptionNumber,
-                  amount: list.amount,
-                };
-              });
+              const tokenList = res.data.data[0]?.transferBalanceList.map(
+                (list) => {
+                  return {
+                    tokenName: res.data.data[0].token,
+                    tokenType: res.data.data[0].tokenType,
+                    balance: res.data.data[0].balance,
+                    availableBalance: res.data.data[0].availableBalance,
+                    transferBalance: res.data.data[0].transferBalance,
+                    inscriptionId: list.inscriptionId,
+                    inscriptionNumber: list.inscriptionNumber,
+                    amount: list.amount,
+                  };
+                }
+              );
               this.selectedCoin = tokenList[0];
               this.coinList = tokenList;
             }
@@ -330,10 +342,10 @@ export default {
     // 提交跨链请求
     async postSwap() {
       if (this.selectedCoin.amount * 1 <= 0) {
-        return showToast("请选择要发送的铭文");
+        return showToast("請選擇要發送的銘文");
       }
       if (!ethers.utils.isAddress(this.toAddress)) {
-        return showToast("请填写正确的接受地址");
+        return showToast("請填寫正確的接收地址");
       }
       try {
         this.postLoading = true;

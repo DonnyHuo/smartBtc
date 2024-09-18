@@ -1,7 +1,7 @@
 <template>
   <div class="lpSwap">
     <div class="headerBox">
-      <span class="title">提供流动性发行资产</span>
+      <span class="title">提供流動性發行資產</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -16,10 +16,10 @@
       </div>
     </div>
     <div v-if="selectToken.name !== '100T'" class="title">
-      锚定BRC20-{{ selectToken?.name }}，总供应量 {{ total / 10000 }}万
+      錨定BRC20-{{ selectToken?.name }}，總供應量 {{ total / 10000 }}万
     </div>
     <div v-else class="title">
-      锚定符文IOOT•SMARTBTC•IO，总供应量 {{ total / 10000 }}万
+      錨定符文IOOT•SMARTBTC•IO，總供應量 {{ total / 10000 }}万
     </div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
@@ -28,7 +28,7 @@
 
     <div class="contractAddress">
       <div>
-        <span>合约地址</span>
+        <span>合約地址</span>
         <a
           class="address"
           :href="`https://bscscan.com/token/${selectToken.address}#balances`"
@@ -36,7 +36,7 @@
         >
       </div>
       <div>
-        <span>我的持仓(占比)</span>
+        <span>我的持股(佔比)</span>
         <span>
           {{ selectTokenBalance }}
           <span>{{ selectToken.name }}</span>
@@ -46,7 +46,7 @@
     </div>
 
     <div class="line">
-      <div class="lineTitle title">流动性发行兑换进度</div>
+      <div class="lineTitle title">流動性發行兌換進度</div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
     <div v-if="selectPair.length > 0" class="lpList">
@@ -55,17 +55,17 @@
           <div>
             <div class="listTitle">{{ list?.disPlayName }}</div>
             <div class="rate">
-              <span>实时兑换率 </span>
+              <span>即時兌換率 </span>
               <span>{{ list?.rate }}%</span>
             </div>
           </div>
           <router-link class="btn" :to="{ path: '/lpSwapDetail', query: list }">
-            <span>去兑换</span>
+            <span>去兌換</span>
           </router-link>
         </div>
       </div>
     </div>
-    <van-action-sheet v-model:show="showCoin" title="选择代币">
+    <van-action-sheet v-model:show="showCoin" title="選擇代幣">
       <div class="content">
         <div v-if="exchangeTokens.length > 0">
           <div
@@ -74,7 +74,11 @@
             class="coinList"
             @click="onSelectCoin(list)"
           >
-            <span :class="list.name == selectToken.name && 'active'">
+            <span
+              :class="`${
+                list.name == selectToken.name && 'active'
+              } flex items-center`"
+            >
               <img
                 class="listLogo"
                 :src="
@@ -115,10 +119,16 @@ export default {
       chartConfig: {
         type: "pie",
         data: {
-          labels: ["跨链", "流动性发行", "启动池", "社区空投"],
+          labels: ["跨鏈", "流動性發行", "啟動池", "社區空投"],
           datasets: [
             {
-              backgroundColor: ["#827eff", "#57d7f7", "#fbdb5f", "#7bffb2", "#f079f6"],
+              backgroundColor: [
+                "#827eff",
+                "#57d7f7",
+                "#fbdb5f",
+                "#7bffb2",
+                "#f079f6",
+              ],
               data: [],
               borderWidth: 0,
               usePointStyle: true,
@@ -246,21 +256,31 @@ export default {
     },
 
     async getBalance(value) {
-      this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()].percent;
+      this.chartConfig.data.datasets[0].data =
+        lpSwap[value.name.toUpperCase()].percent;
 
       if (value.name == "100T") {
         this.chartConfig.data.labels = [
-          "社区公平铸造",
-          "收购CoinDAO",
-          "LP质押挖矿",
-          "流动性发行",
-          "启动池部署",
+          "社區公平鑄造",
+          "收購CoinDAO",
+          "LP質押挖礦",
+          "流動性發行",
+          "啟動池部署",
         ];
       } else {
-        this.chartConfig.data.labels = ["跨链", "流动性兑换发行", "启动池", "社区空投"];
+        this.chartConfig.data.labels = [
+          "跨鏈",
+          "流動性發行",
+          "啟動池",
+          "社區空投",
+        ];
       }
       this.chartPie.update();
-      const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
+      const totalSupply = await getContract(
+        value.address,
+        erc20ABI,
+        "totalSupply"
+      );
       const total = ethers.utils.formatUnits(totalSupply, value.decimals);
       const balanceOf = await getContract(
         value.address,
@@ -278,7 +298,11 @@ export default {
       this.total = total;
     },
     async getAddressBalance(value) {
-      const totalSupply = await getContract(value.address, erc20ABI, "totalSupply");
+      const totalSupply = await getContract(
+        value.address,
+        erc20ABI,
+        "totalSupply"
+      );
       const total = ethers.utils.formatUnits(totalSupply, value.decimals) * 1;
       const myBalance = await getContract(
         value.address,
@@ -286,7 +310,8 @@ export default {
         "balanceOf",
         this.$store.state.address
       );
-      const myBalances = ethers.utils.formatUnits(myBalance, value.decimals) * 1;
+      const myBalances =
+        ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
       this.myBalanceRate = ((myBalances * 100) / total).toFixed(4);
     },
