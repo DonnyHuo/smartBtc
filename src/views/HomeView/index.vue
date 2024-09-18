@@ -152,7 +152,9 @@
           <van-button type="primary">KOL認證</van-button>
         </router-link>
         <router-link
-          :to="accountInfo.status === 1 && activeAmount ? '/kolAdd' : '/kol'"
+          :to="
+            accountInfo.status === 1 && activeAmount * 1 ? '/kolAdd' : '/kol'
+          "
         >
           <van-button>發起项目</van-button>
         </router-link>
