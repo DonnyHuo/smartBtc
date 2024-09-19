@@ -423,11 +423,24 @@ export default {
       this.minDeposit = ethers.utils.formatUnits(minDeposit, decimals) * 1;
     },
     userDeposit() {
-      if (this.depositAmount * 1 < this.minDeposit * 1)
+      if (this.depositAmount * 1 < this.minDeposit * 1) {
         return showToast(`质押金额必须大于等于${this.minDeposit}sBTC`);
-      if (this.depositAmount * 1 > this.sBtcBalance * 1)
+      }
+      if (this.depositAmount * 1 > this.sBtcBalance * 1) {
         return showToast("余额不足");
+      }
+
       this.activeLoading = true;
+
+      console.log(
+        this.$store.state.pledgeAddress,
+        depositAbi,
+        ethers.utils.parseUnits(
+          this.depositAmount.toString(),
+          this.sBtcDecimals
+        )
+      );
+
       getWriteContractLoad(
         this.$store.state.pledgeAddress,
         depositAbi,
@@ -438,7 +451,7 @@ export default {
         )
       )
         .then((res) => {
-          console.log(res);
+          console.log("res", res);
           this.activeLoading = false;
           this.activeModal = false;
           showToast("质押成功");
