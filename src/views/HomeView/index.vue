@@ -587,33 +587,33 @@ export default {
         ethers.utils.formatUnits(viewCanWithdrawValue, 18) * 1
       ).toFixed(2);
 
-      // const crossProgress = await getContract(
-      //   this.$store.state.kolAddress,
-      //   kolAbi,
-      //   "getCrossProgress",
-      //   tokenId.toString()
-      // );
-      // console.log("crossProgress", crossProgress);
+      const crossProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getCrossProgress",
+        tokenId.toString()
+      );
+      console.log("crossProgress", crossProgress);
 
-      // const lpExProgress = await getContract(
-      //   this.$store.state.kolAddress,
-      //   kolAbi,
-      //   "getLpExProgress",
-      //   tokenId.toString()
-      // );
+      const lpExProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getLpExProgress",
+        tokenId.toString()
+      );
 
-      // const kolProgress = await getContract(
-      //   this.$store.state.kolAddress,
-      //   kolAbi,
-      //   "getKolProgress",
-      //   tokenId.toString()
-      // );
+      const kolProgress = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getKolProgress",
+        tokenId.toString()
+      );
 
-      // this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
-      //   2
-      // );
-      // this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
-      // this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
+      this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
+        2
+      );
+      this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
+      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
     },
     async withdraw() {
       this.withdrawLoading = true;
