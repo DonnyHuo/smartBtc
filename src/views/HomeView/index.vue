@@ -361,6 +361,7 @@ export default {
       this.getBalance();
       this.getInfo();
       this.getMinThreshold();
+      this.getActiveAmount();
     }, 5000);
   },
   beforeUnmount() {
