@@ -162,7 +162,7 @@
           <van-button>审核</van-button>
         </router-link>
       </div>
-      <div v-if="activeAmount * 1" class="mt-10">
+      <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
           <div>質押數量: {{ activeAmount }} SBTC</div>
           <van-button
