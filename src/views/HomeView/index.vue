@@ -619,7 +619,7 @@ export default {
     async withdraw() {
       this.withdrawLoading = true;
       await getWriteContractLoad(
-        "0xf6250E66a044c152c6294B934A0e02067F9b65C7",
+        this.$store.state.kolAddress,
         kolAbi,
         "withdrawKolAirdrop",
         this.tokenId
