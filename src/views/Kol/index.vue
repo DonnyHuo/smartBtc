@@ -790,8 +790,8 @@ export default {
   .contentDesc {
     padding: 20px;
     text-align: left;
-    line-height: 20px;
-    font-size: 12px;
+    line-height: 24px;
+    font-size: 14px;
   }
   .inputBox {
     width: 80%;
@@ -806,12 +806,12 @@ export default {
       border: 1px solid #999;
       border-radius: 10px;
       margin-right: 10px;
-      font-size: 12px;
+      font-size: 14px;
     }
     button {
       width: 20%;
       border-radius: 5px;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
   .balanceBox {
@@ -827,7 +827,7 @@ export default {
     border: none;
     color: #333;
 
-    font-size: 12px;
+    font-size: 14px;
     line-height: 30px;
   }
   > button {
