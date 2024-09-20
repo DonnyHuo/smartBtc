@@ -87,7 +87,7 @@
           >
         </div>
         <p class="desc center">
-          現行投票規則：投票有效期限7天，投票门槛
+          現行投票規則：投票有效期限7天，投票門檻
           {{ repMinThreshold }} SBTC，投票完成門檻100票
         </p>
       </div>
@@ -332,6 +332,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: #999;
+      font-weight: 400;
     }
   }
 }
