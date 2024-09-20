@@ -78,13 +78,13 @@ export default {
   },
   computed: {
     tweet() {
-      return `我的钱包${shortStr(
+      return `我的錢包${shortStr(
         this.$store.state.address
-      )}已经质押SBTC，正在SmartBTC.io平台提交KOL认证，参与推广${
+      )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
         this.symbol
-      }铭文！请大家帮忙点赞、转发这条推文，助力 ${
+      }銘文！請大家幫忙按讚、轉發這則推文，助力 ${
         this.symbol || "--"
-      }铭文上SmartBTC热门！`;
+      }銘文上SmartBTC熱門！`;
     },
   },
   methods: {
