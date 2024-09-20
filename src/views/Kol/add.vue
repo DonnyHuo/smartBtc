@@ -50,7 +50,7 @@
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
       <div
-        class="px-[20px] text-left leading-6 font-medium font-black"
+        class="px-[20px] text-left leading-6 font-medium text-black"
         @click="copyAddress(tweet)"
       >
         <span class="text-red-600">*</span>
