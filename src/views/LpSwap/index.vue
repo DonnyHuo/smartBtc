@@ -1,7 +1,7 @@
 <template>
   <div class="lpSwap">
     <div class="headerBox">
-      <span class="title font-medium">提供流動性發行資產</span>
+      <span class="title font-medium text-[16px]">提供流動性發行資產</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -46,7 +46,9 @@
     </div>
 
     <div class="line">
-      <div class="lineTitle title font-medium">流動性發行兌換進度</div>
+      <div class="lineTitle title font-medium text-[16px]">
+        流動性發行兌換進度
+      </div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
     <div v-if="selectPair.length > 0" class="lpList">
