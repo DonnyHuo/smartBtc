@@ -217,6 +217,9 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-top: 20px !important;
   font-family: Poppins-Medium;
 }
+.van-action-sheet {
+  max-height: 90%;
+}
 .van-action-sheet__header {
   padding-top: 10px;
 }

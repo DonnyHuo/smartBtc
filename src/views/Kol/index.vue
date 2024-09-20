@@ -137,7 +137,7 @@
             5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。
           </p>
           <div class="text-left" @click="copyAddress(tweet)">
-            <span class="text-black font-bold">
+            <span class="text-black font-medium">
               <span class="text-red-600">*</span>
               {{ tweet }}
             </span>
@@ -831,7 +831,6 @@ export default {
     line-height: 30px;
   }
   > button {
-    width: 80%;
     height: 36px;
     margin-bottom: 20px;
   }
