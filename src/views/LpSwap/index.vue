@@ -384,7 +384,7 @@ export default {
         padding: 0 10px;
         line-height: 26px;
         border-radius: 4px;
-        font-family: Poppins-Medium;
+
         font-size: 12px;
         color: #333;
         background-color: #ffc519;

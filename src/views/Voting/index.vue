@@ -244,7 +244,6 @@ export default {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-    font-family: Poppins-Medium;
   }
   .listBox {
     display: block;
@@ -301,7 +300,7 @@ export default {
       background: #ffc519;
       border: none;
       color: #333;
-      font-family: Poppins-Medium;
+
       font-size: 12px;
     }
   }
@@ -325,7 +324,6 @@ export default {
     .recordTitle {
       margin-bottom: 10px;
       color: #111;
-      font-family: Poppins-Medium;
     }
     .recordList {
       padding: 5px 0;

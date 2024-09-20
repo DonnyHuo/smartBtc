@@ -175,10 +175,8 @@ export default {
       }
       > span {
         font-size: 16px;
-        font-family: Poppins-Medium;
       }
       > div {
-        font-family: Poppins-Medium;
         color: #ffc519;
         margin-left: auto;
       }
@@ -191,7 +189,6 @@ export default {
       justify-content: space-between;
       font-size: 14px;
       .realNumber {
-        font-family: Poppins-Medium;
       }
     }
   }

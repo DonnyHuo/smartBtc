@@ -77,7 +77,6 @@ export default {
     text-align: left;
     font-size: 14px;
     .title {
-      font-family: Poppins-Medium;
     }
     .content {
       background-color: #fff;
@@ -94,7 +93,7 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 14px;
-    font-family: Poppins-Medium;
+
     color: #8a8a8a;
     img {
       width: 100px;

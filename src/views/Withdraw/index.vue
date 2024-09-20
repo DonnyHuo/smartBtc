@@ -335,7 +335,7 @@ export default {
     justify-content: space-between;
   }
   .pay-text {
-    font-weight: 700;
+    font-weight: 500;
     margin-top: 15px;
     font-size: 22px;
     display: flex;
@@ -367,7 +367,7 @@ export default {
     .name {
       color: #16172a;
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 500;
       padding-bottom: 20px;
       display: flex;
       align-items: center;
@@ -393,7 +393,7 @@ export default {
   }
   .lpTokenName {
     padding-bottom: 10px;
-    font-family: Poppins-Medium;
+
     font-size: 14px;
   }
   .depositList {
@@ -405,11 +405,9 @@ export default {
       justify-content: space-between;
       height: 30px;
       font-size: 12px;
-      font-family: Poppins-Medium;
     }
   }
   .minBtn {
-    font-family: Poppins-Medium;
     height: 24px;
   }
   .allData {

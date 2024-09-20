@@ -566,7 +566,7 @@ export default {
   overflow: auto;
   .title {
     font-size: 20px;
-    font-family: Poppins-Medium;
+
     padding: 20px 0;
     display: flex;
     align-items: center;
@@ -624,7 +624,7 @@ export default {
         > div > div {
           display: flex;
           align-items: center;
-          font-family: Poppins-Medium;
+
           font-size: 14px;
         }
       }
@@ -664,7 +664,7 @@ export default {
       margin: 0 auto;
       border: 1px solid #999;
       font-size: 14px;
-      font-family: Poppins-Medium;
+
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -683,7 +683,6 @@ export default {
         border: none;
       }
       .coinName {
-        font-family: Poppins-Medium;
       }
     }
     .addBtn {
@@ -725,7 +724,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-family: Poppins-Medium;
+
           font-size: 14px;
           > div {
             display: flex;
@@ -755,7 +754,7 @@ export default {
             right: 15%;
             font-size: 12px;
             color: #666;
-            font-family: Poppins-Medium;
+
             > span {
               color: #333;
               font-size: 14px;
@@ -785,7 +784,6 @@ export default {
     overflow: hidden;
     .nav_title {
       text-align: left;
-      font-family: Poppins-Medium;
     }
     .search {
       width: 100%;
@@ -795,7 +793,7 @@ export default {
       border-radius: 5px;
       margin: 20px 0;
       font-size: 14px;
-      font-family: Poppins-Medium;
+
       &::placeholder {
         font-weight: 400;
         color: #999;
@@ -820,7 +818,7 @@ export default {
         justify-content: space-between;
         height: 60px;
         color: #333;
-        font-family: Poppins-Medium;
+
         border-bottom: 1px solid #ebe9e9;
         font-size: 14px;
         > div {
@@ -848,13 +846,12 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Poppins-Medium;
+
       font-size: 16px;
       line-height: 1;
       margin-bottom: 20px;
     }
     .deleteLiqTitle {
-      font-family: Poppins-Medium;
       font-size: 14px;
     }
     .inputBox {
@@ -865,7 +862,7 @@ export default {
       border-radius: 6px;
       overflow: hidden;
       padding-left: 10px;
-      font-family: Poppins-Medium;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -892,12 +889,10 @@ export default {
       width: 100%;
       background-color: #ffc519;
       border: none;
-      font-family: Poppins-Medium;
     }
     .receipt {
       color: #666;
       font-size: 12px;
-      font-family: Poppins-Medium;
     }
   }
 }
@@ -914,7 +909,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-family: Poppins-Medium;
+
   border-radius: 50%;
   display: flex;
   align-items: center;

@@ -368,7 +368,7 @@ export default {
         justify-content: center;
         margin-bottom: 10px;
         font-size: 16px;
-        font-family: Poppins-Medium;
+
         .tokenLogo {
           width: 30px;
           height: 30px;
@@ -384,7 +384,7 @@ export default {
         color: #16172a;
         > a {
           color: #ffc519;
-          font-family: Poppins-Medium;
+
           text-decoration: underline;
         }
       }
@@ -395,7 +395,7 @@ export default {
         .title {
           width: 100%;
           font-size: 12px;
-          font-weight: 700;
+          font-weight: 500;
           color: #16172a;
           display: flex;
           justify-content: space-between;
@@ -438,7 +438,6 @@ export default {
         align-items: center;
         .lp-value {
           margin-left: 10px;
-          font-family: Poppins-Medium;
         }
       }
     }
@@ -450,7 +449,7 @@ export default {
       .btn-wrap {
         width: 40%;
         color: #000;
-        font-weight: 700;
+        font-weight: 500;
         margin: 0 auto;
         opacity: 1;
         color: #a2a2a2;
@@ -486,7 +485,6 @@ export default {
       align-items: center;
       padding: 10px 20px 0 20px;
       a {
-        font-family: Poppins-Medium;
         color: #ffc519;
         text-decoration: underline;
       }

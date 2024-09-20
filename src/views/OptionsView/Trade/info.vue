@@ -79,7 +79,7 @@ export default {
 
   .title {
     font-size: 20px;
-    font-family: Poppins-Medium;
+
     text-align: left;
     margin-top: 30px;
   }

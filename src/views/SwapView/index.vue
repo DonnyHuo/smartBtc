@@ -353,7 +353,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-family: Poppins-Medium;
     }
     .staking-input-box {
       display: flex;
@@ -392,7 +391,7 @@ export default {
     .btn-wrap {
       width: 40%;
       color: #000;
-      font-weight: 700;
+      font-weight: 500;
       margin: 0 auto;
       opacity: 1;
       color: #a2a2a2;
@@ -438,7 +437,7 @@ export default {
       text-align: left;
       color: #16172a;
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -459,7 +458,7 @@ export default {
       > div {
         height: 40px;
         font-size: 14px;
-        font-family: Poppins-Medium;
+
         display: flex;
         align-items: center;
         justify-content: space-between;

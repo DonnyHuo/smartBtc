@@ -721,7 +721,7 @@ export default {
   overflow: auto;
   .title {
     font-size: 20px;
-    font-family: Poppins-Medium;
+
     padding: 20px 0;
     display: flex;
     align-items: center;
@@ -782,7 +782,6 @@ export default {
         }
         .coinName {
           span {
-            font-family: Poppins-Medium;
           }
         }
         .settings {
@@ -850,7 +849,6 @@ export default {
     width: 92%;
     margin: 80px auto;
     .nav_title {
-      font-family: Poppins-Medium;
       font-size: 18px;
       text-align: left;
       padding-bottom: 20px;
@@ -877,7 +875,7 @@ export default {
           > div {
             display: flex;
             align-items: center;
-            font-family: Poppins-Medium;
+
             font-size: 16px;
           }
         }
@@ -892,14 +890,12 @@ export default {
         border-radius: 6px;
         background-color: #fdfbfb;
         color: #ffc519;
-        font-family: Poppins-Medium;
       }
     }
     .info {
       border-top: 1px solid #f1f1f1;
       padding: 20px;
       .navTitle {
-        font-family: Poppins-Medium;
         text-align: left;
         font-size: 14px;
         color: #333;
@@ -924,7 +920,6 @@ export default {
 
   .nav_title {
     text-align: left;
-    font-family: Poppins-Medium;
   }
 
   .tradingTitle {
@@ -939,7 +934,7 @@ export default {
     margin: 20px 0;
     .tradingSelectBtn {
       width: 40%;
-      font-family: Poppins-Medium;
+
       position: relative;
       ::v-deep .van-button__content {
         justify-content: flex-start;
@@ -1069,7 +1064,6 @@ export default {
 }
 
 ::v-deep .van-ellipsis {
-  font-family: Poppins-Medium;
 }
 
 .copyImg {
@@ -1084,7 +1078,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-family: Poppins-Medium;
+
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1118,7 +1112,7 @@ export default {
     }
     .headerTitle {
       justify-content: center;
-      font-family: Poppins-Medium;
+
       .logos {
         display: flex;
         align-items: center;

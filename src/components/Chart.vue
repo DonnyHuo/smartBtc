@@ -232,7 +232,6 @@ export default {
   }
   .active {
     color: #ffc519;
-    font-family: Poppins-Medium;
   }
 }
 </style>

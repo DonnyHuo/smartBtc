@@ -144,7 +144,6 @@ export default {
       }
     }
     .total-num {
-      font-family: Poppins-Medium;
     }
   }
   .contactList {
@@ -174,7 +173,7 @@ export default {
       .address {
         display: flex;
         align-items: center;
-        font-weight: 700;
+        font-weight: 500;
         color: #111;
 
         .copyImg {

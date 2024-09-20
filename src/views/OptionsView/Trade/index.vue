@@ -1316,7 +1316,7 @@ export default {
         font-size: 10px;
         border: 1px solid #333;
         color: #333;
-        font-family: Poppins-Medium;
+
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -1349,7 +1349,6 @@ export default {
         }
         > div {
           > div:first-child {
-            font-family: Poppins-Medium;
             font-size: 18px;
             color: #333;
           }
@@ -1370,7 +1369,6 @@ export default {
       }
       .name {
         color: #333;
-        font-family: Poppins-Medium;
       }
     }
     button {
@@ -1383,7 +1381,7 @@ export default {
   }
   .selectToken {
     width: 100%;
-    font-family: Poppins-Medium;
+
     background-color: #fff;
     border-top: 1px solid #f1f1f1;
     .tokenList {
@@ -1423,7 +1421,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-family: Poppins-Medium;
     }
     .info {
       background-color: #f6f7f9;
@@ -1457,11 +1454,9 @@ export default {
       justify-content: space-between;
     }
     .title {
-      font-family: Poppins-Medium;
       font-size: 16px;
     }
     .balance {
-      font-family: Poppins-Medium;
       font-size: 50px;
       color: #ffc519;
       margin: 20px 0 10px 0;
@@ -1660,7 +1655,7 @@ export default {
           .name {
             text-align: left;
             line-height: 16px;
-            font-family: Poppins-Medium;
+
             div:last-child {
               color: #999;
               font-size: 12px;
@@ -1675,7 +1670,6 @@ export default {
           }
         }
         .balance {
-          font-family: Poppins-Medium;
         }
       }
     }
@@ -1768,7 +1762,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-family: Poppins-Medium;
+
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1885,12 +1879,10 @@ export default {
 .green {
   color: #15b384;
   padding-right: 4px;
-  font-family: Poppins-Medium;
 }
 .red {
   color: #f55858;
   padding-right: 4px;
-  font-family: Poppins-Medium;
 }
 
 ::v-deep .ant-slider:hover .ant-slider-dot-active {

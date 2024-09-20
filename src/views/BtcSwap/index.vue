@@ -10,7 +10,7 @@
     <div class="btcSwapContent">
       <div class="titleBox">
         <div class="title">
-          <span>跨鏈</span>
+          <span class="font-medium">跨鏈</span>
           <span class="btoB">From BTC To BSC</span>
         </div>
         <div class="selectChain" @click="show = true">
@@ -425,7 +425,7 @@ export default {
   }
   .title {
     margin: 20px 0;
-    font-family: Poppins-Medium;
+
     font-size: 16px;
     color: #111;
     display: flex;
@@ -445,7 +445,6 @@ export default {
     align-items: center;
     justify-content: center;
     span {
-      font-family: Poppins-Medium;
       font-size: 14px;
       color: #111;
     }
@@ -488,7 +487,6 @@ export default {
       display: flex;
       align-items: center;
       span {
-        font-family: Poppins-Medium;
         font-size: 14px;
         color: #111;
       }
@@ -561,7 +559,7 @@ export default {
       text-align: left;
       color: #16172a;
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -582,7 +580,7 @@ export default {
       > div {
         height: 40px;
         font-size: 14px;
-        font-family: Poppins-Medium;
+
         display: flex;
         align-items: center;
         justify-content: space-between;

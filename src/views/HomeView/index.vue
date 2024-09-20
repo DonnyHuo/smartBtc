@@ -180,7 +180,7 @@
       </div>
     </div>
     <div class="bridgeContent">
-      <div class="title">
+      <div class="title font-medium">
         跨鏈橋Bridge<br />
         SBTC治理與回購
       </div>
@@ -198,7 +198,7 @@
 
     <div class="contant">
       <div class="title">
-        <div>技術路線圖</div>
+        <div class="font-medium">技術路線圖</div>
         <div
           class="text-grey font-[400] text-[14px] mb-4 mt-2 leading-5 w-4/5 m-auto"
         >
@@ -718,7 +718,7 @@ export default {
   background: #fff;
   color: #111;
   padding: 10px 20px;
-  font-family: Poppins-Medium;
+
   border-bottom: 1px solid #eeeeee;
   > div {
     height: 30px;
@@ -752,7 +752,6 @@ export default {
     padding: 20px;
     .title {
       font-size: 18px;
-      font-family: Poppins-Medium;
     }
   }
   .powerLists {
@@ -777,7 +776,7 @@ export default {
         background: #ffc519;
         border: none;
         color: #333;
-        font-family: Poppins-Medium;
+
         font-size: 12px;
       }
     }
@@ -808,7 +807,7 @@ export default {
         background: #ffc519;
         border: none;
         color: #333;
-        font-family: Poppins-Medium;
+
         font-size: 12px;
       }
     }
@@ -855,7 +854,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-family: Poppins-Medium;
+
     border-radius: 10px;
   }
 }
@@ -869,7 +868,6 @@ export default {
     padding-top: 20px;
     > p {
       margin-bottom: 10px;
-      font-family: Poppins-Medium;
     }
   }
   .content {
@@ -883,7 +881,7 @@ export default {
   margin-top: 40px;
   .title {
     font-size: 18px;
-    font-family: Poppins-Medium;
+
     line-height: 30px;
   }
   .bridgeBg {
@@ -904,7 +902,7 @@ export default {
   border-radius: 10px;
   .title {
     font-size: 18px;
-    font-family: Poppins-Medium;
+
     line-height: 30px;
   }
   .contantList {
@@ -933,7 +931,6 @@ export default {
   }
   .apy {
     padding: 20px 0;
-    font-family: Poppins-Medium;
   }
   .loading {
     position: relative;
@@ -955,12 +952,12 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-family: Poppins-Medium;
+
     font-size: 12px;
     .van-button__text {
       p {
         color: #333;
-        font-family: Poppins-Medium;
+
         font-size: 12px;
       }
     }
@@ -989,7 +986,7 @@ export default {
   background-color: #fff;
   color: #ff6719;
   font-size: 18px;
-  font-family: Poppins-Medium;
+
   p {
     margin: 0;
   }
@@ -1031,7 +1028,6 @@ export default {
   }
   button {
     width: 100%;
-    font-family: Poppins-Medium;
   }
 }
 .progressBox {
@@ -1045,7 +1041,7 @@ export default {
       background: #ffc519;
       border: none;
       color: #333;
-      font-family: Poppins-Medium;
+
       font-size: 12px;
     }
   }
@@ -1069,11 +1065,10 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-family: Poppins-Medium;
+
     font-size: 12px;
   }
   .weight {
-    font-family: Poppins-Medium;
     font-size: 16px;
     margin-top: 0 !important;
     padding-bottom: 10px;
@@ -1095,7 +1090,7 @@ export default {
   background: #ffc519;
   border: none;
   color: #333;
-  font-family: Poppins-Medium;
+
   font-size: 12px;
 }
 </style>

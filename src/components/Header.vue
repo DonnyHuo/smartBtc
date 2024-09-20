@@ -29,7 +29,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Poppins-Medium;
+
   font-size: 16px;
   z-index: 111;
 

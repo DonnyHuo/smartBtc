@@ -263,10 +263,8 @@ export default {
       height: 50px;
       font-size: 14px;
       .name {
-        font-family: Poppins-Medium;
       }
       .pool-title {
-        font-family: Poppins-Medium;
         text-align: left;
       }
       .force-num {
@@ -293,7 +291,7 @@ export default {
     box-shadow: 0 3px 10px #cfcece;
     .pool-title {
       font-size: 14px;
-      font-family: Poppins-Medium;
+
       text-align: left;
     }
     .data-item {
@@ -315,7 +313,7 @@ export default {
         .big-item {
           margin-right: 30px;
           .name {
-            font-weight: 700;
+            font-weight: 500;
             color: #16172a;
             font-size: 13px;
             margin: 10px 0;
@@ -345,7 +343,7 @@ export default {
       justify-content: center;
       cursor: pointer;
       color: #2a2b33;
-      font-weight: 700;
+      font-weight: 500;
     }
     .invite-btn {
       background-color: #ffc519;
@@ -427,11 +425,11 @@ export default {
     .tips {
       line-height: 30px;
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 500;
     }
     .link {
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 500;
       padding-top: 10px;
       padding-bottom: 6px;
     }

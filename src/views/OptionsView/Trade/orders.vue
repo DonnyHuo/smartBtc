@@ -663,7 +663,7 @@ export default {
   margin: 0 auto;
   .title {
     font-size: 20px;
-    font-family: Poppins-Medium;
+
     text-align: left;
     margin-top: 30px;
   }
@@ -763,7 +763,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Poppins-Medium;
+
   img {
     width: 26px;
     height: 26px;
@@ -775,7 +775,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-family: Poppins-Medium;
+
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -787,12 +787,10 @@ export default {
 .green {
   color: #15b384;
   padding-right: 4px;
-  font-family: Poppins-Medium;
 }
 .red {
   color: #f55858;
   padding-right: 4px;
-  font-family: Poppins-Medium;
 }
 .weight {
   font-weight: 500;

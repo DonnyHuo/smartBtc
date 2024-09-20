@@ -186,7 +186,7 @@ export default {
   margin: 0 auto;
   .title {
     font-size: 20px;
-    font-family: Poppins-Medium;
+
     text-align: left;
     margin-top: 30px;
   }
