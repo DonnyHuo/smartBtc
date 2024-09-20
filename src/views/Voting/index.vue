@@ -300,8 +300,6 @@ export default {
       background: #ffc519;
       border: none;
       color: #333;
-
-      font-size: 12px;
     }
   }
 }
