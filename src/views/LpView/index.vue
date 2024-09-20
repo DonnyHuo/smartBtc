@@ -12,7 +12,12 @@
             <div :key="index" class="lpName">
               <img :src="realIconLogo(list.lpTokenName)" />
               <span>{{ list.lpTokenName }}</span>
-              <div @click="goToDetail(list.index)">去挖矿</div>
+              <div
+                class="font-medium text-[14px]"
+                @click="goToDetail(list.index)"
+              >
+                去挖矿
+              </div>
             </div>
             <div class="totalBalance">
               <div>管理規模</div>
