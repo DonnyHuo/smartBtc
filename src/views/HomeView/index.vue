@@ -184,7 +184,7 @@
         跨鏈橋Bridge<br />
         SBTC治理與回購
       </div>
-      <div class="text-grey font-[400] text-[14px] mt-2">
+      <div class="text-grey font-medium text-[14px] mt-2">
         持有SBTC项目投票，質押SBTC项目空投。
       </div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
@@ -200,7 +200,7 @@
       <div class="title">
         <div class="font-medium">技術路線圖</div>
         <div
-          class="text-grey font-[400] text-[14px] mb-4 mt-2 leading-5 w-4/5 m-auto"
+          class="text-grey font-medium text-[14px] mb-4 mt-2 leading-6 w-4/5 m-auto"
         >
           BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......
         </div>

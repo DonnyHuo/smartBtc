@@ -49,7 +49,7 @@
       <div class="desc">
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
-      <div class="px-[20px] text-left leading-5" @click="copyAddress(tweet)">
+      <div class="px-[20px] text-left leading-6" @click="copyAddress(tweet)">
         <span class="text-red-600">*</span>
         {{ tweet }}
         <img
@@ -149,12 +149,12 @@ export default {
   height: 100vh;
   padding-bottom: 100px;
   overflow: auto;
+  font-size: 14px;
 }
 .header {
   height: 50px;
   line-height: 50px;
 
-  font-size: 14px;
   background-color: #fff;
 }
 .form {
@@ -163,23 +163,19 @@ export default {
   padding: 20px 0;
   border-radius: 10px;
   background-color: #fff;
-  font-size: 12px;
 }
 .list {
   padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
   > span:first-child {
     color: #111;
   }
 }
 .listBox {
-  font-size: 12px;
   .title {
     margin-top: 20px;
-
     color: #111;
     text-align: left;
     padding-left: 20px;
@@ -196,12 +192,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      //margin-top: 10px;
       color: #666;
       padding: 0 10px;
-      > span {
-        //width: 80px;
-      }
       .inputBox {
         width: 80px;
       }
@@ -209,7 +201,7 @@ export default {
         width: 80%;
         height: 26px;
         padding: 0 10px;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
@@ -226,36 +218,10 @@ input {
   margin-top: 30px;
   button {
     width: 90%;
-    height: 35px;
-    line-height: 30px;
     border-radius: 10px;
     background: #ffc519;
     border: none;
     color: #333;
-
-    font-size: 12px;
-  }
-}
-.tabs {
-  background: #f5f5f5;
-  width: 90%;
-  height: 40px;
-  margin: 10px auto 20px auto;
-  border-radius: 10px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 12px;
-  padding: 5px;
-  > div {
-    width: 50%;
-    border-radius: 10px;
-    padding: 8px;
-  }
-  .active {
-    background-color: #ffc519;
   }
 }
 .desc {
@@ -263,7 +229,6 @@ input {
   font-size: 12px;
   color: #999;
   line-height: 20px;
-
   padding: 20px;
 }
 </style>
