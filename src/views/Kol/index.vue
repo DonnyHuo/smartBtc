@@ -82,9 +82,7 @@
           <div class="flex items-center">
             <img
               class="w-[30px] mr-3 rounded-2xl"
-              :src="
-                require(`../../assets/img/tokenList/${item.project_name.toLowerCase()}.png`)
-              "
+              :src="realIconLogo(item.project_name)"
               alt=""
             />
             <!--/default.png -->
@@ -205,6 +203,7 @@ import {
   getWriteContract,
   getWriteContractLoad,
   copy,
+  realIconLogo,
 } from "@/utils";
 import kolAbi from "../../abi/kol.json";
 import depositAbi from "../../abi/deposit.json";
@@ -274,6 +273,7 @@ export default {
   methods: {
     shortStr,
     formatDate,
+    realIconLogo,
     copyAddress(msg) {
       copy(msg);
       showToast("複製成功");
