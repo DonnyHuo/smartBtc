@@ -127,11 +127,12 @@ export default {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 3px 6px #cfcece;
-  padding: 20px 20px 0 20px;
+  padding: 10px 20px;
   .total-tvl {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #111;
     .tvl-title {
       display: flex;
       align-items: center;
@@ -144,17 +145,17 @@ export default {
       }
     }
     .total-num {
+      font-size: 14px;
     }
   }
   .contactList {
     font-size: 14px;
     color: #111;
-    padding: 10px 0;
     > div {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 10px;
+      height: 30px;
       .title {
         display: flex;
         align-items: center;
