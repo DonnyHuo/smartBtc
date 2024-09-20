@@ -1397,7 +1397,7 @@ export default {
         border-bottom: 1px solid #f1f1f1;
         .trading {
           font-size: 12px;
-          font-weight: 400;
+
           color: #999;
         }
       }
@@ -1470,7 +1470,7 @@ export default {
       border-radius: 10px;
       font-size: 12px;
       margin-bottom: 20px;
-      font-weight: 400;
+
       color: #999;
       > div {
         display: flex;
@@ -1481,7 +1481,6 @@ export default {
         .miniFont {
           color: #111;
           padding-right: 2px;
-          font-weight: 500;
         }
         .maintenance {
           .tips {
@@ -1513,7 +1512,7 @@ export default {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    font-weight: 400;
+
     > div {
       display: flex;
       align-items: center;
@@ -1527,7 +1526,6 @@ export default {
     }
     .usdPrice {
       color: #ffc519;
-      font-weight: 500;
     }
     .tabs {
       > button {
@@ -1569,7 +1567,7 @@ export default {
         color: #333;
         background-color: #e4e1e1;
         border: none;
-        font-weight: 400;
+
         border-radius: 10px;
       }
     }
@@ -1578,7 +1576,7 @@ export default {
     }
     .infos {
       font-size: 13px;
-      font-weight: 400;
+
       padding-bottom: 0;
       .info {
         display: flex;
@@ -1649,7 +1647,7 @@ export default {
           justify-content: space-between;
           height: 60px;
           color: #333;
-          font-weight: 500;
+
           border-bottom: 1px solid #ebe9e9;
           font-size: 14px;
           .name {
@@ -1659,7 +1657,6 @@ export default {
             div:last-child {
               color: #999;
               font-size: 12px;
-              font-weight: 400;
             }
           }
           > div {
@@ -1692,7 +1689,6 @@ export default {
       overflow: hidden;
       .coinName {
         font-size: 14px;
-        font-weight: 500;
       }
       .inputDiv {
         display: flex;
@@ -1705,7 +1701,6 @@ export default {
         height: 38px;
         text-align: right;
         font-size: 14px;
-        font-weight: 500;
       }
     }
     .depositBtn {
@@ -1714,7 +1709,7 @@ export default {
       border: none;
       height: 40px;
       color: #333;
-      font-weight: 500;
+
       font-size: 14px;
       margin: 40px 0;
       border-radius: 10px;
@@ -1816,7 +1811,7 @@ export default {
     line-height: 16px;
     .popoverTitle {
       font-size: 14px;
-      font-weight: 500;
+
       padding-bottom: 10px;
       color: #111;
     }
@@ -1840,7 +1835,6 @@ export default {
         }
       }
       .name {
-        font-weight: 500;
       }
     }
     .infoBox {
@@ -1870,7 +1864,6 @@ export default {
   }
 }
 .weight {
-  font-weight: 500;
   color: #111;
 }
 .paddingRight {

@@ -751,7 +751,6 @@ export default {
     border-radius: 10px;
     padding: 20px 0;
     .nav_title {
-      font-weight: 500;
       font-size: 16px;
       border-bottom: 1px solid #f1f1f1;
       padding-bottom: 20px;
@@ -767,7 +766,7 @@ export default {
           align-items: center;
           justify-content: space-between;
           font-size: 14px;
-          font-weight: 500;
+
           margin-bottom: 10px;
         }
       }
@@ -792,7 +791,7 @@ export default {
       }
       .desc {
         color: #999;
-        font-weight: 400;
+
         margin-top: 10px;
         margin-bottom: 5px;
         font-size: 12px;
@@ -840,7 +839,7 @@ export default {
       background-color: #ffc519;
       border: none;
       font-size: 14px;
-      font-weight: 500;
+
       border-radius: 10px;
       margin-top: 20px;
     }
@@ -924,7 +923,7 @@ export default {
 
   .tradingTitle {
     text-align: left;
-    font-weight: 500;
+
     font-size: 14px;
   }
   .tradingSelect {
@@ -964,7 +963,7 @@ export default {
   .selectlist {
     > div:first-child {
       text-align: left;
-      font-weight: 500;
+
       font-size: 14px;
       margin-top: 30px;
     }
@@ -977,7 +976,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       padding-left: 10px;
-      font-weight: 500;
+
       font-size: 14px;
       > div {
         display: flex;
@@ -1011,7 +1010,7 @@ export default {
     margin-top: 40px;
     background-color: #ffc519;
     color: #333;
-    font-weight: 500;
+
     border: none;
     font-size: 14px;
     border-radius: 10px;
@@ -1049,7 +1048,7 @@ export default {
         justify-content: space-between;
         height: 60px;
         color: #333;
-        font-weight: 500;
+
         border-bottom: 1px solid #ebe9e9;
         font-size: 14px;
         > div {
@@ -1151,7 +1150,7 @@ export default {
       height: 40px;
       border-radius: 10px;
       padding-left: 10px;
-      font-weight: 500;
+
       overflow: hidden;
       > div {
         display: flex;
@@ -1173,7 +1172,7 @@ export default {
       margin-top: 10px;
       background-color: #ffc519;
       border: none;
-      font-weight: 500;
+
       border-radius: 10px;
     }
   }

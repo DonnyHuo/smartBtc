@@ -270,7 +270,6 @@ export default {
       .force-num {
         display: flex;
         align-items: center;
-        font-weight: 400;
       }
     }
     .header-desc {
@@ -313,7 +312,6 @@ export default {
         .big-item {
           margin-right: 30px;
           .name {
-            font-weight: 500;
             color: #16172a;
             font-size: 13px;
             margin: 10px 0;
@@ -343,7 +341,6 @@ export default {
       justify-content: center;
       cursor: pointer;
       color: #2a2b33;
-      font-weight: 500;
     }
     .invite-btn {
       background-color: #ffc519;
@@ -425,11 +422,10 @@ export default {
     .tips {
       line-height: 30px;
       font-size: 20px;
-      font-weight: 500;
     }
     .link {
       font-size: 16px;
-      font-weight: 500;
+
       padding-top: 10px;
       padding-bottom: 6px;
     }

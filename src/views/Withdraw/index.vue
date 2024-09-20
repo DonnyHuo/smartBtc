@@ -318,7 +318,7 @@ export default {
   color: #2c3e50;
   list-style: none;
   font-style: normal;
-  font-weight: 400;
+
   width: 90%;
   margin: 20px auto 100px auto;
   box-sizing: border-box;
@@ -335,7 +335,6 @@ export default {
     justify-content: space-between;
   }
   .pay-text {
-    font-weight: 500;
     margin-top: 15px;
     font-size: 22px;
     display: flex;
@@ -367,7 +366,7 @@ export default {
     .name {
       color: #16172a;
       font-size: 18px;
-      font-weight: 500;
+
       padding-bottom: 20px;
       display: flex;
       align-items: center;

@@ -197,7 +197,7 @@ export default {
     margin-top: 10px;
     color: #666;
     font-size: 14px;
-    font-weight: 300;
+
     > div {
       padding: 4px 0;
       display: flex;
@@ -207,7 +207,7 @@ export default {
     .numbers {
       padding: 5px 0;
       color: #333;
-      font-weight: 500;
+
       font-size: 16px;
     }
     .van-progress {

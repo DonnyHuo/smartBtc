@@ -158,7 +158,7 @@ export default {
       .title {
         display: flex;
         align-items: center;
-        font-weight: 400;
+
         .logo {
           width: 20px;
           margin-right: 8px;
@@ -173,7 +173,7 @@ export default {
       .address {
         display: flex;
         align-items: center;
-        font-weight: 500;
+
         color: #111;
 
         .copyImg {

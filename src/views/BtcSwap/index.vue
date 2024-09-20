@@ -549,7 +549,6 @@ export default {
     height: 46px;
     border: none;
     background-color: #ffc519;
-    font-weight: 500;
   }
   .swapRecord {
     margin-top: 30px;
@@ -559,7 +558,7 @@ export default {
       text-align: left;
       color: #16172a;
       font-size: 18px;
-      font-weight: 500;
+
       display: flex;
       align-items: center;
       justify-content: space-between;

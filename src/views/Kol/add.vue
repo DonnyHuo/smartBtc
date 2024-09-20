@@ -153,7 +153,7 @@ export default {
 .header {
   height: 50px;
   line-height: 50px;
-  font-weight: bold;
+
   font-size: 14px;
   background-color: #fff;
 }
@@ -164,7 +164,6 @@ export default {
   border-radius: 10px;
   background-color: #fff;
   font-size: 12px;
-  font-weight: bold;
 }
 .list {
   padding: 20px;
@@ -247,7 +246,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+
   font-size: 12px;
   padding: 5px;
   > div {
@@ -264,7 +263,7 @@ input {
   font-size: 12px;
   color: #999;
   line-height: 20px;
-  font-weight: 400;
+
   padding: 20px;
 }
 </style>

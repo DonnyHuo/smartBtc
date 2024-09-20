@@ -395,12 +395,11 @@ export default {
         .title {
           width: 100%;
           font-size: 12px;
-          font-weight: 500;
+
           color: #16172a;
           display: flex;
           justify-content: space-between;
           .get-lp {
-            font-weight: 400;
             color: #ed8080;
           }
         }
@@ -449,7 +448,7 @@ export default {
       .btn-wrap {
         width: 40%;
         color: #000;
-        font-weight: 500;
+
         margin: 0 auto;
         opacity: 1;
         color: #a2a2a2;

@@ -90,7 +90,7 @@ export default {
     margin-top: 10px;
     color: #666;
     font-size: 14px;
-    font-weight: 300;
+
     > div {
       padding: 10px 0;
       display: flex;
@@ -98,7 +98,6 @@ export default {
       justify-content: space-between;
       > span:last-child {
         color: #111;
-        font-weight: 400;
       }
     }
   }

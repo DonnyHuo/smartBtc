@@ -391,7 +391,7 @@ export default {
     .btn-wrap {
       width: 40%;
       color: #000;
-      font-weight: 500;
+
       margin: 0 auto;
       opacity: 1;
       color: #a2a2a2;
@@ -437,7 +437,7 @@ export default {
       text-align: left;
       color: #16172a;
       font-size: 18px;
-      font-weight: 500;
+
       display: flex;
       align-items: center;
       justify-content: space-between;

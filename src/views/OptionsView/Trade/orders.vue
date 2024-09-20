@@ -682,7 +682,6 @@ export default {
 ::v-deep .ant-table {
   .ant-table-thead {
     font-size: 12px;
-    font-weight: 400;
   }
   .ant-table-row {
     border: none;
@@ -715,7 +714,7 @@ export default {
     > div {
       width: 50%;
       color: #111;
-      font-weight: 300;
+
       text-align: left;
       font-size: 14px;
       padding: 10px;
@@ -747,7 +746,7 @@ export default {
       background-color: #f5f5f5;
       border-radius: 5px;
       font-size: 14px;
-      font-weight: 500;
+
       margin-top: 20px;
       > div {
         display: flex;
@@ -793,7 +792,6 @@ export default {
   padding-right: 4px;
 }
 .weight {
-  font-weight: 500;
   color: #111;
   font-size: 14px;
 }

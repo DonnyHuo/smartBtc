@@ -743,7 +743,7 @@ export default {
   font-size: 14px;
   color: #919090;
   padding-top: 10px;
-  font-weight: 500;
+
   line-height: 20px;
 }
 .headerInfo {
@@ -996,7 +996,7 @@ export default {
   background-color: #fff;
   font-size: 16px;
   color: #111;
-  font-weight: 500;
+
   .iconBox {
     display: flex;
     align-items: center;

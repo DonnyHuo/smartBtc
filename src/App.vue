@@ -271,7 +271,6 @@ body {
     }
     &.router-link-active {
       color: #ffc519;
-      font-weight: bold;
     }
     & > img {
       width: 20px;

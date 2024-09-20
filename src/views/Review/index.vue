@@ -546,7 +546,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+
   font-size: 12px;
   padding: 5px;
   > div {
@@ -565,7 +565,7 @@ export default {
   border-radius: 10px;
   background-color: #f5f5f5;
   font-size: 12px;
-  font-weight: bold;
+
   .listBoxs {
     font-size: 12px;
     .listDiv {
@@ -599,7 +599,6 @@ export default {
       padding-left: 20px;
       color: #111;
       margin-top: 20px;
-      font-weight: bold;
     }
   }
   .list {
@@ -754,7 +753,7 @@ button {
         align-items: center;
         justify-content: space-between;
         color: #666;
-        font-weight: 400;
+
         padding-left: 20px;
       }
     }

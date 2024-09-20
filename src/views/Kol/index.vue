@@ -548,7 +548,7 @@ export default {
   padding: 0 5%;
   height: 50px;
   line-height: 50px;
-  font-weight: bold;
+
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -571,7 +571,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+
   font-size: 12px;
   padding: 5px;
   > div {
@@ -595,7 +595,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    font-weight: bold;
+
     .icon {
       width: 25px;
       margin-right: 10px;
@@ -670,7 +670,7 @@ export default {
   .header {
     height: 50px;
     line-height: 50px;
-    font-weight: bold;
+
     font-size: 16px;
     display: flex;
     align-items: center;
@@ -699,7 +699,6 @@ export default {
   .title {
     font-size: 14px;
     padding-bottom: 20px;
-    font-weight: bold;
   }
   .content {
     text-align: left;
@@ -737,7 +736,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: bold;
+
     font-size: 14px;
   }
   .orange {
@@ -828,7 +827,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: bold;
+
     font-size: 12px;
     line-height: 30px;
   }
@@ -857,7 +856,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: bold;
+
     font-size: 12px;
     line-height: 28px;
   }

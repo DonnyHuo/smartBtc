@@ -281,7 +281,7 @@ export default {
   .desc {
     font-size: 12px;
     color: #999;
-    font-weight: 400;
+
     text-align: left;
     line-height: 20px;
     padding: 10px 0;
@@ -331,7 +331,6 @@ export default {
       align-items: center;
       justify-content: space-between;
       color: #999;
-      font-weight: 400;
     }
   }
 }

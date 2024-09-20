@@ -595,7 +595,6 @@ export default {
     border-radius: 10px;
     background-color: #fff;
     .nav_title {
-      font-weight: 500;
       font-size: 16px;
       border-bottom: 1px solid #f1f1f1;
       height: 50px;
@@ -605,7 +604,7 @@ export default {
       padding: 20px;
       padding-bottom: 10px;
       text-align: left;
-      font-weight: 500;
+
       font-size: 14px;
     }
     .selectBtn {
@@ -648,7 +647,7 @@ export default {
     }
     .amount {
       text-align: left;
-      font-weight: 500;
+
       font-size: 14px;
       padding: 20px 20px 10px;
       display: flex;
@@ -689,7 +688,7 @@ export default {
       width: 90%;
       margin: 30px auto;
       font-size: 14px;
-      font-weight: 500;
+
       border-radius: 6px;
       border: none;
       background-color: #ffc519;
@@ -701,7 +700,6 @@ export default {
     border-radius: 10px;
     background-color: #fff;
     .nav_title {
-      font-weight: 500;
       font-size: 16px;
       height: 50px;
       line-height: 50px;
@@ -795,7 +793,6 @@ export default {
       font-size: 14px;
 
       &::placeholder {
-        font-weight: 400;
         color: #999;
       }
       &:focus {
