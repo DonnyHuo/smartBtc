@@ -785,14 +785,13 @@ export default {
 }
 .content {
   font-size: 14px;
-  padding: 20px 20px 0;
+  padding: 0 20px;
   text-align: center;
   .contentDesc {
     padding: 20px;
     text-align: left;
     line-height: 20px;
     font-size: 12px;
-    padding-top: 0;
   }
   .inputBox {
     width: 80%;
@@ -835,7 +834,6 @@ export default {
     width: 80%;
     height: 36px;
     margin-bottom: 20px;
-    margin-top: 20px;
   }
 }
 .activeBtnBox {
