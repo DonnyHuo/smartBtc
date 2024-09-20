@@ -1,50 +1,56 @@
 <template>
   <div class="votingListBox">
     <div v-if="projectVotingList.length">
-      <div v-for="(item, index) in projectVotingList" :key="index" class="votingList">
+      <div
+        v-for="(item, index) in projectVotingList"
+        :key="index"
+        class="votingList"
+      >
         <div>
-          <span>币种名称</span>
+          <span>幣種名稱</span>
           <span>{{ item.name }}</span>
         </div>
         <div>
-          <span>币种Symbol</span>
+          <span>幣種Symbol</span>
           <span>{{ item.symbol }}</span>
         </div>
 
         <div>
-          <span>发行数量</span>
+          <span>發行數量</span>
           <span>{{ item.total_supply }}</span>
         </div>
         <div class="listBox">
-          <div class="title">发行比例</div>
+          <div class="title">發行比例</div>
           <div class="desc">
-            项目方（KOL）可以借鉴SBTC治理与回购方案，在项目运营发展中，不断回购BSC链流通中的代币转入跨链桥合约，提高跨链额度直至100%。
+            專案方（KOL）可以藉鏡SBTC治理與回購方案，在專案營運發展中，不斷回購BSC鏈流通中的代幣轉入跨鏈橋合約，提高跨鏈額度直至100%。
           </div>
           <div class="listDiv">
             <div class="listS">
-              <span>跨链桥合约</span>
+              <span>跨鏈橋合約 </span>
               <span>{{ item.cross_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>LP兑换合约</span>
+              <span>LP兌換合約 </span>
               <span>{{ item.le_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>启动池合约</span>
+              <span>啟動池合約 </span>
               <span>{{ item.lm_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>KOL分配合约</span>
+              <span>KOL分配合約 </span>
               <span>{{ item.kol_percent / 100 }}%</span>
             </div>
           </div>
         </div>
         <div>
-          <span>结束时间</span>
-          <span>{{ formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm") }}</span>
+          <span>結束時間 </span>
+          <span>{{
+            formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
+          }}</span>
         </div>
         <div>
-          <span>投票进度</span>
+          <span>投票進度 </span>
           <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
           <div style="width: 80%">
             <van-progress
@@ -61,8 +67,12 @@
           </div>
         </div>
         <div class="records">
-          <div class="recordTitle">投票记录</div>
-          <div class="recordList" v-for="(list, index) in item.projectVotes" :key="index">
+          <div class="recordTitle">投票記錄</div>
+          <div
+            class="recordList"
+            v-for="(list, index) in item.projectVotes"
+            :key="index"
+          >
             <div>
               {{ shortStr(list.address) }}
             </div>
@@ -76,13 +86,15 @@
             >投票支持</van-button
           >
         </div>
-        <p class="desc center">当前投票规则：投票有效期7天，投票完成门槛100票</p>
+        <p class="desc center">
+          現行投票規則：投票有效期限7天，投票完成門檻100票
+        </p>
       </div>
     </div>
     <div v-else class="noData">
       <div>
         <img src="../../assets/img/noData.png" />
-        <div>暂无数据</div>
+        <div>暫無數據</div>
       </div>
     </div>
   </div>
@@ -167,10 +179,13 @@ export default {
     },
 
     async isVoted(project_name) {
-      const data = await this.$axios.post("https://smartbtc.io/bridge/kol/is_voted", {
-        kol_address: this.$store.state.address,
-        project_name,
-      });
+      const data = await this.$axios.post(
+        "https://smartbtc.io/bridge/kol/is_voted",
+        {
+          kol_address: this.$store.state.address,
+          project_name,
+        }
+      );
 
       return data.data.data;
     },
@@ -189,7 +204,7 @@ export default {
 
     vote(project_name) {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("SBTC余额不足");
+        return showToast("SBTC餘額不足");
       }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
