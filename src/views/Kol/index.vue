@@ -118,7 +118,7 @@
       </div>
     </div>
 
-    <van-action-sheet class="model" v-model:show="model" title="认领规则">
+    <van-action-sheet class="model" v-model:show="model" title="認領規則">
       <div class="content">
         <div class="contentDesc">
           <p>

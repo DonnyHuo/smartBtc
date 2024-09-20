@@ -261,12 +261,9 @@ export default {
       padding: 0 20px;
 
       .listS {
-        height: 30px;
+        height: 20px;
         display: flex;
         align-items: center;
-        //justify-content: space-between;
-        margin-top: 10px;
-        //padding: 0 20px;
         color: #666;
         > span:last-child {
           padding-left: 10px;

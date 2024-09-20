@@ -46,10 +46,13 @@
       <div class="sure">
         <van-button @click="newProject">提交初審</van-button>
       </div>
-      <div class="desc font-medium">
+      <div class="desc">
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
-      <div class="px-[20px] text-left leading-6" @click="copyAddress(tweet)">
+      <div
+        class="px-[20px] text-left leading-6 font-medium"
+        @click="copyAddress(tweet)"
+      >
         <span class="text-red-600">*</span>
         {{ tweet }}
         <img
@@ -154,7 +157,7 @@ export default {
 .header {
   height: 50px;
   line-height: 50px;
-
+  font-size: 16px;
   background-color: #fff;
 }
 .form {
