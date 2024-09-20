@@ -114,7 +114,7 @@
         <div class="allData" v-else>{{ allData }}</div>
       </div>
     </div>
-    <van-action-sheet v-model:show="show" title="选择铭文">
+    <van-action-sheet v-model:show="show" title="選擇銘文">
       <div class="content">
         <div
           v-for="(list, index) in actions"
@@ -129,7 +129,7 @@
       </div>
     </van-action-sheet>
 
-    <van-action-sheet v-model:show="showCoin" title="选择铭文">
+    <van-action-sheet v-model:show="showCoin" title="選擇銘文">
       <div class="content">
         <div v-if="coinList.length > 0">
           <div
