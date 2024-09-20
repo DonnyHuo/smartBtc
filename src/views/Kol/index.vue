@@ -792,6 +792,9 @@ export default {
     text-align: left;
     line-height: 24px;
     font-size: 14px;
+    > p {
+      padding-bottom: 10px;
+    }
   }
   .inputBox {
     width: 80%;
