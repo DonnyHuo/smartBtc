@@ -49,11 +49,22 @@
       <div class="desc">
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
+      <div class="px-[20px] text-left leading-5">
+        <span class="text-red-600">*</span>
+        您的钱包
+        <span>{{ shortStr($store.state.address) }}</span>
+        已经质押SBTC，正在SmartBTC.io平台提交KOL认证，参与推广
+        <span>{{ symbol ? symbol : "--" }}</span>
+        铭文！请大家帮忙点赞、转发这条推文，助力
+        <span>{{ symbol ? symbol : "--" }}</span>
+        铭文上SmartBTC热门！
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { showToast } from "vant";
+import { shortStr } from "@/utils";
+import { showToast, showConfirmDialog } from "vant";
 
 export default {
   name: "kolAdd",
@@ -67,6 +78,7 @@ export default {
     };
   },
   methods: {
+    shortStr,
     changeTabs(number) {
       this.active = number;
     },
@@ -77,21 +89,39 @@ export default {
         total_supply: this.totalSupply,
         percents: this.percents.map((list) => list * 100),
       };
-      this.$axios
-        .post("https://smartbtc.io/bridge/kol/new_project", {
-          kol_address: this.$store.state.address,
-          project_info,
+      if (
+        project_info.name &&
+        project_info.symbol &&
+        project_info.total_supply &&
+        project_info.percents.every((list) => list !== 0)
+      ) {
+        showConfirmDialog({
+          title: `發行${project_info.name}项目`,
+          message: "確認是否已發推文且以目前按讚數提交申請",
         })
-        .then((res) => {
-          showToast("申請成功");
-          setTimeout(() => {
-            this.$router.push("/kol");
-          }, 1000);
-        })
-        .catch((err) => {
-          console.log(err);
-          showToast(err);
-        });
+          .then(() => {
+            this.$axios
+              .post("https://smartbtc.io/bridge/kol/new_project", {
+                kol_address: this.$store.state.address,
+                project_info,
+              })
+              .then((res) => {
+                showToast("申請成功");
+                setTimeout(() => {
+                  this.$router.push("/kol");
+                }, 1000);
+              })
+              .catch((err) => {
+                console.log(err);
+                showToast(err);
+              });
+          })
+          .catch(() => {
+            // on cancel
+          });
+      } else {
+        showToast("提交資料有誤");
+      }
     },
   },
 };

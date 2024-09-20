@@ -80,7 +80,14 @@
       <div v-if="searchList.length">
         <div v-for="(item, index) in searchList" class="list" :key="index">
           <div class="flex items-center">
-            <img class="icon" src="../../assets/img/default.png" alt="" />
+            <img
+              class="w-[30px] mr-3 rounded-2xl"
+              :src="
+                require(`../../assets/img/tokenList/${item.project_name.toLowerCase()}.png`)
+              "
+              alt=""
+            />
+            <!--/default.png -->
             <span>{{ item.name }}</span>
           </div>
           <div>
@@ -131,7 +138,22 @@
           <p>
             5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。
           </p>
+          <div class="text-left">
+            <span class="text-black font-bold">
+              <span class="text-red-600">*</span>
+              {{
+                `您的錢包${shortStr(
+                  $store.state.address
+                )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
+                  selectedItem.name
+                }銘文，請大家幫忙點讚、轉發這則推文，助力${
+                  selectedItem.name
+                }銘文上SmartBTC熱門！`
+              }}
+            </span>
+          </div>
         </div>
+
         <van-button
           :loading="reserveLoading"
           class="modelBtn"
@@ -188,6 +210,7 @@ import {
 } from "@/utils";
 import kolAbi from "../../abi/kol.json";
 import depositAbi from "../../abi/deposit.json";
+import { showConfirmDialog } from "vant";
 
 export default {
   name: "kol",
@@ -311,18 +334,27 @@ export default {
         });
     },
     bindProject(project_name) {
-      this.$axios
-        .post("https://smartbtc.io/bridge/kol/bind_project", {
-          kol_address: this.$store.state.address,
-          project_name: project_name,
+      showConfirmDialog({
+        title: `認領${project_name}项目`,
+        message: "確認是否已發推文且以目前按讚數提交申請",
+      })
+        .then(() => {
+          this.$axios
+            .post("https://smartbtc.io/bridge/kol/bind_project", {
+              kol_address: this.$store.state.address,
+              project_name: project_name,
+            })
+            .then((res) => {
+              showToast("認領成功");
+              this.model = false;
+            })
+            .catch((err) => {
+              showToast(err.message);
+              console.log(err);
+            });
         })
-        .then((res) => {
-          showToast("認領成功");
-          this.model = false;
-        })
-        .catch((err) => {
-          showToast(err.message);
-          console.log(err);
+        .catch(() => {
+          // on cancel
         });
     },
     getProjectIssuedList() {
@@ -364,13 +396,18 @@ export default {
     },
 
     async getActiveAmount() {
+      const decimals = await getContract(
+        this.$store.state.sBtc,
+        erc20ABI,
+        "decimals"
+      );
       const res = await getContract(
         this.$store.state.pledgeAddress,
         depositAbi,
         "viewUserDepositedAmount",
         this.$store.state.address
       );
-      this.activeAmount = res.toString() * 1;
+      this.activeAmount = ethers.utils.formatUnits(res, decimals) * 1;
 
       const allowance = await getContract(
         this.$store.state.sBtc,
