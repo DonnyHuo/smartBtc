@@ -7,20 +7,20 @@
         class="votingList"
       >
         <div>
-          <span>幣種名稱</span>
+          <span class="font-medium">幣種名稱</span>
           <span>{{ item.name }}</span>
         </div>
         <div>
-          <span>幣種Symbol</span>
+          <span class="font-medium">幣種Symbol</span>
           <span>{{ item.symbol }}</span>
         </div>
 
         <div>
-          <span>發行數量</span>
+          <span class="font-medium">發行數量</span>
           <span>{{ item.total_supply }}</span>
         </div>
         <div class="listBox">
-          <div class="title">發行比例</div>
+          <div class="title font-medium">發行比例</div>
           <div class="desc">
             專案方（KOL）可以藉鏡SBTC治理與回購方案，在專案營運發展中，不斷回購BSC鏈流通中的代幣轉入跨鏈橋合約，提高跨鏈額度直至100%。
           </div>
@@ -44,13 +44,13 @@
           </div>
         </div>
         <div>
-          <span>結束時間 </span>
+          <span class="font-medium">結束時間 </span>
           <span>{{
             formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
           }}</span>
         </div>
         <div>
-          <span>投票進度 </span>
+          <span class="font-medium">投票進度 </span>
           <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
           <div style="width: 80%">
             <van-progress
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="records">
-          <div class="recordTitle">投票記錄</div>
+          <div class="recordTitle font-medium">投票記錄</div>
           <div
             class="recordList"
             v-for="(list, index) in item.projectVotes"
@@ -86,9 +86,9 @@
             >投票支持</van-button
           >
         </div>
-        <p class="desc center">
-          現行投票規則：投票有效期限7天，投票門檻
-          {{ repMinThreshold }} SBTC，投票完成門檻100票
+        <p class="desc text-left">
+          <div class="font-medium">現行投票規則：</div>
+          <div>投票有效期限7天，投票門檻{{ repMinThreshold }} SBTC，投票完成門檻100票</div>
         </p>
       </div>
     </div>
@@ -238,7 +238,7 @@ export default {
   border-radius: 10px;
   margin: 5%;
   padding: 20px;
-  font-size: 12px;
+  font-size: 14px;
   > div {
     display: flex;
     align-items: center;
