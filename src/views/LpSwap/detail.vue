@@ -22,9 +22,13 @@
           <div>
             <div>從Pancakeswap獲取LP</div>
             <a
-              :href="`https://pancakeswap.finance/swap?outputCurrency=${lpInfo.lpToken}`"
+              :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`"
             >
-              <img src="../../assets/img/lpDetailShare.png" alt="" class="goTo" />
+              <img
+                src="../../assets/img/lpDetailShare.png"
+                alt=""
+                class="goTo"
+              />
             </a>
           </div>
         </div>
@@ -124,7 +128,13 @@
 </template>
 <script>
 import { ethers } from "ethers";
-import { shortStr, getContract, getWriteContractLoad, realIconLogo, copy } from "@/utils";
+import {
+  shortStr,
+  getContract,
+  getWriteContractLoad,
+  realIconLogo,
+  copy,
+} from "@/utils";
 import lpExchangeABI from "../../abi/lpExchange.json";
 import erc20ABI from "../../abi/erc20.json";
 import { showToast } from "vant";
@@ -161,7 +171,11 @@ export default {
       showToast("複製成功");
     },
     async getTokenInfo() {
-      const res = await getContract(this.lpInfo.changeToken, erc20ABI, "symbol");
+      const res = await getContract(
+        this.lpInfo.changeToken,
+        erc20ABI,
+        "symbol"
+      );
       this.tokenName = res;
     },
     async getLpBalance() {
@@ -220,9 +234,15 @@ export default {
           this.lpInfo.pairId,
           ethers.utils.parseUnits(value.toString(), 18)
         );
-        const decimals = await getContract(this.lpInfo.changeToken, erc20ABI, "decimals");
+        const decimals = await getContract(
+          this.lpInfo.changeToken,
+          erc20ABI,
+          "decimals"
+        );
 
-        this.exchangeTokens = (ethers.utils.formatUnits(res, decimals) * 1).toFixed(2);
+        this.exchangeTokens = (
+          ethers.utils.formatUnits(res, decimals) * 1
+        ).toFixed(2);
       } else {
         this.exchangeTokens = 0;
       }

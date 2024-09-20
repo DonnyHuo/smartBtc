@@ -138,19 +138,16 @@
           <p>
             5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。
           </p>
-          <div class="text-left">
+          <div class="text-left" @click="copyAddress(tweet)">
             <span class="text-black font-bold">
               <span class="text-red-600">*</span>
-              {{
-                `您的錢包${shortStr(
-                  $store.state.address
-                )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
-                  selectedItem.name
-                }銘文，請大家幫忙點讚、轉發這則推文，助力${
-                  selectedItem.name
-                }銘文上SmartBTC熱門！`
-              }}
+              {{ tweet }}
             </span>
+            <img
+              class="w-[16px] inline-block"
+              src="../../assets/img/copy.png"
+              alt=""
+            />
           </div>
         </div>
 
@@ -207,6 +204,7 @@ import {
   getContract,
   getWriteContract,
   getWriteContractLoad,
+  copy,
 } from "@/utils";
 import kolAbi from "../../abi/kol.json";
 import depositAbi from "../../abi/deposit.json";
@@ -262,10 +260,24 @@ export default {
     clearInterval(this.timer);
     this.timer = null;
   },
-
+  computed: {
+    tweet() {
+      return `我的錢包${shortStr(
+        this.$store.state.address
+      )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
+        this.selectedItem.name
+      }銘文，請大家幫忙點讚、轉發這則推文，助力${
+        this.selectedItem.name
+      }銘文上SmartBTC熱門！`;
+    },
+  },
   methods: {
     shortStr,
     formatDate,
+    copyAddress(msg) {
+      copy(msg);
+      showToast("複製成功");
+    },
     getStatus(status) {
       switch (status) {
         case 1:

@@ -49,21 +49,20 @@
       <div class="desc">
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
-      <div class="px-[20px] text-left leading-5">
+      <div class="px-[20px] text-left leading-5" @click="copyAddress(tweet)">
         <span class="text-red-600">*</span>
-        您的钱包
-        <span>{{ shortStr($store.state.address) }}</span>
-        已经质押SBTC，正在SmartBTC.io平台提交KOL认证，参与推广
-        <span>{{ symbol ? symbol : "--" }}</span>
-        铭文！请大家帮忙点赞、转发这条推文，助力
-        <span>{{ symbol ? symbol : "--" }}</span>
-        铭文上SmartBTC热门！
+        {{ tweet }}
+        <img
+          class="w-[16px] inline-block"
+          src="../../assets/img/copy.png"
+          alt=""
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
-import { shortStr } from "@/utils";
+import { shortStr, copy } from "@/utils";
 import { showToast, showConfirmDialog } from "vant";
 
 export default {
@@ -77,10 +76,28 @@ export default {
       percents: ["", "", "", ""],
     };
   },
+  computed: {
+    tweet() {
+      return `我的钱包${shortStr(
+        this.$store.state.address
+      )}已经质押SBTC，正在SmartBTC.io平台提交KOL认证，参与推广${
+        this.symbol
+      }铭文！请大家帮忙点赞、转发这条推文，助力 ${
+        this.symbol || "--"
+      }铭文上SmartBTC热门！`;
+    },
+  },
   methods: {
     shortStr,
     changeTabs(number) {
       this.active = number;
+    },
+    copyAddress(msg) {
+      if (!this.symbol) {
+        return showToast("請填寫幣種symbol");
+      }
+      copy(msg);
+      showToast("複製成功");
     },
     newProject() {
       const project_info = {

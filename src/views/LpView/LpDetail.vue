@@ -10,9 +10,13 @@
           <div>
             <div>從Pancakeswap獲取LP</div>
             <a
-              :href="`https://pancakeswap.finance/swap?inputCurrency=${t100Address}&outputCurrency=${t100Address}`"
+              :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`"
             >
-              <img src="../../assets/img/lpDetailShare.png" alt="" class="goTo" />
+              <img
+                src="../../assets/img/lpDetailShare.png"
+                alt=""
+                class="goTo"
+              />
             </a>
           </div>
         </div>
@@ -180,8 +184,10 @@ export default {
         lpToken: res.lpToken,
         lpTokenName: res.lpTokenName,
         minDepositLimit: (
-          ethers.utils.formatUnits(res.minDepositLimit, this.$store.state.usdtDecimals) *
-          1
+          ethers.utils.formatUnits(
+            res.minDepositLimit,
+            this.$store.state.usdtDecimals
+          ) * 1
         ).toFixed(2),
       };
       this.lpInfo = newIObj;
