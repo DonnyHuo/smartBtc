@@ -159,7 +159,10 @@ export default {
               ) * 1
             ).toFixed(2),
             lockedAmount: (
-              ethers.utils.formatUnits(res.lockedAmount, this.selectCoinInfo.decimals) * 1
+              ethers.utils.formatUnits(
+                res.lockedAmount,
+                this.selectCoinInfo.decimals
+              ) * 1
             ).toFixed(2),
           };
           this.pubPoolInfo = info;
@@ -183,7 +186,7 @@ export default {
   margin: 0 auto;
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     text-align: left;
     margin-top: 30px;
   }

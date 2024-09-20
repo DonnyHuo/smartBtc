@@ -52,7 +52,9 @@ export default {
 
         `{
           dayDatas(
-              where: {name: "${!this.activeTabs ? "BTC" : "ETH"}", dayIndex_gte: 19747},
+              where: {name: "${
+                !this.activeTabs ? "BTC" : "ETH"
+              }", dayIndex_gte: 19747},
               orderBy: dayIndex,
               orderDirection: asc) {
                   count,
@@ -61,7 +63,9 @@ export default {
         }`,
         `{
           dayDatas(
-              where: {name: "${!this.activeTabs ? "BTC" : "ETH"}", dayIndex_gte: 30},
+              where: {name: "${
+                !this.activeTabs ? "BTC" : "ETH"
+              }", dayIndex_gte: 30},
               orderBy: dayIndex,
               orderDirection: asc) {
                   count,
@@ -99,7 +103,9 @@ export default {
       const dataBase = [];
       newData.map((list) => {
         list.data.map((item) => {
-          labels.push(dayjs(item.split(",")[0] * 1000).format("MM-DD HH:mm:ss"));
+          labels.push(
+            dayjs(item.split(",")[0] * 1000).format("MM-DD HH:mm:ss")
+          );
           dataBase.push(item.split(",")[1] / 10 ** 8);
         });
       });
@@ -226,7 +232,7 @@ export default {
   }
   .active {
     color: #ffc519;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
 }
 </style>

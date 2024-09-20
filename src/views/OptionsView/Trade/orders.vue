@@ -41,7 +41,10 @@
                     alt=""
                   />
                   <div class="symbols">
-                    {{ record.tokenInfo && record.tokenInfo.symbol.substring(0, 1) }}
+                    {{
+                      record.tokenInfo &&
+                      record.tokenInfo.symbol.substring(0, 1)
+                    }}
                   </div>
                 </div>
               </template>
@@ -57,13 +60,17 @@
                   <span>{{ record.name }}</span>
                 </div>
                 <div>
-                  <span :class="`${getActiveVolume(record) > 0 ? 'green' : 'red'}`">
+                  <span
+                    :class="`${getActiveVolume(record) > 0 ? 'green' : 'red'}`"
+                  >
                     <span>{{ getActiveVolume(record) > 0 ? "+" : "" }}</span>
                     <span>
                       {{ getActiveVolume(record) }}
                     </span>
                   </span>
-                  <span> {{ record.tokenInfo && record.tokenInfo.symbol }}</span>
+                  <span>
+                    {{ record.tokenInfo && record.tokenInfo.symbol }}</span
+                  >
                 </div>
               </template>
             </template>
@@ -81,7 +88,8 @@
                 <div>
                   <div>手续费</div>
                   <div>
-                    {{ (record.tradingFee * 1).toFixed(2) }} {{ record.tokenInfo.symbol }}
+                    {{ (record.tradingFee * 1).toFixed(2) }}
+                    {{ record.tokenInfo.symbol }}
                   </div>
                 </div>
                 <div>
@@ -134,7 +142,10 @@
                     alt=""
                   />
                   <div class="symbols">
-                    {{ record.tokenInfo && record.tokenInfo.symbol.substring(0, 1) }}
+                    {{
+                      record.tokenInfo &&
+                      record.tokenInfo.symbol.substring(0, 1)
+                    }}
                   </div>
                 </div>
               </template>
@@ -151,7 +162,9 @@
                 </div>
                 <div>
                   <span
-                    :class="`${getHistoryVolume(record) * 1 > 0 ? 'green' : 'red'}`"
+                    :class="`${
+                      getHistoryVolume(record) * 1 > 0 ? 'green' : 'red'
+                    }`"
                     >{{ getHistoryVolume(record) }}</span
                   >
                   <span>{{ record.tokenInfo && record.tokenInfo.symbol }}</span>
@@ -183,7 +196,8 @@
                 <div>
                   <div>已付权利金</div>
                   <div>
-                    {{ (record.fundingFee * 1).toFixed(2) }} {{ record.tokenInfo.symbol }}
+                    {{ (record.fundingFee * 1).toFixed(2) }}
+                    {{ record.tokenInfo.symbol }}
                   </div>
                 </div>
               </div>
@@ -210,10 +224,13 @@
           />
           <div class="symbols">
             {{
-              activeOrder.tokenInfo.symbol && activeOrder.tokenInfo.symbol.substring(0, 1)
+              activeOrder.tokenInfo.symbol &&
+              activeOrder.tokenInfo.symbol.substring(0, 1)
             }}
           </div>
-          <div>{{ activeOrder.name }}USD - {{ activeOrder.tokenInfo.symbol }}</div>
+          <div>
+            {{ activeOrder.name }}USD - {{ activeOrder.tokenInfo.symbol }}
+          </div>
         </div>
         <div class="orderInfo">
           <div>
@@ -241,7 +258,9 @@
           <div>
             <div>损益</div>
             <div>
-              <span :class="`${getActiveVolume(activeOrder) > 0 ? 'green' : 'red'}`">
+              <span
+                :class="`${getActiveVolume(activeOrder) > 0 ? 'green' : 'red'}`"
+              >
                 <span>{{ getActiveVolume(activeOrder) > 0 ? "+" : "" }}</span>
                 <span>
                   {{ getActiveVolume(activeOrder) }}
@@ -251,7 +270,10 @@
             </div>
           </div>
         </div>
-        <van-button :loading="closeOrderLoading" class="closeSure" @click="closeOrder"
+        <van-button
+          :loading="closeOrderLoading"
+          class="closeSure"
+          @click="closeOrder"
           >确认</van-button
         >
       </div>
@@ -374,20 +396,32 @@ export default {
           const orderList = [];
           for (let i = 0; i < res.length; i++) {
             let decimals = 0;
-            await getContract(res[i].token, erc20Abi, "decimals").then((decimal) => {
-              decimals = decimal.toString();
-            });
+            await getContract(res[i].token, erc20Abi, "decimals").then(
+              (decimal) => {
+                decimals = decimal.toString();
+              }
+            );
             const list = {
               id: orderInfo.orderIDs[i].toString(),
               name: res[i].name,
               isBuy: res[i].isBuy,
-              amount: this.formatNum(ethers.utils.formatUnits(res[i].amount, 18) * 1),
+              amount: this.formatNum(
+                ethers.utils.formatUnits(res[i].amount, 18) * 1
+              ),
               closePrice: res[i].closePrice.toString(),
               fundingFee: ethers.utils.formatUnits(res[i].fundingFee, 18),
-              fundingFeePaid: ethers.utils.formatUnits(res[i].fundingFeePaid, decimals),
-              liquidationFee: ethers.utils.formatUnits(res[i].liquidationFee, 18),
+              fundingFeePaid: ethers.utils.formatUnits(
+                res[i].fundingFeePaid,
+                decimals
+              ),
+              liquidationFee: ethers.utils.formatUnits(
+                res[i].liquidationFee,
+                18
+              ),
               openPrice: ethers.utils.formatUnits(res[i].openPrice, 18),
-              startTime: dayjs(res[i].startTime.toString() * 1000).format("MM-DD HH:mm"),
+              startTime: dayjs(res[i].startTime.toString() * 1000).format(
+                "MM-DD HH:mm"
+              ),
               startTimes: res[i].startTime.toString(),
               state: res[i].state,
               token: res[i].token,
@@ -397,7 +431,9 @@ export default {
             };
             orderList.push(list);
           }
-          this.dataSource = orderList.sort((a, b) => b.startTimes - a.startTimes);
+          this.dataSource = orderList.sort(
+            (a, b) => b.startTimes - a.startTimes
+          );
         })
         .catch((err) => console.log(err));
     },
@@ -448,11 +484,17 @@ export default {
         "closeOrder",
         this.activeOrder.id * 1,
         ethers.utils.parseUnits(
-          (this.USDPrice[this.activeOrder.name] * (1 - this.slippage / 100)).toString(),
+          (
+            this.USDPrice[this.activeOrder.name] *
+            (1 - this.slippage / 100)
+          ).toString(),
           18
         ),
         ethers.utils.parseUnits(
-          (this.USDPrice[this.activeOrder.name] * (1 + this.slippage / 100)).toString(),
+          (
+            this.USDPrice[this.activeOrder.name] *
+            (1 + this.slippage / 100)
+          ).toString(),
           18
         )
       )
@@ -501,9 +543,11 @@ export default {
       const historyOrderList = [];
       for (let i = 0; i < res.length; i++) {
         let decimals = 0;
-        await getContract(res[i].token, erc20Abi, "decimals").then((decimal) => {
-          decimals = decimal.toString();
-        });
+        await getContract(res[i].token, erc20Abi, "decimals").then(
+          (decimal) => {
+            decimals = decimal.toString();
+          }
+        );
 
         const positionProfit = res[i].isBuy
           ? ethers.utils.formatUnits(res[i].positionProfit, decimals) /
@@ -513,11 +557,14 @@ export default {
             -1;
 
         const list = {
-          amount: this.formatNum(ethers.utils.formatUnits(res[i].amount, 18) * 1),
+          amount: this.formatNum(
+            ethers.utils.formatUnits(res[i].amount, 18) * 1
+          ),
           closePrice:
             res[i].positionProfit * 1 == 0
               ? ethers.utils.formatUnits(res[i].closePrice, 18) * 1
-              : ethers.utils.formatUnits(res[i].closePrice, 18) * 1 + positionProfit * 1,
+              : ethers.utils.formatUnits(res[i].closePrice, 18) * 1 +
+                positionProfit * 1,
           closeTimestamp: dayjs(res[i].closeTimestamp.toString() * 1000).format(
             "MM-DD HH:mm"
           ),
@@ -544,13 +591,15 @@ export default {
     // 历史订单 获取收益
     getHistoryVolume(record) {
       if (record.isBuy) {
-        const volume = (record.closePrice * 1 - record.openPrice * 1) * record.amount * 1;
+        const volume =
+          (record.closePrice * 1 - record.openPrice * 1) * record.amount * 1;
 
         return volume > 0
           ? (volume - record.fundingFee * 1).toFixed(2)
           : `-${(record.fundingFee * 1).toFixed(2)}`;
       } else {
-        const volume = (record.closePrice * 1 - record.openPrice * 1) * record.amount * 1;
+        const volume =
+          (record.closePrice * 1 - record.openPrice * 1) * record.amount * 1;
         return volume < 0
           ? (volume * -1 - record.fundingFee * 1).toFixed(2)
           : `-${(record.fundingFee * 1).toFixed(2)}`;
@@ -614,7 +663,7 @@ export default {
   margin: 0 auto;
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     text-align: left;
     margin-top: 30px;
   }
@@ -714,7 +763,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   img {
     width: 26px;
     height: 26px;
@@ -726,7 +775,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -738,12 +787,12 @@ export default {
 .green {
   color: #15b384;
   padding-right: 4px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
 }
 .red {
   color: #f55858;
   padding-right: 4px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
 }
 .weight {
   font-weight: 500;

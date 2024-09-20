@@ -30,7 +30,7 @@ export default {
 .pools {
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     padding: 20px 0;
   }
   .contentList {
@@ -51,7 +51,7 @@ export default {
     }
     .listTitle {
       font-size: 18px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       padding-bottom: 10px;
       color: #333;
     }

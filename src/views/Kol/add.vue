@@ -174,14 +174,14 @@ export default {
   font-size: 12px;
   > span:first-child {
     color: #111;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
 }
 .listBox {
   font-size: 12px;
   .title {
     margin-top: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     color: #111;
     text-align: left;
     padding-left: 20px;
@@ -234,7 +234,7 @@ input {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 12px;
   }
 }

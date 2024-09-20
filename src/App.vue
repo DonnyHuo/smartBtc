@@ -104,14 +104,22 @@ export default {
   methods: {
     async connectWallet() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider.send("eth_requestAccounts", []).catch((err) => {
-        alert(err.info.error.message);
-      });
+      const accounts = await provider
+        .send("eth_requestAccounts", [])
+        .catch((err) => {
+          alert(err.info.error.message);
+        });
       if (accounts) {
         this.$store.commit("setAddress", accounts[0]);
       }
     },
-    async getChainId(networkId, networkName, rpcUrls, nativeCurrency, blockExplorerUrls) {
+    async getChainId(
+      networkId,
+      networkName,
+      rpcUrls,
+      nativeCurrency,
+      blockExplorerUrls
+    ) {
       await window.ethereum
         .request({
           method: "wallet_addEthereumChain",
@@ -224,7 +232,6 @@ body {
   min-height: 100vh;
 }
 #app {
-  font-family: Poppins-Regular !important;
   text-align: center;
   color: #2c3e50;
   position: relative;

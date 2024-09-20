@@ -26,11 +26,14 @@
                 alt=""
               />
               <div class="symbols">
-                {{ list.coinInfo.symbol && list.coinInfo.symbol.substring(0, 1) }}
+                {{
+                  list.coinInfo.symbol && list.coinInfo.symbol.substring(0, 1)
+                }}
               </div>
             </div>
             <div class="coinName">
-              <span>{{ list.type }}</span> - <span>{{ list.coinInfo.symbol }}</span>
+              <span>{{ list.type }}</span> -
+              <span>{{ list.coinInfo.symbol }}</span>
             </div>
             <img
               class="settings"
@@ -65,7 +68,9 @@
             :class="`btnBox animate__animated animate__bounceIn`"
             v-show="list.showBtn"
           >
-            <van-button size="small" @click="addLiqFromPoolList(list)">添加</van-button>
+            <van-button size="small" @click="addLiqFromPoolList(list)"
+              >添加</van-button
+            >
             <van-button size="small" @click="deleteLiq(list)">移除</van-button>
           </div>
           <img
@@ -77,11 +82,18 @@
         </div>
         <div v-if="!myPrivatePools.length" class="noData">
           <van-loading v-if="dataLoading" />
-          <van-empty v-else image="search" image-size="100" description="无数据" />
+          <van-empty
+            v-else
+            image="search"
+            image-size="100"
+            description="无数据"
+          />
         </div>
       </div>
 
-      <van-button class="addLiqBtn" @click="this.show = true">添加流动性</van-button>
+      <van-button class="addLiqBtn" @click="this.show = true"
+        >添加流动性</van-button
+      >
     </div>
     <!-- <div class="detail">
       <div class="nav_title">Liquidity Locked Detail</div>
@@ -140,7 +152,9 @@
           /></van-button>
         </div>
 
-        <div class="tips">对于不存在的交易对，添加流动性会自动创建对应的交易对</div>
+        <div class="tips">
+          对于不存在的交易对，添加流动性会自动创建对应的交易对
+        </div>
         <div class="selectlist">
           <div>数量</div>
           <div class="inputBox">
@@ -165,7 +179,11 @@
           @click="approve"
           >授权</van-button
         >
-        <van-button v-else :loading="addLiqLoading" class="addLi" @click="addLiq"
+        <van-button
+          v-else
+          :loading="addLiqLoading"
+          class="addLi"
+          @click="addLiq"
           >添加流动性</van-button
         >
       </div>
@@ -201,12 +219,18 @@
               <div class="balance">{{ list.balanceOf }}</div>
             </div>
           </div>
-          <div class="noData" v-if="actionsList.length == 0"><van-loading /></div>
+          <div class="noData" v-if="actionsList.length == 0">
+            <van-loading />
+          </div>
         </div>
       </div>
     </van-action-sheet>
 
-    <van-action-sheet class="poolSettings" v-model:show="showSettings" title="私池设置">
+    <van-action-sheet
+      class="poolSettings"
+      v-model:show="showSettings"
+      title="私池设置"
+    >
       <div class="content">
         <div class="headerTitle">
           <div class="logos">
@@ -220,7 +244,8 @@
             />
             <div class="symbols">
               {{
-                selectPool.coinInfo.symbol && selectPool.coinInfo.symbol.substring(0, 1)
+                selectPool.coinInfo.symbol &&
+                selectPool.coinInfo.symbol.substring(0, 1)
               }}
             </div>
           </div>
@@ -272,7 +297,11 @@
       </div>
     </van-action-sheet>
 
-    <van-action-sheet class="deleteLiq" v-model:show="showDeleteLiq" title="移除流动性">
+    <van-action-sheet
+      class="deleteLiq"
+      v-model:show="showDeleteLiq"
+      title="移除流动性"
+    >
       <div class="content">
         <div class="headerTitle">
           <div class="logos">
@@ -321,7 +350,12 @@
 import liquidityManagerAbi from "../../../abi/liquidityManager.json";
 import privatePoolAbi from "../../../abi/privatePool.json";
 import erc20Abi from "../../../abi/erc20.json";
-import { copy, getContract, getWriteContractLoad, shortStr } from "../../../utils";
+import {
+  copy,
+  getContract,
+  getWriteContractLoad,
+  shortStr,
+} from "../../../utils";
 import { ethers } from "ethers";
 import { showToast } from "vant";
 
@@ -487,16 +521,18 @@ export default {
           console.log("info", info, decimals);
           if (info.availableAmount.toString() * 1 > 0) {
             const infos = {
-              amount: (ethers.utils.formatUnits(info.amount, decimals) * 1).toFixed(2),
+              amount: (
+                ethers.utils.formatUnits(info.amount, decimals) * 1
+              ).toFixed(2),
               availableAmount: (
                 ethers.utils.formatUnits(info.availableAmount, decimals) * 1
               ).toFixed(2),
               lockedAmount: (
                 ethers.utils.formatUnits(info.lockedAmount, decimals) * 1
               ).toFixed(2),
-              marginFee: (ethers.utils.formatUnits(info.marginFee, decimals) * 1).toFixed(
-                2
-              ),
+              marginFee: (
+                ethers.utils.formatUnits(info.marginFee, decimals) * 1
+              ).toFixed(2),
               isRejectOrder: info.isRejectOrder,
               isExclusive: info.isExclusive,
               type,
@@ -569,7 +605,9 @@ export default {
         .then(async (res) => {
           showToast("添加流动性成功");
           this.addLiqLoading = false;
-          this.selectedCoin = await this.getERC20Token(this.selectedCoin.address);
+          this.selectedCoin = await this.getERC20Token(
+            this.selectedCoin.address
+          );
           this.getTokenList();
           this.show = false;
         })
@@ -683,7 +721,7 @@ export default {
   overflow: auto;
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     padding: 20px 0;
     display: flex;
     align-items: center;
@@ -744,7 +782,7 @@ export default {
         }
         .coinName {
           span {
-            font-weight: 600;
+            font-family: Poppins-Medium;
           }
         }
         .settings {
@@ -812,7 +850,7 @@ export default {
     width: 92%;
     margin: 80px auto;
     .nav_title {
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 18px;
       text-align: left;
       padding-bottom: 20px;
@@ -839,7 +877,7 @@ export default {
           > div {
             display: flex;
             align-items: center;
-            font-weight: 600;
+            font-family: Poppins-Medium;
             font-size: 16px;
           }
         }
@@ -854,14 +892,14 @@ export default {
         border-radius: 6px;
         background-color: #fdfbfb;
         color: #ffc519;
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
     }
     .info {
       border-top: 1px solid #f1f1f1;
       padding: 20px;
       .navTitle {
-        font-weight: 600;
+        font-family: Poppins-Medium;
         text-align: left;
         font-size: 14px;
         color: #333;
@@ -886,7 +924,7 @@ export default {
 
   .nav_title {
     text-align: left;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
 
   .tradingTitle {
@@ -901,7 +939,7 @@ export default {
     margin: 20px 0;
     .tradingSelectBtn {
       width: 40%;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       position: relative;
       ::v-deep .van-button__content {
         justify-content: flex-start;
@@ -1031,7 +1069,7 @@ export default {
 }
 
 ::v-deep .van-ellipsis {
-  font-weight: 600;
+  font-family: Poppins-Medium;
 }
 
 .copyImg {
@@ -1046,7 +1084,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1080,7 +1118,7 @@ export default {
     }
     .headerTitle {
       justify-content: center;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       .logos {
         display: flex;
         align-items: center;

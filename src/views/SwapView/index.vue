@@ -15,7 +15,13 @@
             @input="changeValue"
           />
           <div class="icon-box">
-            <div @click="maxFun" width="25px" height="23px" fontsize="15px" class="max">
+            <div
+              @click="maxFun"
+              width="25px"
+              height="23px"
+              fontsize="15px"
+              class="max"
+            >
               最大
             </div>
           </div>
@@ -170,7 +176,9 @@ export default {
         this.$store.state.address
       );
       const decimals = await getContract(this.hecoT100, erc20ABI, "decimals");
-      this.hecoBalance = (ethers.utils.formatUnits(balance, decimals) * 1).toFixed(6);
+      this.hecoBalance = (
+        ethers.utils.formatUnits(balance, decimals) * 1
+      ).toFixed(6);
     },
     async getAllowance() {
       const res = await getContract(
@@ -345,7 +353,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
     .staking-input-box {
       display: flex;
@@ -451,7 +459,7 @@ export default {
       > div {
         height: 40px;
         font-size: 14px;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         display: flex;
         align-items: center;
         justify-content: space-between;

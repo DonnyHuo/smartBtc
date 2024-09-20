@@ -4,7 +4,9 @@
     <div class="content">
       <div>
         <span>Ticker Root</span>
-        <span>{{ activeTabs ? "ETH" : "BTC" }}USD/{{ selectedCoin.symbol }}</span>
+        <span
+          >{{ activeTabs ? "ETH" : "BTC" }}USD/{{ selectedCoin.symbol }}</span
+        >
       </div>
       <div><span>有效日期</span> <span>永续</span></div>
       <div><span>手续费率</span> <span>1‰</span></div>
@@ -12,7 +14,8 @@
       <div><span>类型</span> <span>永续期权</span></div>
       <div><span>行权</span> <span>手动</span></div>
       <div>
-        <span>风险保证金</span> <span>{{ balanceOf }} {{ selectedCoin.symbol }}</span>
+        <span>风险保证金</span>
+        <span>{{ balanceOf }} {{ selectedCoin.symbol }}</span>
       </div>
     </div>
   </div>
@@ -52,7 +55,10 @@ export default {
         "balanceOf",
         riskFundAddr
       );
-      const balanceOf = ethers.utils.formatUnits(balance, this.selectedCoinInfo);
+      const balanceOf = ethers.utils.formatUnits(
+        balance,
+        this.selectedCoinInfo
+      );
       this.balanceOf = (balanceOf * 1).toFixed(2);
     },
   },
@@ -73,7 +79,7 @@ export default {
 
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     text-align: left;
     margin-top: 30px;
   }

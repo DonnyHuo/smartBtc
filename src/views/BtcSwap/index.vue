@@ -425,7 +425,7 @@ export default {
   }
   .title {
     margin: 20px 0;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 16px;
     color: #111;
     display: flex;
@@ -445,7 +445,7 @@ export default {
     align-items: center;
     justify-content: center;
     span {
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 14px;
       color: #111;
     }
@@ -488,7 +488,7 @@ export default {
       display: flex;
       align-items: center;
       span {
-        font-weight: 600;
+        font-family: Poppins-Medium;
         font-size: 14px;
         color: #111;
       }
@@ -582,7 +582,7 @@ export default {
       > div {
         height: 40px;
         font-size: 14px;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         display: flex;
         align-items: center;
         justify-content: space-between;

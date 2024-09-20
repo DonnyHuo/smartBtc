@@ -12,7 +12,12 @@
       <div class="header-item">
         <div class="name">邀請提速</div>
         <div class="num">
-          {{ invitePowers == "--" ? invitePowers : (invitePowers / 100).toFixed(2) }} %
+          {{
+            invitePowers == "--"
+              ? invitePowers
+              : (invitePowers / 100).toFixed(2)
+          }}
+          %
         </div>
       </div>
       <div class="header-item">
@@ -48,7 +53,9 @@
     <div>
       <div class="btn-group">
         <div @click="shareBox" class="invite-btn">分享好友</div>
-        <div class="friend-btn"><router-link to="partner">我的好友</router-link></div>
+        <div class="friend-btn">
+          <router-link to="partner">我的好友</router-link>
+        </div>
       </div>
     </div>
     <van-overlay :show="show" @click="show = false">
@@ -64,7 +71,9 @@
                 src="../../assets/img/copyWhite.png"
                 alt=""
                 @click="
-                  copyUrlFun('https://www.okx.com/zh-hans/download?first_ref=www.okx.com')
+                  copyUrlFun(
+                    'https://www.okx.com/zh-hans/download?first_ref=www.okx.com'
+                  )
                 "
               />
             </div>
@@ -96,7 +105,9 @@
               <div class="copyUrlBox">
                 <span>複製分享連結</span>
                 <img
-                  @click="copyUrlFun(`${href}?inviteAddress=${$store.state.address}`)"
+                  @click="
+                    copyUrlFun(`${href}?inviteAddress=${$store.state.address}`)
+                  "
                   src="../../assets/img/copyUrl.png"
                   alt=""
                 />
@@ -118,7 +129,13 @@
 
 <script>
 import { ethers } from "ethers";
-import { shortStr, copy, getContract, getWriteContract, getOkChainId } from "@/utils";
+import {
+  shortStr,
+  copy,
+  getContract,
+  getWriteContract,
+  getOkChainId,
+} from "@/utils";
 import QrcodeVue from "qrcode.vue";
 import { showToast } from "vant";
 import inviteABI from "../../abi/invite.json";
@@ -246,10 +263,10 @@ export default {
       height: 50px;
       font-size: 14px;
       .name {
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
       .pool-title {
-        font-weight: 600;
+        font-family: Poppins-Medium;
         text-align: left;
       }
       .force-num {
@@ -276,7 +293,7 @@ export default {
     box-shadow: 0 3px 10px #cfcece;
     .pool-title {
       font-size: 14px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       text-align: left;
     }
     .data-item {

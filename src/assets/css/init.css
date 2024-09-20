@@ -11,8 +11,9 @@
   src: url("../family/Poppins-SemiBold.ttf");
 }
 
-html,body {
-  font-family: Poppins-Regular;
+html,
+body {
+  font-family: Poppins-Regular !important;
   box-sizing: border-box;
 }
 
@@ -21,7 +22,7 @@ html,body {
   /*This prevents users being able to select text. Stops long presses in iOS bringing up copy/paste UI for example. Note below we specifically switch user-select on for inputs for the sake of Safari. Bug here: https://bugs.webkit.org/show_bug.cgi?id=82692*/
   user-select: none;
   /*This gets -webkit specific prefix as it is a non W3C property*/
-  -webkit-tap-highlight-color: rgba(255,255,255,0);
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   /*Older Androids need this instead*/
   -webkit-tap-highlight-color: transparent;
   /* Most devs find border-box easier to reason about. However by inheriting we can mix box-sizing approaches.*/
@@ -36,7 +37,7 @@ html,body {
 /* Switching user-select on for inputs and contenteditable specifically for Safari (see bug link above)*/
 input[type],
 [contenteditable] {
-user-select: text;
+  user-select: text;
 }
 
 body,
@@ -55,7 +56,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
-
 
 /*Prevent these elements having italics by default*/
 em,
@@ -102,16 +102,15 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
 }
 
-
 .calculatorPopover {
   width: 90vw;
-  left: 5vw!important;
-} 
+  left: 5vw !important;
+}
 .calculatorPopover .van-popover__content {
   width: 100%;
   padding: 20px;
   .title {
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 14px;
   }
   .infos {
@@ -127,7 +126,7 @@ input[type="number"]::-webkit-outer-spin-button {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      >span:last-child {
+      > span:last-child {
         color: #333;
         font-weight: 500;
       }
@@ -139,19 +138,18 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: space-between;
     flex-wrap: wrap;
     > div {
-     color: #999;
-     width: 30%;
-     text-align: center;
-     padding: 5px 0;
-     > div > div:last-child {
-      height: 30px;
-      line-height: 30px;
-      margin-top: 4px;
-      border: 1px solid #f1f1f1;
-      color: #ffc519;
-      border-radius: 4px;
-
-     }
+      color: #999;
+      width: 30%;
+      text-align: center;
+      padding: 5px 0;
+      > div > div:last-child {
+        height: 30px;
+        line-height: 30px;
+        margin-top: 4px;
+        border: 1px solid #f1f1f1;
+        color: #ffc519;
+        border-radius: 4px;
+      }
     }
   }
   .nav_title {
@@ -169,16 +167,14 @@ input[type="number"]::-webkit-outer-spin-button {
       border: 1px solid #999;
       border-radius: 4px;
       margin-right: 4px;
-
     }
   }
-  
 }
 .settingsPopover .van-popover__content {
   width: 80vw;
   padding: 20px;
   .title {
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 14px;
   }
   .nav_title {
@@ -217,4 +213,3 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 30px;
   }
 }
-

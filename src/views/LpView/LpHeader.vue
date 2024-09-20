@@ -17,7 +17,11 @@
     <div class="contactList">
       <div>
         <div class="title">
-          <img class="logo" src="../../assets/img/tokenList/brc20-sbtc.png" alt="" />
+          <img
+            class="logo"
+            src="../../assets/img/tokenList/brc20-sbtc.png"
+            alt=""
+          />
           <span>SBTC合约</span>
         </div>
         <div class="address">
@@ -32,7 +36,11 @@
       </div>
       <div>
         <div class="title">
-          <img class="logo" src="../../assets/img/tokenList/brc20-100t.png" alt="" />
+          <img
+            class="logo"
+            src="../../assets/img/tokenList/brc20-100t.png"
+            alt=""
+          />
           <span>100T合约</span>
         </div>
         <div class="address">
@@ -101,7 +109,10 @@ export default {
         60 *
         20 *
         365 *
-        ethers.utils.formatUnits(MTokenAddress, this.$store.state.usdtDecimals) *
+        ethers.utils.formatUnits(
+          MTokenAddress,
+          this.$store.state.usdtDecimals
+        ) *
         100
       ).toFixed(2);
     },
@@ -133,7 +144,7 @@ export default {
       }
     }
     .total-num {
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
   }
   .contactList {

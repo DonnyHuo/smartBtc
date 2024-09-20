@@ -92,7 +92,9 @@ export default {
       ).catch((err) => console.log(err));
       const price = await this.getLpPrice(index);
       const newArr = {
-        totalBalance: (ethers.utils.formatUnits(res.totalBalance, 18) * price).toFixed(6),
+        totalBalance: (
+          ethers.utils.formatUnits(res.totalBalance, 18) * price
+        ).toFixed(6),
         lpTokenName: res.lpTokenName,
         lpToken: res.lpToken,
         index: index,
@@ -173,10 +175,10 @@ export default {
       }
       > span {
         font-size: 16px;
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
       > div {
-        font-weight: 600;
+        font-family: Poppins-Medium;
         color: #ffc519;
         margin-left: auto;
       }
@@ -189,7 +191,7 @@ export default {
       justify-content: space-between;
       font-size: 14px;
       .realNumber {
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
     }
   }

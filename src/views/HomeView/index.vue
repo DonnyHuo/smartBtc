@@ -29,7 +29,7 @@
     </div>
 
     <div class="homeTop">
-      <div class="homeTopTitle">
+      <div class="homeTopTitle font-medium">
         BRC20 Launchpad <br />
         銘文流動性聚合平台
       </div>
@@ -102,7 +102,7 @@
     </div>
 
     <div class="kolContent">
-      <div class="title">
+      <div class="title font-medium">
         <p>KOL認證與空投獎勵</p>
         <p>發起项目與推廣項目</p>
       </div>
@@ -635,8 +635,8 @@ export default {
     },
     async quitKol() {
       showConfirmDialog({
-        title: "解除质押",
-        message: "解除质押即终止KOL资格。",
+        title: "解除質押",
+        message: "解除質押即終止KOL資格。",
       })
         .then(async () => {
           this.quitKolLoading = true;
@@ -718,7 +718,7 @@ export default {
   background: #fff;
   color: #111;
   padding: 10px 20px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   border-bottom: 1px solid #eeeeee;
   > div {
     height: 30px;
@@ -752,7 +752,7 @@ export default {
     padding: 20px;
     .title {
       font-size: 18px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
   }
   .powerLists {
@@ -777,7 +777,7 @@ export default {
         background: #ffc519;
         border: none;
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         font-size: 12px;
       }
     }
@@ -808,7 +808,7 @@ export default {
         background: #ffc519;
         border: none;
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         font-size: 12px;
       }
     }
@@ -822,7 +822,6 @@ export default {
   .homeTopTitle {
     font-size: 18px;
     line-height: 30px;
-    font-weight: 600;
     padding: 30px 0;
     p {
       margin: 0;
@@ -856,7 +855,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     border-radius: 10px;
   }
 }
@@ -870,7 +869,7 @@ export default {
     padding-top: 20px;
     > p {
       margin-bottom: 10px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
   }
   .content {
@@ -884,7 +883,7 @@ export default {
   margin-top: 40px;
   .title {
     font-size: 18px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     line-height: 30px;
   }
   .bridgeBg {
@@ -905,7 +904,7 @@ export default {
   border-radius: 10px;
   .title {
     font-size: 18px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     line-height: 30px;
   }
   .contantList {
@@ -934,7 +933,7 @@ export default {
   }
   .apy {
     padding: 20px 0;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
   .loading {
     position: relative;
@@ -956,12 +955,12 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 12px;
     .van-button__text {
       p {
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         font-size: 12px;
       }
     }
@@ -990,7 +989,7 @@ export default {
   background-color: #fff;
   color: #ff6719;
   font-size: 18px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   p {
     margin: 0;
   }
@@ -1032,7 +1031,7 @@ export default {
   }
   button {
     width: 100%;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
 }
 .progressBox {
@@ -1046,7 +1045,7 @@ export default {
       background: #ffc519;
       border: none;
       color: #333;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 12px;
     }
   }
@@ -1070,11 +1069,11 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 12px;
   }
   .weight {
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 16px;
     margin-top: 0 !important;
     padding-bottom: 10px;
@@ -1096,7 +1095,7 @@ export default {
   background: #ffc519;
   border: none;
   color: #333;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   font-size: 12px;
 }
 </style>

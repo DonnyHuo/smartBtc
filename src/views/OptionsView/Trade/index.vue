@@ -67,7 +67,9 @@
     <div class="balanceBox">
       <div class="title">可用保证金({{ selectedCoin.symbol }})</div>
       <div class="balance">
-        {{ orderInfo.available ? (orderInfo.available * 1).toFixed(2) : "0.00" }}
+        {{
+          orderInfo.available ? (orderInfo.available * 1).toFixed(2) : "0.00"
+        }}
       </div>
       <img class="dashBoard" src="@/assets/img/dashBoard.png" alt="" />
       <div class="info">
@@ -83,7 +85,9 @@
                 <img class="tips" src="@/assets/img/tips.png" alt="" />
               </template>
               <div class="popoverTitle">维持保证金</div>
-              <div>当可用余额小于下一次展期需要付出的权利金时，才会被扣除。</div>
+              <div>
+                当可用余额小于下一次展期需要付出的权利金时，才会被扣除。
+              </div>
             </van-popover>
           </div>
 
@@ -109,7 +113,9 @@
         <div>
           <span>{{ activeTabs ? "ETH" : "BTC" }}</span>
           <span>USD:</span>
-          <span class="usdPrice">{{ USDPrice[activeTabs ? "ETH" : "BTC"] }}</span>
+          <span class="usdPrice">{{
+            USDPrice[activeTabs ? "ETH" : "BTC"]
+          }}</span>
         </div>
         <div>
           <van-popover
@@ -149,7 +155,11 @@
             <div>
               <div class="nav_title">交易截止时间</div>
               <div class="deadline">
-                <input class="inputValue" v-model="tradeTimeInput" type="text" />
+                <input
+                  class="inputValue"
+                  v-model="tradeTimeInput"
+                  type="text"
+                />
                 <span>分钟</span>
               </div>
             </div>
@@ -166,7 +176,11 @@
       </div>
       <div>数量（{{ activeTabs ? "ETH" : "BTC" }}）</div>
       <div class="inputBox">
-        <input type="text" v-model="tradeAmount" :placeholder="`最大 ${maxAmount}`" />
+        <input
+          type="text"
+          v-model="tradeAmount"
+          :placeholder="`最大 ${maxAmount}`"
+        />
         <van-button @click="maxSellFun" size="small">最大</van-button>
       </div>
       <div class="sliderBox">
@@ -191,7 +205,10 @@
         <span>
           <span class="weight paddingRight">{{
             formatNum(
-              tradingFeeRate * tradeAmount * 1 * USDPrice[activeTabs ? "ETH" : "BTC"],
+              tradingFeeRate *
+                tradeAmount *
+                1 *
+                USDPrice[activeTabs ? "ETH" : "BTC"],
               4
             )
           }}</span>
@@ -263,7 +280,9 @@
           <span>{{ selectedCoin.symbol }}</span>
         </span>
       </div> -->
-      <van-button @click="showTradeSheetFun" :class="`open ${!index ? 'long' : 'short'}`"
+      <van-button
+        @click="showTradeSheetFun"
+        :class="`open ${!index ? 'long' : 'short'}`"
         >开仓</van-button
       >
     </div>
@@ -330,7 +349,12 @@
           </div>
           <div class="noData" v-if="actionsList.length == 0">
             <van-loading v-if="loadingList" />
-            <van-empty v-else image="search" image-size="100" description="无数据" />
+            <van-empty
+              v-else
+              image="search"
+              image-size="100"
+              description="无数据"
+            />
           </div>
         </div>
       </div>
@@ -430,18 +454,24 @@
         <div class="infoBox">
           <div>
             <span>期权类型</span>
-            <span :class="index ? 'red' : 'green'">{{ index ? "做空" : "做多" }}</span>
+            <span :class="index ? 'red' : 'green'">{{
+              index ? "做空" : "做多"
+            }}</span>
           </div>
           <div>
             <span>开仓数量</span>
             <span>
-              <span class="weight paddingRight">{{ formatNum(tradeAmount * 1) }}</span>
+              <span class="weight paddingRight">{{
+                formatNum(tradeAmount * 1)
+              }}</span>
               <span>BTC</span>
             </span>
           </div>
           <div>
             <span>开仓指数</span>
-            <span class="weight">{{ USDPrice[activeTabs ? "ETH" : "BTC"] }}</span>
+            <span class="weight">{{
+              USDPrice[activeTabs ? "ETH" : "BTC"]
+            }}</span>
           </div>
           <!-- <div>
             <span>首期权利金</span>
@@ -662,8 +692,9 @@ export default {
     async getTokenAnyInfo() {
       for (let i = 0; i < this.actions.length; i++) {
         const decimals =
-          (await getContract(this.actions[i].address, erc20Abi, "decimals")).toString() *
-          1;
+          (
+            await getContract(this.actions[i].address, erc20Abi, "decimals")
+          ).toString() * 1;
         const balanceOf = await ethers.utils.formatUnits(
           await getContract(
             this.actions[i].address,
@@ -718,7 +749,8 @@ export default {
               privatePoolAbi,
               "totalLockedLiquidity"
             );
-            priAvailableAmount = ethers.utils.formatUnits(pri, token.decimals) * 1;
+            priAvailableAmount =
+              ethers.utils.formatUnits(pri, token.decimals) * 1;
             //  -
             // ethers.utils.formatUnits(locked, token.decimals) * 1;
           }
@@ -805,8 +837,10 @@ export default {
       );
       this.orderInfo = {
         available:
-          ethers.utils.formatUnits(info.available, this.selectedCoin.decimals) * 1,
-        locked: ethers.utils.formatUnits(info.locked, this.selectedCoin.decimals) * 1,
+          ethers.utils.formatUnits(info.available, this.selectedCoin.decimals) *
+          1,
+        locked:
+          ethers.utils.formatUnits(info.locked, this.selectedCoin.decimals) * 1,
         orderAmount: info.orderAmount.toString() * 1,
         orderIDs: info.orderIDs.map((order) => order.toString()),
       };
@@ -878,7 +912,10 @@ export default {
         perpetualOptionsAbi,
         "withdraw",
         this.selectedCoin.address,
-        ethers.utils.parseUnits(this.withdrawValue.toString(), this.selectedCoin.decimals)
+        ethers.utils.parseUnits(
+          this.withdrawValue.toString(),
+          this.selectedCoin.decimals
+        )
       )
         .then(async () => {
           this.withdrawLoading = false;
@@ -928,7 +965,9 @@ export default {
         this.activeTabs ? "ETH" : "BTC",
         type ? false : true
       );
-      this.maxAmount = this.formatNum(ethers.utils.formatUnits(maxAmount, 18) * 1);
+      this.maxAmount = this.formatNum(
+        ethers.utils.formatUnits(maxAmount, 18) * 1
+      );
     },
 
     // 最大开仓
@@ -939,7 +978,9 @@ export default {
 
     //滑动进度条
     changeSliderFun(value) {
-      this.tradeAmount = this.formatNum((this.maxAmount * value) / 100).toString();
+      this.tradeAmount = this.formatNum(
+        (this.maxAmount * value) / 100
+      ).toString();
     },
 
     showTradeSheetFun() {
@@ -1122,16 +1163,20 @@ export default {
     // 获取 BTCUSDPrice ETHUSDPrice
     async getUSDPrice() {
       const USDPrice = {};
-      await getContract(this.$store.state.BTCUSDPrice, USDPriceAbi, "latestAnswer").then(
-        (res) => {
-          USDPrice.BTC = (ethers.utils.formatUnits(res, 8) * 1).toFixed(2);
-        }
-      );
-      await getContract(this.$store.state.ETHUSDPrice, USDPriceAbi, "latestAnswer").then(
-        (res) => {
-          USDPrice.ETH = (ethers.utils.formatUnits(res, 8) * 1).toFixed(2);
-        }
-      );
+      await getContract(
+        this.$store.state.BTCUSDPrice,
+        USDPriceAbi,
+        "latestAnswer"
+      ).then((res) => {
+        USDPrice.BTC = (ethers.utils.formatUnits(res, 8) * 1).toFixed(2);
+      });
+      await getContract(
+        this.$store.state.ETHUSDPrice,
+        USDPriceAbi,
+        "latestAnswer"
+      ).then((res) => {
+        USDPrice.ETH = (ethers.utils.formatUnits(res, 8) * 1).toFixed(2);
+      });
       this.USDPrice = USDPrice;
     },
 
@@ -1181,9 +1226,14 @@ export default {
           [this.activeTabs ? "ETH" : "BTC"]: (0).toFixed(2),
         };
         for (let j = 0; j < newArr.length; j++) {
-          if (this.actions[i].address.toLowerCase() == newArr[j].address.toLowerCase()) {
+          if (
+            this.actions[i].address.toLowerCase() ==
+            newArr[j].address.toLowerCase()
+          ) {
             this.actions[i].volume = {
-              [this.activeTabs ? "ETH" : "BTC"]: (newArr[j].value * 1).toFixed(2),
+              [this.activeTabs ? "ETH" : "BTC"]: (newArr[j].value * 1).toFixed(
+                2
+              ),
             };
           }
         }
@@ -1266,7 +1316,7 @@ export default {
         font-size: 10px;
         border: 1px solid #333;
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -1299,7 +1349,7 @@ export default {
         }
         > div {
           > div:first-child {
-            font-weight: 600;
+            font-family: Poppins-Medium;
             font-size: 18px;
             color: #333;
           }
@@ -1320,7 +1370,7 @@ export default {
       }
       .name {
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
     }
     button {
@@ -1333,7 +1383,7 @@ export default {
   }
   .selectToken {
     width: 100%;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     background-color: #fff;
     border-top: 1px solid #f1f1f1;
     .tokenList {
@@ -1373,7 +1423,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
     .info {
       background-color: #f6f7f9;
@@ -1407,11 +1457,11 @@ export default {
       justify-content: space-between;
     }
     .title {
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 16px;
     }
     .balance {
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 50px;
       color: #ffc519;
       margin: 20px 0 10px 0;
@@ -1610,7 +1660,7 @@ export default {
           .name {
             text-align: left;
             line-height: 16px;
-            font-weight: 600;
+            font-family: Poppins-Medium;
             div:last-child {
               color: #999;
               font-size: 12px;
@@ -1625,7 +1675,7 @@ export default {
           }
         }
         .balance {
-          font-weight: 600;
+          font-family: Poppins-Medium;
         }
       }
     }
@@ -1718,7 +1768,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1835,12 +1885,12 @@ export default {
 .green {
   color: #15b384;
   padding-right: 4px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
 }
 .red {
   color: #f55858;
   padding-right: 4px;
-  font-weight: 600;
+  font-family: Poppins-Medium;
 }
 
 ::v-deep .ant-slider:hover .ant-slider-dot-active {

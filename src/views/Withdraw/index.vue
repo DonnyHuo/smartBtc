@@ -42,13 +42,16 @@
                 <div v-for="(item, ind) in list.depositList">
                   <div class="depositList" :key="ind">
                     <div>
-                      <span>質押算力</span> <span> {{ item.userDepositPrice }}</span>
+                      <span>質押算力</span>
+                      <span> {{ item.userDepositPrice }}</span>
                     </div>
                     <div>
-                      <span>質押塊高</span> <span>{{ item.startBlockNumber }}</span>
+                      <span>質押塊高</span>
+                      <span>{{ item.startBlockNumber }}</span>
                     </div>
                     <div>
-                      <span>贖回塊高</span> <span>{{ item.endBlockNumber }}</span>
+                      <span>贖回塊高</span>
+                      <span>{{ item.endBlockNumber }}</span>
                     </div>
                     <div>
                       <span>贖回</span>
@@ -63,7 +66,8 @@
                       >
                     </div>
                     <div>
-                      <span>待收收益</span> <span> {{ item.pendingHarvestEarn }}</span>
+                      <span>待收收益</span>
+                      <span> {{ item.pendingHarvestEarn }}</span>
                     </div>
                     <div>
                       <span>收取</span>
@@ -143,7 +147,10 @@ export default {
         poolABI,
         "getMTokenPrice"
       ).catch((err) => console.log(err));
-      this.MTokenPrice = ethers.utils.formatUnits(res, this.$store.state.usdtDecimals);
+      this.MTokenPrice = ethers.utils.formatUnits(
+        res,
+        this.$store.state.usdtDecimals
+      );
       this.price = (this.pendingRewards * 1 * this.MTokenPrice * 1).toFixed(6);
     },
     async rewardFun() {
@@ -197,9 +204,9 @@ export default {
           res &&
             res.map(async (list, depositRecordId) => {
               const res = await this.pendingHarvestEarn(index, depositRecordId);
-              const pendingHarvestEarn = (ethers.utils.formatUnits(res, 8) * 1).toFixed(
-                8
-              );
+              const pendingHarvestEarn = (
+                ethers.utils.formatUnits(res, 8) * 1
+              ).toFixed(8);
               const nowBlock = await getBlockNumber();
               return {
                 userDepositPrice: (
@@ -268,7 +275,9 @@ export default {
         });
     },
     async withdraw(index, depositRecordId) {
-      this.recordList[index].depositList[depositRecordId].withdrawLoading = true;
+      this.recordList[index].depositList[
+        depositRecordId
+      ].withdrawLoading = true;
       await getWriteContractLoad(
         this.$store.state.poolAddress,
         poolABI,
@@ -277,7 +286,9 @@ export default {
         depositRecordId
       )
         .then(() => {
-          this.recordList[index].depositList[depositRecordId].withdrawLoading = false;
+          this.recordList[index].depositList[
+            depositRecordId
+          ].withdrawLoading = false;
           showToast("赎回成功");
           this.pendingReward();
           this.getPoolsCount();
@@ -382,7 +393,7 @@ export default {
   }
   .lpTokenName {
     padding-bottom: 10px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 14px;
   }
   .depositList {
@@ -394,11 +405,11 @@ export default {
       justify-content: space-between;
       height: 30px;
       font-size: 12px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
   }
   .minBtn {
-    font-weight: 600;
+    font-family: Poppins-Medium;
     height: 24px;
   }
   .allData {

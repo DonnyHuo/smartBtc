@@ -25,11 +25,15 @@
         </div>
         <img src="../../../assets/img/down.png" alt="" />
       </van-button>
-      <div class="tips">对于不存在的交易对，添加流动性会自动创建对应的交易对</div>
+      <div class="tips">
+        对于不存在的交易对，添加流动性会自动创建对应的交易对
+      </div>
       <div class="amount">
         <span>数量</span>
         <span
-          >{{ selectedCoin.balanceOf && (selectedCoin.balanceOf * 1).toFixed(2) }}
+          >{{
+            selectedCoin.balanceOf && (selectedCoin.balanceOf * 1).toFixed(2)
+          }}
           {{ selectedCoin.symbol }}</span
         >
       </div>
@@ -70,16 +74,27 @@
                 />
               </div>
               <div>
-                1re{{ list.addressSymbol }} = {{ list.tokenAmountByLPToken * 1 }}
+                1re{{ list.addressSymbol }} =
+                {{ list.tokenAmountByLPToken * 1 }}
                 {{ list.addressSymbol }}
               </div>
             </div>
             <div class="progress">
               <div class="progressInfo">
-                <span>{{ ((list.balance / list.totalSupply) * 100).toFixed(2) }}%</span>
+                <span
+                  >{{
+                    ((list.balance / list.totalSupply) * 100).toFixed(2)
+                  }}%</span
+                >
                 <span>
-                  <span>{{ list.balance }}/{{ formatNumber(list.totalSupply, 2) }}</span>
-                  <span style="color: #999; padding-left: 2px">{{ list.symbol }} </span>
+                  <span
+                    >{{ list.balance }}/{{
+                      formatNumber(list.totalSupply, 2)
+                    }}</span
+                  >
+                  <span style="color: #999; padding-left: 2px"
+                    >{{ list.symbol }}
+                  </span>
                 </span>
               </div>
               <van-progress
@@ -101,7 +116,12 @@
         </div>
         <div v-if="!myPublicPools.length" class="noData">
           <van-loading v-if="dataLoading" />
-          <van-empty v-else image="search" image-size="100" description="无数据" />
+          <van-empty
+            v-else
+            image="search"
+            image-size="100"
+            description="无数据"
+          />
         </div>
       </div>
     </div>
@@ -134,17 +154,24 @@
               <div class="balance">{{ list.balanceOf }}</div>
             </div>
           </div>
-          <div class="noData" v-if="actionsList.length == 0"><van-loading /></div>
+          <div class="noData" v-if="actionsList.length == 0">
+            <van-loading />
+          </div>
         </div>
       </div>
     </van-action-sheet>
 
-    <van-action-sheet class="deleteLiq" v-model:show="deleteAction" title="移除流动性">
+    <van-action-sheet
+      class="deleteLiq"
+      v-model:show="deleteAction"
+      title="移除流动性"
+    >
       <div class="content">
         <div class="logoInfo">
           <div class="symbols">
             {{
-              deleteLiqItem.addressSymbol && deleteLiqItem.addressSymbol.substring(0, 1)
+              deleteLiqItem.addressSymbol &&
+              deleteLiqItem.addressSymbol.substring(0, 1)
             }}
           </div>
           <div>{{ deleteLiqItem.addressSymbol }}</div>
@@ -159,9 +186,14 @@
         </div>
         <div class="receipt">
           <span>你将接收到</span>
-          <span>{{ realDeleteTokenAmount }} {{ deleteLiqItem.addressSymbol }}</span>
+          <span
+            >{{ realDeleteTokenAmount }} {{ deleteLiqItem.addressSymbol }}</span
+          >
         </div>
-        <van-button :loading="withdrawLoading" class="deleteBtn" @click="withdrawFun"
+        <van-button
+          :loading="withdrawLoading"
+          class="deleteBtn"
+          @click="withdrawFun"
           >移除流动性</van-button
         >
       </div>
@@ -172,7 +204,12 @@
 import liquidityManagerAbi from "../../../abi/liquidityManager.json";
 import publicPoolAbi from "../../../abi/publicPool.json";
 import erc20Abi from "../../../abi/erc20.json";
-import { copy, getContract, getWriteContractLoad, formatNumber } from "../../../utils";
+import {
+  copy,
+  getContract,
+  getWriteContractLoad,
+  formatNumber,
+} from "../../../utils";
 import { ethers } from "ethers";
 import { showToast } from "vant";
 
@@ -332,7 +369,10 @@ export default {
         return showToast("余额不足");
       }
       this.addLiqLoading = true;
-      console.log("this.selectedCoin.decimals", this.selectedCoin.decimals.toString());
+      console.log(
+        "this.selectedCoin.decimals",
+        this.selectedCoin.decimals.toString()
+      );
 
       await getWriteContractLoad(
         this.$store.state.LiquidityManagerAddr,
@@ -341,12 +381,17 @@ export default {
         this.selectedCoin.address,
         "ETH",
         false,
-        ethers.utils.parseUnits(this.inputValue, this.selectedCoin.decimals.toString())
+        ethers.utils.parseUnits(
+          this.inputValue,
+          this.selectedCoin.decimals.toString()
+        )
       )
         .then(async (res) => {
           showToast("添加流动性成功");
           this.addLiqLoading = false;
-          this.selectedCoin = await this.getERC20Token(this.selectedCoin.address);
+          this.selectedCoin = await this.getERC20Token(
+            this.selectedCoin.address
+          );
           this.getTokenList();
         })
         .catch((err) => {
@@ -504,7 +549,8 @@ export default {
       this.getAllowance(value.address);
     },
     deleteValue(value) {
-      this.realDeleteTokenAmount = value * this.deleteLiqItem.tokenAmountByLPToken;
+      this.realDeleteTokenAmount =
+        value * this.deleteLiqItem.tokenAmountByLPToken;
     },
     show(value) {
       if (!value) {
@@ -520,7 +566,7 @@ export default {
   overflow: auto;
   .title {
     font-size: 20px;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     padding: 20px 0;
     display: flex;
     align-items: center;
@@ -578,7 +624,7 @@ export default {
         > div > div {
           display: flex;
           align-items: center;
-          font-weight: 600;
+          font-family: Poppins-Medium;
           font-size: 14px;
         }
       }
@@ -618,7 +664,7 @@ export default {
       margin: 0 auto;
       border: 1px solid #999;
       font-size: 14px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -637,7 +683,7 @@ export default {
         border: none;
       }
       .coinName {
-        font-weight: 600;
+        font-family: Poppins-Medium;
       }
     }
     .addBtn {
@@ -679,7 +725,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-weight: 600;
+          font-family: Poppins-Medium;
           font-size: 14px;
           > div {
             display: flex;
@@ -709,7 +755,7 @@ export default {
             right: 15%;
             font-size: 12px;
             color: #666;
-            font-weight: 600;
+            font-family: Poppins-Medium;
             > span {
               color: #333;
               font-size: 14px;
@@ -739,7 +785,7 @@ export default {
     overflow: hidden;
     .nav_title {
       text-align: left;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
     .search {
       width: 100%;
@@ -749,7 +795,7 @@ export default {
       border-radius: 5px;
       margin: 20px 0;
       font-size: 14px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       &::placeholder {
         font-weight: 400;
         color: #999;
@@ -774,7 +820,7 @@ export default {
         justify-content: space-between;
         height: 60px;
         color: #333;
-        font-weight: 600;
+        font-family: Poppins-Medium;
         border-bottom: 1px solid #ebe9e9;
         font-size: 14px;
         > div {
@@ -802,13 +848,13 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 16px;
       line-height: 1;
       margin-bottom: 20px;
     }
     .deleteLiqTitle {
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 14px;
     }
     .inputBox {
@@ -819,7 +865,7 @@ export default {
       border-radius: 6px;
       overflow: hidden;
       padding-left: 10px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -846,12 +892,12 @@ export default {
       width: 100%;
       background-color: #ffc519;
       border: none;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
     .receipt {
       color: #666;
       font-size: 12px;
-      font-weight: 600;
+      font-family: Poppins-Medium;
     }
   }
 }
@@ -868,7 +914,7 @@ export default {
   line-height: 26px;
   border: 2px solid #333;
   color: #333;
-  font-weight: 600;
+  font-family: Poppins-Medium;
   border-radius: 50%;
   display: flex;
   align-items: center;

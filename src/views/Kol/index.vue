@@ -607,7 +607,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 12px;
   }
 }
@@ -643,7 +643,7 @@ export default {
     background: #ffc519;
     border: none;
     color: #333;
-    font-weight: 600;
+    font-family: Poppins-Medium;
     font-size: 12px;
     margin-top: 30px;
   }
@@ -767,7 +767,7 @@ export default {
       background: #ffc519;
       border: none;
       color: #333;
-      font-weight: 600;
+      font-family: Poppins-Medium;
       font-size: 12px;
     }
   }

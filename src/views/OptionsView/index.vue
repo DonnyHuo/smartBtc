@@ -29,7 +29,7 @@ export default {};
   > a {
     margin-right: 20px;
     color: #999;
-    font-weight: 600;
+    font-family: Poppins-Medium;
   }
   .active {
     color: #ffc519;
