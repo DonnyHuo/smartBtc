@@ -1,21 +1,21 @@
 <template>
   <div class="kolContent">
-    <div class="header">KOL認證 — 推薦新項目</div>
+    <div class="header font-medium">KOL認證 — 推薦新項目</div>
     <div class="form">
       <div class="list">
-        <span>銘文BRC20</span>
+        <span class="font-medium">銘文BRC20</span>
         <input type="text" v-model="name" />
       </div>
       <div class="list">
-        <span>幣種symbol</span>
+        <span class="font-medium">幣種symbol</span>
         <input type="text" v-model="symbol" />
       </div>
       <div class="list">
-        <span>代幣總量</span>
+        <span class="font-medium">代幣總量</span>
         <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
-        <div class="title">BSC鏈初始發行分配比例</div>
+        <div class="title font-medium">BSC鏈初始發行分配比例</div>
         <div class="listDiv">
           <div class="listS">
             <span>跨鏈</span>
@@ -46,7 +46,7 @@
       <div class="sure">
         <van-button @click="newProject">提交初審</van-button>
       </div>
-      <div class="desc">
+      <div class="desc font-medium">
         說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
       </div>
       <div class="px-[20px] text-left leading-6" @click="copyAddress(tweet)">
