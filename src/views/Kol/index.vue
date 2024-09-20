@@ -1,6 +1,6 @@
 <template>
   <div class="kolIndex">
-    <div class="header">
+    <div class="header font-medium">
       <span v-if="!accountInfo.status">KOL認證 — 社交帳戶</span>
       <div v-else>
         <span v-if="!activeAmount">KOL認證 — 質押SBTC</span>
