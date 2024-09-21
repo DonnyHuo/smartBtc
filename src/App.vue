@@ -238,7 +238,7 @@ export default {
 .nav {
   width: 100%;
   background-color: #fff;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   display: flex;
