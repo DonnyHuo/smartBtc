@@ -234,7 +234,6 @@ body {
 #app {
   text-align: center;
   color: #2c3e50;
-  position: relative;
   height: 100vh;
   margin: 0 auto;
   max-width: 500px;
@@ -245,7 +244,7 @@ body {
 .nav {
   width: 100%;
   background-color: #fff;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
