@@ -253,6 +253,7 @@ body {
   align-items: center;
   justify-content: space-around;
   border-top: 1px solid #eeeeee;
+  padding: 10px 0;
   padding-bottom: constant(safe-area-inset-bottom);
   /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom);
