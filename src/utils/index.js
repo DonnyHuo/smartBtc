@@ -1,7 +1,8 @@
-import { useClipboard } from "@vueuse/core";
+// import { useClipboard } from "@vueuse/core";
+import copyMessage from "copy-to-clipboard";
 
 export const copy = async (msg) => {
-  console.log("msg", msg);
+  copyMessage(msg);
   // const { copy, isSupported } = useClipboard();
   // if (isSupported) {
   //   try {
