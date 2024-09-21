@@ -48,7 +48,7 @@
       </div>
 
       <div class="swapWait">
-        <div class="font-medium">可跨鏈金額：{{ waitBridge * 1 }}</div>
+        <div class="font-medium">可跨鏈金額：{{ waitBridge }}</div>
         <van-button
           :disabled="!(waitBridge * 1) || hasNoCompleteOrder"
           :loading="swapSureLoading"
