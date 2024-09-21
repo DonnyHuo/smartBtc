@@ -257,7 +257,7 @@ body {
     10px + constant(safe-area-inset-bottom, 10px)
   ); /* Older iOS */
   padding-bottom: calc(
-    10px + env(safe-area-inset-bottom, 10px)
+    10px + env(Safe-area-inset-bottom, 10px)
   ); /* Newer iOS */
   a {
     width: 20%;
