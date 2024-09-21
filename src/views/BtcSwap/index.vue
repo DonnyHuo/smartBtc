@@ -1,5 +1,5 @@
 <template>
-  <div class="btcSwap">
+  <div class="btcSwap min-h-full">
     <div class="headerBox">
       <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
       <div class="addressBox">

@@ -1,5 +1,6 @@
 <template>
-  <div class="kolContent">
+  <div class="kolContent min-h-full">
+    <div></div>
     <div class="header">
       <div :class="active === 0 && 'active'" @click="changeTabs(0)">
         审核KOL
@@ -532,6 +533,7 @@ export default {
 <style lang="scss" scoped>
 .kolContent {
   background-color: #fff;
+  border: 1px solid #fff;
 }
 .header {
   background: #f5f5f5;

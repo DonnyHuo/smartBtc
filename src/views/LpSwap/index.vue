@@ -1,5 +1,5 @@
 <template>
-  <div class="lpSwap">
+  <div class="lpSwap min-h-full">
     <div class="headerBox">
       <span class="title font-medium text-[16px]">提供流動性發行資產</span>
       <div class="selectBox" @click="showCoin = true">
