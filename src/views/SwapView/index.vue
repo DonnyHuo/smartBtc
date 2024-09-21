@@ -83,17 +83,18 @@
               </div>
               <div v-if="list.convert_txid">
                 <span class="font-medium">交易Hash</span>
-                <div>
-                  <a :href="`https://bscscan.com/tx/${list.convert_txid}`">{{
-                    shortStr(list.convert_txid)
-                  }}</a>
-                  <div @click="copyAddress(list.convert_txid)">
-                    <img
-                      src="../../assets/img/copy.png"
-                      alt=""
-                      class="copyAddress"
-                    />
-                  </div>
+                <div class="flex items-center">
+                  <a
+                    class="leading-8"
+                    :href="`https://bscscan.com/tx/${list.convert_txid}`"
+                    >{{ shortStr(list.convert_txid) }}</a
+                  >
+                  <img
+                    @click="copyAddress(list.convert_txid)"
+                    src="../../assets/img/copy.png"
+                    alt=""
+                    class="copyAddress"
+                  />
                 </div>
               </div>
               <div>

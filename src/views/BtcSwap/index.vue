@@ -80,18 +80,17 @@
             <div class="swapRecordList" :key="index">
               <div v-if="list.brc20_txid">
                 <span>交易Hash</span>
-                <div>
+                <div class="flex items-center">
                   <a
                     :href="`https://www.oklink.com/zh-hans/btc/tx/${list.brc20_txid}`"
                     >{{ shortStr(list.brc20_txid) }}</a
                   >
-                  <div @click="copyAddress(list.brc20_txid)">
-                    <img
-                      src="../../assets/img/copy.png"
-                      alt=""
-                      class="copyAddress"
-                    />
-                  </div>
+                  <img
+                    @click="copyAddress(list.brc20_txid)"
+                    src="../../assets/img/copy.png"
+                    alt=""
+                    class="copyAddress"
+                  />
                 </div>
               </div>
               <div>
@@ -121,9 +120,14 @@
         <div
           v-for="(list, index) in actions"
           :key="index"
-          class="chainList"
-          @click="onSelect(list.name)"
+          class="chainList flex items-center gap-2"
+          @click="onSelect(list.name.toLowerCase())"
         >
+          <img
+            class="w-[26px] rounded-full"
+            :src="realIconLogo(`brc20-${list.name}`)"
+            alt=""
+          />
           <span :class="selectedChain == list.name ? 'active' : ''">{{
             list.name
           }}</span>
@@ -161,7 +165,7 @@
 </template>
 <script>
 import { ethers } from "ethers";
-import { shortStr, copy } from "../../utils";
+import { shortStr, copy, realIconLogo } from "../../utils";
 import { showToast } from "vant";
 
 export default {
@@ -190,6 +194,7 @@ export default {
     this.checkWallet();
   },
   methods: {
+    realIconLogo,
     isAddress(address) {
       return ethers.utils.isAddress(address);
     },
