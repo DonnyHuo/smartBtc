@@ -366,7 +366,12 @@ export default {
   methods: {
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast({
+        message: "複製成功",
+        position: "top",
+        duration: 0,
+      });
+      // showToast("");
     },
     shortStr,
     async getBalance() {
