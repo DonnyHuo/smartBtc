@@ -10,7 +10,7 @@
   </div>
   <div v-if="noWallet" class="netWorkError">未偵測到錢包</div>
   <router-view />
-  <div class="nav">
+  <div class="nav z-10">
     <router-link
       class="flex flex-col items-center"
       v-for="(list, index) in navList"
@@ -253,12 +253,9 @@ body {
   justify-content: space-around;
   border-top: 1px solid #eeeeee;
   padding-top: 10px;
-  padding-bottom: calc(
-    10px + constant(safe-area-inset-bottom, 10px)
-  ); /* Older iOS */
-  padding-bottom: calc(
-    10px + env(safe-area-inset-bottom, 10px)
-  ); /* Newer iOS */
+  padding-bottom: Max(constant(safe-area-inset-bottom), 10px);
+  /* Older iOS */
+  padding-bottom: Max(env(safe-area-inset-bottom), 10px); /* Newer iOS */
   a {
     width: 20%;
     font-size: 12px;
