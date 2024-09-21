@@ -80,17 +80,19 @@
             <div class="swapRecordList" :key="index">
               <div v-if="list.brc20_txid">
                 <span>交易Hash</span>
-                <span>
+                <div>
                   <a
                     :href="`https://www.oklink.com/zh-hans/btc/tx/${list.brc20_txid}`"
                     >{{ shortStr(list.brc20_txid) }}</a
                   >
-                  <img
-                    @click="copyAddress(list.brc20_txid)"
-                    src="../../assets/img/copy.png"
-                    alt=""
-                    class="copyAddress"
-                /></span>
+                  <div @click="copyAddress(list.brc20_txid)">
+                    <img
+                      src="../../assets/img/copy.png"
+                      alt=""
+                      class="copyAddress"
+                    />
+                  </div>
+                </div>
               </div>
               <div>
                 <span>From ({{ list.from_net }})</span>
@@ -161,7 +163,6 @@
 import { ethers } from "ethers";
 import { shortStr, copy } from "../../utils";
 import { showToast } from "vant";
-import { toHandlers } from "vue";
 
 export default {
   name: "btcSwap",

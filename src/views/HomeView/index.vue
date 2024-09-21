@@ -4,15 +4,10 @@
       <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
 
       <div>
-        <div class="addressBox">
+        <div class="addressBox" @click="copyAddress($store.state.address)">
           <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
           <div class="address">{{ shortStr($store.state.address) }}</div>
-          <img
-            class="copy"
-            src="../../assets/img/copy.png"
-            @click="copyAddress($store.state.address)"
-            alt=""
-          />
+          <img class="copy" src="../../assets/img/copy.png" alt="" />
         </div>
         <div style="text-align: right; padding-top: 10px">
           <span>{{ sBtcBalance }} SBTC</span>

@@ -2,15 +2,11 @@
   <div class="lpDetail">
     <div class="header">
       <span>{{ tokenName }} 地址</span>
-      <div class="addressBox">
+      <div class="addressBox" @click="copyAddress(lpInfo.changeToken)">
         <span>
           {{ shortStr(lpInfo.changeToken) }}
         </span>
-        <img
-          class="copyImg"
-          @click="copyAddress(lpInfo.changeToken)"
-          src="../../assets/img/copy.png"
-        />
+        <img class="copyImg" src="../../assets/img/copy.png" />
       </div>
     </div>
     <div class="staking-wrap">

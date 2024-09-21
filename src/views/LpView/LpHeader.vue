@@ -24,14 +24,9 @@
           />
           <span>SBTC合约</span>
         </div>
-        <div class="address">
+        <div class="address" @click="copyAddress(this.$store.state.sBtc)">
           <span>{{ shortStr($store.state.sBtc) }}</span>
-          <img
-            class="copyImg"
-            @click="copyAddress(this.$store.state.sBtc)"
-            src="../../assets/img/copy.png"
-            alt=""
-          />
+          <img class="copyImg" src="../../assets/img/copy.png" alt="" />
         </div>
       </div>
       <div>
@@ -43,14 +38,9 @@
           />
           <span>100T合约</span>
         </div>
-        <div class="address">
+        <div class="address" @click="copyAddress($store.state.t100)">
           <span>{{ shortStr($store.state.t100) }}</span>
-          <img
-            class="copyImg"
-            @click="copyAddress($store.state.t100)"
-            src="../../assets/img/copy.png"
-            alt=""
-          />
+          <img class="copyImg" src="../../assets/img/copy.png" alt="" />
         </div>
       </div>
     </div>

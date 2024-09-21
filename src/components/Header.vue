@@ -23,6 +23,8 @@ export default {
 <style scoped lang="scss">
 .header {
   position: fixed;
+  left: 0;
+  top: 0;
   height: 50px;
   width: 100%;
   background-color: #fff;
