@@ -15,8 +15,6 @@ html,
 body {
   font-family: Poppins-Regular !important;
   box-sizing: border-box;
-  width: 100vw !important;
-  height: 100vh !important;
   background-color: #f1f1f1;
 }
 
