@@ -1,16 +1,17 @@
 import { useClipboard } from "@vueuse/core";
 
 export const copy = async (msg) => {
-  const { copy, isSupported } = useClipboard();
-  if (isSupported) {
-    try {
-      await copy(msg);
-    } catch (e) {
-      console.error(e);
-    }
-  } else {
-    console.log("不支持copy");
-  }
+  console.log("msg", msg);
+  // const { copy, isSupported } = useClipboard();
+  // if (isSupported) {
+  //   try {
+  //     await copy(msg);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // } else {
+  //   console.log("不支持copy");
+  // }
 };
 
 export const shortStr = (address, first = 7, last = 5) => {
