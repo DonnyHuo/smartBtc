@@ -136,7 +136,7 @@ const routes = [
   },
 ];
 
-const adminAddress = store.state.adminAddress
+const adminAddress = store.state.adminAddress;
 const address = store.state.address.toLowerCase();
 
 const router = createRouter({
@@ -149,10 +149,11 @@ router.beforeEach(async (to, from, next) => {
     if (adminAddress.includes(address)) {
       next();
     } else {
-      next({ name: 'home' })
+      next({ name: "home" });
     }
   }
-  next()
+  document.getElementsByClassName("contentView")[0].scrollTop = 0;
+  next();
 });
 
 export default router;

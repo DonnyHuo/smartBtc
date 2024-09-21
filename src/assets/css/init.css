@@ -15,6 +15,8 @@ html,
 body {
   font-family: Poppins-Regular !important;
   box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f1f1f1;
 }
 
 /*Yes, the universal selector. No, it isn't slow: https://benfrain.com/css-performance-revisited-selectors-bloat-expensive-styles/*/

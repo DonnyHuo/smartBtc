@@ -9,7 +9,7 @@
     }}
   </div>
   <div v-if="noWallet" class="netWorkError">未偵測到錢包</div>
-  <div class="content">
+  <div class="contentView">
     <router-view />
   </div>
   <div class="nav z-10">
@@ -227,20 +227,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-html,
-body {
-  padding: 0;
-  margin: 0;
-  min-height: 100vh;
-}
 #app {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
-  margin: 0 auto;
   max-width: 500px;
-  background-color: #f1f1f1;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
 .nav {
@@ -291,7 +283,7 @@ body {
   color: rgb(173, 0, 0);
   background: rgb(255, 225, 225);
 }
-.content {
+.contentView {
   text-align: center;
   height: calc(100vh - 50px - Max(env(safe-area-inset-bottom), 10px));
   overflow: scroll;
