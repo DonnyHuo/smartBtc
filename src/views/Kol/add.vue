@@ -151,7 +151,7 @@ export default {
   background-color: #f1f1f1;
   height: 100vh;
   padding-bottom: 100px;
-  overflow: auto;
+
   font-size: 14px;
 }
 .header {

@@ -230,8 +230,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .votingListBox {
-  height: calc(100vh - 60px);
-  overflow: auto;
+  
+  
 }
 .votingList {
   background-color: #fff;

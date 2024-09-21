@@ -562,8 +562,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .public {
-  height: calc(100vh - 50px);
-  overflow: auto;
   .title {
     font-size: 20px;
 
@@ -802,7 +800,7 @@ export default {
     .lists {
       border-top: 1px solid #d6d6d6;
       max-height: calc(60vh - 120px);
-      overflow: auto;
+
       .noData {
         height: 200px;
         display: flex;

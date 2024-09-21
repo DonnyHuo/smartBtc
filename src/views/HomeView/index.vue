@@ -680,9 +680,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  height: calc(100vh - 50px);
   font-size: 14px;
-  overflow: auto;
+
   background-color: #fff;
   color: #24232a;
 }

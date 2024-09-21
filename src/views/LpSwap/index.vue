@@ -330,9 +330,7 @@ export default {
 </script>
 <style lang="scss">
 .lpSwap {
-  height: calc(100vh - 50px);
   background-color: #fff;
-  overflow: auto;
   padding: 20px;
   text-align: left;
   font-size: 14px;

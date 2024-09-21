@@ -281,9 +281,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .lpDetail {
-  height: calc(100vh - 60px);
   padding-top: 20px;
-  overflow: auto;
 }
 .staking-wrap {
   min-height: 60vh;

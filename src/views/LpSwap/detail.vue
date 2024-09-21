@@ -285,7 +285,6 @@ export default {
 <style lang="scss" scoped>
 .lpDetail {
   height: 100vh;
-  overflow: auto;
 }
 .header {
   width: 90%;

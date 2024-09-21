@@ -244,8 +244,7 @@ export default {
 .shareBox {
   border-bottom: 1px solid transparent;
   padding-top: 20px;
-  height: calc(100vh - 60px);
-  overflow: auto;
+
   .header {
     width: 90%;
     margin: 0 auto;

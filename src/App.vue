@@ -9,7 +9,9 @@
     }}
   </div>
   <div v-if="noWallet" class="netWorkError">未偵測到錢包</div>
-  <router-view />
+  <div class="content">
+    <router-view />
+  </div>
   <div class="nav z-10">
     <router-link
       class="flex flex-col items-center"
@@ -224,7 +226,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 html,
 body {
   padding: 0;
@@ -288,5 +290,10 @@ body {
   height: 30px;
   color: rgb(173, 0, 0);
   background: rgb(255, 225, 225);
+}
+.content {
+  text-align: center;
+  height: calc(100vh - 50px - Max(env(safe-area-inset-bottom), 10px));
+  overflow: scroll;
 }
 </style>

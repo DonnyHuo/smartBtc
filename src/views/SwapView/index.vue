@@ -48,7 +48,7 @@
       </div>
 
       <div class="swapWait">
-        <div>可跨鏈金額：{{ waitBridge }}</div>
+        <div class="font-medium">可跨鏈金額：{{ waitBridge * 1 }}</div>
         <van-button
           :disabled="!(waitBridge * 1) || hasNoCompleteOrder"
           :loading="swapSureLoading"
@@ -64,7 +64,7 @@
       </div>
       <div class="swapRecord">
         <div class="title">
-          <span>跨鏈記錄</span>
+          <span class="font-medium">跨鏈記錄</span>
           <img
             v-if="showLoading"
             @click="refreshData"
@@ -78,10 +78,11 @@
           <div v-for="(list, index) in recordList">
             <div class="swapRecordList" :key="index">
               <div>
-                <span>訂單編號</span> <span>{{ list.order_id }}</span>
+                <span class="font-medium">訂單編號</span>
+                <span>{{ list.order_id }}</span>
               </div>
               <div v-if="list.convert_txid">
-                <span>交易Hash</span>
+                <span class="font-medium">交易Hash</span>
                 <span>
                   <a :href="`https://bscscan.com/tx/${list.convert_txid}`">{{
                     shortStr(list.convert_txid)
@@ -94,17 +95,20 @@
                 /></span>
               </div>
               <div>
-                <span>From</span> <span>{{ list.from_network }}</span>
+                <span class="font-medium">From</span>
+                <span>{{ list.from_network }}</span>
               </div>
               <div>
-                <span>To</span> <span>{{ list.to_network }}</span>
+                <span class="font-medium">To</span>
+                <span>{{ list.to_network }}</span>
               </div>
               <div>
-                <span>數量</span>
+                <span class="font-medium">數量</span>
                 <span>{{ list.real_amount }} (100T)</span>
               </div>
               <div>
-                <span>訂單狀態</span> <span>{{ list.order_state }}</span>
+                <span class="font-medium">訂單狀態</span>
+                <span>{{ list.order_state }}</span>
               </div>
             </div>
           </div>
@@ -331,8 +335,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .daoView {
-  height: calc(100vh - 50px);
-  overflow: auto;
 }
 .dao {
   padding: 20px;
@@ -424,7 +426,7 @@ export default {
     padding-top: 20px;
     text-align: left;
     font-size: 14px;
-    color: #333;
+    color: #666;
     line-height: 20px;
   }
   .swapRecord {
@@ -455,10 +457,10 @@ export default {
     .swapRecordList {
       border-bottom: 1px solid #f5f5f5;
       padding: 20px 0;
+      color: #666;
       > div {
         height: 40px;
         font-size: 14px;
-
         display: flex;
         align-items: center;
         justify-content: space-between;

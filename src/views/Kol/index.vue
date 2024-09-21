@@ -541,7 +541,6 @@ export default {
   // background-color: #fff;
   height: 100vh;
   padding-bottom: 100px;
-  overflow: auto;
 }
 .header {
   background-color: #fff;
@@ -666,7 +665,7 @@ export default {
   background-color: #fff;
   padding: 0 5%;
   padding-bottom: 100px;
-  overflow: auto;
+
   .header {
     height: 50px;
     line-height: 50px;

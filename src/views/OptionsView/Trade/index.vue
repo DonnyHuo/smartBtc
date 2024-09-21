@@ -1292,8 +1292,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .options {
-  height: calc(100vh - 60px);
-  overflow: auto;
   .shadow {
     box-shadow: 0 3px 10px #ddd;
   }
@@ -1387,7 +1385,7 @@ export default {
     .tokenList {
       padding: 0 20px;
       height: 40vh;
-      overflow: auto;
+
       .token-list {
         padding: 10px 0;
         display: flex;
@@ -1634,7 +1632,7 @@ export default {
       .lists {
         max-height: calc(50vh - 100px);
         padding: 0 10px;
-        overflow: auto;
+
         .noData {
           min-height: 200px;
           display: flex;

@@ -533,7 +533,7 @@ export default {
 .kolContent {
   background-color: #fff;
   height: 100vh;
-  overflow: auto;
+
   padding-bottom: 50px;
 }
 .header {

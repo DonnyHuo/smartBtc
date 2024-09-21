@@ -312,7 +312,6 @@ export default {
 <style scoped lang="scss">
 .withdraw-wrap-box {
   max-height: 100vh;
-  overflow: auto;
 }
 .withdraw-wrap {
   color: #2c3e50;

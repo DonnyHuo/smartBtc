@@ -128,9 +128,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .lp {
-  height: 100vh;
   padding-top: 20px;
-  overflow: auto;
 }
 .searchBox {
   width: 90%;
@@ -155,7 +153,7 @@ export default {
 }
 .lpListBox {
   width: 90%;
-  margin: 0 auto 100px auto;
+  margin: 0 auto 20px auto;
   .lpList {
     width: 100%;
     background: #fff;

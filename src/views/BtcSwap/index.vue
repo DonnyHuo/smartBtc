@@ -415,8 +415,6 @@ export default {
   }
   .btcSwapContent {
     padding: 20px;
-    height: calc(100vh - 60px);
-    overflow: auto;
   }
   .titleBox {
     display: flex;
