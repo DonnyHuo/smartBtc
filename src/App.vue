@@ -253,8 +253,12 @@ body {
   justify-content: space-around;
   border-top: 1px solid #eeeeee;
   padding-top: 10px;
-  padding-bottom: calc(10px + constant(safe-area-inset-bottom)); /* Older iOS */
-  padding-bottom: calc(10px + env(safe-area-inset-bottom)); /* Newer iOS */
+  padding-bottom: calc(
+    10px + constant(safe-area-inset-bottom, 20px)
+  ); /* Older iOS */
+  padding-bottom: calc(
+    10px + env(safe-area-inset-bottom, 20px)
+  ); /* Newer iOS */
   a {
     width: 20%;
     font-size: 12px;
