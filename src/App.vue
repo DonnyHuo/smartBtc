@@ -244,7 +244,7 @@ body {
 
 .nav {
   width: 100%;
-  min-height: 60px;
+  min-height: 70px;
   background-color: #fff;
   position: absolute;
   bottom: 0;
