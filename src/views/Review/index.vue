@@ -532,9 +532,6 @@ export default {
 <style lang="scss" scoped>
 .kolContent {
   background-color: #fff;
-  height: 100vh;
-
-  padding-bottom: 50px;
 }
 .header {
   background: #f5f5f5;

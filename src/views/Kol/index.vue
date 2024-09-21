@@ -661,10 +661,8 @@ export default {
 }
 
 .kolContent {
-  height: 100vh;
   background-color: #fff;
   padding: 0 5%;
-  padding-bottom: 100px;
 
   .header {
     height: 50px;

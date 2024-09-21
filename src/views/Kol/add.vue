@@ -148,10 +148,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .kolContent {
-  background-color: #f1f1f1;
-  height: 100vh;
-  padding-bottom: 100px;
-
   font-size: 14px;
 }
 .header {
