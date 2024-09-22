@@ -97,7 +97,7 @@
                   <div class="inputBox">{{ item.lm_percent / 100 }} %</div>
                 </div>
                 <div class="listS">
-                  <span>社区空头</span>
+                  <span>社區空投</span>
                   <div class="inputBox">{{ item.kol_percent / 100 }} %</div>
                 </div>
               </div>
@@ -233,7 +233,7 @@
               </div>
             </div>
             <div class="inputDiv">
-              <span>社区空投 </span>
+              <span>KOL空投 </span>
               <div>
                 <input
                   v-model="migrate_token.percents[3]"

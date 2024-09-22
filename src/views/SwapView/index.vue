@@ -59,7 +59,7 @@
         >
       </div>
       <div class="tips">
-        因被SmartBTC收购，CoinDAO社区代币100T (HECO)可10:
+        因被SmartBTC收购，CoinDAO社區代币100T (HECO)可10:
         1置换为比特币符文IOOT•SMARTBTC•IO（BSC对应代币为100T） ，请尽快行权!
       </div>
       <div class="swapRecord">

@@ -77,7 +77,7 @@ export default {
         {
           name: "share",
           route: "/share",
-          text: "社区",
+          text: "社區",
           active: false,
           iconUrl: require("./assets/img/share.png"),
           iconUrlAct: require("./assets/img/shareAct.png"),

@@ -72,7 +72,7 @@
       <div v-else class="desc mt-10">
         在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“發起项目”，推薦新的銘文項目，在SmartBTC
         BRC20
-        Launchpad發起投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的社區空投。
+        Launchpad發起投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL空投。
       </div>
     </div>
 
@@ -166,7 +166,7 @@
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`請輸入質押數量 >= ${minDeposit} sBTC`"
+            :placeholder="`請輸入質押數量 >= ${minDeposit} SBTC`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">最大</button>
