@@ -207,6 +207,9 @@ export default {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
         return showToast("SBTC餘額不足");
       }
+      if(!this.$store.state.address) {
+        return
+      }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
