@@ -233,7 +233,7 @@
               </div>
             </div>
             <div class="inputDiv">
-              <span>KOL空投 </span>
+              <span>KOL奖励 </span>
               <div>
                 <input
                   v-model="migrate_token.percents[3]"

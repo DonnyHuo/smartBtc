@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="listS">
-            <span>社區KOL空投獎勵</span>
+            <span>社區KOL奖励獎勵</span>
             <div class="inputBox">
               <input type="text" v-model="percents[3]" placeholder="<=20" /> %
             </div>

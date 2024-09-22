@@ -121,7 +121,7 @@ export default {
       chartConfig: {
         type: "pie",
         data: {
-          labels: ["跨鏈", "流動性發行", "啟動池", "KOL空投"],
+          labels: ["跨鏈", "流動性發行", "啟動池", "KOL奖励"],
           datasets: [
             {
               backgroundColor: [
@@ -274,7 +274,7 @@ export default {
           "跨鏈",
           "流動性發行",
           "啟動池",
-          "KOL空投",
+          "KOL奖励",
         ];
       }
       this.chartPie.update();

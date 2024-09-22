@@ -138,7 +138,7 @@
           <div>{{ kolProgressValue }} %</div>
         </div>
         <div class="desc">
-          備註：每發生一筆新的跨鍊或LP兌換，均將根據當筆數量對應比例觸發一次新的KOL空投，認證KOL將根據增加的分配權重得到對應的項目代幣空投獎勵，可隨時領取。
+          備註：每發生一筆新的跨鍊或LP兌換，均將根據當筆數量對應比例觸發一次新的KOL奖励，認證KOL將根據增加的分配權重得到對應的項目代幣空投獎勵，可隨時領取。
         </div>
       </div>
 
@@ -479,6 +479,10 @@ export default {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
         return showToast("SBTC余额不足");
       }
+      if (!this.$store.state.address) {
+        return;
+      }
+
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
