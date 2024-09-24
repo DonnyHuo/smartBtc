@@ -1,10 +1,10 @@
 <template>
   <div class="pool">
-    <div class="title">流动性池</div>
+    <div class="title">{{ $t("options.pool.title") }}</div>
     <div class="content">
       <div class="titles">
-        <span>私池</span>
-        <span>可用流动性</span>
+        <span>{{ $t("options.pool.desc[0]") }}</span>
+        <span>{{ $t("options.pool.desc[1]") }}</span>
       </div>
       <div class="numbers">
         <span>{{ priPoolRate }}%</span>
@@ -22,8 +22,8 @@
         :show-pivot="false"
       ></van-progress>
       <div class="titles">
-        <span>公池</span>
-        <span>可用流动性</span>
+        <span>{{ $t("options.pool.desc[2]") }}</span>
+        <span>{{ $t("options.pool.desc[3]") }}</span>
       </div>
       <div class="numbers">
         <span>{{ pubPoolRate }}%</span>

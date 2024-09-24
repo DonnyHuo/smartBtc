@@ -1,42 +1,42 @@
 <template>
   <div class="kolContent">
-    <div class="header font-medium">KOL認證 — 推薦新項目</div>
+    <div class="header font-medium">{{ $t("kolAdd.title") }}</div>
     <div class="form">
       <div class="list">
-        <span class="font-medium">銘文BRC20</span>
+        <span class="font-medium">{{ $t("kolAdd.name") }}</span>
         <input type="text" v-model="name" />
       </div>
       <div class="list">
-        <span class="font-medium">幣種symbol</span>
+        <span class="font-medium">{{ $t("kolAdd.symbol") }}</span>
         <input type="text" v-model="symbol" />
       </div>
       <div class="list">
-        <span class="font-medium">代幣總量</span>
+        <span class="font-medium">{{ $t("kolAdd.total") }}</span>
         <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
-        <div class="title font-medium">BSC鏈初始發行分配比例</div>
+        <div class="title font-medium">{{ $t("kolAdd.rate") }}</div>
         <div class="listDiv">
           <div class="listS">
-            <span>跨鏈</span>
+            <span>{{ $t("kolAdd.rateArr[0]") }}</span>
             <div class="inputBox">
               <input type="text" v-model="percents[0]" placeholder=">=50" /> %
             </div>
           </div>
           <div class="listS">
-            <span>流動性發行</span>
+            <span>{{ $t("kolAdd.rateArr[1]") }}</span>
             <div class="inputBox">
               <input type="text" v-model="percents[1]" placeholder=">=10" /> %
             </div>
           </div>
           <div class="listS">
-            <span>啟動池</span>
+            <span>{{ $t("kolAdd.rateArr[2]") }}</span>
             <div class="inputBox">
               <input type="text" v-model="percents[2]" placeholder="1-3" /> %
             </div>
           </div>
           <div class="listS">
-            <span>社區KOL奖励獎勵</span>
+            <span>{{ $t("kolAdd.rateArr[3]") }}</span>
             <div class="inputBox">
               <input type="text" v-model="percents[3]" placeholder="<=20" /> %
             </div>
@@ -44,10 +44,10 @@
         </div>
       </div>
       <div class="sure">
-        <van-button @click="newProject">提交初審</van-button>
+        <van-button @click="newProject">{{ $t("kolAdd.submit") }}</van-button>
       </div>
       <div class="desc">
-        說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。
+        {{ $t("kolAdd.desc") }}
       </div>
       <div
         class="px-[20px] text-left leading-6 font-medium text-black"
@@ -81,13 +81,10 @@ export default {
   },
   computed: {
     tweet() {
-      return `我的錢包${shortStr(
-        this.$store.state.address
-      )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
-        this.symbol
-      }銘文！請大家幫忙按讚、轉發這則推文，助力 ${
-        this.symbol || "--"
-      }銘文上SmartBTC熱門！`;
+      return this.$t("kol.tweet", {
+        address: this.shortStr(this.$store.state.address),
+        name: this.symbol,
+      });
     },
   },
   methods: {
@@ -97,10 +94,10 @@ export default {
     },
     copyAddress(msg) {
       if (!this.symbol) {
-        return showToast("請填寫幣種symbol");
+        return showToast(this.$t("kolAdd.tips[0]"));
       }
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     newProject() {
       const project_info = {
@@ -116,8 +113,12 @@ export default {
         project_info.percents.every((list) => list !== 0)
       ) {
         showConfirmDialog({
-          title: `發行${project_info.name}项目`,
-          message: "確認是否已發推文且以目前按讚數提交申請",
+          title: `${this.$t("kolAdd.tips[1]", {
+            name: project_info.name,
+          })}`,
+          message: this.$t("kolAdd.tips[2]"),
+          confirmButtonText: this.$t("sure"),
+          cancelButtonText: this.$t("cancel"),
         })
           .then(() => {
             this.$axios
@@ -126,7 +127,7 @@ export default {
                 project_info,
               })
               .then((res) => {
-                showToast("申請成功");
+                showToast(this.$t("kolAdd.success"));
                 setTimeout(() => {
                   this.$router.push("/kol");
                 }, 1000);
@@ -140,7 +141,7 @@ export default {
             // on cancel
           });
       } else {
-        showToast("提交資料有誤");
+        showToast(this.$t("kolAdd.error"));
       }
     },
   },
@@ -206,7 +207,7 @@ export default {
   }
 }
 input {
-  width: 70%;
+  width: 50%;
   border: 1px solid #999;
   border-radius: 10px;
   height: 32px;

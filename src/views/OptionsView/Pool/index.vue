@@ -1,12 +1,14 @@
 <template>
   <div class="pools">
-    <div class="title">添加池子，坐享做市商收益</div>
+    <div class="title max-w-[80%] m-auto">
+      {{ $t("options.marketMaker.title") }}
+    </div>
     <router-link to="/public">
       <div class="contentList">
         <img src="../../../assets/img/public-pool.png" alt="" />
         <div>
-          <div class="listTitle">公池</div>
-          <div>通过提供储备流动性赚取溢价，向所有代币开放。</div>
+          <div class="listTitle">{{ $t("options.marketMaker.desc[0]") }}</div>
+          <div>{{ $t("options.marketMaker.desc[1]") }}</div>
         </div>
       </div>
     </router-link>
@@ -14,8 +16,8 @@
       <div class="contentList">
         <img src="../../../assets/img/private-pool.png" alt="" />
         <div>
-          <div class="listTitle">私池</div>
-          <div>提供流动性以卖出永续期权，仅向专业做市商开放。</div>
+          <div class="listTitle">{{ $t("options.marketMaker.desc[2]") }}</div>
+          <div>{{ $t("options.marketMaker.desc[3]") }}</div>
         </div>
       </div>
     </router-link>

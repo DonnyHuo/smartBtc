@@ -4,7 +4,11 @@
       <LpHeader />
       <div class="searchBox">
         <img class="searchIcon" src="../../assets//img/searchB.png" alt="" />
-        <input v-model="searchValue" type="text" placeholder="请输入名称搜索" />
+        <input
+          v-model="searchValue"
+          type="text"
+          :placeholder="$t('pool.search')"
+        />
       </div>
       <div class="lpListBox">
         <div v-if="viewList.length > 0">
@@ -16,11 +20,11 @@
                 class="font-medium text-[14px]"
                 @click="goToDetail(list.index)"
               >
-                去挖矿
+                {{ $t("pool.goStaking") }}
               </div>
             </div>
             <div class="totalBalance">
-              <div>管理規模</div>
+              <div>{{ $t("pool.scale") }}</div>
               <div class="realNumber">$ {{ list.totalBalance }}</div>
             </div>
           </div>

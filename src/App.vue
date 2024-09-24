@@ -46,14 +46,14 @@ export default {
           name: "home",
           route: "/",
           active: false,
-          text: "我的",
+          text: this.$t("footer.mine"),
           iconUrl: require("./assets/img/dao.png"),
           iconUrlAct: require("./assets/img/daoAct.png"),
         },
         {
           name: "btcSwap",
           route: "/btcSwap",
-          text: "跨鏈橋",
+          text: this.$t("footer.bridge"),
           active: false,
           iconUrl: require("./assets/img/swap.png"),
           iconUrlAct: require("./assets/img/swapAct.png"),
@@ -61,7 +61,7 @@ export default {
         {
           name: "lpSwap",
           route: "/lpSwap",
-          text: "LP兌換",
+          text: this.$t("footer.swap"),
           active: false,
           iconUrl: require("./assets/img/lp.png"),
           iconUrlAct: require("./assets/img/lpAct.png"),
@@ -69,7 +69,7 @@ export default {
         {
           name: "lp",
           route: "/lp",
-          text: "啟動池",
+          text: this.$t("footer.pool"),
           active: false,
           iconUrl: require("./assets/img/options.png"),
           iconUrlAct: require("./assets/img/optionsAct.png"),
@@ -77,7 +77,7 @@ export default {
         {
           name: "share",
           route: "/share",
-          text: "社區",
+          text: this.$t("footer.community"),
           active: false,
           iconUrl: require("./assets/img/share.png"),
           iconUrlAct: require("./assets/img/shareAct.png"),

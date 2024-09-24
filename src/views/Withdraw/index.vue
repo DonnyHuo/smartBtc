@@ -1,6 +1,6 @@
 <template>
   <div class="withdraw-wrap-box">
-    <Header title="領取空投" />
+    <Header :title="`${$t('withdraw.title')}`" />
     <div class="withdraw-wrap">
       <div class="warehouse-top">
         <div class="store-view">
@@ -19,13 +19,13 @@
             :class="`wallte-btn ${pendingRewards * 1 == 0 && 'disabled'}`"
             :disabled="pendingRewards * 1 == 0"
             @click="rewardFun"
-            >提 現</van-button
+            >{{ $t("withdraw.btn") }}</van-button
           >
         </div>
       </div>
       <div class="warehouse-records">
         <div class="name">
-          <span>近期記錄</span>
+          <span>{{ $t("withdraw.history") }}</span>
           <img
             v-if="showLoading"
             @click="refreshData"
@@ -42,19 +42,19 @@
                 <div v-for="(item, ind) in list.depositList">
                   <div class="depositList" :key="ind">
                     <div>
-                      <span>質押算力</span>
+                      <span>{{ $t("withdraw.desc[0]") }}</span>
                       <span> {{ item.userDepositPrice }}</span>
                     </div>
                     <div>
-                      <span>質押塊高</span>
+                      <span>{{ $t("withdraw.desc[1]") }}</span>
                       <span>{{ item.startBlockNumber }}</span>
                     </div>
                     <div>
-                      <span>贖回塊高</span>
+                      <span>{{ $t("withdraw.desc[2]") }}</span>
                       <span>{{ item.endBlockNumber }}</span>
                     </div>
                     <div>
-                      <span>贖回</span>
+                      <span>{{ $t("withdraw.desc[3]") }}</span>
                       <van-button
                         :loading="item.withdrawLoading"
                         class="minBtn"
@@ -62,22 +62,22 @@
                         color="#ffc519"
                         :disabled="!(item.operateType == '1' && item.isRansom)"
                         @click="withdraw(index, ind)"
-                        >贖回</van-button
+                        >{{ $t("withdraw.desc[3]") }}</van-button
                       >
                     </div>
                     <div>
-                      <span>待收收益</span>
+                      <span>{{ $t("withdraw.desc[4]") }}</span>
                       <span> {{ item.pendingHarvestEarn }}</span>
                     </div>
                     <div>
-                      <span>收取</span>
+                      <span>{{ $t("withdraw.desc[5]") }}</span>
                       <van-button
                         :loading="item.loading"
                         class="minBtn"
                         size="small"
                         color="#ffc519"
                         @click="harvestCurrentEarn(index, ind)"
-                        >收取</van-button
+                        >{{ $t("withdraw.desc[5]") }}</van-button
                       >
                     </div>
                   </div>
@@ -166,7 +166,7 @@ export default {
         overrides
       )
         .then(() => {
-          showToast("提現成功");
+          showToast(this.$t("withdraw.withdrawSuccess"));
           this.pendingReward();
           this.getPoolsCount();
         })
@@ -230,7 +230,7 @@ export default {
         depositList: await getList(),
       };
 
-      this.allData = "已載入全部數據";
+      this.allData = this.$t("withdraw.allData");
       return newObj;
     },
 
@@ -265,7 +265,7 @@ export default {
       )
         .then(() => {
           this.recordList[index].depositList[depositRecordId].loading = false;
-          showToast("收取成功");
+          showToast(this.$("withdraw.ChargeSuccess"));
           this.pendingReward();
           this.getPoolsCount();
         })
@@ -289,7 +289,7 @@ export default {
           this.recordList[index].depositList[
             depositRecordId
           ].withdrawLoading = false;
-          showToast("赎回成功");
+          showToast(this.$("withdraw.redemptionSuccess"));
           this.pendingReward();
           this.getPoolsCount();
         })

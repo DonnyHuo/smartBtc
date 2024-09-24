@@ -2,7 +2,6 @@
   <div class="home">
     <div class="homeLogoBox">
       <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
-
       <div>
         <div class="addressBox" @click="copyAddress($store.state.address)">
           <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
@@ -15,9 +14,9 @@
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
             target="_blank"
           >
-            <span style="padding-left: 10px; font-size: 12px; color: #1989fa"
-              >購買</span
-            >
+            <span style="padding-left: 10px; font-size: 12px; color: #1989fa">{{
+              $t("home.buy")
+            }}</span>
           </a>
         </div>
       </div>
@@ -25,8 +24,8 @@
 
     <div class="homeTop">
       <div class="homeTopTitle font-medium">
-        BRC20 Launchpad <br />
-        銘文流動性聚合平台
+        {{ $t("home.title[0]") }}<br />
+        {{ $t("home.title[1]") }}
       </div>
       <img class="homeBg m-auto" src="../../assets/img/homeBg.png" alt="" />
       <div class="progress">
@@ -38,7 +37,7 @@
           <div style="width: 80%">
             <van-progress
               stroke-width="8"
-              pivot-text="已上市"
+              :pivot-text="`${$t('home.onMarket')}`"
               text-color="#fff"
               percentage="100"
             />
@@ -52,7 +51,7 @@
           <div style="width: 80%">
             <van-progress
               stroke-width="8"
-              pivot-text="已上市"
+              :pivot-text="`${$t('home.onMarket')}`"
               percentage="100"
             />
           </div>
@@ -70,7 +69,7 @@
             <div style="width: calc(100% - 64px)">
               <van-progress
                 stroke-width="8"
-                :pivot-text="`投票中 ${parseInt(
+                :pivot-text="`${$t('home.voting')} ${parseInt(
                   (voting.vote_num * 100) / votePassNum
                 )}%`"
                 text-color="#fff"
@@ -84,13 +83,15 @@
               <van-button
                 :disabled="voting.voted"
                 @click="vote(voting.project_name)"
-                >投票</van-button
+                >{{ $t("home.vote") }}</van-button
               >
             </div>
           </div>
         </div>
         <router-link to="/voting">
-          <van-button class="votingBtn">項目詳情</van-button>
+          <van-button class="votingBtn">{{
+            $t("home.projectDetail")
+          }}</van-button>
         </router-link>
         <!-- <van-progress pivot-text="红色" color="#ee0a24" :percentage="50" /> -->
       </div>
@@ -98,106 +99,106 @@
 
     <div class="kolContent">
       <div class="title font-medium">
-        <p>KOL認證與空投獎勵</p>
-        <p>發起项目與推廣項目</p>
+        <p>{{ $t("home.title2[0]") }}</p>
+        <p>{{ $t("home.title2[1]") }}</p>
       </div>
       <div class="content">
-        擁有活躍的Twitter等社交帳戶，並質押至少2100個SBTC，即可提交KOL認證；<br />
-        通過KOL認證，即可發起項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；<br />
-        根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SBTC數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。
+        {{ $t("home.desc2[0]") }}<br />
+        {{ $t("home.desc2[1]") }}<br />
+        {{ $t("home.desc2[2]") }}
       </div>
 
       <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
-        <div class="weight">我的項目</div>
+        <div class="weight">{{ $t("home.myProject") }}</div>
         <div>
           <div>{{ reserveInfo?.name }}</div>
           <div>{{ reserveBalance }} {{ reserveInfo?.symbol }}</div>
         </div>
         <div>
           <div>
-            待收取收益： {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}
+            {{ $t("home.revenueCollected") }}： {{ viewCanWithdrawValue }}
+            {{ reserveInfo?.symbol }}
           </div>
           <van-button
             size="small"
             :loading="withdrawLoading"
             @click="withdraw()"
             :disabled="!(viewCanWithdrawValue * 1)"
-            >領取收益</van-button
+          >
+            {{ $t("home.receiveBenefits") }}</van-button
           >
         </div>
         <div>
-          <div>跨鏈進度</div>
+          <div>{{ $t("home.crossChainProgress") }}</div>
           <div>{{ crossProgressValue }} %</div>
         </div>
         <div>
-          <div>LP兌換發行進度</div>
+          <div>{{ $t("home.LpProgress") }}</div>
           <div>{{ lpExProgressValue }} %</div>
         </div>
         <div>
-          <div>KOL獎勵發行進度</div>
+          <div>{{ $t("home.KOLProgress") }}</div>
           <div>{{ kolProgressValue }} %</div>
         </div>
         <div class="desc">
-          備註：每發生一筆新的跨鍊或LP兌換，均將根據當筆數量對應比例觸發一次新的KOL奖励，認證KOL將根據增加的分配權重得到對應的項目代幣空投獎勵，可隨時領取。
+          {{ $t("home.progressDesc") }}
         </div>
       </div>
 
       <div v-else class="btn-group">
         <router-link to="/kol">
-          <van-button type="primary">KOL認證</van-button>
+          <van-button type="primary">{{ $t("home.kolBtn") }}</van-button>
         </router-link>
         <router-link
           :to="
             accountInfo.status === 1 && activeAmount * 1 ? '/kolAdd' : '/kol'
           "
         >
-          <van-button>發起项目</van-button>
+          <van-button>{{ $t("home.startProject") }}</van-button>
         </router-link>
         <router-link v-if="adminShow" to="/review">
-          <van-button>审核</van-button>
+          <van-button>{{ $t("home.review") }}</van-button>
         </router-link>
       </div>
       <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
-          <div>質押數量: {{ activeAmount }} SBTC</div>
+          <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} SBTC</div>
           <van-button
             class="activeBtn"
             size="small"
             :disabled="!(activeAmount * 1)"
             :loading="quitKolLoading"
             @click="quitKol(item)"
-            >解除質押</van-button
+            >{{ $t("home.liftDisposit") }}</van-button
           >
         </div>
         <p class="desc" style="width: 60%">
-          解除SBTC質押，將即時終止KOL資格，且不可申請複效，謹慎操作。
+          {{ $t("home.dispositDesc") }}
         </p>
       </div>
     </div>
     <div class="bridgeContent">
       <div class="title font-medium">
-        跨鏈橋Bridge<br />
-        SBTC治理與回購
+        {{ $t("home.title3[0]") }}<br />
+        {{ $t("home.title3[1]") }}
       </div>
       <div class="text-grey font-medium text-[14px] mt-2">
-        持有SBTC项目投票，質押SBTC项目空投。
+        {{ $t("home.navTitle3") }}
       </div>
       <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
       <div class="content">
-        BSC鏈的SBTC
-        代幣50%發行至跨鏈橋合約，以供活躍的SBTC銘文帳戶跨鏈轉移；30%以LP兌換的方式智能合約發行，即獎勵給流動性提供者（LP）；18%以空投的方式獎勵給參與社區推廣建設的KOL；2%發行至啟動池合約。
-        <br />
-        SmartBTC定期以網站收入和项目空投所得回購SBTC並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。
+        {{ $t("home.desc3[0]") }}<br />
+        {{ $t("home.desc3[1]") }}
       </div>
     </div>
 
     <div class="contant">
       <div class="title">
-        <div class="font-medium">技術路線圖</div>
+        <div class="font-medium">{{ $t("home.title4") }}</div>
         <div
           class="text-grey font-medium text-[14px] mb-4 mt-2 leading-6 w-4/5 m-auto"
         >
-          BTC公平發行資產，跨鏈BSC整合豐富DeFi應用，逐步相容主流BTC L2 ......
+          {{ $t("home.navTitle4") }}
         </div>
       </div>
       <div class="contantList">
@@ -207,65 +208,61 @@
           :inactive-icon="require('../../assets/img/point.png')"
         >
           <van-step>
-            <div class="time">2023年3月9日</div>
+            <div class="time">{{ $t("home.desc4[0].time") }}</div>
             <div class="desc">
-              Ordinals協定首個帶有BTC字元的銘文SBTC部署發布
+              {{ $t("home.desc4[0].desc") }}
             </div>
           </van-step>
           <van-step>
-            <div class="time">2023年5月12日</div>
+            <div class="time">{{ $t("home.desc4[1].time") }}</div>
             <div class="desc">
-              總量2100萬，單次500的SBTC被全部Mint近2000個地址參與
+              {{ $t("home.desc4[1].desc") }}
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年1月13日</div>
+            <div class="time">{{ $t("home.desc4[2].time") }}</div>
             <div class="desc">
-              多家知名華人WEB3品牌共同舉辦的香港比特幣生態高峰會，共同發表SmartBTC
-              一專注於比特幣生態的VC DAO
+              {{ $t("home.desc4[2].desc") }}
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年4月15日</div>
+            <div class="time">{{ $t("home.desc4[3].time") }}</div>
             <div class="desc">
-              收購擁有超1萬錢包地址的CoinDAO，社區代幣100T可10:1置換為BSC鏈挖礦獎勵代幣100T，遷移加入SmartBTCdao,並為BRC852新資產提供基礎流動性
+              {{ $t("home.desc4[3].desc") }}
               <div>
                 <router-link to="swap">
-                  <van-button>去行權</van-button>
+                  <van-button>{{ $t("home.toExerciseRights") }}</van-button>
                 </router-link>
               </div>
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年4月26日</div>
+            <div class="time">{{ $t("home.desc4[4].time") }}</div>
             <div class="desc">
-              主網SmartBTC.io
-              正式發布，開通第一個跨鏈資產SBTC，提供SWAP交易，推出流動池LP質押挖礦，上線以比特幣為指數銘文為權利金的永續選擇權
+              {{ $t("home.desc4[4].desc") }}
               <div>
                 <router-link to="options">
-                  <van-button>期权</van-button>
+                  <van-button>{{ $t("home.options") }}</van-button>
                 </router-link>
               </div>
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年5月10日</div>
+            <div class="time">{{ $t("home.desc4[5].time") }}</div>
             <div class="desc">
-              香港Bitcoin Asia大會，SmartBTC正式發布錨定BRC20的新資產發行協議 --
-              BRC852協議，為比特幣生態注入新的想像空間
+              {{ $t("home.desc4[5].desc") }}
             </div>
           </van-step>
           <van-step>
-            <div class="time">2024年下半年</div>
+            <div class="time">{{ $t("home.desc4[6].time") }}</div>
             <div class="desc">
-              新加坡Token2049會議期間，SmartBTC.io發布2.0版本，SmartBTC繼續整合豐富的DeFi應用，逐步向活躍比特幣銘文開放服務，SBTC成為市值TOP3主流銘文
+              {{ $t("home.desc4[6].desc") }}
             </div>
           </van-step>
           <van-step>
-            <div class="time">2025年</div>
+            <div class="time">{{ $t("home.desc4[7].time") }}</div>
             <div class="desc">
-              SmartBTC逐步相容主流BTC
-              L2，並由BRC20(銘文)擴展到比特幣全生態，BRC852成為主流資產發行協議，SmartBTC.io成為比特幣生態底層應用，SBTC成為銘文新龍頭
+              {{ $t("home.desc4[7].desc") }}
             </div>
           </van-step>
         </van-steps>
@@ -491,7 +488,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.message === "success") {
-            showToast("投票成功");
+            showToast(this.$t("home.voteSuccess"));
             this.getVotingList();
           } else {
             showToast(res.data.message);
@@ -634,8 +631,10 @@ export default {
     },
     async quitKol() {
       showConfirmDialog({
-        title: "解除質押",
-        message: "解除質押即終止KOL資格。",
+        title: `${this.$t("home.unstake")}`,
+        message: `${this.$t("home.unstakeDesc")}`,
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
       })
         .then(async () => {
           this.quitKolLoading = true;
@@ -847,7 +846,6 @@ export default {
     }
   }
   .votingBtn {
-    width: 30%;
     margin-top: 20px;
     background: #ffc519;
     border: none;

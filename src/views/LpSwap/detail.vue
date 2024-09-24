@@ -1,7 +1,7 @@
 <template>
   <div class="lpDetail">
     <div class="header">
-      <span>{{ tokenName }} 地址</span>
+      <span>{{ tokenName }} {{ this.$t("poolDetail.contractAddress") }}</span>
       <div class="addressBox" @click="copyAddress(lpInfo.changeToken)">
         <span>
           {{ shortStr(lpInfo.changeToken) }}
@@ -16,7 +16,7 @@
             <img src="../../assets/img/goBack1.png" alt="" />
           </router-link>
           <div>
-            <div>從Pancakeswap獲取LP</div>
+            <div>{{ this.$t("poolDetail.goPancake") }}</div>
             <a
               :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`"
             >
@@ -43,7 +43,7 @@
             </div>
             <div>
               <div class="selectLpInfo">
-                <span>LP 地址：</span>
+                <span>{{ this.$t("poolDetail.lp") }}：</span>
                 <a
                   :href="`https://bscscan.com/address/${lpInfo.lpToken}`"
                   target="_blank"
@@ -57,13 +57,15 @@
             </div>
             <div class="staking-num-box">
               <div class="title">
-                <div>輸入要兑换的LP數量</div>
-                <div v-if="noLp" class="get-lp">請先獲取 LP</div>
+                <div>{{ this.$t("poolDetail.search") }}</div>
+                <div v-if="noLp" class="get-lp">
+                  {{ this.$t("poolDetail.getLp") }}
+                </div>
               </div>
             </div>
             <div class="staking-input-box no-lp">
               <input
-                placeholder="本次輸入需 > 0"
+                :placeholder="`${$t('poolDetail.placeHolder')}`"
                 oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
                 class="input-border"
                 :value="inputValue"
@@ -77,16 +79,20 @@
                   fontsize="15px"
                   class="max"
                 >
-                  最大
+                  {{ this.$t("poolDetail.max") }}
                 </div>
               </div>
             </div>
             <div class="lp-usdt-box">
-              <div class="lp-value-title">餘額:</div>
+              <div class="lp-value-title">
+                {{ this.$t("poolDetail.balance") }}:
+              </div>
               <div class="lp-value">{{ lpBalance }} LP</div>
             </div>
             <div class="lp-usdt-box">
-              <div class="lp-value-title">预计兑换出:</div>
+              <div class="lp-value-title">
+                {{ this.$t("lpSwap.expected") }}:
+              </div>
               <div class="lp-value">{{ exchangeTokens }} {{ tokenName }}</div>
             </div>
           </div>
@@ -97,14 +103,15 @@
                 v-if="lpAllowance * 1 == 0"
                 @click="getLpApprove"
                 class="staking-btn"
-                >授權 LP
+              >
+                {{ this.$t("poolDetail.approve") }}
               </van-button>
               <van-button
                 :loading="depositLoading"
                 v-else
                 @click="exchangeLpTokenForTokens"
                 class="staking-btn"
-                >兑换 LP</van-button
+                >{{ this.$t("poolDetail.stake") }}</van-button
               >
             </div>
           </div>
@@ -164,7 +171,7 @@ export default {
     realIconLogo,
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     async getTokenInfo() {
       const res = await getContract(
@@ -205,11 +212,11 @@ export default {
       )
         .then((res) => {
           this.approveLoading = false;
-          showToast("授权成功");
+          showToast(this.$t("poolDetail.approveSuccess"));
           this.getAllowance();
         })
         .catch((err) => {
-          showToast("授权失败");
+          showToast(this.$t("poolDetail.approveError"));
           console.log(err);
           this.approveLoading = false;
         });
@@ -245,10 +252,10 @@ export default {
     },
     async exchangeLpTokenForTokens() {
       if (this.inputValue > this.lpBalance) {
-        return showToast("余额不足");
+        return showToast(this.$t("lpSwap.noBalance"));
       }
       if (this.inputValue * 1 <= 0) {
-        return showToast("请输入正确数量的LP");
+        return showToast(this.$t("lpSwap.errorTips"));
       }
       this.depositLoading = true;
       await getWriteContractLoad(
@@ -262,12 +269,12 @@ export default {
           console.log(res);
           this.depositLoading = false;
           this.inputValue = "";
-          showToast("兑换成功");
+          showToast(this.$t("lpSwap.swapSuccess"));
         })
         .catch((err) => {
           this.depositLoading = false;
           console.log(err);
-          showToast("兑换失败");
+          showToast(this.$t("lpSwap.swapFail"));
         });
     },
   },

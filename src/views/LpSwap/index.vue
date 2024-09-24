@@ -1,7 +1,9 @@
 <template>
   <div class="lpSwap min-h-full">
     <div class="headerBox">
-      <span class="title font-medium text-[16px]">提供流動性發行資產</span>
+      <span class="title font-medium text-[16px]">{{
+        this.$t("lpSwap.title")
+      }}</span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -16,10 +18,16 @@
       </div>
     </div>
     <div v-if="selectToken.name !== '100T'" class="title">
-      錨定BRC20-{{ selectToken?.name }}，總供應量 {{ total / 10000 }}万
+      {{
+        this.$t("lpSwap.desc", {
+          name: selectToken?.name,
+          total: total / 100000,
+        })
+      }}
+      <!-- 錨定BRC20-{{ selectToken?.name }}，總供應量 {{ total / 10000 }}万 -->
     </div>
     <div v-else class="title">
-      錨定符文IOOT•SMARTBTC•IO，總供應量 {{ total / 10000 }}万
+      {{ this.$t("lpSwap.desc2", { total: total / 100000 }) }}
     </div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
@@ -28,7 +36,7 @@
 
     <div class="contractAddress">
       <div>
-        <span>合約地址</span>
+        <span>{{ this.$t("lpSwap.address") }}</span>
         <a
           class="address"
           :href="`https://bscscan.com/token/${selectToken.address}#balances`"
@@ -36,7 +44,7 @@
         >
       </div>
       <div>
-        <span>我的持股(佔比)</span>
+        <span> {{ this.$t("lpSwap.shares") }}</span>
         <span>
           {{ selectTokenBalance }}
           <span>{{ selectToken.name }}</span>
@@ -47,7 +55,7 @@
 
     <div class="line">
       <div class="lineTitle title font-medium text-[16px]">
-        流動性發行兌換進度
+        {{ this.$t("lpSwap.navTitle") }}
       </div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
@@ -57,17 +65,17 @@
           <div>
             <div class="listTitle">{{ list?.disPlayName }}</div>
             <div class="rate">
-              <span>即時兌換率 </span>
+              <span>{{ this.$t("lpSwap.timely") }}</span>
               <span>{{ list?.rate }}%</span>
             </div>
           </div>
           <router-link class="btn" :to="{ path: '/lpSwapDetail', query: list }">
-            <span>去兌換</span>
+            <span>{{ this.$t("lpSwap.swap") }}</span>
           </router-link>
         </div>
       </div>
     </div>
-    <van-action-sheet v-model:show="showCoin" title="選擇代幣">
+    <van-action-sheet v-model:show="showCoin" :title="`${$t('lpSwap.select')}`">
       <div class="content">
         <div v-if="exchangeTokens.length > 0">
           <div
@@ -121,7 +129,12 @@ export default {
       chartConfig: {
         type: "pie",
         data: {
-          labels: ["跨鏈", "流動性發行", "啟動池", "KOL奖励"],
+          labels: [
+            this.$t("lpSwap.list[0]"),
+            this.$t("lpSwap.list[1]"),
+            this.$t("lpSwap.list[2]"),
+            this.$t("lpSwap.list[3]"),
+          ],
           datasets: [
             {
               backgroundColor: [
@@ -263,18 +276,18 @@ export default {
 
       if (value.name == "100T") {
         this.chartConfig.data.labels = [
-          "社區公平鑄造",
-          "收購CoinDAO",
-          "LP質押挖礦",
-          "流動性發行",
-          "啟動池部署",
+          this.$t("lpSwap.list1[0]"),
+          this.$t("lpSwap.list1[1]"),
+          this.$t("lpSwap.list1[2]"),
+          this.$t("lpSwap.list1[3]"),
+          this.$t("lpSwap.list1[4]"),
         ];
       } else {
         this.chartConfig.data.labels = [
-          "跨鏈",
-          "流動性發行",
-          "啟動池",
-          "KOL奖励",
+          this.$t("lpSwap.list[0]"),
+          this.$t("lpSwap.list[1]"),
+          this.$t("lpSwap.list[2]"),
+          this.$t("lpSwap.list[3]"),
         ];
       }
       this.chartPie.update();

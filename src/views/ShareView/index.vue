@@ -2,15 +2,15 @@
   <div class="shareBox">
     <div class="header">
       <div class="header-item">
-        <div class="pool-title">我的算力</div>
+        <div class="pool-title">{{ this.$t("community.title[0]") }}</div>
         <div class="force-num">{{ shortStr($store.state.address) }}</div>
       </div>
       <div class="header-item">
-        <div class="name">邀請算力</div>
+        <div class="name">{{ this.$t("community.title[1]") }}</div>
         <div class="force-num">{{ invitePowers }} H/S</div>
       </div>
       <div class="header-item">
-        <div class="name">邀請提速</div>
+        <div class="name">{{ this.$t("community.title[2]") }}</div>
         <div class="num">
           {{
             invitePowers == "--"
@@ -21,21 +21,21 @@
         </div>
       </div>
       <div class="header-item">
-        <div class="name">質押算力</div>
+        <div class="name">{{ this.$t("community.title[3]") }}</div>
         <div class="num">{{ poolPowers }} H/S</div>
       </div>
       <div class="header-desc">
-        <p>*每個被邀請人完成一筆質押後均貢獻邀請算力；</p>
-        <p>*只有質押算力&gt;0時，邀請算力才能提供實際收益；</p>
-        <p>*質押算力越大，邀請算力提速收益越高。</p>
+        <p>{{ this.$t("community.desc[0]") }}</p>
+        <p>{{ this.$t("community.desc[1]") }}</p>
+        <p>{{ this.$t("community.desc[2]") }}</p>
       </div>
     </div>
     <div class="data-group">
-      <div class="pool-title">礦池總算力</div>
+      <div class="pool-title">{{ this.$t("community.title[4]") }}</div>
       <div class="data-item">
         <div class="big">
           <div class="big-item">
-            <div class="name">質押算力</div>
+            <div class="name">{{ this.$t("community.title[3]") }}</div>
             <div class="data">{{ totalPoolPowers }} H/S</div>
           </div>
         </div>
@@ -43,7 +43,7 @@
       <div class="data-item">
         <div class="big big-two">
           <div class="big-item big-item-two">
-            <div class="name">邀請算力</div>
+            <div class="name">{{ this.$t("community.title[1]") }}</div>
             <div class="data">{{ totalInvitePowers }} H/S</div>
           </div>
         </div>
@@ -52,9 +52,13 @@
     <div class="blank"></div>
     <div>
       <div class="btn-group">
-        <div @click="shareBox" class="invite-btn">分享好友</div>
+        <div @click="shareBox" class="invite-btn">
+          {{ this.$t("community.btns[0]") }}
+        </div>
         <div class="friend-btn">
-          <router-link to="partner">我的好友</router-link>
+          <router-link to="partner">{{
+            this.$t("community.btns[1]")
+          }}</router-link>
         </div>
       </div>
     </div>
@@ -63,7 +67,7 @@
         <div class="inviteBg">
           <img class="shareLogo" src="../../assets/img/shareLogo.png" alt="" />
           <div class="shareInfo">
-            <div class="title">1. 下载OKX Web3钱包</div>
+            <div class="title">{{ this.$t("community.share[0]") }}</div>
             <div class="inputBox">
               <div>https://www.okx.com/zh-hans...</div>
               <img
@@ -77,7 +81,7 @@
                 "
               />
             </div>
-            <div class="title">2. “发现”频道，搜索框输入 smartbtc.io</div>
+            <div class="title">{{ this.$t("community.share[1]") }}</div>
             <div class="inputBox">
               <div class="searchBox">
                 <img class="search" src="../../assets/img/search.png" alt="" />
@@ -91,19 +95,18 @@
               />
             </div>
             <div class="title">
-              3.
-              CoinDAO会员把100T钱包导入下载的OKX，迁移跨链到BSC链；比特币铭文SBTC用户跨链转账到BSC
+              {{ this.$t("community.share[2]") }}
             </div>
             <div class="title">
-              4. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易
+              {{ this.$t("community.share[3]") }}
             </div>
           </div>
           <div class="infoBox">
             <div class="copyUrl">
-              <div class="tips">专注比特币生态的 VC DAO</div>
+              <div class="tips">{{ this.$t("community.share[4]") }}</div>
               <div class="link">https://smartbtc.io</div>
               <div class="copyUrlBox">
-                <span>複製分享連結</span>
+                <span>{{ this.$t("community.share[5]") }}</span>
                 <img
                   @click="
                     copyUrlFun(`${href}?inviteAddress=${$store.state.address}`)
@@ -163,8 +166,12 @@ export default {
       this.totalInvitePowersFun();
       if (this.$route.query.inviteAddress) {
         showConfirmDialog({
-          title: "接收邀请",
-          message: `是否接收来自${this.$route.query.inviteAddress}的邀请？`,
+          title: `${this.$t("community.revice")}`,
+          message: `${this.$t("community.reviceDesc", {
+            address: this.$route.query.inviteAddress,
+          })}`,
+          confirmButtonText: this.$t("sure"),
+          cancelButtonText: this.$t("cancel"),
         })
           .then(() => {
             this.registerFun();
@@ -183,7 +190,7 @@ export default {
     },
     copyUrlFun(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     async invitePowersFun() {
       const invitePower = await getContract(
@@ -233,7 +240,7 @@ export default {
         this.$route.query.inviteAddress
       )
         .then(() => {
-          showToast("被請求成功");
+          showToast(this.$("community.inviteSuccess"));
         })
         .catch((err) => console.log(err));
     },

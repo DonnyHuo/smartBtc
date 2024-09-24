@@ -1,20 +1,20 @@
 <template>
   <div>
-    <Header title="我的好友" />
+    <Header :title="`${$t('community.list[3]')}`" />
     <div class="partnerList">
       <div v-if="!zeroAddress" class="listBox">
-        <div class="title">我的邀请者：</div>
+        <div class="title">{{ this.$t("community.list[0]") }}：</div>
         <div class="content">{{ getUpper }}</div>
       </div>
       <div v-if="getLowers.length > 0" class="listBox">
-        <div class="title">被我邀请者：</div>
+        <div class="title">{{ this.$t("community.list[1]") }}：</div>
         <div v-for="(list, index) in getLowers" class="content">
           <div :key="index">{{ list.lower }}</div>
         </div>
       </div>
       <div class="noData" v-if="zeroAddress && getLowers.length == 0">
         <img src="../../assets/img/noData.png" alt="" />
-        <div>暫無好友數據</div>
+        <div>{{ this.$t("community.list[2]") }}</div>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="info">
-    <div class="title">信息</div>
+    <div class="title">{{ $t("options.info.title") }}</div>
     <div class="content">
       <div>
         <span>Ticker Root</span>
@@ -8,13 +8,26 @@
           >{{ activeTabs ? "ETH" : "BTC" }}USD/{{ selectedCoin.symbol }}</span
         >
       </div>
-      <div><span>有效日期</span> <span>永续</span></div>
-      <div><span>手续费率</span> <span>1‰</span></div>
-      <div><span>维持保证金率</span> <span>1‰</span></div>
-      <div><span>类型</span> <span>永续期权</span></div>
-      <div><span>行权</span> <span>手动</span></div>
       <div>
-        <span>风险保证金</span>
+        <span>{{ $t("options.info.desc[0]") }}</span>
+        <span>{{ $t("options.info.desc[1]") }}</span>
+      </div>
+      <div>
+        <span>{{ $t("options.info.desc[2]") }}</span> <span>1‰</span>
+      </div>
+      <div>
+        <span>{{ $t("options.info.desc[3]") }}</span> <span>1‰</span>
+      </div>
+      <div>
+        <span>{{ $t("options.info.desc[4]") }}</span>
+        <span>{{ $t("options.info.desc[5]") }}</span>
+      </div>
+      <div>
+        <span>{{ $t("options.info.desc[6]") }}</span>
+        <span>{{ $t("options.info.desc[7]") }}</span>
+      </div>
+      <div>
+        <span>{{ $t("options.info.desc[8]") }}</span>
         <span>{{ balanceOf }} {{ selectedCoin.symbol }}</span>
       </div>
     </div>

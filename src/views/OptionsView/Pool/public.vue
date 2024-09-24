@@ -8,11 +8,11 @@
           alt=""
         />
       </div>
-      <div class="titleText">公池</div>
+      <div class="titleText">{{ $t("options.marketMaker.desc[0]") }}</div>
     </div>
     <div class="addLi">
-      <div class="nav_title">添加流动性</div>
-      <div class="selectText">选择代币</div>
+      <div class="nav_title">{{ $t("options.public.addLi") }}</div>
+      <div class="selectText">{{ $t("options.public.select") }}</div>
       <van-button class="selectBtn" @click="show = true">
         <div>
           <div v-if="selectedCoin.symbol">
@@ -21,15 +21,17 @@
             </div>
             <div>{{ selectedCoin.symbol }}</div>
           </div>
-          <div v-else class="selectTokenTitle">选择代币</div>
+          <div v-else class="selectTokenTitle">
+            {{ $t("options.public.select") }}
+          </div>
         </div>
         <img src="../../../assets/img/down.png" alt="" />
       </van-button>
       <div class="tips">
-        对于不存在的交易对，添加流动性会自动创建对应的交易对
+        {{ $t("options.public.tips") }}
       </div>
       <div class="amount">
-        <span>数量</span>
+        <span>{{ $t("options.public.amount") }}</span>
         <span
           >{{
             selectedCoin.balanceOf && (selectedCoin.balanceOf * 1).toFixed(2)
@@ -49,14 +51,18 @@
         v-if="allowance * 1 == 0"
         @click="approve"
         class="addBtn"
-        >授权</van-button
+        >{{ $t("options.public.approve") }}</van-button
       >
-      <van-button :loading="addLiqLoading" v-else class="addBtn" @click="addLiq"
-        >添加流动性</van-button
+      <van-button
+        :loading="addLiqLoading"
+        v-else
+        class="addBtn"
+        @click="addLiq"
+        >{{ $t("options.public.addLi") }}</van-button
       >
     </div>
     <div class="shareBox">
-      <div class="nav_title">您在池中的份额</div>
+      <div class="nav_title">{{ $t("options.public.navTitle") }}</div>
       <div class="content">
         <div class="tokenList">
           <div v-for="(list, index) in myPublicPools" :key="index">
@@ -109,7 +115,7 @@
                 type="primary"
                 size="small"
                 @click="deleteLiqFun(list)"
-                >移除</van-button
+                >{{ $t("options.public.remove") }}</van-button
               >
             </div>
           </div>
@@ -120,7 +126,7 @@
             v-else
             image="search"
             image-size="100"
-            description="无数据"
+            :description="`${$t('options.public.nodata')}`"
           />
         </div>
       </div>
@@ -128,12 +134,12 @@
 
     <van-action-sheet class="selectToken" v-model:show="show">
       <div class="content">
-        <div class="nav_title">选择代币</div>
+        <div class="nav_title">{{ $t("options.public.select") }}</div>
         <input
           class="search"
           type="text"
           v-model="searchValue"
-          placeholder="输入代币地址查询"
+          :placeholder="`${$t('options.public.search')}`"
         />
 
         <div class="lists">
@@ -164,7 +170,7 @@
     <van-action-sheet
       class="deleteLiq"
       v-model:show="deleteAction"
-      title="移除流动性"
+      :title="`${$t('options.public.removeAmount')}`"
     >
       <div class="content">
         <div class="logoInfo">
@@ -176,16 +182,20 @@
           </div>
           <div>{{ deleteLiqItem.addressSymbol }}</div>
         </div>
-        <div class="deleteLiqTitle">移除数量</div>
+        <div class="deleteLiqTitle">
+          {{ $t("options.public.removeAmount") }}
+        </div>
         <div class="inputBox">
           <div>{{ deleteLiqItem.symbol }}</div>
           <div class="inputDiv">
             <input type="text" v-model="deleteValue" />
-            <van-button @click="maxDeleteFun">最大</van-button>
+            <van-button @click="maxDeleteFun">{{
+              $t("options.public.max")
+            }}</van-button>
           </div>
         </div>
         <div class="receipt">
-          <span>你将接收到</span>
+          <span>{{ $t("options.public.willGet") }}</span>
           <span
             >{{ realDeleteTokenAmount }} {{ deleteLiqItem.addressSymbol }}</span
           >
@@ -194,7 +204,7 @@
           :loading="withdrawLoading"
           class="deleteBtn"
           @click="withdrawFun"
-          >移除流动性</van-button
+          >{{ $t("options.public.removeLi") }}</van-button
         >
       </div>
     </van-action-sheet>
@@ -303,7 +313,7 @@ export default {
       this.inputValue = this.selectedCoin.balanceOf;
     },
     Clipboard(address) {
-      showToast("复制成功");
+      showToast(this.$t("copySuccess"));
       return copy(address);
     },
     // 获取token列表
@@ -340,7 +350,7 @@ export default {
     // 授权
     async approve() {
       if (!this.selectedCoin.address) {
-        return showToast("请选择要授权的代币");
+        return showToast(this.$t("hecoSwap.approveSuccess"));
       }
       this.approveLoading = true;
       await getWriteContractLoad(
@@ -352,7 +362,7 @@ export default {
       )
         .then(() => {
           this.approveLoading = false;
-          showToast("授權成功");
+          showToast(this.$t(""));
           this.getAllowance(this.selectedCoin.address);
         })
         .catch((err) => {
@@ -363,10 +373,10 @@ export default {
     // 添加公池流动性
     async addLiq() {
       if (this.inputValue == "" || this.inputValue * 1 == 0) {
-        return showToast("请输入正确的添加数量");
+        return showToast(this.$t("options.trade.errorTips[1]"));
       }
       if (this.inputValue * 1 > this.selectedCoin.balanceOf * 1) {
-        return showToast("余额不足");
+        return showToast(this.$t("options.trade.errorTips[0]"));
       }
       this.addLiqLoading = true;
       console.log(
@@ -387,7 +397,7 @@ export default {
         )
       )
         .then(async (res) => {
-          showToast("添加流动性成功");
+          showToast(this.$t("options.public.addLiSuccess"));
           this.addLiqLoading = false;
           this.selectedCoin = await this.getERC20Token(
             this.selectedCoin.address
@@ -502,11 +512,11 @@ export default {
     // 移除操作
     async withdrawFun() {
       if (this.deleteValue == "" || this.deleteValue * 1 == 0) {
-        return showToast("请输入正确的移除数量");
+        return showToast(this.$t("options.public.errorTips[0]"));
       }
 
       if (this.deleteValue * 1 > this.deleteLiqItem.realBalance * 1) {
-        return showToast("余额不足");
+        return showToast(this.$t("options.public.errorTips[1]"));
       }
       this.withdrawLoading = true;
       await getWriteContractLoad(
@@ -516,7 +526,7 @@ export default {
         ethers.utils.parseUnits(this.deleteValue, this.deleteLiqItem.decimals)
       )
         .then(async (res) => {
-          showToast("移除流动性成功");
+          showToast(this.$t("options.public.addLiSuccess"));
           this.withdrawLoading = false;
           this.deleteAction = false;
           this.getTokenList();
@@ -541,7 +551,7 @@ export default {
         }
         this.searchActions = arr;
       } else {
-        showToast("地址不合法");
+        showToast(this.$t("options.trade.errorAddress"));
         this.searchActions = [];
       }
     },
@@ -800,6 +810,7 @@ export default {
     .lists {
       border-top: 1px solid #d6d6d6;
       max-height: calc(60vh - 120px);
+      overflow: auto;
 
       .noData {
         height: 200px;

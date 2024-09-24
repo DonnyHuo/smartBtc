@@ -8,7 +8,7 @@
             <img src="../../assets/img/goBack1.png" alt="" />
           </router-link>
           <div>
-            <div>從Pancakeswap獲取LP</div>
+            <div>{{ this.$t("poolDetail.goPancake") }}</div>
             <a
               :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`"
             >
@@ -28,7 +28,7 @@
             </div>
             <div>
               <div class="selectLpInfo">
-                <span>LP 地址：</span>
+                <span>{{ this.$t("poolDetail.lp") }}：</span>
                 <a :href="`https://bscscan.com/address/${lpInfo.lpToken}`">
                   {{ lpInfo.lpToken ? shortStr(lpInfo.lpToken) : "--" }}</a
                 >
@@ -37,19 +37,21 @@
                 </div>
               </div>
               <div class="selectLpInfo">
-                <span>最小質押算力：</span>
+                <span>{{ this.$t("poolDetail.min") }}：</span>
                 <div>{{ lpInfo.minDepositLimit || "--" }} H/S</div>
               </div>
             </div>
             <div class="staking-num-box">
               <div class="title">
-                <div>輸入要質押的LP數量</div>
-                <div v-if="noLp" class="get-lp">請先獲取 LP</div>
+                <div>{{ this.$t("poolDetail.search") }}</div>
+                <div v-if="noLp" class="get-lp">
+                  {{ this.$t("poolDetail.getLp") }}
+                </div>
               </div>
             </div>
             <div class="staking-input-box no-lp">
               <input
-                placeholder="本次輸入需 ≥ 0"
+                :placeholder="`${$t('poolDetail.placeHolder')}`"
                 oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
                 class="input-border"
                 :value="inputValue"
@@ -63,22 +65,28 @@
                   fontsize="15px"
                   class="max"
                 >
-                  最大
+                  {{ this.$t("poolDetail.max") }}
                 </div>
               </div>
             </div>
             <div class="lp-usdt-box">
-              <div class="lp-value-title">餘額:</div>
+              <div class="lp-value-title">
+                {{ this.$t("poolDetail.balance") }}:
+              </div>
               <div class="lp-value">{{ lpBalance }} LP</div>
             </div>
             <div class="lp-usdt-box">
-              <div class="lp-value-title">當前1LP價值:</div>
+              <div class="lp-value-title">
+                {{ this.$t("poolDetail.tips[0]") }}:
+              </div>
               <div class="lp-value">{{ lpPrice }} USDT</div>
             </div>
             <div class="lp-usdt-box">
-              <div class="lp-value-title">預計獲得質押算力:</div>
-              <div class="lp-value">{{ depositPower }} H/S</div>
+              <div class="lp-value-title">
+                {{ this.$t("poolDetail.tips[1]") }}:
+              </div>
             </div>
+            <div class="lp-value">{{ depositPower }} H/S</div>
           </div>
           <div class="botton-group">
             <div class="btn-wrap">
@@ -87,27 +95,30 @@
                 v-if="lpAllowance * 1 == 0"
                 @click="getLpApprove"
                 class="staking-btn"
-                >授權LP
+              >
+                {{ this.$t("poolDetail.approve") }}
               </van-button>
               <van-button
                 :loading="depositLoading"
                 v-else
                 @click="depositFun"
                 class="staking-btn"
-                >質押LP</van-button
+                >{{ this.$t("poolDetail.stake") }}</van-button
               >
             </div>
             <a href="#/withdraw" class="btn-wrap">
-              <van-button class="cancle-btn">贖回 </van-button>
+              <van-button class="cancle-btn"
+                >{{ this.$t("poolDetail.unStake") }}
+              </van-button>
             </a>
           </div>
           <div class="notice">
-            <p>質押滿7天后可贖回；</p>
-            <p>不贖回算力則持續生效，持續收益。</p>
+            <p>{{ this.$t("poolDetail.desc[0]") }}</p>
+            <p>{{ this.$t("poolDetail.desc[1]") }}</p>
           </div>
           <div class="shareValue">
             <span
-              >100T 合約地址：
+              >100T {{ this.$t("poolDetail.contractAddress") }}：
               <a :href="`https://bscscan.com/address/${$store.state.t100}`">{{
                 shortStr($store.state.t100)
               }}</a></span
@@ -236,7 +247,7 @@ export default {
       ).catch((err) => console.log(err));
       console.log(res);
       this.approveLoading = false;
-      showToast("授权成功");
+      showToast(this.$t("poolDetail.approveSuccess"));
       this.getAllowance();
     },
     changeValue(e) {
@@ -252,7 +263,7 @@ export default {
     async depositFun() {
       if (this.depositPower >= this.lpInfo.minDepositLimit) {
         if (this.inputValue * 1 > this.lpBalance * 1) {
-          return showToast(`LP不足`);
+          return showToast(`${this.$t("poolDetail.noLp")}`);
         }
         this.depositLoading = true;
         const overrides = {
@@ -268,12 +279,14 @@ export default {
           overrides
         ).catch((err) => console.log(err));
         if (res) {
-          showToast("質押成功");
+          showToast(this.$t("poolDetail.stakeSuccess"));
         }
         this.depositLoading = false;
         this.inputValue = "";
       } else {
-        showToast(`最小質押算力为 ${this.lpInfo.minDepositLimit} H/S`);
+        showToast(
+          `${this.$t("poolDetail.min")} ${this.lpInfo.minDepositLimit} H/S`
+        );
       }
     },
   },

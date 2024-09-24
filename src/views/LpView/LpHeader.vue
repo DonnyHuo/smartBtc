@@ -3,14 +3,14 @@
     <div class="total-tvl">
       <div class="tvl-title">
         <img src="../../assets/img/up.png" />
-        <div class="tvl-title-name">總流動性質押</div>
+        <div class="tvl-title-name">{{ this.$t("pool.header[0]") }}</div>
       </div>
       <div class="total-num">$ {{ poolsTotalPower }}</div>
     </div>
     <div class="total-tvl">
       <div class="tvl-title">
         <img src="../../assets/img/upAPY.png" />
-        <div class="tvl-title-name">實时APY</div>
+        <div class="tvl-title-name">{{ this.$t("pool.header[1]") }}</div>
       </div>
       <div class="total-num">{{ apy }}%</div>
     </div>
@@ -22,7 +22,7 @@
             src="../../assets/img/tokenList/brc20-sbtc.png"
             alt=""
           />
-          <span>SBTC合约</span>
+          <span>SBTC {{ this.$t("pool.header[2]") }}</span>
         </div>
         <div class="address" @click="copyAddress(this.$store.state.sBtc)">
           <span>{{ shortStr($store.state.sBtc) }}</span>
@@ -36,7 +36,7 @@
             src="../../assets/img/tokenList/brc20-100t.png"
             alt=""
           />
-          <span>100T合约</span>
+          <span>100T {{ this.$t("pool.header[2]") }}</span>
         </div>
         <div class="address" @click="copyAddress($store.state.t100)">
           <span>{{ shortStr($store.state.t100) }}</span>
@@ -69,7 +69,7 @@ export default {
   methods: {
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     shortStr,
     async poolsTotalPowers() {

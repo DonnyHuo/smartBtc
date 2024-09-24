@@ -7,50 +7,50 @@
         class="votingList"
       >
         <div>
-          <span class="font-medium">幣種名稱</span>
+          <span class="font-medium">{{$t('voting.name')}}</span>
           <span>{{ item.name }}</span>
         </div>
         <div>
-          <span class="font-medium">幣種Symbol</span>
+          <span class="font-medium">{{$t('voting.symbol')}}</span>
           <span>{{ item.symbol }}</span>
         </div>
 
         <div>
-          <span class="font-medium">發行數量</span>
+          <span class="font-medium">{{$t('voting.issuanceNumber')}}</span>
           <span>{{ item.total_supply }}</span>
         </div>
         <div class="listBox">
-          <div class="title font-medium">發行比例</div>
+          <div class="title font-medium">{{$t('voting.issuanceRatio')}}</div>
           <div class="desc">
-            專案方（KOL）可以藉鏡SBTC治理與回購方案，在專案營運發展中，不斷回購BSC鏈流通中的代幣轉入跨鏈橋合約，提高跨鏈額度直至100%。
+           {{ $t('voting.desc') }}
           </div>
           <div class="listDiv">
             <div class="listS">
-              <span>跨鏈橋合約 </span>
+              <span>{{ $t('voting.bridgeContract') }}</span>
               <span>{{ item.cross_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>LP兌換合約 </span>
+              <span>{{ $t('voting.LPContract') }}</span>
               <span>{{ item.le_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>啟動池合約 </span>
+              <span>{{ $t('voting.startContract') }}</span>
               <span>{{ item.lm_percent / 100 }}%</span>
             </div>
             <div class="listS">
-              <span>KOL分配合約 </span>
+              <span>{{ $t('voting.KOLContract') }}</span>
               <span>{{ item.kol_percent / 100 }}%</span>
             </div>
           </div>
         </div>
         <div>
-          <span class="font-medium">結束時間 </span>
+          <span class="font-medium">{{$t('voting.endTime')}}</span>
           <span>{{
             formatDate(new Date(item.vote_end_time), "yyyy-MM-dd hh:mm")
           }}</span>
         </div>
         <div>
-          <span class="font-medium">投票進度 </span>
+          <span class="text-left font-medium">{{$t('voting.voteProgress')}}</span>
           <!-- <span>{{ parseInt((item.vote_num * 100) / this.votePassNum) }} %</span> -->
           <div style="width: 80%">
             <van-progress
@@ -60,14 +60,14 @@
               pivot-color="#D9A504"
               color="#ffc519"
               track-color="#FFF2C9"
-              :pivot-text="`投票中 ${parseInt(
+              :pivot-text="`${$t('home.voting')} ${parseInt(
                 (item.vote_num * 100) / this.votePassNum
               )}%`"
             />
           </div>
         </div>
         <div class="records">
-          <div class="recordTitle font-medium">投票記錄</div>
+          <div class="recordTitle font-medium">{{$t('voting.voteHistory')}}</div>
           <div
             class="recordList"
             v-for="(list, index) in item.projectVotes"
@@ -83,19 +83,19 @@
         </div>
         <div class="btnBox">
           <van-button :disabled="item.voted" @click="vote(item.project_name)"
-            >投票支持</van-button
+            >{{$t('voting.voteBtn')}}</van-button
           >
         </div>
         <p class="desc text-left">
-          <div class="font-medium">現行投票規則：</div>
-          <div>投票有效期限7天，投票門檻{{ repMinThreshold }} SBTC，投票完成門檻100票</div>
+          <div class="font-medium">{{$t('voting.voteTips[0]')}}</div>
+          <div>{{$t('voting.voteTips[1]')}}</div>
         </p>
       </div>
     </div>
     <div v-else class="noData">
-      <div>
+      <div class="flex flex-col items-center">
         <img src="../../assets/img/noData.png" />
-        <div>暫無數據</div>
+        <div>{{$t('noData')}}</div>
       </div>
     </div>
   </div>
@@ -205,7 +205,7 @@ export default {
 
     vote(project_name) {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("SBTC餘額不足");
+        return showToast(this.$t('noBalance'));
       }
       if(!this.$store.state.address) {
         return
@@ -218,7 +218,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.message === "success") {
-            showToast("投票成功");
+            showToast(this.$t('voting.voteSuccess'));
             this.getVotingList();
           } else {
             showToast(res.data.message);
@@ -260,13 +260,13 @@ export default {
       //justify-content: space-between;
       display: grid;
       gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
       padding: 0 20px;
-
       .listS {
         height: 20px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         color: #666;
         > span:last-child {
           padding-left: 10px;

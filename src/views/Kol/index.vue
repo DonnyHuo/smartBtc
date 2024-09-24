@@ -1,49 +1,48 @@
 <template>
   <div class="kolIndex">
     <div class="header font-medium">
-      <span v-if="!accountInfo.status">KOL認證 — 社交帳戶</span>
+      <span v-if="!accountInfo.status">{{ $t("kol.title[0]") }}</span>
       <div v-else>
-        <span v-if="!activeAmount">KOL認證 — 質押SBTC</span>
-        <span v-if="activeAmount">KOL認證 — 成為项目方</span>
+        <span v-if="!activeAmount">{{ $t("kol.title[1]") }}</span>
+        <span v-if="activeAmount">{{ $t("kol.title[2]") }}</span>
       </div>
     </div>
     <div v-if="!accountInfo" class="kolRequest">
       <div>
-        <span><span class="must">*</span>收益地址</span>
+        <span><span class="must">*</span>{{ $t("kol.revenueAddress") }}</span>
         <input disabled type="text" :value="registerAddress" />
       </div>
       <div>
-        <span><span class="must">*</span>Twitter地址</span>
+        <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
         <input type="text" v-model="xAddress" />
       </div>
       <div class="desc">
-        發布Twitter認證推文，包含SmartBTC、SBTC和想認領的銘文項目信息，文案自定義，主要考察該推文24小時閱讀數、轉發數和點贊數。
+        {{ $t("kol.desc1") }}
       </div>
       <div>
-        <span>Telegram地址</span>
+        <span>{{ $t("kol.telegram") }}</span>
         <input type="text" v-model="tgAddress" />
       </div>
       <div>
-        <span>Discord地址</span>
+        <span>{{ $t("kol.discord") }}</span>
         <input type="text" v-model="disAddress" />
       </div>
 
-      <van-button @click="register">提交认证</van-button>
+      <van-button @click="register">{{ $t("kol.submit") }}</van-button>
       <div class="desc mt-20">
-        KOL貢獻分配權重計算方法：初始權重主要取決於社交帳戶總粉絲數、認證推文24小時活躍度和實際質押的SBTC數量這三大維度，運營中不定期抓取認證社交帳戶（Twitter為主，
-        Telegram、Discord為輔）對認領銘文项目與SmartBTC平台的關注與推廣數據，根據演算法提高KOL貢獻分配權重。
+        {{ $t("kol.submitDesc") }}
       </div>
     </div>
     <div v-if="accountInfo.status === 0" class="kolRequest">
       <div>
-        <span>收益地址</span>
+        <span>{{ $t("kol.revenueAddress") }}</span>
         <span>{{ shortStr(accountInfo.address) }}</span>
       </div>
       <div>
-        <span>Twitter地址</span>
+        <span>{{ $t("kol.twitter") }}</span>
         <span>{{ accountInfo.twitter_account }}</span>
       </div>
-      <van-button disabled>KOL审核中...</van-button>
+      <van-button disabled>{{ $t("kol.kolReview") }}</van-button>
     </div>
     <div v-if="accountInfo.status === 1" class="activeBtnBox">
       <van-button
@@ -51,28 +50,28 @@
         class="activeBtn"
         size="small"
         @click="openActiveModal(item)"
-        >去质押</van-button
+        >{{ $t("kol.desposit") }}</van-button
       >
       <div v-else class="inputSearch">
         <input
           class="searchBox"
           type="text"
           v-model="searchValue"
-          placeholder="输入项目名称搜索"
+          :placeholder="`${$t('kol.search')}`"
           @change="searchValueFun"
         />
         <router-link to="/kolAdd" class="addBtn">
-          <van-button class="activeBtn" size="small">发起项目</van-button>
+          <van-button class="activeBtn" size="small">{{
+            $t("kol.startPro")
+          }}</van-button>
         </router-link>
       </div>
 
       <div v-if="!activeAmount" class="desc mt-10">
-        認領和創建项目前，需要質押SBTC，數量2100個起，質押越多，分配權重越高，可以隨時撤銷質押。
+        {{ $t("kol.desc[0]") }}
       </div>
       <div v-else class="desc mt-10">
-        在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“發起项目”，推薦新的銘文項目，在SmartBTC
-        BRC20
-        Launchpad發起投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL奖励。
+        {{ $t("kol.desc[1]") }}
       </div>
     </div>
 
@@ -93,7 +92,7 @@
               size="small"
               :disabled="!activeAmount"
               @click="openModel(item)"
-              >認領</van-button
+              >{{ $t("kol.claim") }}</van-button
             >
           </div>
         </div>
@@ -102,7 +101,7 @@
       <div v-else class="noData">
         <div>
           <img src="../../assets/img/noData.png" />
-          <div>暫無數據</div>
+          <div>{{ $t("noData") }}</div>
         </div>
       </div>
     </div>
@@ -118,24 +117,18 @@
       </div>
     </div>
 
-    <van-action-sheet class="model" v-model:show="model" title="認領規則">
+    <van-action-sheet
+      class="model"
+      v-model:show="model"
+      :title="`${$t('kol.claimRule')}`"
+    >
       <div class="content">
         <div class="contentDesc">
-          <p>
-            1.原則上，KOL應保持常態透過Twitter、Telegram等社交網絡，或組織線下活動等方式，積極參與某銘文項目的推廣佈道，才能認領成為該項目的社區KOL（項目方）；
-          </p>
-          <p>
-            2.提交認領時，SmartBTC.io會多維度測算KOL的質押SBTC數量、社交帳戶活躍度、認證推文閱讀點讚轉發數、社交帳戶歷史動態與項目的關聯度、認領地址項目代幣持倉數量等綜合因素，透過演算法自動計算出當前KOL對應的社群空投獎勵分配權重；
-          </p>
-          <p>
-            3.一個KOL（對應認證的錢包位址）只能唯一認領一個項目，且認領完成不可更改；
-          </p>
-          <p>
-            4.可以隨時撤銷認領，解除收回質押的SBTC，一經解除KOL權益即時終止且不可申請複效；
-          </p>
-          <p>
-            5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。
-          </p>
+          <p>{{ $t("kol.contentDesc[0]") }}</p>
+          <p>{{ $t("kol.contentDesc[1]") }}</p>
+          <p>{{ $t("kol.contentDesc[2]") }}</p>
+          <p>{{ $t("kol.contentDesc[3]") }}</p>
+          <p>{{ $t("kol.contentDesc[4]") }}</p>
           <div class="text-left" @click="copyAddress(tweet)">
             <span class="text-black font-medium">
               <span class="text-red-600">*</span>
@@ -148,44 +141,54 @@
             />
           </div>
         </div>
+        <van-checkbox v-model="checked" class="m-[20px] mt-0 text-left">{{
+          $t("kol.sure")
+        }}</van-checkbox>
 
         <van-button
           :loading="reserveLoading"
-          class="modelBtn"
+          class="modelBtn !leading-5 min-w-[200px]"
           size="small"
+          :disabled="!checked"
           @click="bindProject(selectedItem.project_name)"
-          >我已閱讀並認可認領規則，同意認領此項目</van-button
+          >{{ $t("kol.claim") }}</van-button
         >
       </div>
     </van-action-sheet>
 
-    <van-action-sheet class="model" v-model:show="activeModal" title="质押SBTC">
+    <van-action-sheet
+      class="model"
+      v-model:show="activeModal"
+      :title="`${$t('kol.despositSBTC')}`"
+    >
       <div class="content">
-        <div class="balanceBox">餘額：{{ sBtcBalance }} SBTC</div>
+        <div class="balanceBox">
+          {{ $t("kol.balance") }}：{{ sBtcBalance }} SBTC
+        </div>
         <div class="inputBox">
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`請輸入質押數量 >= ${minDeposit} SBTC`"
+            :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} SBTC`"
             @change="changeDepositAmount"
           />
-          <button size="small" @click="maxFun">最大</button>
+          <button size="small" @click="maxFun">{{ $t("kol.max") }}</button>
         </div>
         <van-button
           v-if="!allowance"
           :loading="approveLoading"
-          class="modelBtn"
+          class="modelBtn !mt-[20px] min-w-[200px]"
           size="small"
           @click="approveActive()"
-          >去授權</van-button
+          >{{ $t("kol.approve") }}</van-button
         >
         <van-button
           v-else
           :loading="activeLoading"
-          class="modelBtn"
+          class="modelBtn !mt-[20px] min-w-[200px]"
           size="small"
           @click="userDeposit()"
-          >去質押</van-button
+          >{{ $t("kol.desposit") }}</van-button
         >
       </div>
     </van-action-sheet>
@@ -240,6 +243,7 @@ export default {
       minDeposit: "",
       searchValue: "",
       searchList: "",
+      checked: false,
     };
   },
   mounted() {
@@ -260,14 +264,20 @@ export default {
     this.timer = null;
   },
   computed: {
+    // tweet() {
+    //   return `我的錢包${shortStr(
+    //     this.$store.state.address
+    //   )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
+    //     this.selectedItem.name
+    //   }銘文，請大家幫忙點讚、轉發這則推文，助力${
+    //     this.selectedItem.name
+    //   }銘文上SmartBTC熱門！`;
+    // },
     tweet() {
-      return `我的錢包${shortStr(
-        this.$store.state.address
-      )}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣${
-        this.selectedItem.name
-      }銘文，請大家幫忙點讚、轉發這則推文，助力${
-        this.selectedItem.name
-      }銘文上SmartBTC熱門！`;
+      return this.$t("kol.tweet", {
+        address: this.shortStr(this.$store.state.address),
+        name: this.selectedItem.name,
+      });
     },
   },
   methods: {
@@ -276,26 +286,26 @@ export default {
     realIconLogo,
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     getStatus(status) {
       switch (status) {
         case 1:
-          return "認證通過";
+          return this.$t("kol.status[0]");
         case 2:
-          return "已認領或建立项目,審核中。。。";
+          return this.$t("kol.status[1]");
         case 3:
-          return "待執行合約設定KOL";
+          return this.$t("kol.status[2]");
         case 4:
-          return "KOL合約已執行";
+          return this.$t("kol.status[3]");
         case 5:
-          return "項目KOL已生效";
+          return this.$t("kol.status[4]");
         case 6:
-          return "项目KOL設定執行失敗";
+          return this.$t("kol.status[5]");
         case 7:
-          return "認證審核未通過";
+          return this.$t("kol.status[6]");
         case 8:
-          return "項目KOL設定為失效";
+          return this.$t("kol.status[7]");
         default:
           return "";
       }
@@ -325,10 +335,10 @@ export default {
     },
     register() {
       if (!ethers.utils.isAddress(this.address)) {
-        return showToast("請填寫正確的錢包地址");
+        return showToast(this.$t("kol.tips[0]"));
       }
       if (this.xAddress == "") {
-        return showToast("請填寫正確的X位址");
+        return showToast(this.$t("kol.tips[1]"));
       }
       this.$axios
         .post("https://smartbtc.io/bridge/kol/register", {
@@ -338,7 +348,7 @@ export default {
           discord_account: this.disAddress,
         })
         .then((res) => {
-          showToast("已提交認證申請");
+          showToast(this.$t("kol.tips[5]"));
           this.getInfo();
         })
         .catch((err) => {
@@ -347,8 +357,10 @@ export default {
     },
     bindProject(project_name) {
       showConfirmDialog({
-        title: `認領${project_name}项目`,
-        message: "確認是否已發推文且以目前按讚數提交申請",
+        title: `${this.$t("kol.tips[2]", { name: project_name })}`,
+        message: `${this.$t("kol.tips[3]")}`,
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
       })
         .then(() => {
           this.$axios
@@ -357,7 +369,7 @@ export default {
               project_name: project_name,
             })
             .then((res) => {
-              showToast("認領成功");
+              showToast(this.$t("kol.claimSuccess"));
               this.model = false;
             })
             .catch((err) => {
@@ -473,10 +485,12 @@ export default {
     },
     userDeposit() {
       if (this.depositAmount * 1 < this.minDeposit * 1) {
-        return showToast(`质押金额必须大于等于${this.minDeposit}sBTC`);
+        return showToast(
+          `${this.$t("kol.tips[4]", { name: this.minDeposit })}`
+        );
       }
       if (this.depositAmount * 1 > this.sBtcBalance * 1) {
-        return showToast("余额不足");
+        return showToast(this.$t("noBalance"));
       }
 
       this.activeLoading = true;
@@ -503,7 +517,7 @@ export default {
           console.log("res", res);
           this.activeLoading = false;
           this.activeModal = false;
-          showToast("质押成功");
+          showToast(this.$t("stakeSuccess"));
           this.getActiveAmount();
         })
         .catch(() => {
@@ -539,8 +553,8 @@ export default {
 <style lang="scss" scoped>
 .kolIndex {
   // background-color: #fff;
-  height: 100vh;
-  padding-bottom: 100px;
+  // height: 100vh;
+  // padding-bottom: 100px;
 }
 .header {
   background-color: #fff;
@@ -865,7 +879,7 @@ export default {
     padding: 10px;
     border-radius: 10px;
     .searchBox {
-      width: calc(100% - 80px);
+      width: calc(100% - 120px);
       height: 36px;
       background-color: transparent;
       border: 1px solid #999;

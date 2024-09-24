@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/css/init.css";
-import "./assets/css/tailwindcss.css"
+import "./assets/css/tailwindcss.css";
 import "vant/lib/index.css";
 import {
   Button,
@@ -26,12 +26,14 @@ import {
   Steps,
   DropdownMenu,
   DropdownItem,
+  Checkbox,
 } from "vant";
 import axios from "axios";
 
 import { Table, Slider } from "ant-design-vue";
 import "ant-design-vue/dist/reset.css";
 import "animate.css";
+import i18n from "./language";
 
 // import * as echarts from "echarts/core";
 // import {
@@ -59,8 +61,10 @@ import "animate.css";
 const app = createApp(App);
 app.config.globalProperties.$axios = axios;
 app
+  .use(i18n)
   .use(Button)
   .use(Toast)
+  .use(Checkbox)
   .use(DropdownMenu)
   .use(DropdownItem)
   .use(Loading)

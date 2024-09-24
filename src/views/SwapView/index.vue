@@ -3,12 +3,12 @@
     <div class="dao">
       <div class="staking-content">
         <div class="balance">
-          <span>100T餘額(HECO)</span>
+          <span>{{ $t("hecoSwap.balance") }} </span>
           <span>{{ hecoBalance }}</span>
         </div>
         <div class="staking-input-box no-lp">
           <input
-            placeholder="本次輸入需 ≥ 100"
+            :placeholder="`${$t('hecoSwap.placeHolder', { number: 100 })}`"
             oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
             class="input-border"
             :value="inputValue"
@@ -22,7 +22,7 @@
               fontsize="15px"
               class="max"
             >
-              最大
+              {{ $t("hecoSwap.max") }}
             </div>
           </div>
         </div>
@@ -33,7 +33,8 @@
               v-if="allowance * 1 == 0"
               @click="approveFun"
               class="staking-btn"
-              >授權
+            >
+              {{ $t("hecoSwap.approve") }}
             </van-button>
             <van-button
               v-else
@@ -41,30 +42,32 @@
               :disabled="!inputValue"
               @click="swapFun"
               class="staking-btn"
-              >跨鏈提交</van-button
+              >{{ $t("hecoSwap.submit") }}</van-button
             >
           </div>
         </div>
       </div>
 
       <div class="swapWait">
-        <div class="font-medium">可跨鏈金額：{{ waitBridge }}</div>
+        <div class="font-medium max-w-[50%] text-left">
+          {{ $t("hecoSwap.bridgeAmount") }}：{{ waitBridge }}
+        </div>
         <van-button
           :disabled="!(waitBridge * 1) || hasNoCompleteOrder"
           :loading="swapSureLoading"
           size="small"
           @click="swapSure"
           class="swap-btn"
-          >跨鏈</van-button
+        >
+          {{ $t("hecoSwap.bridge") }}</van-button
         >
       </div>
       <div class="tips">
-        因被SmartBTC收购，CoinDAO社區代币100T (HECO)可10:
-        1置换为比特币符文IOOT•SMARTBTC•IO（BSC对应代币为100T） ，请尽快行权!
+        {{ $t("hecoSwap.tips") }}
       </div>
       <div class="swapRecord">
         <div class="title">
-          <span class="font-medium">跨鏈記錄</span>
+          <span class="font-medium"> {{ $t("hecoSwap.history") }}</span>
           <img
             v-if="showLoading"
             @click="refreshData"
@@ -78,11 +81,11 @@
           <div v-for="(list, index) in recordList">
             <div class="swapRecordList" :key="index">
               <div>
-                <span class="font-medium">訂單編號</span>
+                <span class="font-medium">{{ $t("hecoSwap.number") }}</span>
                 <span>{{ list.order_id }}</span>
               </div>
               <div v-if="list.convert_txid">
-                <span class="font-medium">交易Hash</span>
+                <span class="font-medium">{{ $t("hecoSwap.hash") }}</span>
                 <div class="flex items-center">
                   <a
                     class="leading-8"
@@ -106,11 +109,13 @@
                 <span>{{ list.to_network }}</span>
               </div>
               <div>
-                <span class="font-medium">數量</span>
+                <span class="font-medium">{{ $t("hecoSwap.amount") }}</span>
                 <span>{{ list.real_amount }} (100T)</span>
               </div>
               <div>
-                <span class="font-medium">訂單狀態</span>
+                <span class="font-medium">{{
+                  $t("hecoSwap.orderStatus")
+                }}</span>
                 <span>{{ list.order_state }}</span>
               </div>
             </div>
@@ -207,7 +212,7 @@ export default {
         ethers.constants.MaxUint256
       )
         .then(() => {
-          showToast("授權成功");
+          showToast(this.$t("hecoSwap.approveSuccess"));
           this.getAllowance();
         })
         .catch((err) => console.log(err));
@@ -215,10 +220,10 @@ export default {
     },
     async swapFun() {
       if (this.inputValue * 1 < 100) {
-        return showToast("最小跨鏈金額為100");
+        return showToast(this.$t("hecoSwap.min", { number: 100 }));
       }
       if (this.inputValue * 1 > this.hecoBalance * 1) {
-        return showToast("餘額不足");
+        return showToast(this.$t("btcSwap.noBalance"));
       }
       this.swapLoading = true;
       await getWriteContractLoad(
@@ -229,7 +234,7 @@ export default {
       )
         .then(() => {
           setTimeout(() => {
-            showToast("跨鏈提交成功");
+            showToast(this.$t("hecoSwap.submitSucccess"));
             this.getWaitBridgeList();
           }, 2000);
         })
@@ -282,13 +287,13 @@ export default {
     getStatus(status) {
       switch (status) {
         case 0:
-          return "進行中";
+          return this.$t("btcSwap.status[1]");
         case 1:
-          return "進行中";
+          return this.$t("btcSwap.status[1]");
         case 2:
-          return "已完成";
+          return this.$t("btcSwap.status[2]");
         default:
-          return "進行中";
+          return this.$t("btcSwap.status[1]");
       }
     },
     getRecordList() {
@@ -314,17 +319,17 @@ export default {
             return list;
           });
           this.recordList = newArr;
-          this.allData = "已載入全部數據";
+          this.allData = this.$t("btcSwap.allData");
         })
         .catch((err) => {
-          this.allData = "已載入全部數據";
+          this.allData = this.$t("btcSwap.allData");
           console.log(err);
         });
       this.loading = false;
     },
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     refreshData() {
       this.showLoading = false;

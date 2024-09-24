@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="tabs">
-      <router-link to="trade" :class="$route.name == 'trade' ? 'active' : ''"
-        >交易</router-link
-      >
-      <router-link to="pool" :class="$route.name == 'pool' ? 'active' : ''"
-        >做市商</router-link
-      >
+      <router-link to="trade" :class="$route.name == 'trade' ? 'active' : ''">{{
+        $t("options.tradeTitle")
+      }}</router-link>
+      <router-link to="pool" :class="$route.name == 'pool' ? 'active' : ''">{{
+        $t("options.marketMakerTitle")
+      }}</router-link>
     </div>
     <router-view class="view"></router-view>
   </div>

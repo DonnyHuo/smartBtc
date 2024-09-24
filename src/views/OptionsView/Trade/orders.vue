@@ -1,9 +1,9 @@
 <template>
   <div class="order">
-    <div class="title">订单</div>
+    <div class="title">{{ $t("options.order.title") }}</div>
     <div class="tables">
       <van-tabs v-model:active="active">
-        <van-tab title="当前持仓">
+        <van-tab :title="`${$t('options.order.have')}`">
           <a-table
             :dataSource="dataSource"
             :columns="columns"
@@ -16,14 +16,16 @@
           >
             <template #headerCell="{ column }">
               <template v-if="column.key === 'id'">#</template>
-              <template v-if="column.key === 'trade'">交易对</template>
+              <template v-if="column.key === 'trade'">{{
+                $t("options.order.tradeLP")
+              }}</template>
               <template v-if="column.key === 'typeTime'">
-                <div>期权类型</div>
-                <div>开仓时间</div>
+                <div>{{ $t("options.order.type") }}</div>
+                <div>{{ $t("options.order.openTime") }}</div>
               </template>
               <template v-if="column.key === 'amount'">
-                <div>开仓数量</div>
-                <div>未实现盈亏</div>
+                <div>{{ $t("options.order.openAmount") }}</div>
+                <div>{{ $t("options.order.UPL") }}</div>
               </template>
             </template>
             <!-- -->
@@ -50,7 +52,11 @@
               </template>
               <template v-if="column.key === 'typeTime'">
                 <div :class="record.isBuy ? 'long' : 'short'">
-                  {{ record.isBuy ? "做多" : " 做空" }}
+                  {{
+                    record.isBuy
+                      ? $t("options.order.long")
+                      : $t("options.order.short")
+                  }}
                 </div>
                 <div>{{ record.startTime }}</div>
               </template>
@@ -78,35 +84,37 @@
             <template #expandedRowRender="{ record }">
               <div class="expandedBox">
                 <div>
-                  <div>开仓指数</div>
+                  <div>{{ $t("options.order.openIndex") }}</div>
                   <div>{{ (record.openPrice * 1).toFixed(2) }}</div>
                 </div>
                 <div>
-                  <div>标记指数</div>
+                  <div>{{ $t("options.order.markIndex") }}</div>
                   <div>{{ USDPrice[record.name] }}</div>
                 </div>
                 <div>
-                  <div>手续费</div>
+                  <div>{{ $t("options.order.fee") }}</div>
                   <div>
                     {{ (record.tradingFee * 1).toFixed(2) }}
                     {{ record.tokenInfo.symbol }}
                   </div>
                 </div>
                 <div>
-                  <div>已付权利金</div>
+                  <div>{{ $t("options.order.paid") }}</div>
                   <div>
                     {{ (record.fundingFeePaid * 1).toFixed(2) }}
                     {{ record.tokenInfo.symbol }}
                   </div>
                 </div>
               </div>
-              <van-button @click="showCloseOrderFun(record)" class="closeOrder"
-                >平仓</van-button
+              <van-button
+                @click="showCloseOrderFun(record)"
+                class="closeOrder"
+                >{{ $t("options.order.close") }}</van-button
               >
             </template>
           </a-table>
         </van-tab>
-        <van-tab title="历史交易">
+        <van-tab :title="`${$t('options.order.history')}`">
           <a-table
             :dataSource="historySources"
             :columns="historyColumns"
@@ -119,14 +127,16 @@
           >
             <template #headerCell="{ column }">
               <template v-if="column.key === 'id'">#</template>
-              <template v-if="column.key === 'trade'">交易对</template>
+              <template v-if="column.key === 'trade'">{{
+                $t("options.order.tradeLP")
+              }}</template>
               <template v-if="column.key === 'typeTime'">
-                <div>期权类型</div>
-                <div>平仓时间</div>
+                <div>{{ $t("options.order.type") }}</div>
+                <div>{{ $t("options.order.openTime") }}</div>
               </template>
               <template v-if="column.key === 'amount'">
-                <div>数量</div>
-                <div>损益</div>
+                <div>{{ $t("options.order.amount") }}</div>
+                <div>{{ $t("options.order.profitAndLoss") }}</div>
               </template>
             </template>
             <template #bodyCell="{ column, record }">
@@ -151,7 +161,11 @@
               </template>
               <template v-if="column.key === 'typeTime'">
                 <div :class="record.isBuy ? 'long' : 'short'">
-                  {{ record.isBuy ? "做多" : " 做空" }}
+                  {{
+                    record.isBuy
+                      ? $t("options.order.long")
+                      : $t("options.order.short")
+                  }}
                 </div>
                 <div>{{ record.closeTimestamp }}</div>
               </template>
@@ -174,27 +188,27 @@
             <template #expandedRowRender="{ record }">
               <div class="expandedBox">
                 <div>
-                  <div>开仓时间</div>
+                  <div>{{ $t("options.order.openTime") }}</div>
                   <div>{{ record.openTimestamp }}</div>
                 </div>
                 <div>
-                  <div>平仓时间</div>
+                  <div>{{ $t("options.order.closeTime") }}</div>
                   <div>{{ record.closeTimestamp }}</div>
                 </div>
                 <div>
-                  <div>开仓指数</div>
+                  <div>{{ $t("options.order.openIndex") }}</div>
                   <div>
                     {{ (record.openPrice * 1).toFixed(2) }}
                   </div>
                 </div>
                 <div>
-                  <div>平仓指数</div>
+                  <div>{{ $t("options.order.closingIndex") }}</div>
                   <div>
                     {{ (record.closePrice * 1).toFixed(2) }}
                   </div>
                 </div>
                 <div>
-                  <div>已付权利金</div>
+                  <div>{{ $t("options.order.paid") }}</div>
                   <div>
                     {{ (record.fundingFee * 1).toFixed(2) }}
                     {{ record.tokenInfo.symbol }}
@@ -210,7 +224,7 @@
     <van-action-sheet
       class="closeOrderSheet"
       v-model:show="showCloseOrderSheet"
-      title="平仓信息"
+      :title="`${$t('options.order.closeInfo')}`"
     >
       <div class="content">
         <div class="logos">
@@ -238,25 +252,25 @@
             <div>#{{ activeOrder.id }}</div>
           </div>
           <div>
-            <div>期权类型</div>
+            <div>{{ $t("options.order.type") }}</div>
             <div :class="activeOrder.isBuy ? 'green' : 'red'">
               {{ activeOrder.isBuy ? " 做多" : "做空" }}
             </div>
           </div>
           <div>
-            <div>持仓数量</div>
+            <div>{{ $t("options.order.positionAmount") }}</div>
             <div>{{ activeOrder.amount }} {{ activeOrder.name }}</div>
           </div>
           <div>
-            <div>开仓指数</div>
+            <div>{{ $t("options.order.openIndex") }}</div>
             <div>{{ (activeOrder.openPrice * 1).toFixed(2) }}</div>
           </div>
           <div>
-            <div>平仓指数</div>
+            <div>{{ $t("options.order.closingIndex") }}</div>
             <div>{{ USDPrice[activeOrder.name] }}</div>
           </div>
           <div>
-            <div>损益</div>
+            <div>{{ $t("options.order.profitAndLoss") }}</div>
             <div>
               <span
                 :class="`${getActiveVolume(activeOrder) > 0 ? 'green' : 'red'}`"
@@ -274,7 +288,7 @@
           :loading="closeOrderLoading"
           class="closeSure"
           @click="closeOrder"
-          >确认</van-button
+          >{{ $t("options.order.sure") }}</van-button
         >
       </div>
     </van-action-sheet>
@@ -502,7 +516,7 @@ export default {
           this.$emit("getAccountInfo");
           this.$emit("getMaxAmount");
           this.closeOrderLoading = false;
-          showToast("平仓成功");
+          showToast(this.$t("options.order.closeSuccess"));
           this.showCloseOrderSheet = false;
         })
         .catch((err) => {

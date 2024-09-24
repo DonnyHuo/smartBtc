@@ -20,12 +20,12 @@
         <div class="logoSymbols">
           <div>
             <div>{{ activeTabs ? "ETH" : "BTC" }}</div>
-            <div>指数</div>
+            <div>{{ $t("options.trade.title[0]") }}</div>
           </div>
           <div class="line">/</div>
           <div>
             <div>{{ selectedCoin.symbol }}</div>
-            <div>权利金</div>
+            <div>{{ $t("options.trade.title[1]") }}</div>
           </div>
         </div>
         <van-button
@@ -33,12 +33,12 @@
           :icon="require('@/assets/img/down.png')"
           icon-position="right"
           @click="tokenShow"
-          >选择</van-button
+          >{{ $t("options.trade.title[2]") }}</van-button
         >
       </div>
       <div class="swap">
         <span class="name">{{ activeTabs ? "ETH" : "BTC" }}</span>
-        <span>指数</span>
+        <span>{{ $t("options.trade.title[0]") }}</span>
         <span>=</span>
         <span class="name">{{ USDPrice[activeTabs ? "ETH" : "BTC"] }}</span>
         <span>{{ selectedCoin.symbol }}</span>
@@ -65,7 +65,9 @@
       </div>
     </div> -->
     <div class="balanceBox">
-      <div class="title">可用保证金({{ selectedCoin.symbol }})</div>
+      <div class="title">
+        {{ $t("options.trade.title[3]") }}({{ selectedCoin.symbol }})
+      </div>
       <div class="balance">
         {{
           orderInfo.available ? (orderInfo.available * 1).toFixed(2) : "0.00"
@@ -73,9 +75,9 @@
       </div>
       <img class="dashBoard" src="@/assets/img/dashBoard.png" alt="" />
       <div class="info">
-        <div>
+        <div class="flex items-center">
           <div class="maintenance">
-            <span>维持保证金</span>
+            <span>{{ $t("options.trade.title[4]") }}</span>
             <van-popover
               class="maintenancePopover"
               v-model:show="showPopoverMaintenance"
@@ -84,9 +86,9 @@
               <template #reference>
                 <img class="tips" src="@/assets/img/tips.png" alt="" />
               </template>
-              <div class="popoverTitle">维持保证金</div>
+              <div class="popoverTitle">{{ $t("options.trade.title[4]") }}</div>
               <div>
-                当可用余额小于下一次展期需要付出的权利金时，才会被扣除。
+                {{ $t("options.trade.desc") }}
               </div>
             </van-popover>
           </div>
@@ -104,8 +106,12 @@
         </div> -->
       </div>
       <div class="btnBox">
-        <van-button @click="showDepositSheetFun">存入</van-button>
-        <van-button @click="showWithdrawSheetFun">取回</van-button>
+        <van-button @click="showDepositSheetFun">{{
+          $t("options.trade.title[5]")
+        }}</van-button>
+        <van-button @click="showWithdrawSheetFun">{{
+          $t("options.trade.title[6]")
+        }}</van-button>
       </div>
     </div>
     <div class="tradeBox">
@@ -127,7 +133,7 @@
               <img src="@/assets/img/settings.png" alt="" />
             </template>
             <div class="title">
-              <span>交易设置</span>
+              <span>{{ $t("options.trade.title[7]") }}</span>
               <img
                 class="closeSettingPopover"
                 @click="settingPopover = false"
@@ -136,7 +142,7 @@
               />
             </div>
             <div>
-              <div class="nav_title">滑点上限</div>
+              <div class="nav_title">{{ $t("options.trade.title[8]") }}</div>
               <div class="selectSlippage">
                 <van-button
                   v-for="(item, index) in slippages"
@@ -153,35 +159,39 @@
               </div>
             </div>
             <div>
-              <div class="nav_title">交易截止时间</div>
+              <div class="nav_title">{{ $t("options.trade.title[9]") }}</div>
               <div class="deadline">
                 <input
                   class="inputValue"
                   v-model="tradeTimeInput"
                   type="text"
                 />
-                <span>分钟</span>
+                <span>{{ $t("options.trade.title[10]") }}</span>
               </div>
             </div>
           </van-popover>
         </div>
       </div>
       <div class="tabs">
-        <van-button :class="index == 0 ? 'active' : ''" @click="changeTab(0)"
-          >做多</van-button
-        >
-        <van-button :class="index == 1 ? 'active' : ''" @click="changeTab(1)"
-          >做空</van-button
-        >
+        <van-button :class="index == 0 ? 'active' : ''" @click="changeTab(0)">{{
+          $t("options.trade.title[11]")
+        }}</van-button>
+        <van-button :class="index == 1 ? 'active' : ''" @click="changeTab(1)">{{
+          $t("options.trade.title[12]")
+        }}</van-button>
       </div>
-      <div>数量（{{ activeTabs ? "ETH" : "BTC" }}）</div>
+      <div>
+        {{ $t("options.trade.title[13]") }}（{{ activeTabs ? "ETH" : "BTC" }}）
+      </div>
       <div class="inputBox">
         <input
           type="text"
           v-model="tradeAmount"
-          :placeholder="`最大 ${maxAmount}`"
+          :placeholder="`${$t('options.trade.max')} ${maxAmount}`"
         />
-        <van-button @click="maxSellFun" size="small">最大</van-button>
+        <van-button @click="maxSellFun" size="small">{{
+          $t("options.trade.max")
+        }}</van-button>
       </div>
       <div class="sliderBox">
         <a-slider
@@ -201,7 +211,7 @@
         </a-slider>
       </div>
       <div class="infos">
-        <span>手续费</span>
+        <span>{{ $t("options.trade.title[14]") }}</span>
         <span>
           <span class="weight paddingRight">{{
             formatNum(
@@ -283,7 +293,7 @@
       <van-button
         @click="showTradeSheetFun"
         :class="`open ${!index ? 'long' : 'short'}`"
-        >开仓</van-button
+        >{{ $t("options.trade.open") }}</van-button
       >
     </div>
     <Orders
@@ -299,7 +309,7 @@
     <van-action-sheet
       class="selectTokenList"
       v-model:show="showTokenList"
-      title="选择代币"
+      :title="`${$t('options.trade.select')}`"
     >
       <div class="content">
         <van-tabs class="tabs" v-model:active="activeTabs">
@@ -316,7 +326,7 @@
         <van-search
           class="search"
           v-model="searchValue"
-          placeholder="输入代币地址查询"
+          :placeholder="`${$t('options.trade.search')}`"
           input-align="center"
         />
         <div class="lists">
@@ -329,7 +339,7 @@
                 <div class="name">
                   <div>{{ list.symbol }}</div>
                   <div>
-                    24小时交易量：{{
+                    {{ $t("options.trade.tradeAmount") }}：{{
                       list.volume && list.volume[activeTabs ? "ETH" : "BTC"]
                     }}
                     {{ activeTabs ? "ETH" : "BTC" }}
@@ -353,7 +363,7 @@
               v-else
               image="search"
               image-size="100"
-              description="无数据"
+              :description="`${$t('options.trade.nodata')}`"
             />
           </div>
         </div>
@@ -363,7 +373,7 @@
     <van-action-sheet
       class="depositSheet"
       v-model:show="showDepositSheet"
-      title="资金存入"
+      :title="`${$t('options.trade.title[15]')}`"
     >
       <div class="content">
         <div class="inputBox">
@@ -372,9 +382,13 @@
             <input
               v-model="depositValue"
               type="text"
-              :placeholder="`最大 ${selectedCoin.balanceOf}`"
+              :placeholder="`${$t('options.trade.max')} ${
+                selectedCoin.balanceOf
+              }`"
             />
-            <van-button @click="maxDepositFun">最大</van-button>
+            <van-button @click="maxDepositFun">{{
+              $t("options.trade.max")
+            }}</van-button>
           </div>
         </div>
         <div>
@@ -384,7 +398,7 @@
             class="depositBtn"
             @click="depositFun"
             size="small"
-            >存入</van-button
+            >{{ $t("options.trade.title[5]") }}</van-button
           >
           <van-button
             v-else
@@ -392,7 +406,8 @@
             class="depositBtn"
             @click="approve"
             size="small"
-            >授权
+          >
+            {{ $t("options.trade.approve") }}
           </van-button>
         </div>
       </div>
@@ -401,7 +416,7 @@
     <van-action-sheet
       class="withdrawSheet"
       v-model:show="showWithdrawSheet"
-      title="取回资金"
+      :title="`${$t('options.trade.title[16]')}`"
     >
       <div class="content">
         <div class="inputBox">
@@ -410,9 +425,11 @@
             <input
               v-model="withdrawValue"
               type="text"
-              :placeholder="`最大 ${orderInfo.available}`"
+              :placeholder="`${$t('options.trade.max')} ${orderInfo.available}`"
             />
-            <van-button @click="maxWithdrawFun">最大</van-button>
+            <van-button @click="maxWithdrawFun">{{
+              $t("options.trade.max")
+            }}</van-button>
           </div>
         </div>
         <van-button
@@ -420,7 +437,7 @@
           class="depositBtn"
           size="small"
           @click="withdrawFun"
-          >取回</van-button
+          >{{ $t("options.trade.title[6]") }}</van-button
         >
       </div>
     </van-action-sheet>
@@ -428,7 +445,7 @@
     <van-action-sheet
       class="showTradeSheet"
       v-model:show="showTradeSheet"
-      title="交易信息"
+      :title="`${$t('options.trade.title[17]')}`"
     >
       <div class="content">
         <div class="nameInfo">
@@ -453,13 +470,15 @@
         </div>
         <div class="infoBox">
           <div>
-            <span>期权类型</span>
+            <span>{{ $t("options.trade.title[18]") }}</span>
             <span :class="index ? 'red' : 'green'">{{
-              index ? "做空" : "做多"
+              index
+                ? $t("options.trade.title[11]")
+                : $t("options.trade.title[12]")
             }}</span>
           </div>
           <div>
-            <span>开仓数量</span>
+            <span>{{ $t("options.trade.title[19]") }}</span>
             <span>
               <span class="weight paddingRight">{{
                 formatNum(tradeAmount * 1)
@@ -468,7 +487,7 @@
             </span>
           </div>
           <div>
-            <span>开仓指数</span>
+            <span>{{ $t("options.trade.title[20]") }}</span>
             <span class="weight">{{
               USDPrice[activeTabs ? "ETH" : "BTC"]
             }}</span>
@@ -481,7 +500,7 @@
             </span>
           </div> -->
           <div>
-            <span>手续费</span>
+            <span>{{ $t("options.trade.fee") }}</span>
             <span>
               <span class="weight paddingRight">
                 {{
@@ -497,9 +516,9 @@
             </span>
           </div>
         </div>
-        <van-button :loading="tradingLoading" @click="tradeFun" class="sure"
-          >确认</van-button
-        >
+        <van-button :loading="tradingLoading" @click="tradeFun" class="sure">{{
+          $t("options.trade.sure")
+        }}</van-button>
       </div>
     </van-action-sheet>
   </div>
@@ -636,7 +655,7 @@ export default {
     },
     Clipboard(address) {
       console.log(address);
-      showToast("复制成功");
+      showToast(this.$t("copySuccess"));
       return copy(address);
     },
     selectList(item) {
@@ -795,7 +814,7 @@ export default {
     // 授权
     async approve() {
       if (!this.selectedCoin.address) {
-        return showToast("请选择授权代币");
+        return showToast(this.$t("options.trade.selectApproveToken[0]"));
       }
       this.approveLoading = true;
       await getWriteContractLoad(
@@ -807,7 +826,7 @@ export default {
       )
         .then(() => {
           this.approveLoading = false;
-          showToast("授權成功");
+          showToast(this.$("hecoSwap.approveSuccess"));
           this.getAllowance(this.selectedCoin.address);
         })
         .catch((err) => {
@@ -827,7 +846,6 @@ export default {
 
     //查询用户账户信息
     async getAccountInfo() {
-      console.log("321321321312321321");
       const info = await getContract(
         this.$store.state.PerpetualOptionsAddr,
         perpetualOptionsAbi,
@@ -859,10 +877,10 @@ export default {
     // 用户存款
     async depositFun() {
       if (this.depositValue * 1 > this.selectedCoin.balanceOf * 1) {
-        return showToast("余额不足");
+        return showToast(this.$t("options.trade.errorTips[0]"));
       }
       if (this.depositValue == "") {
-        return showToast("请输入正确的金额");
+        return showToast(this.$t("options.trade.errorTips[1]"));
       }
       this.depositLoading = true;
       const overrides = {
@@ -885,7 +903,7 @@ export default {
           this.tradeAmount = "";
           this.sliderValue = 0;
           this.getAccountInfo();
-          showToast("资金存入成功");
+          showToast(this.$t("options.trade.desposit"));
           this.selectedCoin.balanceOf = await getContract(
             this.selectedCoin.address,
             erc20Abi,
@@ -901,10 +919,10 @@ export default {
     // 用户取款
     async withdrawFun() {
       if (this.withdrawValue * 1 > this.orderInfo.available * 1) {
-        return showToast("余额不足");
+        return showToast(this.$t("options.trade.errorTips[0]"));
       }
       if (this.withdrawValue == "") {
-        return showToast("请输入正确的金额");
+        return showToast(this.$t("options.trade.errorTips[1]"));
       }
       this.withdrawLoading = true;
       await getWriteContractLoad(
@@ -924,7 +942,7 @@ export default {
           this.tradeAmount = "";
           this.sliderValue = 0;
           this.getAccountInfo();
-          showToast("资金取回成功");
+          showToast(this.$t("options.trade.getSuccess"));
           this.selectedCoin.balanceOf = await getContract(
             this.selectedCoin.address,
             erc20Abi,
@@ -1067,7 +1085,7 @@ export default {
       )
         .then((res) => {
           this.tradingLoading = false;
-          showToast("开仓成功");
+          showToast(this.$t("options.trade.openSuccess"));
           this.tradeAmount = "";
           this.sliderValue = 0;
           this.showTradeSheet = false;
@@ -1076,7 +1094,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          showToast("开仓失败");
+          showToast(this.$t("options.trade.openFail"));
           this.tradingLoading = false;
           this.showTradeSheet = false;
         });
@@ -1253,7 +1271,7 @@ export default {
         this.loadingList = false;
         this.searchActions = arr;
       } else {
-        showToast("地址不合法");
+        showToast(this.$t("options.trade.errorAddress"));
         this.searchActions = [];
       }
     },
@@ -1461,6 +1479,7 @@ export default {
     }
     .dashBoard {
       width: 30px;
+      margin: 0 auto;
     }
     .info {
       background-color: #f6f7f9;
@@ -1481,6 +1500,8 @@ export default {
           padding-right: 2px;
         }
         .maintenance {
+          display: flex;
+          align-items: center;
           .tips {
             width: 16px;
             height: 16px;
