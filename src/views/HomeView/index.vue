@@ -1,14 +1,20 @@
 <template>
   <div class="home">
     <div class="homeLogoBox">
-      <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
+      <div>
+        <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
+      </div>
+
       <div>
         <div class="addressBox" @click="copyAddress($store.state.address)">
           <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
           <div class="address">{{ shortStr($store.state.address) }}</div>
           <img class="copy" src="../../assets/img/copy.png" alt="" />
         </div>
-        <div style="text-align: right; padding-top: 10px">
+        <div
+          style="text-align: right; padding-top: 10px"
+          class="flex item-center justify-between"
+        >
           <span>{{ sBtcBalance }} SBTC</span>
           <a
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
@@ -18,6 +24,13 @@
               $t("home.buy")
             }}</span>
           </a>
+          <van-dropdown-menu :overlay="false">
+            <van-dropdown-item
+              v-model="value1"
+              :options="option1"
+              @change="changeLan"
+            />
+          </van-dropdown-menu>
         </div>
       </div>
     </div>
@@ -287,6 +300,7 @@
 
 <script>
 import { ethers } from "ethers";
+
 import {
   shortStr,
   getContract,
@@ -326,6 +340,11 @@ export default {
       kolProgressValue: "",
       quitKolLoading: false,
       reserveBalance: 0,
+      option1: [
+        { text: "繁体中文", value: "zh" },
+        { text: "English", value: "en" },
+      ],
+      value1: this.$store.state.lang,
     };
   },
   computed: {
@@ -361,6 +380,11 @@ export default {
     this.timer = null;
   },
   methods: {
+    changeLan(value) {
+      console.log("value", value);
+      this.$store.commit("setLan", value);
+      location.reload();
+    },
     copyAddress(msg) {
       copy(msg);
       showToast("複製成功");
@@ -696,6 +720,7 @@ export default {
   .addressBox {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     .walletIcon {
       width: 20px;
       margin-right: 4px;
@@ -1088,5 +1113,23 @@ export default {
   color: #333;
 
   font-size: 12px;
+}
+::v-deep .van-dropdown-menu {
+  .van-dropdown-menu__bar {
+    box-shadow: none;
+    height: 20px;
+    .van-dropdown-menu__item {
+      height: 20px;
+    }
+  }
+  .van-dropdown-item {
+    width: 160px;
+    right: 0;
+    left: auto;
+    .van-popup {
+      border: 1px solid #f5f5f5;
+      border-radius: 10px;
+    }
+  }
 }
 </style>

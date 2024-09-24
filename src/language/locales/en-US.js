@@ -467,4 +467,9 @@ export default {
     pool: "Startup Pool",
     community: "Community",
   },
+  noWallet: "Wallet not detected",
+  connectTip: [
+    "Please select Binance Smart Chain",
+    "Please select Huobi Smart Chain",
+  ],
 };

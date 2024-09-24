@@ -433,4 +433,6 @@ export default {
     pool: "啟動池",
     community: "社區",
   },
+  noWallet: "未偵測到錢包",
+  connectTip: ["請選擇幣安智能鏈", "請選擇火币智能鏈"],
 };

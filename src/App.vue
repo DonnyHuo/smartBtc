@@ -2,13 +2,13 @@
   <div v-if="netWorkError" class="netWorkError">
     {{
       chainId !== "0x38"
-        ? "請選擇幣安智能鏈"
+        ? $t("connectTip[0]")
         : chainId !== "0x80"
-        ? "請選擇火币智能鏈"
+        ? $t("connectTip[1]")
         : ""
     }}
   </div>
-  <div v-if="noWallet" class="netWorkError">未偵測到錢包</div>
+  <div v-if="noWallet" class="netWorkError">{{ $t("noWallet") }}</div>
   <div class="contentView">
     <router-view />
   </div>

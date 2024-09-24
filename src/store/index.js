@@ -56,6 +56,7 @@ export default createStore({
       "0x645c42adcfa1e3815b90f044fd04f2c470bd96f6",
       "0x24de22bbb9b32d36ada8044f6ce405fb428893eb",
     ],
+    lang: "zh",
   },
   mutations: {
     setAddress(state, data) {
@@ -78,6 +79,9 @@ export default createStore({
     },
     setTokenList(state, data) {
       return (state.tokenList = data);
+    },
+    setLan(state, data) {
+      return (state.lang = data);
     },
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })],
