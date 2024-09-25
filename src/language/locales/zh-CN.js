@@ -158,11 +158,14 @@ export default {
   },
   kolAdd: {
     title: "KOL認證 — 推薦新項目",
+    brc20Name: "铭文字符",
+    brc20Id: "部署铭文ID",
+    brc20Supply: "铭文总量",
     name: "銘文BRC20",
     symbol: "幣種symbol",
     total: "代幣總量",
     rate: "BSC鏈初始發行分配比例",
-    rateArr: ["跨鏈", "流動性發行", "啟動池", "社區KOL奖励獎勵"],
+    rateArr: ["跨鏈合约", "流動性發行合约", "啟動池", "KOL獎勵合约"],
     submit: "提交初審",
     desc: "說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SBTC社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。",
     tips: [

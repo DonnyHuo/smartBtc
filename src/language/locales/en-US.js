@@ -165,6 +165,9 @@ export default {
   },
   kolAdd: {
     title: "KOL Certification — Recommend New Project",
+    brc20Name: "Inscription Character",
+    brc20Id: "Deployment Inscription ID",
+    brc20Supply: "Total amount of inscriptions",
     name: "Inscription BRC20",
     symbol: "Token Symbol",
     total: "Total Token Supply",

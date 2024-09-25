@@ -3,8 +3,16 @@
     <div class="header font-medium">{{ $t("kolAdd.title") }}</div>
     <div class="form">
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.name") }}</span>
-        <input type="text" v-model="name" />
+        <span class="font-medium">{{ $t("kolAdd.brc20Name") }}</span>
+        <input type="text" v-model="brc20_name" />
+      </div>
+      <div class="list">
+        <span class="font-medium">{{ $t("kolAdd.brc20Id") }}</span>
+        <input type="text" v-model="brc20_id" />
+      </div>
+      <div class="list">
+        <span class="font-medium">{{ $t("kolAdd.brc20Supply") }}</span>
+        <input type="text" v-model="brc20_supply" />
       </div>
       <div class="list">
         <span class="font-medium">{{ $t("kolAdd.symbol") }}</span>
@@ -43,6 +51,19 @@
           </div>
         </div>
       </div>
+      <div
+        class="text-[14px] px-[20px] my-2 mt-4 text-left leading-6 text-[#999]"
+      >
+        <p>
+          模式一，只开通跨链桥：铭文总量与BSC代币总量一致，且跨链合约100%，其他合约0。
+        </p>
+        <p>
+          模式二，流动性发行与KOL奖励不依赖增发：铭文总量与BSC代币总量一致，跨链合约占比50%，可通过后续运营回购转入提高至100%。
+        </p>
+        <p>
+          模式三，流动性发行与KOL奖励通过BSC链增发提供，跨链合约比例＝铭文总量/BSC代币总量。
+        </p>
+      </div>
       <div class="sure">
         <van-button @click="newProject">{{ $t("kolAdd.submit") }}</van-button>
       </div>
@@ -76,7 +97,9 @@ export default {
   data() {
     return {
       active: 0,
-      name: "",
+      brc20_name: "",
+      brc20_id: "",
+      brc20_supply: "",
       symbol: "",
       totalSupply: "",
       percents: ["", "", "", ""],
@@ -104,13 +127,16 @@ export default {
     },
     newProject() {
       const project_info = {
-        name: this.name,
+        brc20_name: this.brc20_name,
+        brc20_id: this.brc20_id,
+        brc20_supply: this.brc20_supply,
         symbol: this.symbol,
         total_supply: this.totalSupply,
         percents: this.percents.map((list) => list * 100),
       };
       if (
-        project_info.name &&
+        project_info.brc20_name &&
+        project_info.brc20_supply &&
         project_info.symbol &&
         project_info.total_supply &&
         project_info.percents.every((list) => list !== 0)
@@ -166,6 +192,7 @@ export default {
   padding: 20px 0;
   border-radius: 10px;
   background-color: #fff;
+  text-align: left;
 }
 .list {
   padding: 20px;
@@ -218,7 +245,8 @@ input {
   background-color: transparent;
 }
 .sure {
-  margin-top: 30px;
+  margin-top: 10px;
+  text-align: center;
   button {
     width: 90%;
     border-radius: 10px;
