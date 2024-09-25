@@ -140,7 +140,11 @@
               alt=""
             />
           </div>
+          <div class="text-left mt-2 text-[#999] text-sm">
+            {{ $t("kol.tweetTips") }}
+          </div>
         </div>
+
         <van-checkbox v-model="checked" class="m-[20px] mt-0 text-left">{{
           $t("kol.sure")
         }}</van-checkbox>

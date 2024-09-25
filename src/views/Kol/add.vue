@@ -61,6 +61,9 @@
           alt=""
         />
       </div>
+      <div class="text-left mt-4 px-[20px] text-[#999] text-xs">
+        {{ $t("kol.tweetTips") }}
+      </div>
     </div>
   </div>
 </template>

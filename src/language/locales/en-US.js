@@ -142,6 +142,7 @@ export default {
     max: "Max",
     tweet:
       "My wallet {address} has staked SBTC and is submitting KOL certification on the SmartBTC.io platform, participating in promoting the inscription of {name}. Please like and retweet this post to help {name} get trending on SmartBTC!",
+    tweetTips: "Copy the above copy and tweet it as @smartbtcdao",
     status: [
       "Certification Approved",
       "Claimed or Created Project, Under Review...",

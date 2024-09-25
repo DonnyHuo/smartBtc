@@ -135,6 +135,7 @@ export default {
     max: "最大",
     tweet:
       "我的錢包{address}已經質押SBTC，正在SmartBTC.io平台提交KOL認證，參與推廣{name}銘文，請大家幫忙點讚、轉發這則推文，助力{name}銘文上SmartBTC熱門！",
+    tweetTips: "复制以上文案发布推特并@smartbtcdao",
     status: [
       "認證通過",
       "已認領或建立项目,審核中。。。",
