@@ -139,7 +139,7 @@ export default {
         project_info.brc20_supply &&
         project_info.symbol &&
         project_info.total_supply &&
-        project_info.percents.every((list) => list !== 0)
+        project_info.percents.every((list) => list !== "")
       ) {
         showConfirmDialog({
           title: `${this.$t("kolAdd.tips[1]", {
