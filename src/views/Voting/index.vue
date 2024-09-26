@@ -61,7 +61,7 @@
               color="#ffc519"
               track-color="#FFF2C9"
               :pivot-text="`${$t('home.voting')} ${parseInt(
-                (item.vote_num * 100) / this.votePassNum
+                (item.vote_num * 100) / votePassNum
               )}%`"
             />
           </div>
@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="btnBox">
-          <van-button :disabled="item.voted" @click="vote(item.project_name)"
+          <van-button :disabled="item.voted || item.vote_num*1 == votePassNum*1" @click="vote(item.project_name)"
             >{{$t('voting.voteBtn')}}</van-button
           >
         </div>

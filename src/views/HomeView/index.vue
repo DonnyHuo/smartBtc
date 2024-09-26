@@ -94,7 +94,9 @@
             </div>
             <div class="btnBox">
               <van-button
-                :disabled="voting.voted"
+                :disabled="
+                  voting.voted || voting.vote_num * 1 == votePassNum * 1
+                "
                 @click="vote(voting.project_name)"
                 >{{ $t("home.vote") }}</van-button
               >
