@@ -563,10 +563,12 @@ export default {
         .then(async (res) => {
           if (res.data.data.length > 0) {
             this.projectIssuedList = res.data.data;
-            const reserveInfo = this.projectIssuedList.filter(
-              (list) => list.project_name == this.accountInfo.project_name
-            );
-            this.reserveInfo = reserveInfo[0];
+            if ([4, 5].includes(this.accountInfo.status)) {
+              const reserveInfo = this.projectIssuedList.filter(
+                (list) => list.project_name == this.accountInfo.project_name
+              );
+              this.reserveInfo = reserveInfo[0];
+            }
           }
         })
         .catch((err) => {
