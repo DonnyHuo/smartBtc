@@ -1,29 +1,48 @@
 <template>
   <div class="kolContent">
-    <div class="header font-medium">{{ $t("kolAdd.title") }}</div>
+    <div class="header font-medium">
+      {{ $t("kolAdd.title") }}
+    </div>
     <div class="form">
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.brc20Name") }}</span>
+        <span class="font-medium">
+          <span class="text-red-600 pr-1">*</span>
+          <span> {{ $t("kolAdd.brc20Name") }}</span>
+        </span>
         <input type="text" v-model="brc20_name" />
       </div>
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.brc20Id") }}</span>
+        <span class="font-medium">
+          {{ $t("kolAdd.brc20Id") }}
+        </span>
         <input type="text" v-model="brc20_id" />
       </div>
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.brc20Supply") }}</span>
+        <span class="font-medium">
+          <span class="text-red-600 pr-1">*</span>
+          <span>{{ $t("kolAdd.brc20Supply") }}</span>
+        </span>
         <input type="text" v-model="brc20_supply" />
       </div>
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.symbol") }}</span>
+        <span class="font-medium">
+          <span class="text-red-600 pr-1">*</span>
+          <span> {{ $t("kolAdd.symbol") }}</span>
+        </span>
         <input type="text" v-model="symbol" />
       </div>
       <div class="list">
-        <span class="font-medium">{{ $t("kolAdd.total") }}</span>
+        <span class="font-medium">
+          <span class="text-red-600 pr-1">*</span>
+          <span>{{ $t("kolAdd.total") }}</span>
+        </span>
         <input type="text" v-model="totalSupply" />
       </div>
       <div class="listBox">
-        <div class="title font-medium">{{ $t("kolAdd.rate") }}</div>
+        <div class="title font-medium">
+          <span class="text-red-600 pr-1">*</span>
+          <span> {{ $t("kolAdd.rate") }}</span>
+        </div>
         <div class="listDiv">
           <div class="listS">
             <span>{{ $t("kolAdd.rateArr[0]") }}</span>
