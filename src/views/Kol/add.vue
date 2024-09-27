@@ -73,14 +73,14 @@
       <div
         class="text-[14px] px-[20px] my-2 mt-4 text-left leading-6 text-[#999]"
       >
-        <p>
-          模式一，只开通跨链桥：铭文总量与BSC代币总量一致，且跨链合约100%，其他合约0。
+        <p class="py-2">
+          {{ $t("kolAdd.descTips[0]") }}
         </p>
-        <p>
-          模式二，流动性发行与KOL奖励不依赖增发：铭文总量与BSC代币总量一致，跨链合约占比50%，可通过后续运营回购转入提高至100%。
+        <p class="py-2">
+          {{ $t("kolAdd.descTips[1]") }}
         </p>
-        <p>
-          模式三，流动性发行与KOL奖励通过BSC链增发提供，跨链合约比例＝铭文总量/BSC代币总量。
+        <p class="py-2">
+          {{ $t("kolAdd.descTips[2]") }}
         </p>
       </div>
       <div class="sure">

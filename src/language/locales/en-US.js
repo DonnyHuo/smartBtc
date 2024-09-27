@@ -187,6 +187,11 @@ export default {
     ],
     success: "Application Successful",
     error: "Submission Data Error",
+    descTips: [
+      "Mode 1, only the cross-chain bridge is opened: the total amount of inscriptions is consistent with the total amount of BSC tokens, and the cross-chain contract is 100%, and other contracts are 0.",
+      "Mode 2, liquidity issuance and KOL rewards do not rely on additional issuance: the total amount of inscriptions is consistent with the total amount of BSC tokens, and the cross-chain contract accounts for 50%, which can be increased to 100% through subsequent operational repurchases.",
+      "Mode 3: Liquidity issuance and KOL rewards are provided through additional issuance on the BSC chain. The cross-chain contract ratio = total inscriptions/total BSC tokens.",
+    ],
   },
   community: {
     title: [
