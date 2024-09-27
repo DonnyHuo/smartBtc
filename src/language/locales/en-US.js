@@ -466,7 +466,7 @@ export default {
 
   footer: {
     mine: "Mine",
-    bridge: "Cross-chain Bridge",
+    bridge: "Bridge",
     swap: "LP Swap",
     pool: "Startup Pool",
     community: "Community",

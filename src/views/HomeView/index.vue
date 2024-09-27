@@ -200,7 +200,15 @@
       <div class="text-grey font-medium text-[14px] mt-2">
         {{ $t("home.navTitle3") }}
       </div>
-      <img class="bridgeBg" src="../../assets/img/bridge.png" alt="" />
+      <img
+        class="bridgeBg"
+        :src="
+          require($i18n.locale == 'zh'
+            ? '../../assets/img/bridge.png'
+            : '../../assets/img/bridgeEn.png')
+        "
+        alt=""
+      />
       <div class="content">
         {{ $t("home.desc3[0]") }}<br />
         {{ $t("home.desc3[1]") }}
