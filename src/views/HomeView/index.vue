@@ -219,7 +219,9 @@
       <div class="title font-medium text-center w-3/4 m-auto text-[18px]">
         {{ $t("kolAdd.descTitle") }}
       </div>
-      <div class="text-grey font-medium text-[14px] mt-2 pb-5 text-center">
+      <div
+        class="text-grey font-medium text-[14px] mt-2 pb-5 text-center leading-5"
+      >
         <div v-if="$i18n.locale == 'zh'">
           <div>{{ $t("kolAdd.descNavTitle[0]") }}</div>
           <div>{{ $t("kolAdd.descNavTitle[1]") }}</div>
