@@ -70,19 +70,24 @@
           </div>
         </div>
       </div>
-      <div
-        class="text-[14px] px-[20px] my-2 mt-4 text-left leading-6 text-[#999]"
-      >
-        <p class="py-2">
-          {{ $t("kolAdd.descTips[0]") }}
-        </p>
-        <p class="py-2">
-          {{ $t("kolAdd.descTips[1]") }}
-        </p>
-        <p class="py-2">
-          {{ $t("kolAdd.descTips[2]") }}
-        </p>
+
+      <div class="text-[14px] px-[20px] my-2 mt-10 text-left leading-6">
+        <div class="text-[#111] font-medium text-center w-3/4 m-auto pb-5">
+          {{ $t("kolAdd.descTitle") }}
+        </div>
+        <div class="text-[#999]">
+          <div class="pb-2">
+            {{ $t("kolAdd.descTips[0]") }}
+          </div>
+          <div class="pb-2">
+            {{ $t("kolAdd.descTips[1]") }}
+          </div>
+          <div class="pb-2">
+            {{ $t("kolAdd.descTips[2]") }}
+          </div>
+        </div>
       </div>
+
       <div class="sure">
         <van-button @click="newProject">{{ $t("kolAdd.submit") }}</van-button>
       </div>

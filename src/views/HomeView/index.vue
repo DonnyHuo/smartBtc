@@ -215,6 +215,21 @@
       </div>
     </div>
 
+    <div class="px-[20px] my-2 mt-10 text-left leading-6 text-[18px]">
+      <div class="title font-medium text-center w-3/4 m-auto pb-5">
+        {{ $t("kolAdd.descTitle") }}
+      </div>
+      <div class="text-[14px]">
+        <div class="pb-2">
+          {{ $t("kolAdd.descTips[0]") }}
+        </div>
+        <div class="pb-2">{{ $t("kolAdd.descTips[1]") }}</div>
+        <div class="pb-2">
+          {{ $t("kolAdd.descTips[2]") }}
+        </div>
+      </div>
+    </div>
+
     <div class="contant">
       <div class="title">
         <div class="font-medium">{{ $t("home.title4") }}</div>
