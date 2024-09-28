@@ -187,8 +187,12 @@ export default {
     ],
     success: "Application Successful",
     error: "There is an error in the submitted information",
-    descTitle:
-      "BRC852 Protocol Anchored to BTC Inscription Assets, Cross-Chain Issuance, Integrating Liquidity and Community Incentive Mechanisms",
+    descTitle: "BRC852 Protocol",
+    descNavTitle: [
+      "Anchored to BTC Inscription Assets, Cross-Chain Issuance,",
+      "Integrating Liquidity and Community Incentive Mechanisms",
+      "Anchored to BTC Inscription Assets, Cross-Chain Issuance,Integrating Liquidity and Community Incentive Mechanisms",
+    ],
     descTips: [
       "Mode 1, only open the cross-chain bridge: The total inscription supply is the same as the total BSC token supply, and the cross-chain contract is 100%, while other contracts are 0.",
       "Mode 2, liquidity issuance and KOL rewards do not rely on additional issuance: The total inscription supply is the same as the total BSC token supply, with 50% allocated to the cross-chain contract. It can be increased to 100% through subsequent operations and buybacks.",

@@ -72,10 +72,19 @@
       </div>
 
       <div class="text-[14px] px-[20px] my-2 mt-10 text-left leading-6">
-        <div class="text-[#111] font-medium text-center w-3/4 m-auto pb-5">
+        <div class="title font-medium text-center text-[18px]">
           {{ $t("kolAdd.descTitle") }}
         </div>
-        <div class="text-[#999]">
+        <div class="text-grey font-medium text-[14px] mt-2 pb-5 text-center">
+          <div v-if="$i18n.locale == 'zh'">
+            <div>{{ $t("kolAdd.descNavTitle[0]") }}</div>
+            <div>{{ $t("kolAdd.descNavTitle[1]") }}</div>
+          </div>
+          <div v-if="$i18n.locale == 'en'">
+            <div>{{ $t("kolAdd.descNavTitle[2]") }}</div>
+          </div>
+        </div>
+        <div class="text-[#333]">
           <div class="pb-2">
             {{ $t("kolAdd.descTips[0]") }}
           </div>
