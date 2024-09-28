@@ -319,12 +319,14 @@ export default {
         "totalSupply"
       );
       const total = ethers.utils.formatUnits(totalSupply, value.decimals) * 1;
+
       const myBalance = await getContract(
         value.address,
         erc20ABI,
         "balanceOf",
         this.$store.state.address
       );
+
       const myBalances =
         ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
@@ -332,11 +334,10 @@ export default {
     },
   },
   watch: {
-    async selectToken(value) {
-      console.log(value);
-      await this.getPairs(value.index);
-      await this.getBalance(value);
-      await this.getAddressBalance(value);
+    selectToken(value) {
+      this.getPairs(value.index);
+      this.getBalance(value);
+      this.getAddressBalance(value);
     },
   },
 };
