@@ -273,7 +273,8 @@ export default {
     },
 
     async getBalance(value) {
-      this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()];
+      const percent = lpSwap[value.name.toUpperCase()] || [50, 30, 2, 18];
+      this.chartConfig.data.datasets[0].data = percent;
 
       if (value.name == "100T") {
         this.chartConfig.data.labels = [
@@ -305,7 +306,7 @@ export default {
         this.$store.state.lpExchange
       );
       const balance = ethers.utils.formatUnits(balanceOf, value.decimals);
-      const lpPercent = lpSwap[value.name.toUpperCase()][1] / 100;
+      const lpPercent = percent[1] / 100;
       const percentage = (
         ((total * lpPercent - balance) * 100) /
         (total * lpPercent)
