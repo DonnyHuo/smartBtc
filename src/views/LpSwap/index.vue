@@ -228,6 +228,8 @@ export default {
         tokensInfo.push(tokenInfo);
       }
 
+      console.log("tokensInfo.length", tokensInfo.length);
+
       if (tokensInfo.length > 0) {
         tokensInfo.sort((a, b) => (a.id === 1 ? -1 : 0));
         this.selectToken = tokensInfo[0];
@@ -271,6 +273,7 @@ export default {
     },
 
     async getBalance(value) {
+      console.log("value", value.name.toUpperCase());
       this.chartConfig.data.datasets[0].data =
         lpSwap[value.name.toUpperCase()].percent;
 
@@ -313,6 +316,7 @@ export default {
       this.total = total;
     },
     async getAddressBalance(value) {
+      console.log("value", value);
       const totalSupply = await getContract(
         value.address,
         erc20ABI,
@@ -326,7 +330,6 @@ export default {
         "balanceOf",
         this.$store.state.address
       );
-
       const myBalances =
         ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
@@ -334,10 +337,11 @@ export default {
     },
   },
   watch: {
-    selectToken(value) {
-      this.getPairs(value.index);
-      this.getBalance(value);
-      this.getAddressBalance(value);
+    async selectToken(value) {
+      console.log(value);
+      await this.getPairs(value.index);
+      await this.getBalance(value);
+      await this.getAddressBalance(value);
     },
   },
 };
