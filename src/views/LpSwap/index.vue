@@ -305,15 +305,25 @@ export default {
         "balanceOf",
         this.$store.state.lpExchange
       );
-      const balance = ethers.utils.formatUnits(balanceOf, value.decimals);
+      const balance = ethers.utils.formatUnits(balanceOf, value.decimals) * 1;
       const lpPercent = percent[1] / 100;
       const percentage = (
         ((total * lpPercent - balance) * 100) /
         (total * lpPercent)
       ).toFixed(4);
 
-      console.log("value", value.name, total);
-      this.percentage = percentage;
+      console.log(
+        value.name,
+        "total",
+        total,
+        "lpPercent",
+        lpPercent,
+        "balance",
+        balance,
+        "percentage",
+        percentage
+      );
+      this.percentage = percentage * 1 > 0 ? percentage : "0.0000";
       this.total = total;
     },
     async getAddressBalance(value) {
