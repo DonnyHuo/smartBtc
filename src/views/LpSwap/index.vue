@@ -273,9 +273,7 @@ export default {
     },
 
     async getBalance(value) {
-      console.log("value", value.name.toUpperCase());
-      this.chartConfig.data.datasets[0].data =
-        lpSwap[value.name.toUpperCase()].percent;
+      this.chartConfig.data.datasets[0].data = lpSwap[value.name.toUpperCase()];
 
       if (value.name == "100T") {
         this.chartConfig.data.labels = [
@@ -307,11 +305,13 @@ export default {
         this.$store.state.lpExchange
       );
       const balance = ethers.utils.formatUnits(balanceOf, value.decimals);
-      const lpPercent = lpSwap[value.name.toUpperCase()].percent[1] / 100;
+      const lpPercent = lpSwap[value.name.toUpperCase()][1] / 100;
       const percentage = (
         ((total * lpPercent - balance) * 100) /
         (total * lpPercent)
       ).toFixed(4);
+
+      console.log("value", value.name, total);
       this.percentage = percentage;
       this.total = total;
     },
@@ -339,9 +339,9 @@ export default {
   watch: {
     async selectToken(value) {
       console.log(value);
-      await this.getPairs(value.index);
-      await this.getBalance(value);
-      await this.getAddressBalance(value);
+      this.getPairs(value.index);
+      this.getBalance(value);
+      this.getAddressBalance(value);
     },
   },
 };
