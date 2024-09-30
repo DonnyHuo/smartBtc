@@ -57,7 +57,7 @@
             </div>
             <div class="staking-num-box">
               <div class="title">
-                <div>{{ this.$t("poolDetail.search") }}</div>
+                <div>{{ this.$t("poolDetail.search2") }}</div>
                 <div v-if="noLp" class="get-lp">
                   {{ this.$t("poolDetail.getLp") }}
                 </div>

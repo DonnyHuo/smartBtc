@@ -216,6 +216,7 @@ export default {
     lp: "LP 地址",
     min: "最小質押算力",
     search: "輸入要質押的LP數量",
+    search2: "輸入要使用的LP數量",
     getLp: "請先獲取 LP",
     balance: "餘額",
     tips: ["當前1LP價值", "預計獲得質押算力"],

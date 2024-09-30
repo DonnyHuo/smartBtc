@@ -237,6 +237,7 @@ export default {
     lp: "LP Address",
     min: "Minimum Staked Hashrate",
     search: "Enter the amount of LP to stake",
+    search2: "Enter the amount of LP to use",
     getLp: "Please obtain LP first",
     balance: "Balance",
     tips: ["Current value of 1 LP", "Estimated staked hashrate gained"],
