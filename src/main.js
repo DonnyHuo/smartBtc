@@ -26,7 +26,7 @@ import {
   Steps,
   DropdownMenu,
   DropdownItem,
-  Checkbox,
+  Checkbox
 } from "vant";
 import axios from "axios";
 

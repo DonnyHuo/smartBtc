@@ -447,4 +447,5 @@ export default {
   },
   noWallet: "未偵測到錢包",
   connectTip: ["請選擇幣安智能鏈", "請選擇火币智能鏈"],
+  messageTip: "僅向認證銘文社區開放，您的地址未得到授權。"
 };

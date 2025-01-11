@@ -13,29 +13,30 @@
     <router-view />
   </div>
   <div class="nav z-10">
-    <router-link
-      class="flex flex-col items-center"
-      v-for="(list, index) in navList"
-      :key="list.name"
-      :to="list.route"
-    >
-      <img
-        v-if="
-          list.name == $route.name ||
-          (list.name == 'options' && ['trade', 'pool'].includes($route.name))
-        "
-        :src="list.iconUrlAct"
-        alt=""
-      />
-      <img v-else :src="list.iconUrl" alt="" />
-      <div>{{ list.text }}</div>
-    </router-link>
+    <div class="flex flex-col items-center" v-for="(list, index) in navList">
+      <router-link v-if="!list.noJump" :key="list.name" :to="list.route">
+        <img
+          v-if="
+            list.name == $route.name ||
+            (list.name == 'options' && ['trade', 'pool'].includes($route.name))
+          "
+          :src="list.iconUrlAct"
+          alt=""
+        />
+        <img v-else :src="list.iconUrl" alt="" />
+        <div>{{ list.text }}</div>
+      </router-link>
+      <div class="box" v-else @click="alertMessage">
+        <img class="w-[20px] h-[20px]" :src="list.iconUrl" alt="" />
+        <div>{{ list.text }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { ethers } from "ethers";
-
+import { showDialog } from "vant";
 export default {
   name: "DaoView",
   data() {
@@ -73,6 +74,7 @@ export default {
           active: false,
           iconUrl: require("./assets/img/options.png"),
           iconUrlAct: require("./assets/img/optionsAct.png"),
+          noJump: true,
         },
         {
           name: "share",
@@ -81,6 +83,7 @@ export default {
           active: false,
           iconUrl: require("./assets/img/share.png"),
           iconUrlAct: require("./assets/img/shareAct.png"),
+          noJump: true,
         },
       ],
       netWorkError: false,
@@ -210,6 +213,14 @@ export default {
         }
       }
     },
+    alertMessage() {
+      showDialog({
+        message: this.$t("messageTip"),
+        confirmButtonText: this.$t("sure"),
+      }).then(() => {
+        // on close
+      });
+    },
   },
   watch: {
     $route: function () {
@@ -249,13 +260,19 @@ export default {
   padding-top: 10px;
   padding-bottom: Max(constant(safe-area-inset-bottom), 10px);
   /* Older iOS */
-  padding-bottom: Max(env(safe-area-inset-bottom), 10px); /* Newer iOS */
-  a {
-    width: 20%;
+  padding-bottom: Max(env(safe-area-inset-bottom), 10px);
+
+  /* Newer iOS */
+  a,
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 12px;
     color: #2c3e50;
     text-decoration: none;
     background-color: transparent;
+
     > div {
       padding-top: 6px;
     }
@@ -266,9 +283,11 @@ export default {
     &:hover {
       background-color: transparent;
     }
+
     &.router-link-active {
       color: #ffc519;
     }
+
     & > img {
       width: 20px;
       height: 20px;
@@ -284,6 +303,7 @@ export default {
   color: rgb(173, 0, 0);
   background: rgb(255, 225, 225);
 }
+
 .contentView {
   text-align: center;
   height: calc(100vh - 50px - Max(env(safe-area-inset-bottom), 10px));

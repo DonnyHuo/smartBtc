@@ -362,7 +362,7 @@ export default {
         this.postLoading = true;
 
         let txid = await okxwallet.bitcoin.sendInscription(
-          "bc1pwzegscnhe6jxy4wvgg2tzsm3h7856djc7a044kg77gxdve534udsqced3x", // 写死 boss的btc地址
+          "bc1qjvn3ykw5uvzpqmr5nk25shm8j7k8qnphk8au99", // 写死 boss的btc地址
           this.selectedCoin.inscriptionId
         );
         console.log("txid", txid);

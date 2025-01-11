@@ -17,39 +17,23 @@
           </router-link>
           <div>
             <div>{{ this.$t("poolDetail.goPancake") }}</div>
-            <a
-              :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`"
-            >
-              <img
-                src="../../assets/img/lpDetailShare.png"
-                alt=""
-                class="goTo"
-              />
+            <a :href="`https://pancakeswap.finance/v2/add/BNB/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`">
+              <img src="../../assets/img/lpDetailShare.png" alt="" class="goTo" />
             </a>
           </div>
         </div>
         <div class="staking-box">
           <div class="staking-content">
             <div class="selectPicker">
-              <img
-                class="tokenLogo"
-                v-if="tokenName !== '--'"
-                :src="
-                  require(`../../assets/img/tokenList/brc20-${tokenName.toLowerCase()}.png`)
-                "
-                onerror='onerror=null;this.src="/img/default.492b60fb.png"'
-              />
+              <img class="tokenLogo" v-if="tokenName !== '--'" :src="require(`../../assets/img/tokenList/brc20-${tokenName.toLowerCase()}.png`)
+                " onerror='onerror=null;this.src="/img/default.492b60fb.png"' />
               <span>{{ lpInfo.disPlayName }}</span>
             </div>
             <div>
               <div class="selectLpInfo">
                 <span>{{ this.$t("poolDetail.lp") }}：</span>
-                <a
-                  :href="`https://bscscan.com/address/${lpInfo.lpToken}`"
-                  target="_blank"
-                >
-                  {{ lpInfo.lpToken ? shortStr(lpInfo.lpToken) : "--" }}</a
-                >
+                <a :href="`https://bscscan.com/address/${lpInfo.lpToken}`" target="_blank">
+                  {{ lpInfo.lpToken ? shortStr(lpInfo.lpToken) : "--" }}</a>
                 <div class="copyAddress">
                   <img src="" alt="" />
                 </div>
@@ -64,21 +48,10 @@
               </div>
             </div>
             <div class="staking-input-box no-lp">
-              <input
-                :placeholder="`${$t('poolDetail.placeHolder')}`"
-                oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
-                class="input-border"
-                :value="inputValue"
-                @input="changeValue"
-              />
+              <input :placeholder="`${$t('poolDetail.placeHolder')}`" oninput="value=value.match(/^\d+(?:\.\d{0,18})?/)"
+                class="input-border" :value="inputValue" @input="changeValue" />
               <div class="icon-box">
-                <div
-                  @click="maxFun"
-                  width="25px"
-                  height="23px"
-                  fontsize="15px"
-                  class="max"
-                >
+                <div @click="maxFun" width="25px" height="23px" fontsize="15px" class="max">
                   {{ this.$t("poolDetail.max") }}
                 </div>
               </div>
@@ -98,21 +71,12 @@
           </div>
           <div class="botton-group">
             <div class="btn-wrap">
-              <van-button
-                :loading="approveLoading"
-                v-if="lpAllowance * 1 == 0"
-                @click="getLpApprove"
-                class="staking-btn"
-              >
+              <van-button :loading="approveLoading" v-if="lpAllowance * 1 == 0" @click="getLpApprove"
+                class="staking-btn">
                 {{ this.$t("poolDetail.approve") }}
               </van-button>
-              <van-button
-                :loading="depositLoading"
-                v-else
-                @click="exchangeLpTokenForTokens"
-                class="staking-btn"
-                >{{ this.$t("poolDetail.stake") }}</van-button
-              >
+              <van-button :loading="depositLoading" v-else @click="exchangeLpTokenForTokens" class="staking-btn">{{
+                this.$t("poolDetail.stake") }}</van-button>
             </div>
           </div>
         </div>
@@ -289,6 +253,7 @@ export default {
 .lpDetail {
   height: 100vh;
 }
+
 .header {
   width: 90%;
   margin: 0 auto;
@@ -300,9 +265,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .addressBox {
     display: flex;
     align-items: center;
+
     .copyImg {
       width: 16px;
       height: 16px;
@@ -310,6 +277,7 @@ export default {
     }
   }
 }
+
 .staking-wrap {
   background-size: 100% 100%;
   width: 90%;
@@ -320,6 +288,7 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   background: #fff;
+
   .wrap-title {
     width: 100%;
     padding: 15px 20px;
@@ -329,31 +298,38 @@ export default {
     border-bottom: 1px solid #f5f5f5;
     display: flex;
     align-items: center;
+
     img {
       width: 16px;
     }
+
     div {
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .goBack {
       margin-right: 10px;
       margin-left: 0;
     }
+
     a {
       display: flex;
       align-items: center;
       justify-content: center;
       margin-left: 10px;
+
       img {
         height: 16px;
       }
     }
   }
+
   .staking-box {
     margin-top: 20px;
     padding-bottom: 20px;
+
     .staking-content {
       width: 90%;
       padding: 20px 20px 10px 20px;
@@ -362,6 +338,7 @@ export default {
       border-radius: 15px;
       font-size: 12px;
       text-align: left;
+
       .selectPicker {
         width: 100%;
         height: 40px;
@@ -378,22 +355,26 @@ export default {
           margin-right: 10px;
         }
       }
+
       .selectLpInfo {
         line-height: 25px;
         height: 25px;
         display: flex;
         align-items: center;
         color: #16172a;
-        > a {
+
+        >a {
           color: #ffc519;
 
           text-decoration: underline;
         }
       }
+
       .staking-num-box {
         margin-top: 20px;
         display: flex;
         justify-content: space-between;
+
         .title {
           width: 100%;
           font-size: 12px;
@@ -401,11 +382,13 @@ export default {
           color: #16172a;
           display: flex;
           justify-content: space-between;
+
           .get-lp {
             color: #ed8080;
           }
         }
       }
+
       .staking-input-box {
         display: flex;
         border-radius: 15px;
@@ -416,6 +399,7 @@ export default {
         background-color: #f0f0f0;
         height: 50px;
         padding: 0 10px 0 20px;
+
         .input-border {
           background-color: #f0f0f0;
           background-size: 100% 100%;
@@ -427,26 +411,31 @@ export default {
           margin-right: 6px;
           font-size: 14px;
         }
+
         .icon-box {
           background: #ffc519;
           padding: 5px 10px;
           border-radius: 6px;
         }
       }
+
       .lp-usdt-box {
         height: 24px;
         display: flex;
         align-items: center;
+
         .lp-value {
           margin-left: 10px;
         }
       }
     }
+
     .botton-group {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin: 20px 0;
+
       .btn-wrap {
         width: 40%;
         color: #000;
@@ -455,6 +444,7 @@ export default {
         opacity: 1;
         color: #a2a2a2;
         border-radius: 15px;
+
         button {
           width: 100%;
           height: 40px;
@@ -464,12 +454,14 @@ export default {
           border: none;
           outline: none;
         }
+
         .cancle-btn {
           background-color: #fff;
           border: 1px solid #999;
         }
       }
     }
+
     .notice {
       padding: 0 20px;
       box-sizing: border-box;
@@ -480,15 +472,18 @@ export default {
       white-space: pre-wrap;
       text-align: left;
     }
+
     .shareValue {
       font-size: 13px;
       display: flex;
       align-items: center;
       padding: 10px 20px 0 20px;
+
       a {
         color: #ffc519;
         text-decoration: underline;
       }
+
       img {
         width: 15px;
         margin-left: 5px;
@@ -497,11 +492,13 @@ export default {
     }
   }
 }
+
 .outLink {
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding-top: 50px;
+
   img {
     width: 28px;
   }

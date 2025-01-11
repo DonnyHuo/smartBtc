@@ -1,9 +1,9 @@
 <template>
   <div class="lpSwap min-h-full">
     <div class="headerBox">
-      <span class="title font-medium text-[16px]">{{
-        this.$t("lpSwap.title")
-      }}</span>
+      <span class="title font-medium text-[16px]">
+        {{ this.$t("lpSwap.title") }}
+      </span>
       <div class="selectBox" @click="showCoin = true">
         <img
           v-if="selectToken?.name !== '--'"
@@ -26,9 +26,11 @@
       }}
       <!-- 錨定BRC20-{{ selectToken?.name }}，總供應量 {{ total / 10000 }}万 -->
     </div>
+
     <div v-else class="title">
       {{ this.$t("lpSwap.desc2", { total: total / 100000 }) }}
     </div>
+    <div></div>
     <div class="pieBox">
       <!-- <Pie ref="pie" :data="chartConfig.data" :options="chartConfig.options" /> -->
       <canvas ref="myChart"></canvas>
@@ -215,6 +217,8 @@ export default {
       );
       const tokensInfo = [];
 
+      console.log("getExchangeTokens", getExchangeTokens);
+
       for (let i = 0; i < getExchangeTokens.length; i++) {
         const tokenInfo = {
           id: i,
@@ -363,11 +367,13 @@ export default {
   padding: 20px;
   text-align: left;
   font-size: 14px;
+
   .headerBox {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
+
     .selectBox {
       display: flex;
       align-items: center;
@@ -375,38 +381,48 @@ export default {
       background-color: #f5f5f5;
       padding: 5px 10px;
       border-radius: 10px;
+
       .coinLogo {
         width: 20px;
         height: 20px;
         border-radius: 50%;
       }
+
       span {
         padding: 0 5px;
       }
+
       .down {
         width: 10px;
         height: 10px;
       }
     }
   }
+
   .line {
     margin: 30px 0;
+
     .lineTitle {
       padding-bottom: 20px;
     }
   }
+
   .title {
     color: #111;
   }
+
   .lpList {
     background-color: #f5f5f5;
     border-radius: 10px;
     padding: 20px;
+
     > div {
       margin-bottom: 20px;
+
       &:last-child {
         margin-bottom: 0;
       }
+
       .btn {
         height: 26px;
         padding: 0 10px;
@@ -417,19 +433,23 @@ export default {
         color: #333;
         background-color: #ffc519;
       }
+
       .listTitle {
         font-size: 14px;
         color: #111;
         margin-bottom: 4px;
       }
+
       > div {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding-bottom: 20px;
+
         &:last-child {
           padding-bottom: 0;
         }
+
         .rate {
           color: #999;
           font-size: 12px;
@@ -437,26 +457,31 @@ export default {
       }
     }
   }
+
   .pieBox {
     width: 100%;
     height: 300px;
     margin-top: 20px;
   }
+
   .contractAddress {
     background-color: #f5f5f5;
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
+
     > div {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 5px 0;
+
       .address {
         text-decoration: underline;
       }
     }
   }
+
   .content {
     padding: 20px 0;
   }
@@ -465,9 +490,11 @@ export default {
     padding: 10px 20px;
     text-align: center;
     font-size: 16px;
+
     .active {
       color: #ffc519;
     }
+
     .listLogo {
       width: 20px;
       height: 20px;
@@ -475,6 +502,7 @@ export default {
       margin-right: 10px;
     }
   }
+
   .noCoin {
     text-align: center;
     padding: 20px 0;
