@@ -44,12 +44,10 @@ export default createStore({
     selectedList: [],
     tokenList: [],
 
-    lpExchange: "0xDA2f2924aa2d2c241a0a4E37b80402f3DC5133ec",
+    lpExchange: "0xBa972046A57af7f8F35901E8cab2BDb0218Dc101",
     kolAddress: "0xd23A77B8bd390440d1D607F22823764ffaB92Fe4",
-    pledgeAddress: "0x929803154A7aa322baf988fF6e3217E2047F33e3",
-    adminAddress: [
-      "0x86761c0d257847313e57b5b0c443c9c669912e46"
-    ],
+    pledgeAddress: "0xC31b5B5c0e8E87421264b610148324CcAA548E03",
+    adminAddress: ["0x86761c0d257847313e57b5b0c443c9c669912e46"],
     lang: "zh",
   },
   mutations: {

@@ -92,4 +92,5 @@ export {
   getBlockNumber,
   getOkChainId,
   getChainId,
+  connectWallet,
 } from "./contract";

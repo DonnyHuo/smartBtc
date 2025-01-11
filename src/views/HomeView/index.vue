@@ -6,17 +6,28 @@
       </div>
 
       <div>
-        <div class="addressBox" @click="copyAddress($store.state.address)">
+        <div
+          class="addressBox"
+          v-if="$store.state.address"
+          @click="copyAddress($store.state.address)"
+        >
           <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
           <div class="address">{{ shortStr($store.state.address) }}</div>
-          <img class="copy" src="../../assets/img/copy.png" alt="" />
+          <img
+            v-if="$store.state.address"
+            class="copy"
+            src="../../assets/img/copy.png"
+            alt=""
+          />
         </div>
+        <div v-else @click="connectWallet()">{{ $t("connectWallet") }}</div>
         <div
-          style="text-align: right; padding-top: 10px"
+          style="text-align: right; padding-top: 5px"
           class="flex item-center justify-between"
         >
-          <span>{{ sBtcBalance }} SBTC</span>
+          <span v-if="$store.state.address">{{ sBtcBalance }} SBTC</span>
           <a
+            v-if="$store.state.address"
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
             target="_blank"
           >
@@ -341,7 +352,7 @@ import {
   shortStr,
   getContract,
   copy,
-  getOkChainId,
+  connectWallet,
   getWriteContract,
   getWriteContractLoad,
 } from "../../utils";
@@ -391,6 +402,7 @@ export default {
     },
   },
   async created() {
+    console.log("this.$store.state.address", this.$store.state.address);
     if (this.$store.state.address) {
       this.getBalance();
       this.totalInvitePowers();
@@ -401,15 +413,15 @@ export default {
       this.getInfo();
       this.getActiveAmount();
       this.getProjectIssuedList();
+      this.timer = setInterval(() => {
+        this.getProjectIssuedList();
+        this.getVotingList();
+        this.getBalance();
+        this.getInfo();
+        this.getMinThreshold();
+        this.getActiveAmount();
+      }, 5000);
     }
-    this.timer = setInterval(() => {
-      this.getProjectIssuedList();
-      this.getVotingList();
-      this.getBalance();
-      this.getInfo();
-      this.getMinThreshold();
-      this.getActiveAmount();
-    }, 5000);
   },
   beforeUnmount() {
     clearInterval(this.timer);
@@ -426,6 +438,7 @@ export default {
       showToast("複製成功");
     },
     shortStr,
+    connectWallet,
     async getBalance() {
       if (this.$store.state.address) {
         const balanceOf = await getContract(

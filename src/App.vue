@@ -107,17 +107,6 @@ export default {
     });
   },
   methods: {
-    async connectWallet() {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider
-        .send("eth_requestAccounts", [])
-        .catch((err) => {
-          alert(err.info.error.message);
-        });
-      if (accounts) {
-        this.$store.commit("setAddress", accounts[0]);
-      }
-    },
     async getChainId(
       networkId,
       networkName,
@@ -151,7 +140,7 @@ export default {
           ],
         })
         .then(() => {
-          this.connectWallet();
+          // this.connectWallet();
         })
         .catch((e) => {
           console.log("wallet_switchEthereumChain error: ", e);
@@ -180,7 +169,7 @@ export default {
           );
         } else {
           this.netWorkError = false;
-          this.connectWallet();
+          // this.connectWallet();
         }
       } else if (window.location.hash == "#/btcSwap") {
         console.log("btcSwap");
@@ -209,7 +198,7 @@ export default {
           );
         } else {
           this.netWorkError = false;
-          this.connectWallet();
+          // this.connectWallet();
         }
       }
     },

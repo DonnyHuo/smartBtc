@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-
+import store from "../store";
 
 export const getBlockNumber = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -15,6 +15,18 @@ export const getOkChainId = async () => {
 export const getChainId = async () => {
   if (window.ethereum) {
     return await window.ethereum.request({ method: "eth_chainId" });
+  }
+};
+
+export const connectWallet = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const accounts = await provider
+    .send("eth_requestAccounts", [])
+    .catch((err) => {
+      alert(err.info.error.message);
+    });
+  if (accounts) {
+    store.commit("setAddress", accounts[0]);
   }
 };
 
