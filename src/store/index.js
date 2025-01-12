@@ -47,7 +47,10 @@ export default createStore({
     lpExchange: "0xBa972046A57af7f8F35901E8cab2BDb0218Dc101",
     kolAddress: "0xd23A77B8bd390440d1D607F22823764ffaB92Fe4",
     pledgeAddress: "0xC31b5B5c0e8E87421264b610148324CcAA548E03",
-    adminAddress: ["0x86761c0d257847313e57b5b0c443c9c669912e46"],
+    adminAddress: [
+      "0x86761c0d257847313e57b5b0c443c9c669912e46",
+      "0x770b2b1c9dbbc5625b57a0ddd06df1bacef5b07c",
+    ],
     lang: "zh",
   },
   mutations: {
