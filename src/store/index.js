@@ -50,6 +50,7 @@ export default createStore({
     adminAddress: [
       "0x86761c0d257847313e57b5b0c443c9c669912e46",
       "0x770b2b1c9dbbc5625b57a0ddd06df1bacef5b07c",
+      "0x313Fdb8AA2695b6D57a07288890E488933113ad5",
     ],
     lang: "zh",
   },
