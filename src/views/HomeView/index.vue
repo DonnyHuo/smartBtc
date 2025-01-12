@@ -5,7 +5,7 @@
         <img class="homeLogo" src="../../assets/img/homeLogo1.png" alt="" />
       </div>
 
-      <div>
+      <div class="flex flex-col items-end">
         <div
           class="addressBox"
           v-if="$store.state.address"

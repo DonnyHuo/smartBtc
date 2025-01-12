@@ -488,7 +488,9 @@ export default {
     "Please select Binance Smart Chain",
     "Please select Huobi Smart Chain",
   ],
-  messageTip:
-    "Available only to the authenticated Inscription Community, your address is not authorized.",
+  messageTip: [
+    "Available only to the authenticated Inscription Community,",
+    "your address is not authorized.",
+  ],
   connectWallet: "Connect Wallet",
 };

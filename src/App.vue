@@ -204,7 +204,7 @@ export default {
     },
     alertMessage() {
       showDialog({
-        message: this.$t("messageTip"),
+        message: `${this.$t("messageTip[0]")}\n ${this.$t("messageTip[1]")}`,
         confirmButtonText: this.$t("sure"),
       }).then(() => {
         // on close
