@@ -244,7 +244,7 @@ export default {
   },
   lpSwap: {
     title: "提供流動性發行資產",
-    desc: "錨定BRC20-{name}，總供應量 {total} K",
+    desc: "錨定BRC20-{name}，總供應量 {total} W",
     desc2: "錨定符文IOOT•SMARTBTC•IO，總供應量 {total} K",
     address: "合約地址",
     shares: "我的持股(佔比)",

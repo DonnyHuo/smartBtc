@@ -21,7 +21,7 @@
       {{
         this.$t("lpSwap.desc", {
           name: selectToken?.name,
-          total: total / 100000,
+          total: total / 10000,
         })
       }}
       <!-- 錨定BRC20-{{ selectToken?.name }}，總供應量 {{ total / 10000 }}万 -->
@@ -328,6 +328,8 @@ export default {
         percentage
       );
       this.percentage = percentage * 1 > 0 ? percentage : "0.0000";
+
+      console.log("total", total);
       this.total = total;
     },
     async getAddressBalance(value) {
