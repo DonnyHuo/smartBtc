@@ -162,7 +162,7 @@
           <div>{{ $t("home.LpProgress") }}</div>
           <div>{{ lpExProgressValue }} %</div>
         </div>
-        <div>
+        <div v-if="kolProgressValue">
           <div>{{ $t("home.KOLProgress") }}</div>
           <div>{{ kolProgressValue }} %</div>
         </div>
@@ -673,19 +673,22 @@ export default {
         "getLpExProgress",
         tokenId.toString()
       );
-
-      const kolProgress = await getContract(
-        this.$store.state.kolAddress,
-        kolAbi,
-        "getKolProgress",
-        tokenId.toString()
-      );
-
       this.crossProgressValue = ((crossProgress.toString() * 1) / 100).toFixed(
         2
       );
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
-      this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
+
+      if (this.reserveInfo.name !== "SBTC") {
+        const kolProgress = await getContract(
+          this.$store.state.kolAddress,
+          kolAbi,
+          "getKolProgress",
+          tokenId.toString()
+        );
+        this.kolProgressValue = ((kolProgress.toString() * 1) / 100).toFixed(2);
+      } else {
+        this.kolProgressValue = "";
+      }
     },
     async withdraw() {
       this.withdrawLoading = true;
