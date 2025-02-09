@@ -134,6 +134,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Voting/index.vue"),
   },
+  {
+    path: "/manage",
+    name: "manage",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Manage/index.vue"),
+  },
 ];
 
 const adminAddress = store.state.adminAddress;

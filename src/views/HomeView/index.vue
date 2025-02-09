@@ -185,6 +185,9 @@
         <router-link v-if="adminShow" to="/review">
           <van-button>{{ $t("home.review") }}</van-button>
         </router-link>
+        <router-link v-if="adminShow" to="/manage">
+          <van-button>LP提取</van-button>
+        </router-link>
       </div>
       <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
