@@ -53,10 +53,50 @@
       </div>
       <img class="homeBg m-auto" src="../../assets/img/homeBg.png" alt="" />
       <div class="progress">
+        <div class="flex items-center gap-4">
+          <div>
+            <img class="icon" src="../../assets/img/pizza.png" alt="" />
+            <span class="name">pizzaπ</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <span>{{
+              shortStr("2oSanm2VM5mCs9bvcjvmCK2ZU4wWXmXwNENmyMUdpump")
+            }}</span>
+            <img
+              class="w-[15px]"
+              src="../../assets/img/copy.png"
+              alt=""
+              @click="
+                copyAddress('2oSanm2VM5mCs9bvcjvmCK2ZU4wWXmXwNENmyMUdpump')
+              "
+            />
+          </div>
+        </div>
         <div>
           <div>
-            <img class="icon" src="../../assets/img/core.png" alt="" />
-            <span class="name">Core</span>
+            <img
+              class="icon"
+              src="../../assets/img/tokenList/brc20-sats.png"
+              alt=""
+            />
+            <span class="name">sats</span>
+          </div>
+          <div style="width: 80%">
+            <van-progress
+              stroke-width="8"
+              :pivot-text="`${$t('home.onMarket')}`"
+              percentage="100"
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <img
+              class="icon"
+              src="../../assets/img/tokenList/brc20-ordi.png"
+              alt=""
+            />
+            <span class="name">ordi</span>
           </div>
           <div style="width: 80%">
             <van-progress
@@ -67,19 +107,7 @@
             />
           </div>
         </div>
-        <div>
-          <div>
-            <img class="icon" src="../../assets/img/piin.png" alt="" />
-            <span class="name">piin</span>
-          </div>
-          <div style="width: 80%">
-            <van-progress
-              stroke-width="8"
-              :pivot-text="`${$t('home.onMarket')}`"
-              percentage="100"
-            />
-          </div>
-        </div>
+
         <div v-if="voting" class="progressBox">
           <div>
             <img
@@ -593,6 +621,10 @@ export default {
         this.$store.state.address
       );
       this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(2);
+      this.$store.commit(
+        "setActiveAmount",
+        (ethers.utils.formatUnits(res, 18) * 1).toFixed(2)
+      );
     },
     getInfo() {
       this.$axios
@@ -601,6 +633,7 @@ export default {
         })
         .then((res) => {
           this.accountInfo = res.data.data;
+          this.$store.commit("setAccountInfoStatus", accountInfo.status);
         })
         .catch((err) => {
           this.accountInfo = "";

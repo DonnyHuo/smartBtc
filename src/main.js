@@ -26,7 +26,8 @@ import {
   Steps,
   DropdownMenu,
   DropdownItem,
-  Checkbox
+  Checkbox,
+  Dialog,
 } from "vant";
 import axios from "axios";
 
@@ -85,6 +86,7 @@ app
   .use(VanImage)
   .use(Switch)
   .use(Empty)
+  .use(Dialog)
   .use(store)
   .use(router)
   .mount("#app");

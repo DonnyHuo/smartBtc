@@ -101,10 +101,24 @@
                 <span>To ({{ list.to_net }})</span>
                 <span>{{ shortStr(list.to_net_address) }}</span>
               </div>
-              <div>
+              <div v-if="list.convert_txid">
+                <span>{{ $t("btcSwap.convertHash") }}</span>
+                <div class="flex items-center">
+                  <a :href="`https://bscscan.com/tx/${list.convert_txid}`">{{
+                    shortStr(list.convert_txid)
+                  }}</a>
+                  <img
+                    @click="copyAddress(list.convert_txid)"
+                    src="../../assets/img/copy.png"
+                    alt=""
+                    class="copyAddress"
+                  />
+                </div>
+              </div>
+              <!-- <div>
                 <span>{{ $t("btcSwap.amount") }}</span>
                 <span>{{ list.amount }} {{ list.symbol }}</span>
-              </div>
+              </div> -->
               <div>
                 <span>{{ $t("btcSwap.orderStatus") }}</span>
                 <span>{{ getStatus(list.order_state) }}</span>

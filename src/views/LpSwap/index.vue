@@ -36,6 +36,20 @@
       <canvas ref="myChart"></canvas>
     </div>
 
+    <div class="mt-[20px]">
+      <div class="text-[16px] text-[#111111] font-medium">
+        {{ $t("bindText[0]") }}
+      </div>
+      <div
+        class="bg-[#f5f5f5] rounded-[10px] p-[10px] mt-[20px] text-[12px] leading-5"
+      >
+        <p>{{ $t("bindText[1]") }}:XXXXXXXXXX</p>
+        <p>
+          {{ $t("bindText[2]") }}
+        </p>
+      </div>
+    </div>
+
     <div class="contractAddress">
       <div>
         <span>{{ this.$t("lpSwap.address") }}</span>
@@ -106,6 +120,31 @@
       </div>
     </van-action-sheet>
   </div>
+  <van-dialog
+    v-model:show="dialogShow"
+    :title="$t('bindText[0]')"
+    :showConfirmButton="true"
+    :showCancelButton="true"
+    :confirmButtonText="$t('sure')"
+    :cancelButtonText="$t('cancel')"
+    @confirm="addrmapBind"
+  >
+    <div class="text-left p-[20px] text-[14px]">
+      <p>
+        {{ $t("bindModal[0]") }}:
+        <span class="text-[#111]">{{ shortStr($store.state.address) }}</span>
+      </p>
+      <p>{{ $t("bindModal[1]") }}</p>
+      <div
+        class="border border-solid border-[#bdbdbd] w-full h-[40px] rounded-[8px] px-[5px] flex items-center justify-between"
+      >
+        <input class="w-full" type="text" v-model="btcAddress" />
+        <button class="w-[40px]" @click="readText">
+          {{ $t("btcSwap.paste") }}
+        </button>
+      </div>
+    </div>
+  </van-dialog>
 </template>
 <script>
 import { Chart, registerables } from "chart.js";
@@ -120,6 +159,7 @@ import { getContract, shortStr } from "@/utils";
 import { ethers } from "ethers";
 
 import lpSwap from "../../config/lpSwap.json";
+import { message } from "ant-design-vue";
 
 export default {
   name: "lpSwap",
@@ -188,6 +228,8 @@ export default {
       total: "",
       selectTokenBalance: "--",
       myBalanceRate: "",
+      btcAddress: "",
+      dialogShow: true,
     };
   },
   mounted() {
@@ -201,6 +243,7 @@ export default {
     this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
 
     this.getChangeList();
+    this.addrmapQuery();
   },
   methods: {
     shortStr,
@@ -351,6 +394,28 @@ export default {
         ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
       this.myBalanceRate = ((myBalances * 100) / total).toFixed(4);
+    },
+    async addrmapQuery() {
+      this.dialogShow = true;
+      // const data = await this.$axios.post("https://smartbtc.io/addrmap/query", {
+      //   bsc_addr: this.$store.state.address,
+      // });
+
+      // return data.data.data;
+    },
+    async addrmapBind() {
+      if (this.btcAddress) {
+        // const data = await this.$axios.post("https://smartbtc.io//addrmap/bind", {
+        //   bsc_addr: this.$store.state.address,
+        //   btc_addr: this.btcAddress,
+        // });
+      }
+      message.success(this.$t("bindSuccess"));
+    },
+    readText() {
+      navigator.clipboard.readText().then((clipboardText) => {
+        this.btcAddress = clipboardText;
+      });
     },
   },
   watch: {

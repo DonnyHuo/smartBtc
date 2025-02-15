@@ -314,6 +314,7 @@ export default {
     ],
     status: ["New", "In Progress", "Completed", "Failed", "Pending"],
     hash: "Transaction Hash",
+    convertHash: "Convert Hash",
     amount: "Amount",
     orderStatus: "Order Status",
   },
@@ -477,9 +478,9 @@ export default {
   cancel: "Cancel",
 
   footer: {
-    mine: "Mine",
-    bridge: "Bridge",
-    swap: "LP Swap",
+    mine: "Create Project",
+    bridge: "Exchange",
+    swap: "LP Add",
     pool: "Startup Pool",
     community: "Community",
   },
@@ -493,4 +494,14 @@ export default {
     "your address is not authorized.",
   ],
   connectWallet: "Connect Wallet",
+  bindSuccess: "Binding Successful",
+  bindText: [
+    "Activate Inscription Airdrop Qualification",
+    "Your linked BTC address",
+    "Complete at least one LP addition to activate the qualification for receiving inscription airdrops and participate in airdrops regularly. All inscription ownerships involved in cross-chain exchanges belong to SOS platform token holders. Each airdrop will be distributed proportionally to the corresponding linked BTC address based on the daily weighted holdings of SOS.",
+  ],
+  bindModal: [
+    "Your BSC Address",
+    "Please enter the BTC address to bind for receiving inscriptions",
+  ],
 };

@@ -281,6 +281,7 @@ export default {
     desc: ["請選擇要發送的銘文", "請填寫正確的接收地址"],
     status: ["新建", "進行中", "已完成", "失敗", "進行中"],
     hash: "交易Hash",
+    convertHash: "跨鏈Hash",
     amount: "數量",
     orderStatus: "訂單狀態",
   },
@@ -439,9 +440,9 @@ export default {
   cancel: "取消",
 
   footer: {
-    mine: "我的",
-    bridge: "跨鏈橋",
-    swap: "LP兌換",
+    mine: "創建項目",
+    bridge: "跨鏈兌換",
+    swap: "LP添加",
     pool: "啟動池",
     community: "社區",
   },
@@ -449,4 +450,11 @@ export default {
   connectTip: ["請選擇幣安智能鏈", "請選擇火币智能鏈"],
   messageTip: ["僅向認證銘文社區開放", "您的地址未得到授權。"],
   connectWallet: "連接錢包",
+  bindSuccess: "綁定成功",
+  bindText: [
+    "激活銘文空投領取資格",
+    "您綁定的BTC地址",
+    "完成至少一次LP添加，即可激活銘文空投領取資格，定期參與空投。所有參與跨鏈兌換的銘文所有權歸屬於SOS平臺幣持有者，每次空投將按SOS加權每日持有量按比例發放至對應綁定的BTC地址。",
+  ],
+  bindModal: ["您的BSC地址", "請輸入要綁定的可接收銘文的BTC地址"],
 };

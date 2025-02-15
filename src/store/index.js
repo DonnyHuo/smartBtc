@@ -54,6 +54,8 @@ export default createStore({
       "0xe369aec574d5408604daa3d12e95d5624fae9112",
     ],
     lang: "zh",
+    activeAmount: 0,
+    accountInfoStatus: 0,
   },
   mutations: {
     setAddress(state, data) {
@@ -79,6 +81,12 @@ export default createStore({
     },
     setLan(state, data) {
       return (state.lang = data);
+    },
+    setActiveAmount(state, data) {
+      return (state.activeAmount = data);
+    },
+    setAccountInfoStatus(state, data) {
+      return (state.accountInfoStatus = data);
     },
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })],
