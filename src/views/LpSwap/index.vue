@@ -124,10 +124,9 @@
     v-model:show="dialogShow"
     :title="$t('bindText[0]')"
     :showConfirmButton="true"
-    :showCancelButton="true"
+    :showCancelButton="false"
     :confirmButtonText="$t('sure')"
-    :cancelButtonText="$t('cancel')"
-    @confirm="addrmapBind"
+    :beforeClose="addrmapBind"
   >
     <div class="text-left p-[20px] text-[14px]">
       <p>
@@ -244,9 +243,6 @@ export default {
     this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
 
     this.getChangeList();
-    if (selectToken.name == "BRC20") {
-      this.addrmapQuery();
-    }
   },
   methods: {
     shortStr,
@@ -375,11 +371,9 @@ export default {
       );
       this.percentage = percentage * 1 > 0 ? percentage : "0.0000";
 
-      console.log("total", total);
       this.total = total;
     },
     async getAddressBalance(value) {
-      console.log("value", value);
       const totalSupply = await getContract(
         value.address,
         erc20ABI,
@@ -393,6 +387,7 @@ export default {
         "balanceOf",
         this.$store.state.address
       );
+
       const myBalances =
         ethers.utils.formatUnits(myBalance, value.decimals) * 1;
       this.selectTokenBalance = myBalances.toFixed(4);
@@ -421,8 +416,12 @@ export default {
             btc_addr: this.btcAddress,
           })
           .then(() => {
+            this.dialogShow = false;
+            this.addrmapQuery();
             message.success(this.$t("bindSuccess"));
           });
+      } else {
+        this.dialogShow = true;
       }
     },
     readText() {
@@ -433,10 +432,13 @@ export default {
   },
   watch: {
     async selectToken(value) {
-      console.log(value);
+      console.log("value", value);
       this.getPairs(value.index);
       this.getBalance(value);
       this.getAddressBalance(value);
+      if (value.name == "BRC20") {
+        this.addrmapQuery();
+      }
     },
   },
 };
