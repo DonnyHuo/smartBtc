@@ -36,7 +36,7 @@
       <canvas ref="myChart"></canvas>
     </div>
 
-    <div v-if="bindAddress && selectToken.name == 'ERC20'" class="mt-[20px]">
+    <div v-if="bindAddress && selectToken.name == 'BRC20'" class="mt-[20px]">
       <div class="text-[16px] text-[#111111] font-medium">
         {{ $t("bindText[0]") }}
       </div>
@@ -244,7 +244,7 @@ export default {
     this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
 
     this.getChangeList();
-    if (selectToken.name == "ERC20") {
+    if (selectToken.name == "BRC20") {
       this.addrmapQuery();
     }
   },
