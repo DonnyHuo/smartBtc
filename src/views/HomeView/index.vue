@@ -219,7 +219,7 @@
       </div>
       <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
-          <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} SBTC</div>
+          <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} ERC20</div>
           <van-button
             class="activeBtn"
             size="small"
@@ -578,7 +578,7 @@ export default {
     },
     vote(project_name) {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("SBTC余额不足");
+        return showToast("ERC20余额不足");
       }
       if (!this.$store.state.address) {
         return;

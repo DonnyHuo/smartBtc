@@ -22,7 +22,7 @@
             src="../../assets/img/tokenList/brc20-sbtc.png"
             alt=""
           />
-          <span>SBTC {{ this.$t("pool.header[2]") }}</span>
+          <span>ERC20 {{ this.$t("pool.header[2]") }}</span>
         </div>
         <div class="address" @click="copyAddress(this.$store.state.sBtc)">
           <span>{{ shortStr($store.state.sBtc) }}</span>
