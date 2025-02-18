@@ -25,7 +25,7 @@
           style="text-align: right; padding-top: 5px"
           class="flex item-center justify-between"
         >
-          <span v-if="$store.state.address">{{ sBtcBalance }} SBTC</span>
+          <span v-if="$store.state.address">{{ sBtcBalance }} BRC20 </span>
           <a
             v-if="$store.state.address"
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
@@ -714,7 +714,7 @@ export default {
       );
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
 
-      if (this.reserveInfo.name !== "SBTC") {
+      if (this.reserveInfo.name !== "ERC20") {
         const kolProgress = await getContract(
           this.$store.state.kolAddress,
           kolAbi,

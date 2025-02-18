@@ -36,14 +36,14 @@
       <canvas ref="myChart"></canvas>
     </div>
 
-    <div class="mt-[20px]">
+    <div v-if="bindAddress && selectToken.name == 'ERC20'" class="mt-[20px]">
       <div class="text-[16px] text-[#111111] font-medium">
         {{ $t("bindText[0]") }}
       </div>
       <div
         class="bg-[#f5f5f5] rounded-[10px] p-[10px] mt-[20px] text-[12px] leading-5"
       >
-        <p>{{ $t("bindText[1]") }}:XXXXXXXXXX</p>
+        <p>{{ $t("bindText[1]") }}: {{ shortStr(bindAddress) }}</p>
         <p>
           {{ $t("bindText[2]") }}
         </p>
@@ -229,7 +229,8 @@ export default {
       selectTokenBalance: "--",
       myBalanceRate: "",
       btcAddress: "",
-      dialogShow: true,
+      dialogShow: false,
+      bindAddress: "",
     };
   },
   mounted() {
@@ -243,7 +244,9 @@ export default {
     this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
 
     this.getChangeList();
-    this.addrmapQuery();
+    if (selectToken.name == "ERC20") {
+      this.addrmapQuery();
+    }
   },
   methods: {
     shortStr,
@@ -395,22 +398,32 @@ export default {
       this.selectTokenBalance = myBalances.toFixed(4);
       this.myBalanceRate = ((myBalances * 100) / total).toFixed(4);
     },
-    async addrmapQuery() {
-      this.dialogShow = true;
-      // const data = await this.$axios.post("https://smartbtc.io/addrmap/query", {
-      //   bsc_addr: this.$store.state.address,
-      // });
-
-      // return data.data.data;
-    },
-    async addrmapBind() {
-      if (this.btcAddress) {
-        // const data = await this.$axios.post("https://smartbtc.io//addrmap/bind", {
-        //   bsc_addr: this.$store.state.address,
-        //   btc_addr: this.btcAddress,
-        // });
+    addrmapQuery() {
+      if (this.$store.state.address) {
+        this.$axios
+          .post("https://smartbtc.io/bridge/addrmap/query", {
+            bsc_addr: this.$store.state.address,
+          })
+          .then((res) => {
+            console.log("res.data.data.btc_addr", res.data.data.btc_addr);
+            this.bindAddress = res.data.data.btc_addr;
+          })
+          .catch(() => {
+            this.dialogShow = true;
+          });
       }
-      message.success(this.$t("bindSuccess"));
+    },
+    addrmapBind() {
+      if (this.btcAddress) {
+        this.$axios
+          .post("https://smartbtc.io/bridge/addrmap/bind", {
+            bsc_addr: this.$store.state.address,
+            btc_addr: this.btcAddress,
+          })
+          .then(() => {
+            message.success(this.$t("bindSuccess"));
+          });
+      }
     },
     readText() {
       navigator.clipboard.readText().then((clipboardText) => {

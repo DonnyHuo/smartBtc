@@ -30,7 +30,7 @@
             />
             <div class="buyOrMining">
               <a
-                href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/SBTC"
+                href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/ERC20"
                 >{{ $t("btcSwap.buy") }}</a
               >
             </div>

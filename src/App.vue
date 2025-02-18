@@ -44,13 +44,8 @@ export default {
       activeIndex: 0,
       navList: [
         {
-          name: "kol",
-          route: `${
-            this.$store.state.accountInfoStatus === 1 &&
-            this.$store.state.activeAmount * 1
-              ? "/kolAdd"
-              : "/kol"
-          }`,
+          name: "home",
+          route: "/",
           active: false,
           text: this.$t("footer.mine"),
           iconUrl: require("./assets/img/dao.png"),

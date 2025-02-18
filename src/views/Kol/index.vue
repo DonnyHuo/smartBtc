@@ -167,13 +167,13 @@
     >
       <div class="content">
         <div class="balanceBox">
-          {{ $t("kol.balance") }}：{{ sBtcBalance }} SBTC
+          {{ $t("kol.balance") }}：{{ sBtcBalance }} ERC20
         </div>
         <div class="inputBox">
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} SBTC`"
+            :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} ERC20`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">{{ $t("kol.max") }}</button>
