@@ -142,8 +142,8 @@ const routes = [
   },
 ];
 
-const adminAddress = store.state.adminAddress;
-const address = store.state.address.toLowerCase();
+// const adminAddress = store.state.adminAddress;
+// const address = store.state.address.toLowerCase();
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
@@ -151,13 +151,13 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (to.path == "/review") {
-    if (adminAddress.includes(address)) {
-      next();
-    } else {
-      next({ name: "home" });
-    }
-  }
+  // if (to.path == "/review") {
+  //   if (adminAddress.includes(address)) {
+  //     next();
+  //   } else {
+  //     next({ name: "home" });
+  //   }
+  // }
   document.getElementsByClassName("contentView")[0].scrollTop = 0;
   next();
 });

@@ -787,6 +787,9 @@ export default {
       value && this.getWithdraw();
       value && this.getReserveBalance();
     },
+    address(value) {
+      value && this.getActiveAmount();
+    },
   },
 };
 </script>
