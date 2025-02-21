@@ -109,7 +109,7 @@ export default {
     },
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     onSelectCoin(list) {
       this.selectToken = list;

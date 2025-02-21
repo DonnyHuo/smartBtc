@@ -163,7 +163,7 @@
     <van-action-sheet
       class="model"
       v-model:show="activeModal"
-      :title="`${$t('kol.despositSBTC')}`"
+      :title="`${$t('kol.desposit')} BRC20`"
     >
       <div class="content">
         <div class="balanceBox">

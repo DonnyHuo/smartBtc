@@ -423,18 +423,17 @@ export default {
         { text: "English", value: "en" },
       ],
       value1: this.$store.state.lang,
+      address: this.$store.state.address,
+      adminAddress: this.$store.state.adminAddress,
     };
   },
   computed: {
     adminShow() {
-      return this.$store.state.adminAddress.includes(
-        this.$store.state.address.toLowerCase()
-      );
+      return this.adminAddress.includes(this.address.toLowerCase());
     },
   },
   async created() {
-    console.log("this.$store.state.address", this.$store.state.address);
-    if (this.$store.state.address) {
+    if (this.address) {
       this.getBalance();
       this.totalInvitePowers();
       this.totalPoolPowers();
@@ -466,7 +465,7 @@ export default {
     },
     copyAddress(msg) {
       copy(msg);
-      showToast("複製成功");
+      showToast(this.$t("copySuccess"));
     },
     shortStr,
     connectWallet,
@@ -786,9 +785,6 @@ export default {
     reserveInfo(value) {
       value && this.getWithdraw();
       value && this.getReserveBalance();
-    },
-    address(value) {
-      value && this.getActiveAmount();
     },
   },
 };
