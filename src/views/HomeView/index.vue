@@ -210,6 +210,8 @@
         >
           <van-button>{{ $t("home.startProject") }}</van-button>
         </router-link>
+      </div>
+      <div class="btn-group">
         <router-link v-if="adminShow" to="/review">
           <van-button>{{ $t("home.review") }}</van-button>
         </router-link>
@@ -217,6 +219,7 @@
           <van-button>LP提取</van-button>
         </router-link>
       </div>
+
       <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
           <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} BRC20</div>
@@ -632,7 +635,7 @@ export default {
         })
         .then((res) => {
           this.accountInfo = res.data.data;
-          this.$store.commit("setAccountInfoStatus", accountInfo.status);
+          this.$store.commit("setAccountInfoStatus", this.accountInfo.status);
         })
         .catch((err) => {
           this.accountInfo = "";
