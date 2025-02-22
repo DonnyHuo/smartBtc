@@ -5,6 +5,13 @@
       <div class="addressBox">
         <img class="walletIcon" src="../../assets/img/wallet.png" alt="" />
         <div class="address">{{ shortStr(address) }}</div>
+        <img
+          v-if="address"
+          class="w-[15px] ml-[2px]"
+          src="../../assets/img/copy.png"
+          alt=""
+          @click="copyAddress(address)"
+        />
       </div>
     </div>
     <div class="btcSwapContent">

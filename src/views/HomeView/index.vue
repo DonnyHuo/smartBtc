@@ -59,6 +59,7 @@
             <span class="name">pizzaπ</span>
           </div>
           <div class="flex items-center gap-1">
+            <span>BTCFi Meme:</span>
             <span>{{
               shortStr("2oSanm2VM5mCs9bvcjvmCK2ZU4wWXmXwNENmyMUdpump")
             }}</span>
