@@ -135,7 +135,7 @@
           v-for="(list, index) in actions"
           :key="index"
           class="chainList flex items-center gap-2"
-          @click="onSelect(list.name.toLowerCase())"
+          @click="onSelect(list.name)"
         >
           <img
             class="w-[26px] rounded-full"
