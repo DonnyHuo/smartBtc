@@ -22,11 +22,17 @@ export default {
     dispositDesc:
       "Unstaking SOS will immediately terminate your KOL certification, and reapplication will not be allowed. Please proceed with caution.",
     liftDisposit: "Unstake",
-    title3: ["Cross-chain Bridge", "SOS Governance and Buyback"],
-    navTitle3: "Vote on SOS projects and stake SOS for project airdrops.",
+    title3: [
+      "Real-time Equivalent Cross-chain Exchange",
+      "SOS Now Supports SATS, ORDI, SBTC...",
+    ],
+    navTitle3: [
+      "Hold SOS to Enjoy Inscription Airdrops,",
+      "Stake SOS to Earn Project Rewards.",
+    ],
     desc3: [
-      "50% of SOS tokens on the BSC chain are issued to the cross-chain bridge contract, allowing active SOS inscription accounts to transfer cross-chain; 30% is issued through LP swaps as rewards for liquidity providers (LP); 18% is airdropped to KOLs who promote community development; and 2% is issued to the startup pool contract.",
-      "SmartBTC regularly uses website income and project airdrops to buy back SOS and transfer it to the cross-chain bridge contract, increasing cross-chain capacity until 100% is reached. Once fully activated, cross-chain operations will be enabled both ways.",
+      "50% of the total SOS is issued in the cross-chain exchange contract, supporting early fair-minted inscriptions like sats, ordi, and SBTC, enabling real-time equivalent exchange; 30% of the total SOS is issued in the liquidity pool (LP) exchange contract. Adding liquidity to the SOS LP will grant equivalent SOS and activate eligibility for inscription airdrops, allowing regular participation in inscription airdrops; 10% of the total SOS is issued in the KOL linear unlock contract. Certified KOLs participating in community building will receive SOS rewards periodically based on cross-chain exchange progress, LP addition progress, and certified KOL weight; 10% of the total SOS is reserved in the launch pool, used to create SOS-BTCB, SOS-BNB, and SOS-USDT base LPs, and to provide liquidity aggregation bridges for projects created on SmartBTC.io.",
+      "SmartBTC regularly uses website revenue and project airdrop proceeds to repurchase SOS and transfer it to the cross-chain bridge contract, continuously activating cross-chain quotas until 100%. Once fully activated, bidirectional cross-chain exchange will take effect simultaneously.",
     ],
     title4: "Technical Roadmap",
     navTitle4:
@@ -187,16 +193,16 @@ export default {
     ],
     success: "Application Successful",
     error: "There is an error in the submitted information",
-    descTitle: "BRC852 Protocol",
+    descTitle: "Inscription Liquidity Innovation Solution",
     descNavTitle: [
-      "Anchored to BTC Inscription Assets, Cross-Chain Issuance,",
-      "Integrating Liquidity and Community Incentive Mechanisms",
-      "Anchored to BTC Inscription Assets, Cross-Chain Issuance,Integrating Liquidity and Community Incentive Mechanisms",
+      "Inspired by the PUMP.FUN model,",
+      "creating liquidity pools for BTC mainnet inscriptions on L2 (BSC chain).",
     ],
     descTips: [
-      "Mode 1, only open the cross-chain bridge: The total inscription supply is the same as the total BSC token supply, and the cross-chain contract is 100%, while other contracts are 0.",
-      "Mode 2, liquidity issuance and KOL rewards do not rely on additional issuance: The total inscription supply is the same as the total BSC token supply, with 50% allocated to the cross-chain contract. It can be increased to 100% through subsequent operations and buybacks.",
-      "Mode 3, liquidity issuance and KOL rewards are provided through additional issuance on the BSC chain. The cross-chain contract ratio = total inscription supply / total BSC token supply, while the other contract ratios are set according to the tokenomics model.",
+      "Certified inscription official communities can prioritize creating同名 projects on SmartBTC.io, launching with low market cap and fair distribution, allowing anyone to participate;",
+      "When a project's market cap grows 10x (reaching approximately $50,000 USD), SmartBTC.io will open the LP addition function for that project, rapidly increasing liquidity;",
+      "When the LP exchange progress reaches 30% (total LP reaching $50,000 USD), SmartBTC.io will open the cross-chain exchange function for that project, and the certified initiators and KOLs will jointly become the inscription project team;",
+      "Certified KOLs can participate in creating any同名 inscription project, competing fairly based on two key metrics: token market cap growth and LP addition progress. The first token to meet the criteria becomes the official inscription project.",
     ],
   },
   community: {

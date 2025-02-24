@@ -158,8 +158,8 @@
         <p>{{ $t("home.title2[1]") }}</p>
       </div>
       <div class="content">
-        {{ $t("home.desc2[0]") }}<br />
-        {{ $t("home.desc2[1]") }}<br />
+        {{ $t("home.desc2[0]") }}
+        {{ $t("home.desc2[1]") }}
         {{ $t("home.desc2[2]") }}
       </div>
 
@@ -244,7 +244,12 @@
         {{ $t("home.title3[1]") }}
       </div>
       <div class="text-grey font-medium text-[14px] mt-2">
-        {{ $t("home.navTitle3") }}
+        <div>
+          {{ $t("home.navTitle3[0]") }}
+        </div>
+        <div>
+          {{ $t("home.navTitle3[1]") }}
+        </div>
       </div>
       <img
         class="bridgeBg"
@@ -278,11 +283,10 @@
       </div>
       <div class="text-[14px]">
         <div class="pb-2">
-          {{ $t("kolAdd.descTips[0]") }}
-        </div>
-        <div class="pb-2">{{ $t("kolAdd.descTips[1]") }}</div>
-        <div class="pb-2">
-          {{ $t("kolAdd.descTips[2]") }}
+          <span>{{ $t("kolAdd.descTips[0]") }}</span>
+          <span>{{ $t("kolAdd.descTips[1]") }}</span>
+          <span>{{ $t("kolAdd.descTips[2]") }}</span>
+          <span>{{ $t("kolAdd.descTips[3]") }}</span>
         </div>
       </div>
     </div>

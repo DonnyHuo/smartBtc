@@ -96,6 +96,9 @@
           <div class="pb-2">
             {{ $t("kolAdd.descTips[2]") }}
           </div>
+          <div class="pb-2">
+            {{ $t("kolAdd.descTips[3]") }}
+          </div>
         </div>
       </div>
 
