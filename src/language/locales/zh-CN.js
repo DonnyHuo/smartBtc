@@ -1,7 +1,7 @@
 export default {
   home: {
     buy: "購買",
-    title: ["SOS Launchpad", "銘文流動性聚合平台"],
+    title: ["BRC20 Launchpad", "銘文流動性聚合平台"],
     voting: "投票中",
     vote: "投票",
     onMarket: "已上市",
@@ -21,7 +21,10 @@ export default {
     title3: ["即時等價跨鏈兌換", "SOS已支援SATS,ORDI,SBTC..."],
     navTitle3: ["持有SOS享銘文空投，", "質押SOS享項目獎勵。"],
     desc3: [
-      "SOS總量的50%發行在跨鏈兌換合約，支持sats、ordi和SBTC等早期公平鑄造銘文，實時等價兌換；SOS總量的30%發行在流動池LP兌換合約，為SOS提供流動池LP添加，將獲得等價的SOS，並激活銘文空投資格，享定期參與銘文空投權益；SOS總量的10%發行在KOL線性解鎖合約，認證KOL參與社區建設，根據跨鏈兌換進度、LP添加進度和認證的KOL權重，定期獲得SOS獎勵；SOS總量的10%預留在啟動池，用於創建SOS-BTCB、SOS-BNB、SOS-USDT基礎LP，並為在SmartBTC.io創建的項目提供流動性聚合橋。 ",
+      "SOS總量的50%發行在跨鏈兌換合約，支持sats、ordi和SBTC等早期公平鑄造銘文，實時等價兌換；",
+      "SOS總量的30%發行在流動池LP兌換合約，為SOS提供流動池LP添加，將獲得等價的SOS，並激活銘文空投資格，享定期參與銘文空投權益；",
+      "SOS總量的10%發行在KOL線性解鎖合約，認證KOL參與社區建設，根據跨鏈兌換進度、LP添加進度和認證的KOL權重，定期獲得SOS獎勵；",
+      "SOS總量的10%預留在啟動池，用於創建SOS-BTCB、SOS-BNB、SOS-USDT基礎LP，並為在SmartBTC.io創建的項目提供流動性聚合橋。 ",
       "SmartBTC定期以網站收入和项目空投所得回購SOS並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。",
     ],
     title4: "技術路線圖",
@@ -249,7 +252,7 @@ export default {
   lpSwap: {
     title: "提供流動性發行資產",
     desc: "錨定BRC20-{name}，總供應量 {total} W",
-    desc2: "錨定符文IOOT•SMARTBTC•IO，總供應量 {total} K",
+    desc2: "錨定BRC20-(SATS ORDI SBTC)，總供應量 {total} K",
     address: "合約地址",
     shares: "我的持股(佔比)",
     navTitle: "流動性發行兌換進度",

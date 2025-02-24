@@ -17,7 +17,7 @@
         <img class="down" src="../../assets/img/down.png" alt="" />
       </div>
     </div>
-    <div v-if="selectToken.name !== '100T'" class="title">
+    <div v-if="selectToken.name !== 'SOS'" class="title">
       {{
         this.$t("lpSwap.desc", {
           name: selectToken?.name,
@@ -230,6 +230,7 @@ export default {
       btcAddress: "",
       dialogShow: false,
       bindAddress: "",
+      address: this.$store.state.address,
     };
   },
   mounted() {
@@ -385,19 +386,20 @@ export default {
         value.address,
         erc20ABI,
         "balanceOf",
-        this.$store.state.address
+        this.address
       );
 
       const myBalances =
         ethers.utils.formatUnits(myBalance, value.decimals) * 1;
+
       this.selectTokenBalance = myBalances.toFixed(4);
       this.myBalanceRate = ((myBalances * 100) / total).toFixed(4);
     },
     addrmapQuery() {
-      if (this.$store.state.address) {
+      if (this.address) {
         this.$axios
           .post("https://smartbtc.io/bridge/addrmap/query", {
-            bsc_addr: this.$store.state.address,
+            bsc_addr: this.address,
           })
           .then((res) => {
             console.log("res.data.data.btc_addr", res.data.data.btc_addr);
@@ -412,7 +414,7 @@ export default {
       if (this.btcAddress) {
         this.$axios
           .post("https://smartbtc.io/bridge/addrmap/bind", {
-            bsc_addr: this.$store.state.address,
+            bsc_addr: this.address,
             btc_addr: this.btcAddress,
           })
           .then(() => {
@@ -432,10 +434,11 @@ export default {
   },
   watch: {
     async selectToken(value) {
-      console.log("value", value);
       this.getPairs(value.index);
       this.getBalance(value);
-      this.getAddressBalance(value);
+      if (this.address) {
+        this.getAddressBalance(value);
+      }
       if (value.name == "SOS") {
         this.addrmapQuery();
       }

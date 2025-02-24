@@ -1,7 +1,7 @@
 export default {
   home: {
     buy: "Buy",
-    title: ["SOS Launchpad", "Inscription Liquidity Aggregation Platform"],
+    title: ["BRC20 Launchpad", "Inscription Liquidity Aggregation Platform"],
     voting: "Voting",
     vote: "Vote",
     onMarket: "Listed",
@@ -31,7 +31,10 @@ export default {
       "Stake SOS to Earn Project Rewards.",
     ],
     desc3: [
-      "50% of the total SOS is issued in the cross-chain exchange contract, supporting early fair-minted inscriptions like sats, ordi, and SBTC, enabling real-time equivalent exchange; 30% of the total SOS is issued in the liquidity pool (LP) exchange contract. Adding liquidity to the SOS LP will grant equivalent SOS and activate eligibility for inscription airdrops, allowing regular participation in inscription airdrops; 10% of the total SOS is issued in the KOL linear unlock contract. Certified KOLs participating in community building will receive SOS rewards periodically based on cross-chain exchange progress, LP addition progress, and certified KOL weight; 10% of the total SOS is reserved in the launch pool, used to create SOS-BTCB, SOS-BNB, and SOS-USDT base LPs, and to provide liquidity aggregation bridges for projects created on SmartBTC.io.",
+      "50% of the total SOS is issued in the cross-chain exchange contract, supporting early fair-minted inscriptions like sats, ordi, and SBTC, enabling real-time equivalent exchange; ",
+      "30% of the total SOS is issued in the liquidity pool (LP) exchange contract. Adding liquidity to the SOS LP will grant equivalent SOS and activate eligibility for inscription airdrops, allowing regular participation in inscription airdrops; ",
+      "10% of the total SOS is issued in the KOL linear unlock contract. Certified KOLs participating in community building will receive SOS rewards periodically based on cross-chain exchange progress, LP addition progress, and certified KOL weight;",
+      "10% of the total SOS is reserved in the launch pool, used to create SOS-BTCB, SOS-BNB, and SOS-USDT base LPs, and to provide liquidity aggregation bridges for projects created on SmartBTC.io.",
       "SmartBTC regularly uses website revenue and project airdrop proceeds to repurchase SOS and transfer it to the cross-chain bridge contract, continuously activating cross-chain quotas until 100%. Once fully activated, bidirectional cross-chain exchange will take effect simultaneously.",
     ],
     title4: "Technical Roadmap",
@@ -280,8 +283,8 @@ export default {
   },
   lpSwap: {
     title: "Provide Liquidity to Issue Assets",
-    desc: "Pegged to SOS-{name}, total supply {total} K",
-    desc2: "Pegged to Rune IOOT•SMARTBTC•IO, total supply {total} K",
+    desc: "Pegged to BRC20-{name}, total supply {total} K",
+    desc2: "Pegged to Rune BRC20-(SATS ORDI SBTC), total supply {total} K",
     address: "Contract Address",
     shares: "My Holdings (Percentage)",
     navTitle: "Liquidity Issuance Exchange Progress",

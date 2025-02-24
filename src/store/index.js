@@ -46,7 +46,7 @@ export default createStore({
 
     lpExchange: "0xc8F0B4b0c6b5E4AdfA611EF8D8EC643bE04C23Ac",
     kolAddress: "0xA65A6301f608E720327DbAfD264c38dDc259Fe20",
-    pledgeAddress: "0x89e3E0bFF566DBAC4Cf4949ce91d407d661F6158",
+    pledgeAddress: "0xA65A6301f608E720327DbAfD264c38dDc259Fe20",
     adminAddress: [
       "0x86761c0d257847313e57b5b0c443c9c669912e46",
       "0x770b2b1c9dbbc5625b57a0ddd06df1bacef5b07c",

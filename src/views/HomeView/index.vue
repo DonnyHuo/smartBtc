@@ -262,7 +262,10 @@
       />
       <div class="content">
         {{ $t("home.desc3[0]") }}<br />
-        {{ $t("home.desc3[1]") }}
+        {{ $t("home.desc3[1]") }}<br />
+        {{ $t("home.desc3[2]") }}<br />
+        {{ $t("home.desc3[3]") }}<br />
+        {{ $t("home.desc3[4]") }}
       </div>
     </div>
 
@@ -281,17 +284,30 @@
           <div>{{ $t("kolAdd.descNavTitle[2]") }}</div>
         </div>
       </div>
-      <div class="text-[14px]">
-        <div class="pb-2">
-          <span>{{ $t("kolAdd.descTips[0]") }}</span>
-          <span>{{ $t("kolAdd.descTips[1]") }}</span>
-          <span>{{ $t("kolAdd.descTips[2]") }}</span>
-          <span>{{ $t("kolAdd.descTips[3]") }}</span>
-        </div>
-      </div>
     </div>
 
-    <div class="contant">
+    <div class="contantList px-[20px]">
+      <van-steps
+        direction="vertical"
+        :active="-1"
+        :inactive-icon="require('../../assets/img/point.png')"
+      >
+        <van-step>
+          <div class="desc !text-[#111]">{{ $t("kolAdd.descTips[0]") }}</div>
+        </van-step>
+        <van-step>
+          <div class="desc !text-[#111]">{{ $t("kolAdd.descTips[1]") }}</div>
+        </van-step>
+        <van-step>
+          <div class="desc !text-[#111]">{{ $t("kolAdd.descTips[2]") }}</div>
+        </van-step>
+        <van-step>
+          <div class="desc !text-[#111]">{{ $t("kolAdd.descTips[3]") }}</div>
+        </van-step>
+      </van-steps>
+    </div>
+
+    <!-- <div class="contant">
       <div class="title">
         <div class="font-medium">{{ $t("home.title4") }}</div>
         <div
@@ -366,7 +382,7 @@
           </van-step>
         </van-steps>
       </div>
-    </div>
+    </div> -->
     <div class="footer">
       <div class="iconBox">
         <a href="https://t.me/SmartBTCdao" target="_blank">
