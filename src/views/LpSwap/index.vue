@@ -36,7 +36,7 @@
       <canvas ref="myChart"></canvas>
     </div>
 
-    <div v-if="bindAddress && selectToken.name == 'BRC20'" class="mt-[20px]">
+    <div v-if="bindAddress && selectToken.name == 'SOS'" class="mt-[20px]">
       <div class="text-[16px] text-[#111111] font-medium">
         {{ $t("bindText[0]") }}
       </div>
@@ -436,7 +436,7 @@ export default {
       this.getPairs(value.index);
       this.getBalance(value);
       this.getAddressBalance(value);
-      if (value.name == "BRC20") {
+      if (value.name == "SOS") {
         this.addrmapQuery();
       }
     },

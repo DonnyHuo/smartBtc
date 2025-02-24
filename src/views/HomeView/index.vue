@@ -25,7 +25,7 @@
           style="text-align: right; padding-top: 5px"
           class="flex item-center justify-between"
         >
-          <span v-if="$store.state.address">{{ sBtcBalance }} BRC20 </span>
+          <span v-if="$store.state.address">{{ sBtcBalance }} SOS </span>
           <a
             v-if="$store.state.address"
             :href="`https://pancakeswap.finance/swap?outputCurrency=${$store.state.sBtc}`"
@@ -223,7 +223,7 @@
 
       <div v-if="activeAmount * 1 > 0" class="mt-10">
         <div class="flex item-center justify-between">
-          <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} BRC20</div>
+          <div>{{ $t("home.dispositNumber") }}: {{ activeAmount }} SOS</div>
           <van-button
             class="activeBtn"
             size="small"
@@ -581,7 +581,7 @@ export default {
     },
     vote(project_name) {
       if (this.sBtcBalance * 1 < this.repMinThreshold * 1) {
-        return showToast("BRC20余额不足");
+        return showToast("SOS余额不足");
       }
       if (!this.$store.state.address) {
         return;
@@ -717,7 +717,7 @@ export default {
       );
       this.lpExProgressValue = ((lpExProgress.toString() * 1) / 100).toFixed(2);
 
-      if (this.reserveInfo.name !== "BRC20") {
+      if (this.reserveInfo.name !== "SOS") {
         const kolProgress = await getContract(
           this.$store.state.kolAddress,
           kolAbi,

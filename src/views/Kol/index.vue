@@ -163,17 +163,17 @@
     <van-action-sheet
       class="model"
       v-model:show="activeModal"
-      :title="`${$t('kol.desposit')} BRC20`"
+      :title="`${$t('kol.desposit')} SOS`"
     >
       <div class="content">
         <div class="balanceBox">
-          {{ $t("kol.balance") }}：{{ sBtcBalance }} BRC20
+          {{ $t("kol.balance") }}：{{ sBtcBalance }} SOS
         </div>
         <div class="inputBox">
           <input
             v-model="depositAmount"
             type="text"
-            :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} BRC20`"
+            :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} SOS`"
             @change="changeDepositAmount"
           />
           <button size="small" @click="maxFun">{{ $t("kol.max") }}</button>

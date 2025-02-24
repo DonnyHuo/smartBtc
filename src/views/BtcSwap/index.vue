@@ -37,7 +37,7 @@
             />
             <div class="buyOrMining">
               <a
-                href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/BRC20"
+                href="https://www.okx.com/zh-hans/web3/marketplace/inscription/ordinals/token/SOS"
                 >{{ $t("btcSwap.buy") }}</a
               >
             </div>
@@ -383,7 +383,7 @@ export default {
         this.postLoading = true;
 
         let txid = await okxwallet.bitcoin.sendInscription(
-          "bc1p5ktxxfrmk4ej9ghq2nltd2ryc32p2l3ddezk6lvfnc6njx85lpjsay38xp", // 写死 boss的btc地址
+          "bc1pec6jqs5v0xzrjamdq3g5w2u3z4sls96x0yquypt4gf4vgpt9zmqq05y7r9", // 写死 boss的btc地址
           this.selectedCoin.inscriptionId
         );
         console.log("txid", txid);

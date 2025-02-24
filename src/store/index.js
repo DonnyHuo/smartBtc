@@ -5,7 +5,7 @@ export default createStore({
   state: {
     address: "",
     t100: "0x38629893f4cedd26e33af93e581d1e3aca178c0a",
-    sBtc: "0x7ed05cbb258c3bd800d9dbea39034751cdf22ae1",
+    sBtc: "0x1d887F723F77b2F8C99BED8B94F4e3BA71BAF70e",
     inviteAddress: "0xdCda96a2A1167D8A8DD7CdcE64448ee3F230a2fe",
     poolAddress: "0xCBa0580fa60C48b43556AdA557C426995488F24e",
     chainId: "",
@@ -44,14 +44,16 @@ export default createStore({
     selectedList: [],
     tokenList: [],
 
-    lpExchange: "0xa9C13E5B81AA4789B4eF1C6F8feC7527e2DDcBc2",
-    kolAddress: "0x89e3E0bFF566DBAC4Cf4949ce91d407d661F6158",
+    lpExchange: "0xc8F0B4b0c6b5E4AdfA611EF8D8EC643bE04C23Ac",
+    kolAddress: "0xA65A6301f608E720327DbAfD264c38dDc259Fe20",
     pledgeAddress: "0x89e3E0bFF566DBAC4Cf4949ce91d407d661F6158",
     adminAddress: [
       "0x86761c0d257847313e57b5b0c443c9c669912e46",
       "0x770b2b1c9dbbc5625b57a0ddd06df1bacef5b07c",
       "0x313fdb8aa2695b6d57a07288890e488933113ad5",
       "0xe369aec574d5408604daa3d12e95d5624fae9112",
+      "0x50333FcC802BBEac62F196aB8C7Fc5125d10C382",
+      "0xbb96c185c1df083f7c4edbdf8ae1690f2dc99060",
     ],
     lang: "zh",
     activeAmount: 0,
