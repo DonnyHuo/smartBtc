@@ -122,13 +122,22 @@
   </div>
   <van-dialog
     v-model:show="dialogShow"
-    :title="$t('bindText[0]')"
     :showConfirmButton="true"
     :showCancelButton="false"
     :confirmButtonText="$t('sure')"
     :beforeClose="addrmapBind"
   >
     <div class="text-left p-[20px] text-[14px]">
+      <div class="mb-[30px] font-medium flex items-center justify-between">
+        <router-link to="/">
+          <img
+            class="w-[15px]"
+            :src="require('../../assets/img/goHome.png')"
+            alt=""
+        /></router-link>
+
+        <span class="m-auto">{{ $t("bindText[0]") }}</span>
+      </div>
       <p>
         {{ $t("bindModal[0]") }}:
         <span class="text-[#111]">{{ shortStr($store.state.address) }}</span>
