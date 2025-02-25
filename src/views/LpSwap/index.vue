@@ -107,9 +107,7 @@
             >
               <img
                 class="listLogo"
-                :src="
-                  require(`../../assets/img/tokenList/brc20-${list?.name.toLowerCase()}.png`)
-                "
+                :src="getIcon(list?.name.toLowerCase())"
                 alt=""
               />
               <span>{{ list.name }}</span>
@@ -256,6 +254,17 @@ export default {
   },
   methods: {
     shortStr,
+    getIcon(name) {
+      if (name) {
+        try {
+          return require(`@/assets/img/tokenList/brc20-${name.toLowerCase()}.png`);
+        } catch {
+          return require("@/assets/img/default.png");
+        }
+      } else {
+        return require("@/assets/img/default.png");
+      }
+    },
     onSelectCoin(list) {
       this.selectToken = list;
       this.showCoin = false;
