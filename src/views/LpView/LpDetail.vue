@@ -142,18 +142,19 @@
   </div>
 </template>
 <script>
-import { ethers } from "ethers";
 import {
   shortStr,
   getContract,
   getWriteContractLoad,
   getOkChainId,
-  realIconLogo,
+  realIconLogo
 } from "@/utils";
-import LpHeader from "./LpHeader.vue";
-import poolABI from "../../abi/pool.json";
-import erc20ABI from "../../abi/erc20.json";
+import { ethers } from "ethers";
 import { showToast } from "vant";
+
+import erc20ABI from "../../abi/erc20.json";
+import poolABI from "../../abi/pool.json";
+import LpHeader from "./LpHeader.vue";
 
 export default {
   name: "LpDetail",
@@ -170,7 +171,7 @@ export default {
       depositLoading: false,
       approveLoading: false,
       t100Address: this.$store.state.t100,
-      noLp: false,
+      noLp: false
     };
   },
   async created() {
@@ -199,7 +200,7 @@ export default {
             res.minDepositLimit,
             this.$store.state.usdtDecimals
           ) * 1
-        ).toFixed(2),
+        ).toFixed(2)
       };
       this.lpInfo = newIObj;
       this.getLpBalance();
@@ -267,8 +268,8 @@ export default {
         }
         this.depositLoading = true;
         const overrides = {
-          gasLimit: 500000,
-          gasPrice: ethers.utils.parseUnits("5", "gwei"),
+          gasLimit: 200000,
+          gasPrice: ethers.utils.parseUnits("5", "gwei")
         };
         const res = await getWriteContractLoad(
           this.$store.state.poolAddress,
@@ -288,8 +289,8 @@ export default {
           `${this.$t("poolDetail.min")} ${this.lpInfo.minDepositLimit} H/S`
         );
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
