@@ -1,0 +1,239 @@
+<template>
+  <div class="bg-white min-h-full">
+    <div
+      class="flex items-center justify-between p-[20px] pb-0 gap-5 text-[14px]"
+    >
+      <div class="flex items-center gap-2">
+        <span>{{ $t("newData.marketCap") }}</span>
+        <span @click="sortFun">
+          <div class="flex flex-col gap-[2px]">
+            <div
+              class="triangle-up"
+              :class="
+                sort === 'asc' ? '!border-b-[#000]' : '!border-b-[#757575]'
+              "
+            ></div>
+            <div
+              class="triangle-down"
+              :class="
+                sort === 'desc' ? '!border-t-[#000]' : '!border-t-[#757575]'
+              "
+            ></div>
+          </div>
+        </span>
+      </div>
+      <div>
+        <input
+          class="border border-solid border-[#999] px-3 py-2 rounded-3xl text-[12px]"
+          type="text"
+          v-model="searchValue"
+          :placeholder="$t('newData.search')"
+          @change="searchValueFun"
+        />
+      </div>
+      <router-link v-if="page" to="/kolAdd">
+        <van-button
+          class="!bg-[#FCD434] !border-0 !rounded-xl text-[#000]"
+          size="small"
+          >{{ $t("kol.startPro") }}</van-button
+        >
+      </router-link>
+    </div>
+    <div v-if="loading" class="h-[400px] flex items-center justify-center">
+      <van-loading />
+    </div>
+    <div v-if="searchList.length">
+      <div v-for="(list, index) in searchList">
+        <div
+          :key="index"
+          class="mx-[20px] py-[20px] text-left border-0 border-b border-solid border-[#AAAAAA]"
+        >
+          <div class="flex items-start justify-between">
+            <div>
+              <div>{{ list.symbol }}</div>
+              <div class="text-[#757575] text-[12px] mt-1">
+                {{ $t("newData.marketCap") }}: ${{
+                  Number(list.total_supply * list.lastPrice).toFixed(0)
+                }}
+              </div>
+            </div>
+            <div>${{ Number(list.lastPrice).toFixed(6) }}</div>
+          </div>
+          <div class="flex items-center gap-3 my-3 text-[12px]">
+            <a
+              class="bg-[#f5f5f5] p-1 rounded-[4px] flex items-center gap-1"
+              :href="list.twitter_account"
+            >
+              <img
+                class="w-3"
+                :src="require('@/assets/img/twiter.png')"
+                alt=""
+              />
+              <span>Twitter</span>
+            </a>
+            <a
+              class="bg-[#f5f5f5] p-1 rounded-[4px] flex items-center gap-1"
+              :href="list.tg_account"
+            >
+              <img
+                class="w-3"
+                :src="require('@/assets/img/telegram.png')"
+                alt=""
+              />
+              <span>Telegram</span>
+            </a>
+            <div class="bg-[#f5f5f5] p-1 rounded-[4px]">
+              {{ list.project_type === 1 ? "铭文做市" : "MEME" }}
+            </div>
+            <div v-if="!list.details" class="ml-auto">
+              <button
+                v-if="!page"
+                class="flex-shrink-0 bg-[#FCD434] text-black text-[12px] rounded-2xl py-2 px-3"
+                @click="copyAddress(list.contract_addr)"
+              >
+                {{ $t("newData.copy") }}
+              </button>
+              <button
+                v-else
+                class="flex-shrink-0 bg-[#FCD434] text-black text-[12px] rounded-2xl py-2 px-3"
+                @click="clickItem(list)"
+              >
+                {{ $t("newData.approve") }}
+              </button>
+            </div>
+          </div>
+          <div
+            v-if="list.details"
+            class="flex items-center justify-between gap-5"
+          >
+            <div class="text-[#757575] text-[12px] text-left">
+              {{ list.details }}
+            </div>
+            <button
+              v-if="!page"
+              class="flex-shrink-0 bg-[#FCD434] text-black text-[12px] rounded-2xl py-2 px-3"
+              @click="copyAddress(list.contract_addr)"
+            >
+              {{ $t("newData.copy") }}
+            </button>
+            <button
+              v-else
+              class="flex-shrink-0 bg-[#FCD434] text-black text-[12px] rounded-2xl py-2 px-3"
+              @click="clickItem(list)"
+            >
+              {{ $t("newData.approve") }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="!searchList.length && !loading"
+      class="h-[400px] flex items-center justify-center"
+    >
+      {{ $t("newData.noData") }}
+    </div>
+  </div>
+</template>
+<script>
+import { showToast } from "vant";
+
+import { copy } from "@/utils/index";
+
+export default {
+  name: "shareProject",
+  props: ["page"],
+  data() {
+    return {
+      searchValue: "",
+      projectIssuedList: [],
+      searchList: [],
+      loading: false,
+      sort: "desc"
+    };
+  },
+  created() {
+    this.getProjectIssuedList();
+    console.log("page", this.page);
+  },
+  methods: {
+    clickItem(item) {
+      this.$emit("clickItemFun", item);
+    },
+    copyAddress(msg) {
+      copy(msg);
+      showToast(this.$t("copySuccess"));
+    },
+    searchValueFun(e) {
+      this.searchValue = e.target.value;
+    },
+    getProjectIssuedList() {
+      this.loading = true;
+      this.$axios
+        .get("https://smartbtc.io/bridge/kol/project_issued_list")
+        .then(async (res) => {
+          if (res.data.data.length > 0) {
+            this.projectIssuedList = res.data.data;
+            this.searchList = this.projectIssuedList;
+            // if ([4, 5].includes(this.accountInfo.status)) {
+            //   const reserveInfo = this.projectIssuedList.filter(
+            //     (list) => list.project_name == this.accountInfo.project_name
+            //   );
+            //   this.reserveInfo = reserveInfo[0];
+            // }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    sortFun() {
+      if (this.sort == "desc") {
+        this.searchList.sort(
+          (a, b) =>
+            Number(a.total_supply * a.lastPrice) -
+            Number(b.total_supply * b.lastPrice)
+        );
+        this.sort = "asc";
+      } else {
+        this.searchList.sort(
+          (a, b) =>
+            Number(b.total_supply * b.lastPrice) -
+            Number(a.total_supply * a.lastPrice)
+        );
+        this.sort = "desc";
+      }
+    }
+  },
+  watch: {
+    searchValue(value) {
+      if (value !== "") {
+        this.searchList = this.projectIssuedList.filter((item) =>
+          item.symbol.toLowerCase().includes(value.toLowerCase())
+        );
+      } else {
+        this.searchList = this.projectIssuedList;
+      }
+    }
+  }
+};
+</script>
+<style lang="scss">
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid red;
+}
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+}
+</style>

@@ -4,72 +4,7 @@
       {{ $t("kolAdd.title") }}
     </div>
     <div class="form">
-      <div class="list">
-        <span class="font-medium">
-          <span class="text-red-600 pr-1">*</span>
-          <span> {{ $t("kolAdd.brc20Name") }}</span>
-        </span>
-        <input type="text" v-model="brc20_name" />
-      </div>
-      <div class="list">
-        <span class="font-medium">
-          {{ $t("kolAdd.brc20Id") }}
-        </span>
-        <input type="text" v-model="brc20_id" />
-      </div>
-      <div class="list">
-        <span class="font-medium">
-          <span class="text-red-600 pr-1">*</span>
-          <span>{{ $t("kolAdd.brc20Supply") }}</span>
-        </span>
-        <input type="text" v-model="brc20_supply" />
-      </div>
-      <div class="list">
-        <span class="font-medium">
-          <span class="text-red-600 pr-1">*</span>
-          <span> {{ $t("kolAdd.symbol") }}</span>
-        </span>
-        <input type="text" v-model="symbol" />
-      </div>
-      <div class="list">
-        <span class="font-medium">
-          <span class="text-red-600 pr-1">*</span>
-          <span>{{ $t("kolAdd.total") }}</span>
-        </span>
-        <input type="text" v-model="totalSupply" />
-      </div>
-      <div class="listBox">
-        <div class="title font-medium">
-          <span class="text-red-600 pr-1">*</span>
-          <span> {{ $t("kolAdd.rate") }}</span>
-        </div>
-        <div class="listDiv">
-          <div class="listS">
-            <span>{{ $t("kolAdd.rateArr[0]") }}</span>
-            <div class="inputBox">
-              <input type="text" v-model="percents[0]" placeholder=">=50" /> %
-            </div>
-          </div>
-          <div class="listS">
-            <span>{{ $t("kolAdd.rateArr[1]") }}</span>
-            <div class="inputBox">
-              <input type="text" v-model="percents[1]" placeholder=">=10" /> %
-            </div>
-          </div>
-          <div class="listS">
-            <span>{{ $t("kolAdd.rateArr[2]") }}</span>
-            <div class="inputBox">
-              <input type="text" v-model="percents[2]" placeholder="1-3" /> %
-            </div>
-          </div>
-          <div class="listS">
-            <span>{{ $t("kolAdd.rateArr[3]") }}</span>
-            <div class="inputBox">
-              <input type="text" v-model="percents[3]" placeholder="<=20" /> %
-            </div>
-          </div>
-        </div>
-      </div>
+      <CreateProject />
 
       <div class="text-[14px] px-[20px] my-2 mt-10 text-left leading-6">
         <div class="title font-medium text-center text-[18px]">
@@ -102,9 +37,9 @@
         </div>
       </div>
 
-      <div class="sure">
+      <!-- <div class="sure">
         <van-button @click="newProject">{{ $t("kolAdd.submit") }}</van-button>
-      </div>
+      </div> -->
       <div class="desc">
         {{ $t("kolAdd.desc") }}
       </div>
@@ -127,8 +62,10 @@
   </div>
 </template>
 <script>
-import { shortStr, copy } from "@/utils";
 import { showToast, showConfirmDialog } from "vant";
+
+import { shortStr, copy } from "@/utils";
+import CreateProject from "@/components/CreateProject";
 
 export default {
   name: "kolAdd",
@@ -140,16 +77,17 @@ export default {
       brc20_supply: "",
       symbol: "",
       totalSupply: "",
-      percents: ["", "", "", ""],
+      percents: ["", "", "", ""]
     };
   },
+  components: { CreateProject },
   computed: {
     tweet() {
       return this.$t("kol.tweet", {
         address: this.shortStr(this.$store.state.address),
-        name: this.symbol,
+        name: this.symbol
       });
-    },
+    }
   },
   methods: {
     shortStr,
@@ -170,7 +108,7 @@ export default {
         brc20_supply: this.brc20_supply,
         symbol: this.symbol,
         total_supply: this.totalSupply,
-        percents: this.percents.map((list) => list * 100),
+        percents: this.percents.map((list) => list * 100)
       };
       if (
         project_info.brc20_name &&
@@ -181,17 +119,17 @@ export default {
       ) {
         showConfirmDialog({
           title: `${this.$t("kolAdd.tips[1]", {
-            name: project_info.name,
+            name: project_info.name
           })}`,
           message: this.$t("kolAdd.tips[2]"),
           confirmButtonText: this.$t("sure"),
-          cancelButtonText: this.$t("cancel"),
+          cancelButtonText: this.$t("cancel")
         })
           .then(() => {
             this.$axios
               .post("https://smartbtc.io/bridge/kol/new_project", {
                 kol_address: this.$store.state.address,
-                project_info,
+                project_info
               })
               .then((res) => {
                 showToast(this.$t("kolAdd.success"));
@@ -210,8 +148,8 @@ export default {
       } else {
         showToast(this.$t("kolAdd.error"));
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

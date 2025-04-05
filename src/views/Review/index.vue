@@ -253,11 +253,23 @@
       </div>
     </div>
     <van-action-sheet class="model" v-model:show="model" title="审核认领项目">
-      <div class="content">
-        <div class="inputBox">
-          <div class="coinName">分配比例</div>
-          <div class="inputDiv"><input v-model="percent" type="text" /> %</div>
+      <div class="content w-[300px] mx-auto">
+        <div class="flex items-center gap-4 my-[20px]">
+          <div class="text-[14px]">当前权重</div>
+          <div>{{ tokenAirdropKols }}</div>
         </div>
+        <div class="flex items-center gap-4 mb-[20px]">
+          <div class="text-[14px]">分配比例</div>
+          <div class="">
+            <input
+              class="border border-solid border-[#999] h-[30px] !rounded-xl px-[12px]"
+              v-model="percent"
+              type="text"
+            />
+            %
+          </div>
+        </div>
+
         <van-button
           :loading="withdrawLoading"
           class="modelBtn"
@@ -274,11 +286,13 @@ import {
   shortStr,
   formatDate,
   getWriteContractLoad,
-  getContract,
+  getContract
 } from "@/utils";
-import { showToast } from "vant";
-import erc20Abi from "../../abi/erc20.json";
 import { ethers } from "ethers";
+import { showToast } from "vant";
+
+import erc20Abi from "../../abi/erc20.json";
+import kolAbi from "../../abi/kol.json";
 
 export default {
   name: "review",
@@ -298,9 +312,10 @@ export default {
         token_name: "",
         token_symbol: "",
         total_supply: "",
-        percents: ["", "", "", ""],
+        percents: ["", "", "", ""]
       },
       migrateTokenLoading: false,
+      tokenAirdropKols: ""
     };
   },
   mounted() {
@@ -375,7 +390,7 @@ export default {
         .post("https://smartbtc.io/bridge/kol_admin/aggree", {
           admin_address: this.$store.state.address,
           kol_address: list.address,
-          aggree: agree,
+          aggree: agree
         })
         .then((res) => {
           showToast(agree ? "审核通过" : "审核不通过");
@@ -400,7 +415,7 @@ export default {
         .post("https://smartbtc.io/bridge/kol_admin/project_aggree", {
           admin_address: this.$store.state.address,
           project_name: list.project_name,
-          aggree: agree,
+          aggree: agree
         })
         .then((res) => {
           showToast(agree ? "审核通过" : "审核不通过");
@@ -427,7 +442,7 @@ export default {
           kol_address,
           project_name,
           aggree,
-          percent,
+          percent
         })
         .then((res) => {
           showToast(aggree ? "审核通过" : "审核不通过");
@@ -469,7 +484,7 @@ export default {
       const migrate_token = {
         ...this.migrate_token,
         percents: newPercents,
-        admin_address: this.$store.state.address,
+        admin_address: this.$store.state.address
       };
 
       if (ethers.utils.isAddress(migrate_token.contract_addr)) {
@@ -489,7 +504,7 @@ export default {
       const decimals = await getContract(tokenAddress, erc20Abi, "decimals");
       const overrides = {
         gasLimit: 100000,
-        gasPrice: ethers.utils.parseUnits("5", "gwei"),
+        gasPrice: ethers.utils.parseUnits("5", "gwei")
       };
 
       getWriteContractLoad(
@@ -527,7 +542,32 @@ export default {
           console.log(err);
         });
     },
+
+    async getWeight() {
+      const tokenId = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "getTokenRatiosIndexByProjectName",
+        this.selectedItem.project_name
+      );
+
+      const tokenAirdropKols = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "tokenAirdropKols",
+        tokenId.toString()
+      );
+
+      this.tokenAirdropKols = tokenAirdropKols.toString();
+    }
   },
+  watch: {
+    model(value) {
+      if (value) {
+        this.getWeight();
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

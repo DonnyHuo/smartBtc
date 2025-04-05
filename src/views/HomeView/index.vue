@@ -238,7 +238,11 @@
         </p>
       </div>
     </div>
-    <div class="bridgeContent">
+    <div v-if="accountInfo.status === 1 && activeAmount * 1">
+      <CreateProject />
+    </div>
+
+    <!-- <div class="bridgeContent">
       <div class="title font-medium">
         {{ $t("home.title3[0]") }}<br />
         {{ $t("home.title3[1]") }}
@@ -267,9 +271,9 @@
         {{ $t("home.desc3[3]") }}<br />
         {{ $t("home.desc3[4]") }}
       </div>
-    </div>
+    </div> -->
 
-    <div class="px-[20px] my-2 mt-10 text-left leading-6">
+    <!-- <div class="px-[20px] my-2 mt-10 text-left leading-6">
       <div class="title font-medium text-center w-3/4 m-auto text-[18px]">
         {{ $t("kolAdd.descTitle") }}
       </div>
@@ -284,9 +288,9 @@
           <div>{{ $t("kolAdd.descNavTitle[2]") }}</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="contantList px-[20px]">
+    <!-- <div class="contantList px-[20px]">
       <van-steps
         direction="vertical"
         :active="-1"
@@ -305,7 +309,7 @@
           <div class="desc !text-[#111]">{{ $t("kolAdd.descTips[3]") }}</div>
         </van-step>
       </van-steps>
-    </div>
+    </div> -->
 
     <!-- <div class="contant">
       <div class="title">
@@ -401,22 +405,24 @@
 </template>
 
 <script>
-import { ethers } from "ethers";
-
 import {
   shortStr,
   getContract,
   copy,
   connectWallet,
   getWriteContract,
-  getWriteContractLoad,
+  getWriteContractLoad
 } from "../../utils";
+import { ethers } from "ethers";
+import { showToast, showConfirmDialog } from "vant";
+
+import CreateProject from "@/components/CreateProject.vue";
+
+import depositAbi from "../../abi/deposit.json";
 import erc20ABI from "../../abi/erc20.json";
 import inviteABI from "../../abi/invite.json";
-import poolABI from "../../abi/pool.json";
 import kolAbi from "../../abi/kol.json";
-import depositAbi from "../../abi/deposit.json";
-import { showToast, showConfirmDialog } from "vant";
+import poolABI from "../../abi/pool.json";
 
 export default {
   name: "HomeView",
@@ -444,17 +450,18 @@ export default {
       reserveBalance: 0,
       option1: [
         { text: "繁体中文", value: "zh" },
-        { text: "English", value: "en" },
+        { text: "English", value: "en" }
       ],
       value1: this.$store.state.lang,
       address: this.$store.state.address,
-      adminAddress: this.$store.state.adminAddress,
+      adminAddress: this.$store.state.adminAddress
     };
   },
+  components: { CreateProject },
   computed: {
     adminShow() {
       return this.adminAddress.includes(this.address.toLowerCase());
-    },
+    }
   },
   async created() {
     if (this.address) {
@@ -610,7 +617,7 @@ export default {
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
-          project_name,
+          project_name
         })
         .then((res) => {
           console.log(res);
@@ -630,7 +637,7 @@ export default {
         "https://smartbtc.io/bridge/kol/is_voted",
         {
           kol_address: this.$store.state.address,
-          project_name,
+          project_name
         }
       );
 
@@ -652,7 +659,7 @@ export default {
     getInfo() {
       this.$axios
         .post("https://smartbtc.io/bridge/kol/query_kol", {
-          address: this.$store.state.address,
+          address: this.$store.state.address
         })
         .then((res) => {
           this.accountInfo = res.data.data;
@@ -771,7 +778,7 @@ export default {
         title: `${this.$t("home.unstake")}`,
         message: `${this.$t("home.unstakeDesc")}`,
         confirmButtonText: this.$t("sure"),
-        cancelButtonText: this.$t("cancel"),
+        cancelButtonText: this.$t("cancel")
       })
         .then(async () => {
           this.quitKolLoading = true;
@@ -803,14 +810,14 @@ export default {
         .catch(() => {
           // on cancel
         });
-    },
+    }
   },
   watch: {
     reserveInfo(value) {
       value && this.getWithdraw();
       value && this.getReserveBalance();
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

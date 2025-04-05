@@ -8,24 +8,39 @@
       </div>
     </div>
     <div v-if="!accountInfo" class="kolRequest">
+      <div class="text-[12px] text-[#999] leading-5 text-left !block">
+        <p>KOL 奖励分配权重=（推特粉丝数+质押 SOS 数+认证推文阅读数）÷100 万</p>
+        <p>
+          提交 KOL 认证后，请转发官推置顶推文，配文自定义，文末加上认证钱包后 4
+          位，并@SmartBTCdao
+        </p>
+      </div>
       <div>
         <span><span class="must">*</span>{{ $t("kol.revenueAddress") }}</span>
         <input disabled type="text" :value="registerAddress" />
       </div>
       <div>
         <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
-        <input type="text" v-model="xAddress" />
+        <input type="text" v-model="xAddress" placeholder="@x.com/xxx" />
       </div>
       <div class="desc">
         {{ $t("kol.desc1") }}
       </div>
       <div>
         <span>{{ $t("kol.telegram") }}</span>
-        <input type="text" v-model="tgAddress" />
+        <input
+          type="text"
+          v-model="tgAddress"
+          placeholder="https://telegram.org/xxx"
+        />
       </div>
       <div>
         <span>{{ $t("kol.discord") }}</span>
-        <input type="text" v-model="disAddress" />
+        <input
+          type="text"
+          v-model="disAddress"
+          placeholder="https://discord.com/xxx"
+        />
       </div>
 
       <van-button @click="register">{{ $t("kol.submit") }}</van-button>
@@ -52,7 +67,7 @@
         @click="openActiveModal(item)"
         >{{ $t("kol.desposit") }}</van-button
       >
-      <div v-else class="inputSearch">
+      <!-- <div v-else class="inputSearch">
         <input
           class="searchBox"
           type="text"
@@ -65,45 +80,22 @@
             $t("kol.startPro")
           }}</van-button>
         </router-link>
-      </div>
+      </div> -->
 
       <div v-if="!activeAmount" class="desc mt-10">
         {{ $t("kol.desc[0]") }}
       </div>
-      <div v-else class="desc mt-10">
+      <!-- <div v-else class="desc mt-10">
         {{ $t("kol.desc[1]") }}
-      </div>
+      </div> -->
     </div>
 
     <div v-if="accountInfo.status === 1" class="listBoxs">
-      <div v-if="searchList.length">
-        <div v-for="(item, index) in searchList" class="list" :key="index">
-          <div class="flex items-center">
-            <img
-              class="w-[30px] mr-3 rounded-2xl"
-              :src="realIconLogo(item.project_name)"
-              alt=""
-            />
-            <!--/default.png -->
-            <span>{{ item.name }}</span>
-          </div>
-          <div>
-            <van-button
-              size="small"
-              :disabled="!activeAmount"
-              @click="openModel(item)"
-              >{{ $t("kol.claim") }}</van-button
-            >
-          </div>
-        </div>
-      </div>
-
-      <div v-else class="noData">
-        <div>
-          <img src="../../assets/img/noData.png" />
-          <div>{{ $t("noData") }}</div>
-        </div>
-      </div>
+      <ShareProject
+        class="rounded-xl"
+        page="noShare"
+        @clickItemFun="clickItemFun"
+      />
     </div>
     <div v-if="accountInfo !== '' && ![0, 1].includes(accountInfo.status)">
       <div class="hadPro">
@@ -200,9 +192,6 @@
 </template>
 
 <script>
-import { showToast } from "vant";
-import erc20ABI from "../../abi/erc20.json";
-import { ethers } from "ethers";
 import {
   formatDate,
   shortStr,
@@ -210,11 +199,17 @@ import {
   getWriteContract,
   getWriteContractLoad,
   copy,
-  realIconLogo,
+  realIconLogo
 } from "@/utils";
-import kolAbi from "../../abi/kol.json";
-import depositAbi from "../../abi/deposit.json";
+import { ethers } from "ethers";
+import { showToast } from "vant";
 import { showConfirmDialog } from "vant";
+
+import ShareProject from "@/views/ShareProject";
+
+import depositAbi from "../../abi/deposit.json";
+import erc20ABI from "../../abi/erc20.json";
+import kolAbi from "../../abi/kol.json";
 
 export default {
   name: "kol",
@@ -247,9 +242,10 @@ export default {
       minDeposit: "",
       searchValue: "",
       searchList: "",
-      checked: false,
+      checked: false
     };
   },
+  components: { ShareProject },
   mounted() {
     this.getInfo();
     this.getProjectIssuedList();
@@ -280,11 +276,14 @@ export default {
     tweet() {
       return this.$t("kol.tweet", {
         address: this.shortStr(this.$store.state.address),
-        name: this.selectedItem.name,
+        name: this.selectedItem.name
       });
-    },
+    }
   },
   methods: {
+    clickItemFun(item) {
+      this.openModel(item);
+    },
     shortStr,
     formatDate,
     realIconLogo,
@@ -327,7 +326,7 @@ export default {
     getInfo() {
       this.$axios
         .post("https://smartbtc.io/bridge/kol/query_kol", {
-          address: this.$store.state.address,
+          address: this.$store.state.address
         })
         .then((res) => {
           this.accountInfo = res.data.data;
@@ -349,7 +348,7 @@ export default {
           address: this.address,
           twitter_account: this.xAddress,
           tg_account: this.tgAddress,
-          discord_account: this.disAddress,
+          discord_account: this.disAddress
         })
         .then((res) => {
           showToast(this.$t("kol.tips[5]"));
@@ -364,13 +363,13 @@ export default {
         title: `${this.$t("kol.tips[2]", { name: project_name })}`,
         message: `${this.$t("kol.tips[3]")}`,
         confirmButtonText: this.$t("sure"),
-        cancelButtonText: this.$t("cancel"),
+        cancelButtonText: this.$t("cancel")
       })
         .then(() => {
           this.$axios
             .post("https://smartbtc.io/bridge/kol/bind_project", {
               kol_address: this.$store.state.address,
-              project_name: project_name,
+              project_name: project_name
             })
             .then((res) => {
               showToast(this.$t("kol.claimSuccess"));
@@ -535,7 +534,7 @@ export default {
     },
     searchValueFun(e) {
       this.searchValue = e.target.value;
-    },
+    }
   },
 
   watch: {
@@ -550,8 +549,8 @@ export default {
       } else {
         this.searchList = this.projectIssuedList;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

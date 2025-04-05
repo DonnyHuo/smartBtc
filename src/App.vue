@@ -37,6 +37,7 @@
 <script>
 import { ethers } from "ethers";
 import { showDialog } from "vant";
+
 export default {
   name: "DaoView",
   data() {
@@ -49,7 +50,7 @@ export default {
           active: false,
           text: this.$t("footer.mine"),
           iconUrl: require("./assets/img/dao.png"),
-          iconUrlAct: require("./assets/img/daoAct.png"),
+          iconUrlAct: require("./assets/img/daoAct.png")
         },
         {
           name: "btcSwap",
@@ -57,7 +58,7 @@ export default {
           text: this.$t("footer.bridge"),
           active: false,
           iconUrl: require("./assets/img/swap.png"),
-          iconUrlAct: require("./assets/img/swapAct.png"),
+          iconUrlAct: require("./assets/img/swapAct.png")
         },
         {
           name: "lpSwap",
@@ -65,30 +66,29 @@ export default {
           text: this.$t("footer.swap"),
           active: false,
           iconUrl: require("./assets/img/lp.png"),
-          iconUrlAct: require("./assets/img/lpAct.png"),
+          iconUrlAct: require("./assets/img/lpAct.png")
         },
-        {
-          name: "lp",
-          route: "/lp",
-          text: this.$t("footer.pool"),
-          active: false,
-          iconUrl: require("./assets/img/options.png"),
-          iconUrlAct: require("./assets/img/optionsAct.png"),
-          noJump: true,
-        },
+        // {
+        //   name: "lp",
+        //   route: "/lp",
+        //   text: this.$t("footer.pool"),
+        //   active: false,
+        //   iconUrl: require("./assets/img/options.png"),
+        //   iconUrlAct: require("./assets/img/optionsAct.png"),
+        //   noJump: true
+        // },
         {
           name: "share",
           route: "/share",
           text: this.$t("footer.community"),
           active: false,
           iconUrl: require("./assets/img/share.png"),
-          iconUrlAct: require("./assets/img/shareAct.png"),
-          noJump: true,
-        },
+          iconUrlAct: require("./assets/img/shareAct.png")
+        }
       ],
       netWorkError: false,
       noWallet: false,
-      chainId: "",
+      chainId: ""
     };
   },
   created() {
@@ -123,9 +123,9 @@ export default {
               chainName: networkName,
               rpcUrls,
               nativeCurrency,
-              blockExplorerUrls,
-            },
-          ],
+              blockExplorerUrls
+            }
+          ]
         })
         .catch((error) => {
           console.log(error);
@@ -135,9 +135,9 @@ export default {
           method: "wallet_switchEthereumChain",
           params: [
             {
-              chainId: networkId,
-            },
-          ],
+              chainId: networkId
+            }
+          ]
         })
         .then(() => {
           // this.connectWallet();
@@ -163,7 +163,7 @@ export default {
             {
               decimals: 18,
               name: "HT",
-              symbol: "HT",
+              symbol: "HT"
             },
             ["https://hecoscan.io"]
           );
@@ -192,7 +192,7 @@ export default {
             {
               decimals: 18,
               name: "Staked BNB",
-              symbol: "BNB",
+              symbol: "BNB"
             },
             ["https://bscscan.com"]
           );
@@ -205,11 +205,11 @@ export default {
     alertMessage() {
       showDialog({
         message: `${this.$t("messageTip[0]")}\n ${this.$t("messageTip[1]")}`,
-        confirmButtonText: this.$t("sure"),
+        confirmButtonText: this.$t("sure")
       }).then(() => {
         // on close
       });
-    },
+    }
   },
   watch: {
     $route: function () {
@@ -221,8 +221,8 @@ export default {
     },
     "$store.state.chainId": function () {
       this.$router.go(0);
-    },
-  },
+    }
+  }
 };
 </script>
 
