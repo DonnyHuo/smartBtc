@@ -300,7 +300,7 @@ export default {
     },
     changeStartPool(value) {
       console.log("value", value.target.value);
-      this.typeOne.percents[1] = 50 - value.target.value;
+      this.typeOne.percents[1] = 30 - value.target.value;
     },
     newProject() {
       let project_info = "";
