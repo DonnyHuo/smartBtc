@@ -77,7 +77,7 @@
             >
               <img
                 class="w-3"
-                :src="require('@/assets/img/telegram.png')"
+                :src="require('@/assets/img/tgBlue.png')"
                 alt=""
               />
               <span>Telegram</span>
