@@ -21,18 +21,14 @@
       </div>
       <div>
         <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
-        <input type="text" v-model="xAddress" placeholder="@x.com/xxx" />
+        <input type="text" v-model="xAddress" placeholder="https://x.com/xxx" />
       </div>
       <div class="desc">
         {{ $t("kol.desc1") }}
       </div>
       <div>
         <span>{{ $t("kol.telegram") }}</span>
-        <input
-          type="text"
-          v-model="tgAddress"
-          placeholder="https://telegram.org/xxx"
-        />
+        <input type="text" v-model="tgAddress" placeholder="https://t.me/xxx" />
       </div>
       <div>
         <span>{{ $t("kol.discord") }}</span>
