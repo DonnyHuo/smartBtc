@@ -201,15 +201,16 @@
       </div>
 
       <div v-else class="btn-group">
-        <router-link to="/kol">
+        <router-link v-if="!(activeAmount * 1)" to="/kol">
           <van-button type="primary">{{ $t("home.kolBtn") }}</van-button>
         </router-link>
         <router-link
+          v-else
           :to="
             accountInfo.status === 1 && activeAmount * 1 ? '/kolAdd' : '/kol'
           "
         >
-          <van-button>{{ $t("home.startProject") }}</van-button>
+          <van-button type="primary">{{ $t("home.startProject") }}</van-button>
         </router-link>
       </div>
       <div class="btn-group">

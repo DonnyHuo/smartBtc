@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center mx-[20px] rounded-lg p-1 text-[14px]"
+      class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center mx-[20px] rounded-lg p-1 text-[12px]"
     >
       <div
         class="w-1/2 h-full flex items-center justify-center"
@@ -30,12 +30,12 @@
     <div v-if="!activeIndex" class="text-left px-[20px]">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[14px] mb-[10px]">
+          <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("newData.token") }}
           </div>
           <div>
             <input
-              class="w-full"
+              class="w-full text-[12px]"
               type="text"
               v-model="typeOne.brc20_name"
               :placeholder="$t('newData.sameNameAsInscription')"
@@ -43,12 +43,12 @@
           </div>
         </div>
         <div class="w-1/2">
-          <div class="text-black font-bold text-[14px] mb-[10px]">
+          <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("newData.totalSupply") }}
           </div>
           <div>
             <input
-              class="w-full"
+              class="w-full text-[12px]"
               type="text"
               v-model="typeOne.brc20_supply"
               :placeholder="$t('newData.equalAmountToInscription')"
@@ -58,25 +58,31 @@
       </div>
 
       <div v-if="!activeIndex" class="mt-[20px]">
-        <div class="text-black font-bold text-[14px] mb-[10px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.deployInscriptionId") }}
         </div>
         <div>
-          <input class="w-full" type="text" v-model="typeOne.brc20_id" />
+          <input
+            class="w-full text-[12px]"
+            type="text"
+            v-model="typeOne.brc20_id"
+          />
         </div>
       </div>
       <div class="mt-[20px]">
-        <div class="text-black font-bold text-[14px] mb-[10px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.tokenRatio") }}
         </div>
         <div class="flex items-center gap-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.inscriptionCrossChain") }}</span>
+            <span class="text-[12px]">{{
+              $t("newData.inscriptionCrossChain")
+            }}</span>
             <div v-if="activeIndex === 1">
               <input
-                class="w-[60px] !h-[30px]"
+                class="w-[60px] !h-[30px] text-[12px]"
                 type="text"
                 v-model="typeOne.percents[0]"
                 placeholder=">=50"
@@ -87,7 +93,7 @@
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.kolRewards") }}</span>
+            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
 
             <div v-if="activeIndex === 1">
               <input
@@ -104,26 +110,32 @@
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.lpAddition") }}</span>
-            <input
-              class="w-[60px] !h-[30px] disabled:bg-[#f5f5f5]"
-              type="text"
-              :value="typeOne.percents[1]"
-              placeholder="< 30%"
-              disabled
-            />
+            <span class="text-[12px]">{{ $t("newData.lpAddition") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] disabled:bg-[#f5f5f5] text-[12px] text-right"
+                type="text"
+                :value="typeOne.percents[1]"
+                placeholder="< 30"
+                disabled
+              />
+              %
+            </div>
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.launchPool") }}</span>
-            <input
-              class="w-[60px] !h-[30px]"
-              type="text"
-              v-model="typeOne.percents[2]"
-              placeholder="> 0%"
-              @change="changeStartPool"
-            />
+            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] text-[12px] text-right"
+                type="text"
+                v-model="typeOne.percents[2]"
+                placeholder="> 0"
+                @change="changeStartPool"
+              />
+              %
+            </div>
           </div>
         </div>
       </div>
@@ -133,12 +145,12 @@
         {{ $t("newData.launchPoolNote") }}
       </div>
       <div class="mt-[20px]">
-        <div class="text-black font-bold text-[14px] mb-[10px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.tokenDescription") }}
         </div>
         <div>
           <input
-            class="w-full"
+            class="w-full text-[12px]"
             type="text"
             v-model="typeOne.details"
             :placeholder="$t('newData.description')"
@@ -150,12 +162,12 @@
     <div v-else class="text-left px-[20px]">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[14px] mb-[10px]">
+          <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("newData.token") }}
           </div>
           <div>
             <input
-              class="w-full"
+              class="w-full text-[12px]"
               type="text"
               v-model="typeTwo.brc20_name"
               :placeholder="$t('newData.sameNameAsInscription')"
@@ -163,12 +175,12 @@
           </div>
         </div>
         <div class="w-1/2">
-          <div class="text-black font-bold text-[14px] mb-[10px]">
+          <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("newData.totalSupply") }}
           </div>
           <div>
             <input
-              class="w-full disabled:bg-[#f5f5f5]"
+              class="w-full disabled:bg-[#f5f5f5] text-[12px]"
               type="text"
               v-model="typeTwo.brc20_supply"
               :placeholder="$t('newData.sameNameAsInscription')"
@@ -178,33 +190,37 @@
         </div>
       </div>
       <div class="mt-[20px]">
-        <div class="text-black font-bold text-[14px] mb-[10px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.tokenRatio") }}
         </div>
         <div class="flex items-center gap-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span> {{ $t("newData.inscriptionCrossChain") }}</span>
+            <span class="text-[12px]">{{
+              $t("newData.inscriptionCrossChain")
+            }}</span>
             <div>
               <input
-                class="w-[60px] !h-[30px]"
+                class="w-[60px] !h-[30px] text-[12px]"
                 type="text"
                 v-model="typeTwo.percents[0]"
               />
+              %
             </div>
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.kolRewards") }}</span>
+            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
 
             <div>
               <input
-                class="w-[60px] !h-[30px]"
+                class="w-[60px] !h-[30px] text-[12px]"
                 type="text"
                 v-model="typeTwo.percents[3]"
               />
+              %
             </div>
           </div>
         </div>
@@ -212,22 +228,28 @@
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.lpAddition") }}</span>
-            <input
-              class="w-[60px] !h-[30px]"
-              type="text"
-              v-model="typeTwo.percents[1]"
-            />
+            <span class="text-[12px]">{{ $t("newData.lpAddition") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] text-[12px]"
+                type="text"
+                v-model="typeTwo.percents[1]"
+              />
+              %
+            </div>
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span>{{ $t("newData.launchPool") }}</span>
-            <input
-              class="w-[60px] !h-[30px]"
-              type="text"
-              v-model="typeTwo.percents[2]"
-            />
+            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] text-[12px]"
+                type="text"
+                v-model="typeTwo.percents[2]"
+              />
+              %
+            </div>
           </div>
         </div>
       </div>
@@ -237,12 +259,12 @@
         {{ $t("newData.launchPoolNote") }}
       </div>
       <div class="mt-[20px]">
-        <div class="text-black font-bold text-[14px] mb-[10px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.tokenDescription") }}
         </div>
         <div>
           <input
-            class="w-full"
+            class="w-full text-[12px]"
             type="text"
             v-model="typeTwo.details"
             :placeholder="$t('newData.description')"
@@ -261,7 +283,7 @@
   </div>
 </template>
 <script>
-import { showToast } from "vant";
+import { showToast, showConfirmDialog } from "vant";
 
 import { copy } from "@/utils";
 
@@ -371,7 +393,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .kolContent {
-  font-size: 14px;
+  font-size: 12px;
 }
 .header {
   height: 50px;
@@ -422,7 +444,7 @@ export default {
         width: 80%;
         height: 26px;
         padding: 0 10px;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
   }

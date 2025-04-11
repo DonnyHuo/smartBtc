@@ -18,7 +18,8 @@
             <div>{{ $t("kolAdd.descNavTitle[1]") }}</div>
           </div>
           <div v-if="$i18n.locale == 'en'">
-            <div>{{ $t("kolAdd.descNavTitle[2]") }}</div>
+            <div>{{ $t("kolAdd.descNavTitle[0]") }}</div>
+            <div>{{ $t("kolAdd.descNavTitle[1]") }}</div>
           </div>
         </div>
         <div class="text-[#333]">

@@ -6,14 +6,14 @@ export default {
     vote: "投票",
     onMarket: "已上市",
     projectDetail: "项目详情",
-    title2: ["KOL認證與空投獎勵", "發起项目與推廣項目"],
+    title2: ["KOL認證與空投獎勵", "創建项目與推廣項目"],
     desc2: [
       "擁有活躍的Twitter等社交帳戶，並質押至少2100個SOS，即可提交KOL認證；",
-      "通過KOL認證，即可發起項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；",
+      "通過KOL認證，即可創建項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；",
       "根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SOS數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。"
     ],
     kolBtn: "KOL認證",
-    startProject: "發起项目",
+    startProject: "創建项目",
     review: "审核",
     dispositNumber: "質押數量",
     dispositDesc: "解除SOS質押，將即時終止KOL資格，且不可申請複效，謹慎操作。",
@@ -116,10 +116,10 @@ export default {
     kolReview: "KOL审核中...",
     desposit: "去质押",
     search: "输入项目名称搜索",
-    startPro: "发起项目",
+    startPro: "創建項目",
     desc: [
       "認領和創建项目前，需要質押SOS，數量2100個起，質押越多，分配權重越高，可以隨時撤銷質押。",
-      "在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“發起项目”，推薦新的銘文項目，在SmartBTC SOS Launchpad發起投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL奖励。"
+      "在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“創建项目”，推薦新的銘文項目，在SmartBTC SOS Launchpad創建投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL奖励。"
     ],
     claim: "認領",
     contentDesc: [
@@ -169,7 +169,7 @@ export default {
     total: "BSC代幣總量",
     rate: "BSC鏈初始發行分配比例",
     rateArr: ["跨鏈合约", "流動性發行合约", "啟動池", "KOL獎勵合约"],
-    submit: "提交初審",
+    submit: "創建項目",
     desc: "說明：計畫初審通過後，將進入社區投票階段，有效投票期7天，持有SOS社群會員可參與投票推薦，滿100票取得上市權益，自動部署相關合約。",
     tips: [
       "請填寫BSC代幣字符",
@@ -186,7 +186,7 @@ export default {
     descTips: [
       "認證的銘文官方社區，優先於SmartBTC.io創建同名項目，以類似PUMP.FUN的模式，低市值公平發射，任何人均可參與；",
       "項目市值增長10倍時（達到約5萬USDT市值），SmartBTC.io將開放該項目的流動池LP添加功能，快速提升流動性；",
-      "流動池LP兌換進度達30%時（流動池總額達5萬USDT），SmartBTC.io將開放該項目的銘文跨鏈兌換功能，該代幣認證的發起方和KOL共同成為銘文項目方；",
+      "流動池LP兌換進度達30%時（流動池總額達5萬USDT），SmartBTC.io將開放該項目的銘文跨鏈兌換功能，該代幣認證的創建方和KOL共同成為銘文項目方；",
       "認證的KOL，均可參與創建任意銘文同名項目，以代幣市值增長、流動池LP添加進度兩個關鍵指標公平競爭，率先達標的代幣成為同名銘文項目方。"
     ]
   },
@@ -478,7 +478,7 @@ export default {
     lpAddition: "LP添加",
     launchPool: "啟動池",
     launchPoolNote:
-      "* 啟動池份額由發起人自定義，創建代幣時自動轉入其錢包，應全部用於創建 LP（Pancake V2，基礎代幣可選 USDT、BNB、BTCB 或 SOS），LP 應全部兌換為代幣（全額歸屬發起人）。",
+      "* 啟動池份額由創建人自定義，創建代幣時自動轉入其錢包，應全部用於創建 LP（Pancake V2，基礎代幣可選 USDT、BNB、BTCB 或 SOS），LP 應全部兌換為代幣（全額歸屬創建人）。",
     tokenDescription: "代幣描述",
     description: "描述",
     marketCap: "市值",

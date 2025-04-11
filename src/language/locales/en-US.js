@@ -16,7 +16,7 @@ export default {
       "Token airdrop allocation weights are calculated based on Twitter follower count, engagement with certified tweets (views, comments, likes, and retweets), actual SOS staked, and considering Telegram and Discord follower counts and activity levels."
     ],
     kolBtn: "KOL Certification",
-    startProject: "Launch Project",
+    startProject: "Create Project",
     review: "Review",
     dispositNumber: "Staked Amount",
     dispositDesc:
@@ -187,7 +187,7 @@ export default {
       "Launch Pool",
       "KOL Reward Contract"
     ],
-    submit: "Submit for Preliminary Review",
+    submit: "Create Project",
     desc: "Note: Once the preliminary review is passed, the project will enter the community voting phase. The effective voting period is 7 days, and SOS community members can participate in the voting to recommend the project. If the project receives 100 votes, it will gain listing rights, and related contracts will be automatically deployed.",
     tips: [
       "Please fill in the BSC token symbol",
@@ -522,7 +522,7 @@ export default {
     equalAmountToInscription: "Equal Amount to Inscription",
     deployInscriptionId: "Deploy Inscription ID",
     tokenRatio: "Token Ratio",
-    inscriptionCrossChain: "Inscription Cross-Chain",
+    inscriptionCrossChain: "Cross-chain",
     kolRewards: "KOL Rewards",
     lpAddition: "LP Addition",
     launchPool: "Launch Pool",
