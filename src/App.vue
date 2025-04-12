@@ -1,9 +1,9 @@
 <template>
   <div v-if="netWorkError" class="netWorkError">
     {{
-      chainId !== "0x38"
+      parseInt(chainId, 16) !== 56
         ? $t("connectTip[0]")
-        : chainId !== "0x80"
+        : parseInt(chainId, 16) !== 128
         ? $t("connectTip[1]")
         : ""
     }}
@@ -154,7 +154,7 @@ export default {
       this.$store.commit("setChainId", chainId);
       console.log("window.location.hash", window.location.hash);
       if (window.location.hash == "#/swap") {
-        if (chainId !== "0x80") {
+        if (parseInt(chainId, 16) !== 128) {
           this.netWorkError = true;
           return this.getChainId(
             "0x80",
@@ -183,7 +183,7 @@ export default {
       //   });
       // }
       else {
-        if (chainId !== "0x38") {
+        if (parseInt(chainId, 16) !== 56) {
           this.netWorkError = true;
           return this.getChainId(
             "0x38",
