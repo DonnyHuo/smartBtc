@@ -1,14 +1,4 @@
 <template>
-  <div v-if="netWorkError" class="netWorkError">
-    {{
-      parseInt(chainId, 16) !== 56
-        ? $t("connectTip[0]")
-        : parseInt(chainId, 16) !== 128
-        ? $t("connectTip[1]")
-        : ""
-    }}
-  </div>
-  <div v-if="noWallet" class="netWorkError">{{ $t("noWallet") }}</div>
   <div class="contentView">
     <router-view />
   </div>
@@ -94,17 +84,18 @@ export default {
   created() {
     console.log(this.$route);
     if (!window.ethereum) {
-      this.noWallet = true;
-      return;
+      return (this.noWallet = true);
+    } else {
+      this.noWallet = false;
+      this.checkNetWork();
+      ethereum.on("chainChanged", () => {
+        window.location.reload();
+      });
+      ethereum.on("accountsChanged", (accounts) => {
+        this.$store.commit("setAddress", accounts[0]);
+        window.location.reload();
+      });
     }
-    this.checkNetWork();
-    ethereum.on("chainChanged", () => {
-      window.location.reload();
-    });
-    ethereum.on("accountsChanged", (accounts) => {
-      this.$store.commit("setAddress", accounts[0]);
-      window.location.reload();
-    });
   },
   methods: {
     async getChainId(
