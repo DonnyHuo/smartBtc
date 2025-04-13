@@ -31,13 +31,14 @@
           @change="searchValueFun"
         />
       </div>
-      <router-link v-if="page" to="/kolAdd">
+      <div v-if="page">
         <van-button
           class="!bg-[#FCD434] !border-0 !rounded-xl text-[#000]"
           size="small"
+          @click="goTokol"
           >{{ $t("kol.startPro") }}</van-button
         >
-      </router-link>
+      </div>
     </div>
     <div v-if="loading" class="h-[400px] flex items-center justify-center">
       <van-loading />
@@ -142,7 +143,7 @@ import { copy } from "@/utils/index";
 
 export default {
   name: "shareProject",
-  props: ["page"],
+  props: ["page", "activeAmount"],
   data() {
     return {
       searchValue: "",
@@ -157,6 +158,13 @@ export default {
     console.log("page", this.page);
   },
   methods: {
+    goTokol() {
+      if (this.activeAmount) {
+        this.router.push("/kolAdd");
+      } else {
+        showToast(this.$t("kol.desposit"));
+      }
+    },
     clickItem(item) {
       this.$emit("clickItemFun", item);
     },

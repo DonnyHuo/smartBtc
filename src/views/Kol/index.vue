@@ -90,6 +90,7 @@
       <ShareProject
         class="rounded-xl"
         page="noShare"
+        :activeAmount="activeAmount"
         @clickItemFun="clickItemFun"
       />
     </div>
@@ -278,7 +279,11 @@ export default {
   },
   methods: {
     clickItemFun(item) {
-      this.openModel(item);
+      if (this.activeAmount) {
+        this.openModel(item);
+      } else {
+        showToast(this.$t("kol.desposit"));
+      }
     },
     shortStr,
     formatDate,

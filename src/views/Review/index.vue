@@ -256,7 +256,7 @@
       <div class="content w-[300px] mx-auto">
         <div class="flex items-center gap-4 my-[20px]">
           <div class="text-[14px]">当前权重</div>
-          <div>{{ tokenAirdropKols }}</div>
+          <div>{{ tokenAirdropKols }} / {{ allTokenRatios }}</div>
         </div>
         <div class="flex items-center gap-4 mb-[20px]">
           <div class="text-[14px]">分配比例</div>
@@ -315,7 +315,8 @@ export default {
         percents: ["", "", "", ""]
       },
       migrateTokenLoading: false,
-      tokenAirdropKols: ""
+      tokenAirdropKols: "",
+      allTokenRatios: ""
     };
   },
   mounted() {
@@ -458,8 +459,12 @@ export default {
       this.selectedItem = item;
     },
     bindProject(address, project_name) {
-      let reg = /^[1-9]\d*$/;
-      if (!reg.test(this.percent) || this.percent * 1 > 100) {
+      let reg = /^-?\d+(\.\d{0,2})?$/;
+      if (!reg.test(this.percent)) {
+        return showToast("最多两位小数");
+      }
+
+      if (this.percent > this.allTokenRatios - this.tokenAirdropKols) {
         return showToast("请输入正确的分配比例");
       }
       this.bindProjectAggree(address, project_name, true, this.percent * 100);
@@ -557,8 +562,16 @@ export default {
         "tokenAirdropKols",
         tokenId.toString()
       );
+      const allTokenRatios = await getContract(
+        this.$store.state.kolAddress,
+        kolAbi,
+        "allTokenRatios",
+        tokenId.toString()
+      );
 
-      this.tokenAirdropKols = tokenAirdropKols.toString();
+      this.allTokenRatios = allTokenRatios.airdrop.toString() / 100;
+
+      this.tokenAirdropKols = tokenAirdropKols.toString() / 100;
     }
   },
   watch: {
