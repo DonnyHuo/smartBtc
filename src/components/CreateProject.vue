@@ -304,7 +304,7 @@ export default {
       typeTwo: {
         brc20_name: "",
         brc20_id: "",
-        brc20_supply: 1000000000,
+        brc20_supply: "1000000000",
         symbol: "",
         totalSupply: "",
         details: "",
@@ -345,7 +345,8 @@ export default {
           total_supply: this.typeTwo.brc20_supply,
           details: this.typeTwo.details,
           percents: this.typeTwo.percents.map((list) => list * 100),
-          project_type: 0
+          project_type: 0,
+          brc20_id: ""
         };
       }
 
