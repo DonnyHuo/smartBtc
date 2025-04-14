@@ -255,8 +255,15 @@
     <van-action-sheet class="model" v-model:show="model" title="审核认领项目">
       <div class="content w-[300px] mx-auto">
         <div class="flex items-center gap-4 my-[20px]">
+          <div class="text-[14px]">质押金额</div>
+          <div>{{ userDepositedAmount ?? "--" }} SOS</div>
+        </div>
+
+        <div class="flex items-center gap-4 my-[20px]">
           <div class="text-[14px]">当前权重</div>
-          <div>{{ tokenAirdropKols }} / {{ allTokenRatios }}</div>
+          <div>
+            {{ tokenAirdropKols ?? "--" }} / {{ allTokenRatios ?? "--" }}
+          </div>
         </div>
         <div class="flex items-center gap-4 mb-[20px]">
           <div class="text-[14px]">分配比例</div>
@@ -291,6 +298,7 @@ import {
 import { ethers } from "ethers";
 import { showToast } from "vant";
 
+import depositAbi from "../../abi/deposit.json";
 import erc20Abi from "../../abi/erc20.json";
 import kolAbi from "../../abi/kol.json";
 
@@ -316,7 +324,8 @@ export default {
       },
       migrateTokenLoading: false,
       tokenAirdropKols: "",
-      allTokenRatios: ""
+      allTokenRatios: "",
+      userDepositedAmount: ""
     };
   },
   mounted() {
@@ -568,6 +577,15 @@ export default {
         "allTokenRatios",
         tokenId.toString()
       );
+
+      const viewUserDepositedAmount = await getContract(
+        this.$store.state.kolAddress,
+        depositAbi,
+        "viewUserDepositedAmount",
+        this.selectedItem.address
+      );
+
+      this.userDepositedAmount = viewUserDepositedAmount.toString() / 10 ** 18;
 
       this.allTokenRatios = allTokenRatios.airdrop.toString() / 100;
 
