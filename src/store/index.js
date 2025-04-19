@@ -54,6 +54,7 @@ export default createStore({
       "0xe369aec574d5408604daa3d12e95d5624fae9112",
       "0x50333FcC802BBEac62F196aB8C7Fc5125d10C382",
       "0xbb96c185c1df083f7c4edbdf8ae1690f2dc99060",
+      "0xa744118af77e66a193601ea1456d7afb27dc7b5c",
     ],
     lang: "zh",
     activeAmount: 0,
