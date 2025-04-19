@@ -153,19 +153,16 @@
   </van-dialog>
 </template>
 <script>
+import { message } from "ant-design-vue";
 import { Chart, registerables } from "chart.js";
-
-Chart.register(...registerables);
+import { ethers } from "ethers";
 import { markRaw } from "vue";
 
-import lpExchangeABI from "../../abi/lpExchange.json";
-import erc20ABI from "../../abi/erc20.json";
-
 import { getContract, shortStr } from "@/utils";
-import { ethers } from "ethers";
 
+import erc20ABI from "../../abi/erc20.json";
+import lpExchangeABI from "../../abi/lpExchange.json";
 import lpSwap from "../../config/lpSwap.json";
-import { message } from "ant-design-vue";
 
 export default {
   name: "lpSwap",
@@ -241,6 +238,8 @@ export default {
     };
   },
   mounted() {
+    Chart.register(...registerables);
+
     const exchangeTokens = JSON.parse(localStorage.getItem("exchangeTokens"));
     const selectToken = JSON.parse(localStorage.getItem("selectToken"));
     if (exchangeTokens && selectToken) {
@@ -281,16 +280,21 @@ export default {
       console.log("getExchangeTokens", getExchangeTokens);
 
       for (let i = 0; i < getExchangeTokens.length; i++) {
-        const tokenInfo = {
-          id: i,
-          address: getExchangeTokens[i],
-          name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
-          decimals: (
-            await getContract(getExchangeTokens[i], erc20ABI, "decimals")
-          ).toString(),
-          index: await this.getExchangePairs(getExchangeTokens[i]),
-        };
-        tokensInfo.push(tokenInfo);
+        if (
+          getExchangeTokens[i].toLowerCase() ==
+          "0x1d887f723f77b2f8c99bed8b94f4e3ba71baf70e"
+        ) {
+          const tokenInfo = {
+            id: i,
+            address: getExchangeTokens[i],
+            name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
+            decimals: (
+              await getContract(getExchangeTokens[i], erc20ABI, "decimals")
+            ).toString(),
+            index: await this.getExchangePairs(getExchangeTokens[i]),
+          };
+          tokensInfo.push(tokenInfo);
+        }
       }
 
       console.log("tokensInfo.length", tokensInfo.length);

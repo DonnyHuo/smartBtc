@@ -261,9 +261,7 @@
 
         <div class="flex items-center gap-4 my-[20px]">
           <div class="text-[14px]">当前权重</div>
-          <div>
-            {{ tokenAirdropKols ?? "--" }} / {{ allTokenRatios ?? "--" }}
-          </div>
+          <div>{{ tokenAirdropKols ?? "--" }} / 100</div>
         </div>
         <div class="flex items-center gap-4 mb-[20px]">
           <div class="text-[14px]">分配比例</div>
@@ -473,7 +471,7 @@ export default {
         return showToast("最多两位小数");
       }
 
-      if (this.percent > this.allTokenRatios - this.tokenAirdropKols) {
+      if (this.percent > 100 - this.tokenAirdropKols) {
         return showToast("请输入正确的分配比例");
       }
       this.bindProjectAggree(address, project_name, true, this.percent * 100);
