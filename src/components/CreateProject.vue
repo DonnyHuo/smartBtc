@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center mx-[20px] rounded-lg p-1 text-[12px]"
+      class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center rounded-lg p-1 text-[12px]"
     >
       <div
         class="w-1/2 h-full flex items-center justify-center"
@@ -12,7 +12,7 @@
         "
         @click="changeActiveIndex(0)"
       >
-        {{ $t("newData.inscriptionMarketMaker") }}
+        联合KOL模式
       </div>
       <div
         class="w-1/2 h-full flex items-center justify-center"
@@ -23,11 +23,22 @@
         "
         @click="changeActiveIndex(1)"
       >
-        {{ $t("newData.memeTokenLaunch") }}
+        单一KOL模式
+      </div>
+      <div
+        class="w-1/2 h-full flex items-center justify-center"
+        :class="
+          activeIndex === 2
+            ? 'bg-[#FEE540] rounded-[4px] border border-black border-solid'
+            : ''
+        "
+        @click="changeActiveIndex(2)"
+      >
+        铭文做市商模式
       </div>
     </div>
 
-    <div v-if="!activeIndex" class="text-left px-[20px]">
+    <div v-if="activeIndex == 0" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
           <div class="text-black font-bold text-[12px] mb-[10px]">
@@ -43,107 +54,95 @@
           </div>
         </div>
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">
-            {{ $t("newData.totalSupply") }}
-          </div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">股票代码</div>
           <div>
             <input
-              class="w-full text-[12px]"
+              class="w-full disabled:bg-[#f5f5f5] text-[12px]"
               type="text"
-              v-model="typeOne.brc20_supply"
-              :placeholder="$t('newData.equalAmountToInscription')"
+              v-model="typeOne.symbol"
+              :placeholder="$t('newData.sameNameAsInscription')"
             />
           </div>
         </div>
       </div>
-
-      <div v-if="!activeIndex" class="mt-[20px]">
-        <div class="text-black font-bold text-[12px] mb-[10px]">
-          {{ $t("newData.deployInscriptionId") }}
-        </div>
-        <div>
-          <input
-            class="w-full text-[12px]"
-            type="text"
-            v-model="typeOne.brc20_id"
-          />
-        </div>
-      </div>
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
-          {{ $t("newData.tokenRatio") }}
+          代币总量10亿，按比例分配至如下合约地址
         </div>
         <div class="flex items-center gap-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{
-              $t("newData.inscriptionCrossChain")
-            }}</span>
-            <div v-if="activeIndex === 1">
-              <input
-                class="w-[60px] !h-[30px] text-[12px]"
-                type="text"
-                v-model="typeOne.percents[0]"
-                placeholder=">=50"
-              />
+            <span class="text-[12px]">公平发射合约</span>
+            <div>
+              {{ typeOne.percents[0] }}
+              %
             </div>
-            <div v-else>50%</div>
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
+            <span class="text-[12px]">启动池合约</span>
 
-            <div v-if="activeIndex === 1">
-              <input
-                class="w-[60px] !h-[30px]"
-                type="text"
-                v-model="typeOne.percents[3]"
-                placeholder="<=20"
-              />
-            </div>
-            <div v-else>20%</div>
+            <div>{{ typeOne.percents[3] }} %</div>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{ $t("newData.lpAddition") }}</span>
+            <span class="text-[12px]">LP添加合约</span>
             <div>
-              <input
-                class="w-[60px] !h-[30px] disabled:bg-[#f5f5f5] text-[12px] text-right"
-                type="text"
-                :value="typeOne.percents[1]"
-                placeholder="< 30"
-                disabled
-              />
+              {{ typeOne.percents[1] }}
               %
             </div>
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
+            <span class="text-[12px]">KOL空投合约</span>
             <div>
-              <input
-                class="w-[60px] !h-[30px] text-[12px] text-right"
-                type="text"
-                v-model="typeOne.percents[2]"
-                placeholder="> 0"
-                @change="changeStartPool"
-              />
+              {{ typeOne.percents[2] }}
               %
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="!text-black text-[12px] mt-[20px] border-0 border-b border-t border-solid border-[#E8E8E8] py-2"
-      >
-        {{ $t("newData.launchPoolNote") }}
+      <div class="relative">
+        <div
+          class="border border-solid border-[#000] rounded-[4px] h-[40px] flex items-center gap-4 px-4 text-[14px] my-4 relative"
+          @click="this.showList = true"
+        >
+          <span>{{ selectedToken.mint_base_token }}</span>
+          <span>
+            1 {{ selectedToken.mint_base_token }} =
+            {{ selectedToken.exchange_rate }} 代币</span
+          >
+          <span
+            class="rounded-[20px] bg-[#FFBB00] p-1 absolute right-3 top-2.5"
+          >
+            <img class="w-[10px]" src="../assets/img/arrowDown.png" alt="" />
+          </span>
+        </div>
+
+        <div
+          v-if="showList"
+          class="border border-solid border-[#333] rounded-sm absolute top-[40px] left-0 w-full bg-white px-4"
+        >
+          <div
+            v-for="(item, index) in selectTokenList"
+            :key="index"
+            class="text-[14px] h-[40px] flex items-center gap-4"
+            @click="selectTokenFun(item)"
+          >
+            <span>{{ item.mint_base_token }}</span>
+            <span>
+              1 {{ item.mint_base_token }} = {{ item.exchange_rate }} 代币</span
+            >
+          </div>
+        </div>
       </div>
+      <div class="text-[12px] text-[#D90007] mt-4 leading-4">{{ text }}</div>
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("newData.tokenDescription") }}
@@ -159,7 +158,7 @@
       </div>
     </div>
 
-    <div v-else class="text-left px-[20px]">
+    <div v-if="activeIndex == 1" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
           <div class="text-black font-bold text-[12px] mb-[10px]">
@@ -175,18 +174,169 @@
           </div>
         </div>
         <div class="w-1/2">
+          <div class="text-black font-bold text-[12px] mb-[10px]">股票代码</div>
+          <div>
+            <input
+              class="w-full text-[12px]"
+              type="text"
+              v-model="typeTwo.symbol"
+              :placeholder="$t('newData.equalAmountToInscription')"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- 
+      <div v-if="activeIndex == 1" class="mt-[20px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
+          {{ $t("newData.deployInscriptionId") }}
+        </div>
+        <div>
+          <input
+            class="w-full text-[12px]"
+            type="text"
+            v-model="typeTwo.brc20_id"
+          />
+        </div>
+      </div> -->
+      <div class="mt-[20px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
+          代币总量10亿，按比例分配至如下合约地址
+        </div>
+        <div class="flex items-center gap-2">
+          <div
+            class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
+          >
+            <span class="text-[12px]">公平发射合约</span>
+            <div>{{ typeTwo.percents[0] }}%</div>
+          </div>
+          <div
+            class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
+          >
+            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
+
+            <div>{{ typeTwo.percents[3] }}%</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+          <div
+            class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
+          >
+            <span class="text-[12px]">{{ $t("newData.lpAddition") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] text-[12px] text-right"
+                type="text"
+                v-model="typeTwo.percents[1]"
+                placeholder="> 0"
+              />
+              %
+            </div>
+          </div>
+          <div
+            class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
+          >
+            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
+            <div>
+              <input
+                class="w-[60px] !h-[30px] text-[12px] text-right"
+                type="text"
+                v-model="typeTwo.percents[2]"
+                placeholder="> 0"
+                @change="changeStartPool"
+              />
+              %
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div
+          class="border border-solid border-[#000] rounded-[4px] h-[40px] flex items-center gap-4 px-4 text-[14px] my-4 relative"
+          @click="this.showList = true"
+        >
+          <span>{{ selectedToken.mint_base_token }}</span>
+          <span>
+            1 {{ selectedToken.mint_base_token }} =
+            {{ selectedToken.exchange_rate }} 代币</span
+          >
+          <span
+            class="rounded-[20px] bg-[#FFBB00] p-1 absolute right-3 top-2.5"
+          >
+            <img class="w-[10px]" src="../assets/img/arrowDown.png" alt="" />
+          </span>
+        </div>
+
+        <div
+          v-if="showList"
+          class="border border-solid border-[#333] rounded-sm absolute top-[40px] left-0 w-full bg-white px-4"
+        >
+          <div
+            v-for="(item, index) in selectTokenList"
+            :key="index"
+            class="text-[14px] h-[40px] flex items-center gap-4"
+            @click="selectTokenFun(item)"
+          >
+            <span>{{ item.mint_base_token }}</span>
+            <span>
+              1 {{ item.mint_base_token }} = {{ item.exchange_rate }} 代币</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="text-[12px] text-[#D90007] mt-4 leading-4">{{ text }}</div>
+      <div class="mt-[20px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">代幣描述</div>
+        <div>
+          <input
+            class="w-full text-[12px]"
+            type="text"
+            v-model="typeTwo.details"
+            :placeholder="$t('newData.description')"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div v-if="activeIndex == 2" class="text-left">
+      <div class="flex items-center justify-between mt-[20px] gap-2">
+        <div class="w-1/2">
+          <div class="text-black font-bold text-[12px] mb-[10px]">
+            {{ $t("newData.token") }}
+          </div>
+          <div>
+            <input
+              class="w-full text-[12px]"
+              type="text"
+              v-model="typeThree.brc20_name"
+              :placeholder="$t('newData.sameNameAsInscription')"
+            />
+          </div>
+        </div>
+        <div class="w-1/2">
           <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("newData.totalSupply") }}
           </div>
           <div>
             <input
-              class="w-full disabled:bg-[#f5f5f5] text-[12px]"
+              class="w-full text-[12px]"
               type="text"
-              v-model="typeTwo.brc20_supply"
-              :placeholder="$t('newData.sameNameAsInscription')"
-              disabled
+              v-model="typeThree.brc20_supply"
+              :placeholder="$t('newData.equalAmountToInscription')"
             />
           </div>
+        </div>
+      </div>
+
+      <div class="mt-[20px]">
+        <div class="text-black font-bold text-[12px] mb-[10px]">
+          {{ $t("newData.deployInscriptionId") }}
+        </div>
+        <div>
+          <input
+            class="w-full text-[12px]"
+            type="text"
+            v-model="typeThree.brc20_id"
+          />
         </div>
       </div>
       <div class="mt-[20px]">
@@ -204,24 +354,41 @@
               <input
                 class="w-[60px] !h-[30px] text-[12px]"
                 type="text"
-                v-model="typeTwo.percents[0]"
+                v-model="typeThree.percents[0]"
               />
               %
             </div>
+            <!-- <div v-if="activeIndex === 1">
+              <input
+                class="w-[60px] !h-[30px] text-[12px]"
+                type="text"
+                v-model="typeThree.percents[0]"
+                placeholder=">=50"
+              />
+            </div>
+            <div v-else>50%</div> -->
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
             <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
-
             <div>
               <input
                 class="w-[60px] !h-[30px] text-[12px]"
                 type="text"
-                v-model="typeTwo.percents[3]"
+                v-model="typeThree.percents[3]"
               />
               %
             </div>
+            <!-- <div v-if="activeIndex === 1">
+              <input
+                class="w-[60px] !h-[30px]"
+                type="text"
+                v-model="typeThree.percents[3]"
+                placeholder="<=20"
+              />
+            </div>
+            <div v-else>20%</div> -->
           </div>
         </div>
         <div class="flex items-center gap-2 mt-2">
@@ -231,9 +398,9 @@
             <span class="text-[12px]">{{ $t("newData.lpAddition") }}</span>
             <div>
               <input
-                class="w-[60px] !h-[30px] text-[12px]"
+                class="w-[60px] !h-[30px] disabled:bg-[#f5f5f5] text-[12px] text-right"
                 type="text"
-                v-model="typeTwo.percents[1]"
+                v-model="typeThree.percents[1]"
               />
               %
             </div>
@@ -244,9 +411,9 @@
             <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
             <div>
               <input
-                class="w-[60px] !h-[30px] text-[12px]"
+                class="w-[60px] !h-[30px] text-[12px] text-right"
                 type="text"
-                v-model="typeTwo.percents[2]"
+                v-model="typeThree.percents[2]"
               />
               %
             </div>
@@ -266,14 +433,14 @@
           <input
             class="w-full text-[12px]"
             type="text"
-            v-model="typeTwo.details"
+            v-model="typeThree.details"
             :placeholder="$t('newData.description')"
           />
         </div>
       </div>
     </div>
 
-    <div class="w-full px-[20px] text-center my-[20px]">
+    <div class="w-full text-center my-[20px]">
       <van-button
         class="!bg-[#ffc519] w-full !text-black !border-0"
         @click="newProject"
@@ -295,11 +462,11 @@ export default {
       typeOne: {
         brc20_name: "",
         brc20_id: "",
-        brc20_supply: "",
+        brc20_supply: "1000000000",
         symbol: "",
         totalSupply: "",
         details: "",
-        percents: ["50", "", "", "20"]
+        percents: ["45", "20", "20", "15"],
       },
       typeTwo: {
         brc20_name: "",
@@ -308,11 +475,49 @@ export default {
         symbol: "",
         totalSupply: "",
         details: "",
-        percents: ["", "", "", ""]
-      }
+        percents: ["45", "", "", "15"],
+      },
+      typeThree: {
+        brc20_name: "",
+        brc20_id: "",
+        brc20_supply: "",
+        symbol: "",
+        totalSupply: "",
+        details: "",
+        percents: ["", "", "", ""],
+      },
+      text: "* 公平发射进度达 100% 时，合约自动将募集到的全部资金与启动池代币组合创建 LP 并转入黑洞地址销毁，开盘价约为公平发射价的 300%",
+
+      selectedToken: {
+        mint_base_token: "BNB",
+        mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
+        exchange_rate: "22500000",
+      },
+      selectTokenList: [
+        {
+          mint_base_token: "BNB",
+          mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
+          exchange_rate: "22500000",
+        },
+        {
+          mint_base_token: "USDT",
+          mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
+          exchange_rate: "1000",
+        },
+        {
+          mint_base_token: "SOS",
+          mint_base_token_addr: "0x1d887F723F77b2F8C99BED8B94F4e3BA71BAF70e",
+          exchange_rate: "200",
+        },
+      ],
+      showList: false,
     };
   },
   methods: {
+    selectTokenFun(item) {
+      this.selectedToken = item;
+      this.showList = false;
+    },
     changeActiveIndex(index) {
       this.activeIndex = index;
     },
@@ -322,60 +527,75 @@ export default {
     },
     changeStartPool(value) {
       console.log("value", value.target.value);
-      this.typeOne.percents[1] = 30 - value.target.value;
+      this.typeTwo.percents[1] = 30 - value.target.value;
     },
     newProject() {
       let project_info = "";
-      if (!this.activeIndex) {
+      if (this.activeIndex == 0) {
         project_info = {
           brc20_name: this.typeOne.brc20_name,
           brc20_id: this.typeOne.brc20_id,
           brc20_supply: this.typeOne.brc20_supply,
-          symbol: this.typeOne.brc20_name,
+          symbol: this.typeOne.symbol,
           total_supply: this.typeOne.brc20_supply,
           details: this.typeOne.details,
           percents: this.typeOne.percents.map((list) => list * 100),
-          project_type: 1
+          project_type: 0,
+          logo_url: "tupian",
+          ...this.selectedToken,
         };
-      } else {
+
+        console.log("project_info", project_info);
+      } else if (this.activeIndex == 1) {
         project_info = {
           brc20_name: this.typeTwo.brc20_name,
+          brc20_id: this.typeTwo.brc20_id,
           brc20_supply: this.typeTwo.brc20_supply,
-          symbol: this.typeTwo.brc20_name,
+          symbol: this.typeTwo.symbol,
           total_supply: this.typeTwo.brc20_supply,
           details: this.typeTwo.details,
           percents: this.typeTwo.percents.map((list) => list * 100),
-          project_type: 0,
-          brc20_id: ""
+          project_type: 1,
+          brc20_id: "",
+          logo_url: "tupian",
+          ...this.selectedToken,
+        };
+      } else {
+        project_info = {
+          brc20_name: this.typeThree.brc20_name,
+          brc20_supply: this.typeThree.brc20_supply,
+          symbol: this.typeThree.brc20_name,
+          total_supply: this.typeThree.brc20_supply,
+          details: this.typeThree.details,
+          percents: this.typeThree.percents.map((list) => list * 100),
+          project_type: 2,
+          logo_url: "tupian",
+          brc20_id: "",
         };
       }
 
       if (
         project_info.brc20_name &&
         project_info.brc20_supply &&
-        project_info.symbol &&
         project_info.total_supply &&
         project_info.percents.every((list) => list !== "")
       ) {
         showConfirmDialog({
           title: `${this.$t("kolAdd.tips[1]", {
-            name: project_info.name
+            name: project_info.name,
           })}`,
           message: this.$t("kolAdd.tips[2]"),
           confirmButtonText: this.$t("sure"),
-          cancelButtonText: this.$t("cancel")
+          cancelButtonText: this.$t("cancel"),
         })
           .then(() => {
             this.$axios
               .post("https://smartbtc.io/bridge/kol/new_project", {
                 kol_address: this.$store.state.address,
-                project_info
+                project_info,
               })
               .then((res) => {
                 showToast(this.$t("kolAdd.success"));
-                setTimeout(() => {
-                  this.$router.push("/kol");
-                }, 1000);
               })
               .catch((err) => {
                 console.log(err);
@@ -388,8 +608,8 @@ export default {
       } else {
         showToast(this.$t("kolAdd.error"));
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

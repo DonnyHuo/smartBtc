@@ -1,62 +1,6 @@
 <template>
-  <div class="kolIndex">
-    <div class="header font-medium">
-      <span v-if="!accountInfo.status">{{ $t("kol.title[0]") }}</span>
-      <div v-else>
-        <span v-if="!activeAmount">{{ $t("kol.title[1]") }}</span>
-        <span v-if="activeAmount">{{ $t("kol.title[2]") }}</span>
-      </div>
-    </div>
-    <div v-if="!accountInfo" class="kolRequest">
-      <div>
-        <span><span class="must">*</span>{{ $t("kol.revenueAddress") }}</span>
-        <input disabled type="text" :value="registerAddress" />
-      </div>
-      <div>
-        <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
-        <input type="text" v-model="xAddress" placeholder="https://x.com/xxx" />
-      </div>
-      <div>
-        <span>{{ $t("kol.telegram") }}</span>
-        <input type="text" v-model="tgAddress" placeholder="https://t.me/xxx" />
-      </div>
-      <div>
-        <span>{{ $t("kol.discord") }}</span>
-        <input
-          type="text"
-          v-model="disAddress"
-          placeholder="https://discord.com/xxx"
-        />
-      </div>
-
-      <van-button @click="register">{{ $t("kol.submit") }}</van-button>
-    </div>
-    <div v-if="accountInfo.status === 0" class="kolRequest">
-      <div>
-        <span>{{ $t("kol.revenueAddress") }}</span>
-        <span>{{ shortStr(accountInfo.address) }}</span>
-      </div>
-      <div>
-        <span>{{ $t("kol.twitter") }}</span>
-        <span>{{ accountInfo.twitter_account }}</span>
-      </div>
-      <van-button disabled>{{ $t("kol.kolReview") }}</van-button>
-    </div>
-    <div v-if="accountInfo.status === 1" class="activeBtnBox">
-      <van-button
-        v-if="!activeAmount"
-        class="activeBtn"
-        size="small"
-        @click="openActiveModal(item)"
-        >{{ $t("kol.desposit") }}</van-button
-      >
-
-      <div v-if="!activeAmount" class="desc mt-10">
-        {{ $t("kol.desc[0]") }}
-      </div>
-    </div>
-
-    <div v-if="accountInfo.status === 1" class="listBoxs">
+  <div class="mb-12">
+    <div v-if="accountInfo.status === 1">
       <ShareProject
         class="rounded-xl"
         page="noShare"
@@ -68,7 +12,7 @@
       <div class="hadPro">
         <div class="hadProList">
           <div class="flex items-center">
-            <img class="icon" src="../../assets/img/default.png" alt="" />
+            <img class="icon" src="../assets/img/default.png" alt="" />
             <span>{{ accountInfo?.project_name?.split("100T-")[1] }}</span>
           </div>
           <div class="tips">{{ getStatus(accountInfo.status) }}</div>
@@ -95,7 +39,7 @@
             </span>
             <img
               class="w-[16px] inline-block"
-              src="../../assets/img/copy.png"
+              src="../assets/img/copy.png"
               alt=""
             />
           </div>
@@ -174,9 +118,9 @@ import { showConfirmDialog } from "vant";
 
 import ShareProject from "@/views/ShareProject";
 
-import depositAbi from "../../abi/deposit.json";
-import erc20ABI from "../../abi/erc20.json";
-import kolAbi from "../../abi/kol.json";
+import depositAbi from "../abi/deposit.json";
+import erc20ABI from "../abi/erc20.json";
+import kolAbi from "../abi/kol.json";
 
 export default {
   name: "kol",
@@ -414,96 +358,6 @@ export default {
         this.$store.state.pledgeAddress
       );
       this.allowance = allowance.toString() * 1;
-    },
-
-    approveActive() {
-      this.approveLoading = true;
-      getWriteContractLoad(
-        this.$store.state.sBtc,
-        erc20ABI,
-        "approve",
-        this.$store.state.pledgeAddress,
-        ethers.constants.MaxUint256
-      )
-        .then((res) => {
-          console.log(res);
-          this.approveLoading = false;
-          this.getActiveAmount();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.approveLoading = false;
-        });
-    },
-    maxFun() {
-      this.depositAmount = this.sBtcBalance;
-    },
-
-    changeDepositAmount(e) {
-      this.depositAmount = e.target.value;
-    },
-
-    async minDepositFun() {
-      const decimals = await getContract(
-        this.$store.state.sBtc,
-        erc20ABI,
-        "decimals"
-      );
-      const minDeposit = await getContract(
-        this.$store.state.pledgeAddress,
-        depositAbi,
-        "minDeposit"
-      );
-      this.minDeposit = ethers.utils.formatUnits(minDeposit, decimals) * 1;
-    },
-    userDeposit() {
-      if (this.depositAmount * 1 < this.minDeposit * 1) {
-        return showToast(
-          `${this.$t("kol.tips[4]", { name: this.minDeposit })}`
-        );
-      }
-      if (this.depositAmount * 1 > this.sBtcBalance * 1) {
-        return showToast(this.$t("noBalance"));
-      }
-
-      this.activeLoading = true;
-
-      console.log(
-        this.$store.state.pledgeAddress,
-        depositAbi,
-        ethers.utils.parseUnits(
-          this.depositAmount.toString(),
-          this.sBtcDecimals
-        )
-      );
-
-      getWriteContractLoad(
-        this.$store.state.pledgeAddress,
-        depositAbi,
-        "userDeposit",
-        ethers.utils.parseUnits(
-          this.depositAmount.toString(),
-          this.sBtcDecimals
-        )
-      )
-        .then((res) => {
-          console.log("res", res);
-          this.activeLoading = false;
-          this.activeModal = false;
-          showToast(this.$t("stakeSuccess"));
-          this.getActiveAmount();
-        })
-        .catch(() => {
-          this.activeLoading = false;
-        });
-    },
-
-    openActiveModal(item) {
-      this.activeModal = true;
-      this.selectedItem = item;
-    },
-    searchValueFun(e) {
-      this.searchValue = e.target.value;
     },
   },
 

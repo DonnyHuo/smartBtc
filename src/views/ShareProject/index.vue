@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white min-h-full">
     <div
-      class="flex items-center justify-between p-[20px] pb-0 gap-5 text-[14px]"
+      class="flex items-center justify-between py-[20px] pb-0 gap-5 text-[14px]"
     >
       <div class="flex items-center gap-2">
         <span>{{ $t("newData.marketCap") }}</span>
@@ -31,14 +31,14 @@
           @change="searchValueFun"
         />
       </div>
-      <div v-if="page">
+      <!-- <div v-if="page">
         <van-button
           class="!bg-[#FCD434] !border-0 !rounded-xl text-[#000]"
           size="small"
           @click="goTokol"
           >{{ $t("kol.startPro") }}</van-button
         >
-      </div>
+      </div> -->
     </div>
     <div v-if="loading" class="h-[400px] flex items-center justify-center">
       <van-loading />
@@ -47,7 +47,7 @@
       <div v-for="(list, index) in searchList">
         <div
           :key="index"
-          class="mx-[20px] py-[20px] text-left border-0 border-b border-solid border-[#AAAAAA]"
+          class="py-[20px] text-left border-0 border-b border-solid border-[#AAAAAA]"
         >
           <div class="flex items-start justify-between">
             <div>
@@ -125,6 +125,24 @@
               {{ $t("newData.approve") }}
             </button>
           </div>
+          <div
+            v-if="[0, 1].includes(list.project_type)"
+            class="text-[14px] flex items-center justify-between mt-2"
+          >
+            <span>
+              <span class="text-[#141414]">公平发射</span>
+              <span class="text-[#757575]">
+                1{{ list.display_name?.split("-")[0] }} = {{ list.exchange_rate
+                }}{{ list.symbol }}</span
+              ></span
+            >
+            <button
+              class="flex-shrink-0 text-black text-[12px] rounded-2xl py-2 px-3 border border-solid border-[#333]"
+              @click="goToDetail(list)"
+            >
+              抢购
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -137,6 +155,7 @@
   </div>
 </template>
 <script>
+import { ethers } from "ethers";
 import { showToast } from "vant";
 
 import { copy } from "@/utils/index";
@@ -150,7 +169,7 @@ export default {
       projectIssuedList: [],
       searchList: [],
       loading: false,
-      sort: "desc"
+      sort: "desc",
     };
   },
   created() {
@@ -158,6 +177,27 @@ export default {
     console.log("page", this.page);
   },
   methods: {
+    goToDetail(list) {
+      this.$router.push({
+        path: "/poolDetail",
+        query: {
+          id: list.mint_pool_id,
+          symbol: list.symbol,
+          maxValue: Number(
+            ethers.utils.formatUnits(
+              list.mint_process_percent.split(",")[0],
+              18
+            )
+          ),
+          processPercent: list.mint_process_percent.split(",")[1],
+          type: list.project_type,
+          contract: list.contract_addr,
+          token: list.display_name.split("-")[0],
+          createTime: list.mint_pool_create_time,
+          exchangeRate: list.exchange_rate,
+        },
+      });
+    },
     goTokol() {
       if (this.activeAmount) {
         this.router.push("/kolAdd");
@@ -214,7 +254,7 @@ export default {
         );
         this.sort = "desc";
       }
-    }
+    },
   },
   watch: {
     searchValue(value) {
@@ -225,8 +265,8 @@ export default {
       } else {
         this.searchList = this.projectIssuedList;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

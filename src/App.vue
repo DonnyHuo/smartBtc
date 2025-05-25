@@ -40,7 +40,7 @@ export default {
           active: false,
           text: this.$t("footer.mine"),
           iconUrl: require("./assets/img/dao.png"),
-          iconUrlAct: require("./assets/img/daoAct.png")
+          iconUrlAct: require("./assets/img/daoAct.png"),
         },
         {
           name: "btcSwap",
@@ -48,7 +48,7 @@ export default {
           text: this.$t("footer.bridge"),
           active: false,
           iconUrl: require("./assets/img/swap.png"),
-          iconUrlAct: require("./assets/img/swapAct.png")
+          iconUrlAct: require("./assets/img/swapAct.png"),
         },
         {
           name: "lpSwap",
@@ -56,7 +56,7 @@ export default {
           text: this.$t("footer.swap"),
           active: false,
           iconUrl: require("./assets/img/lp.png"),
-          iconUrlAct: require("./assets/img/lpAct.png")
+          iconUrlAct: require("./assets/img/lpAct.png"),
         },
         // {
         //   name: "lp",
@@ -73,31 +73,31 @@ export default {
           text: this.$t("footer.community"),
           active: false,
           iconUrl: require("./assets/img/share.png"),
-          iconUrlAct: require("./assets/img/shareAct.png")
-        }
+          iconUrlAct: require("./assets/img/shareAct.png"),
+        },
       ],
       netWorkError: false,
       noWallet: false,
-      chainId: ""
+      chainId: "",
     };
   },
   created() {
-    console.log(this.$route);
-    if (!window.ethereum) {
-      return (this.noWallet = true);
-    } else {
-      this.noWallet = false;
-      this.checkNetWork();
-      ethereum.on("chainChanged", () => {
-        window.location.reload();
-      });
-      ethereum.on("accountsChanged", (accounts) => {
-        this.$store.commit("setAddress", accounts[0]);
-        window.location.reload();
-      });
-    }
+    this.initProvider();
   },
   methods: {
+    initProvider() {
+      if (!window.ethereum) return;
+
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          this.$store.commit("setAddress", accounts[0]);
+          location.reload();
+        } else {
+          this.$store.commit("setAddress", "");
+          location.reload();
+        }
+      });
+    },
     async getChainId(
       networkId,
       networkName,
@@ -114,9 +114,9 @@ export default {
               chainName: networkName,
               rpcUrls,
               nativeCurrency,
-              blockExplorerUrls
-            }
-          ]
+              blockExplorerUrls,
+            },
+          ],
         })
         .catch((error) => {
           console.log(error);
@@ -126,9 +126,9 @@ export default {
           method: "wallet_switchEthereumChain",
           params: [
             {
-              chainId: networkId
-            }
-          ]
+              chainId: networkId,
+            },
+          ],
         })
         .then(() => {
           // this.connectWallet();
@@ -154,7 +154,7 @@ export default {
             {
               decimals: 18,
               name: "HT",
-              symbol: "HT"
+              symbol: "HT",
             },
             ["https://hecoscan.io"]
           );
@@ -183,7 +183,7 @@ export default {
             {
               decimals: 18,
               name: "Staked BNB",
-              symbol: "BNB"
+              symbol: "BNB",
             },
             ["https://bscscan.com"]
           );
@@ -196,11 +196,11 @@ export default {
     alertMessage() {
       showDialog({
         message: `${this.$t("messageTip[0]")}\n ${this.$t("messageTip[1]")}`,
-        confirmButtonText: this.$t("sure")
+        confirmButtonText: this.$t("sure"),
       }).then(() => {
         // on close
       });
-    }
+    },
   },
   watch: {
     $route: function () {
@@ -212,8 +212,8 @@ export default {
     },
     "$store.state.chainId": function () {
       this.$router.go(0);
-    }
-  }
+    },
+  },
 };
 </script>
 

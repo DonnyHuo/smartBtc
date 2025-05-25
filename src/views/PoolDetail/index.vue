@@ -1,0 +1,520 @@
+<template>
+  <div class="min-h-screen bg-white border border-solid border-transparent">
+    <!-- 币种信息卡片 -->
+    <div class="bg-white rounded-xl shadow-md mx-4 mt-4">
+      <img
+        src="../../assets/img/tokenDetail.png"
+        alt="coin"
+        class="w-full object-contain mb-4"
+      />
+    </div>
+
+    <div class="mx-4 text-left">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xl font-bold">{{ poolInfo.symbol }}</span>
+        <span class="bg-[#F3F300] text-xs text-black rounded px-2 py-0.5">{{
+          getStatus(poolInfo.type)
+        }}</span>
+      </div>
+      <div class="text-xs text-gray-500 mb-1">
+        {{ poolInfo.details }}
+      </div>
+      <div class="text-xs text-gray-400">
+        创建时间 {{ poolInfo.createTime }}
+      </div>
+      <div class="w-full mt-4">
+        <div class="flex justify-end text-xs text-gray-500 mb-1 gap-2">
+          <span>发射进度</span>
+          <span class="text-[#000] font-bold text-[14px]"
+            >{{ poolInfo.processPercent }}%</span
+          >
+        </div>
+        <van-progress
+          class="mt-4"
+          :percentage="poolInfo.processPercent"
+          color="#0000F3"
+        />
+      </div>
+    </div>
+
+    <!-- 抢购/赎回切换 -->
+    <div
+      class="flex justify-center gap-4 mt-6 bg-[#F6F6F6] w-2/3 h-[40px] rounded-[12px] m-auto"
+    >
+      <button
+        :class="[
+          'px-4 py-2 rounded-[12px] font-bold w-1/2 text-[12px]',
+          activeTab === 'buy'
+            ? 'bg-[#ffc519] text-black'
+            : 'bg-transparent text-gray-500',
+        ]"
+        @click="activeTab = 'buy'"
+      >
+        抢购
+      </button>
+      <button
+        :class="[
+          'px-4 py-2 rounded-[12px] font-bold w-1/2 text-[12px]',
+          activeTab === 'redeem'
+            ? 'bg-[#ffc519] text-black'
+            : 'bg-transparent text-gray-500',
+        ]"
+        @click="activeTab = 'redeem'"
+      >
+        赎回
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-4 mt-4 px-4 text-[12px] text-[#000]">
+      <div
+        v-if="activeTab === 'buy'"
+        class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
+      >
+        <div>等量发射</div>
+        <div>
+          1 {{ poolInfo.token }} = {{ poolInfo.exchangeRate }}
+          {{ poolInfo.symbol }}
+        </div>
+      </div>
+
+      <div
+        v-else
+        class="flex items-center justify-center bg-[#F6F6F6] p-3 rounded-[8px] font-bold"
+      >
+        内盘赎回按认购价值 96% 执行
+      </div>
+      <div>
+        <div v-if="activeTab === 'buy'" class="text-right mb-1 px-3">
+          余额：{{ BNBBalance }} {{ poolInfo.token }}
+        </div>
+        <div v-else class="text-right mb-1 px-3">
+          余额：{{ stakeBalance * poolInfo.exchangeRate }} {{ poolInfo.symbol }}
+        </div>
+        <div
+          class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
+        >
+          <div>支付</div>
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              class="bg-transparent w-[100px] text-right"
+              placeholder="输入数量"
+              v-model="amount"
+            />
+            <span v-if="activeTab === 'buy'">{{ poolInfo.token }}</span>
+            <span v-else>{{ poolInfo.symbol }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between gap-2">
+        <button
+          class="flex-1 py-2 rounded-lg bg-[#F6F6F6] font-bold"
+          @click="changeAmount(0.1)"
+        >
+          10%
+        </button>
+        <button
+          class="flex-1 py-2 rounded-lg bg-[#F6F6F6] font-bold"
+          @click="changeAmount(0.5)"
+        >
+          50%
+        </button>
+        <button
+          class="flex-1 py-2 rounded-lg bg-[#F6F6F6] font-bold"
+          @click="changeAmount(0.8)"
+        >
+          80%
+        </button>
+        <button
+          class="flex-1 py-2 rounded-lg bg-[#F6F6F6] font-bold"
+          @click="changeAmount(1)"
+        >
+          梭哈
+        </button>
+      </div>
+      <div
+        class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
+      >
+        <div>预计获得</div>
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            class="bg-transparent w-[100px] text-right"
+            placeholder="数量"
+            :value="getAmount"
+            disabled
+          />
+          <span v-if="activeTab === 'buy'">{{ poolInfo.symbol }}</span>
+          <span v-else>{{ poolInfo.token }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="mx-4 mt-4">
+      <van-button
+        class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+        v-if="activeTab === 'buy'"
+        @click="handleBuy"
+        :loading="buyLoding"
+        :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
+      >
+        抢购代币
+      </van-button>
+      <div v-else>
+        <van-button
+          v-if="allowance == 0"
+          class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+          @click="approveFun"
+          :loading="approveLoding"
+          >授权</van-button
+        >
+        <van-button
+          v-else
+          class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+          @click="handleWithdraw"
+          :loading="withdrawLoding"
+          :disabled="
+            amount * 1 == 0 ||
+            this.stakeBalance * this.poolInfo.exchangeRate < this.amount * 1
+          "
+        >
+          提前赎回
+        </van-button>
+      </div>
+    </div>
+
+    <!-- 订单列表 -->
+    <div class="mx-4 mt-6">
+      <div class="font-bold mb-2 text-left text-[14px]">我的订单</div>
+      <div
+        class="bg-white py-4 border-0 border-b border-solid border-[#EFEFEF]"
+        v-for="order in orders"
+        :key="order.order_id"
+      >
+        <div class="flex justify-between text-black text-[14px]">
+          <span>{{ poolInfo.symbol }} / {{ poolInfo.token }}</span>
+          <span class="text-[12px] text-[rgba(0,0,0,0.5)]">{{
+            dayjs(order.created_at).format("YYYY-MM-DD HH:mm:ss")
+          }}</span>
+        </div>
+        <div class="flex flex-col gap-2 text-[12px]">
+          <div class="flex items-center justify-between h-[30px]">
+            <span class="text-[12px] text-[rgba(0,0,0,0.5)]"
+              >市单价 / 买入</span
+            >
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">类型</span>
+            <span class="text-[12px] text-black">{{
+              order.order_type ? "赎回" : "抢购"
+            }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">数量</span>
+            <span class="text-[12px] text-black">
+              <span v-if="order.order_type"
+                >{{ order.a_amount }} {{ poolInfo.token }}</span
+              >
+              <span v-else>{{ order.b_amount }} {{ poolInfo.symbol }}</span>
+            </span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">价格</span>
+            <span class="text-[12px] text-black"
+              >{{ order.b_amount / order.a_amount }} {{ poolInfo.symbol }} = 1
+              {{ poolInfo.token }}</span
+            >
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">状态</span>
+            <span class="text-[12px] text-[#00D832]">{{
+              getOrderStatus(order.order_state)
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {
+  getContract,
+  getWriteContractLoad,
+  getBNBBalance,
+  truncateTo6Decimals,
+} from "@/utils";
+import dayjs from "dayjs";
+import Decimal from "decimal.js";
+import { ethers } from "ethers";
+
+import erc20ABI from "../../abi/erc20.json";
+import tokenShopAbi from "../../abi/tokenShop.json";
+
+Decimal.set({ precision: 30 });
+
+export default {
+  data() {
+    return {
+      activeTab: "buy",
+      orders: [],
+      poolInfo: "",
+      amount: "",
+      getAmount: "",
+      BNBBalance: "",
+      address: this.$store.state.address,
+      buyLoding: false,
+      stakeBalance: "",
+      withdrawLoding: false,
+      allowance: 0,
+      approveLoding: false,
+      rate: 0,
+    };
+  },
+  async created() {
+    this.poolInfo = this.$route.query;
+    this.getRecordList();
+    this.getBalance();
+    this.getUserContributions();
+    this.getAllowance();
+  },
+  methods: {
+    dayjs,
+    getBNBBalance,
+    async getBalance() {
+      if (this.poolInfo.token == "BNB") {
+        this.BNBBalance = truncateTo6Decimals(
+          await this.getBNBBalance(this.address)
+        );
+      } else if (this.poolInfo.token == "USDT") {
+        getContract(
+          "0x55d398326f99059ff775485246999027b3197955",
+          erc20ABI,
+          "balanceOf",
+          this.address
+        ).then((res) => {
+          this.BNBBalance = truncateTo6Decimals(
+            ethers.utils.formatUnits(res, 18)
+          );
+        });
+      } else if (this.poolInfo.token == "SOS") {
+        getContract(
+          "0x1d887F723F77b2F8C99BED8B94F4e3BA71BAF70e",
+          erc20ABI,
+          "balanceOf",
+          this.address
+        ).then((res) => {
+          this.BNBBalance = truncateTo6Decimals(
+            ethers.utils.formatUnits(res, 18)
+          );
+        });
+      }
+    },
+    async getAllowance() {
+      getContract(
+        this.poolInfo.contract,
+        erc20ABI,
+        "allowance",
+        this.address,
+        this.$store.state.tokenShop
+      ).then((res) => {
+        console.log("res32321321", res);
+        this.allowance = Number(res.toString());
+      });
+    },
+
+    async approveFun() {
+      this.approveLoding = true;
+      getWriteContractLoad(
+        this.poolInfo.contract,
+        erc20ABI,
+        "approve",
+        this.$store.state.tokenShop,
+        ethers.constants.MaxUint256
+      )
+        .then((res) => {
+          console.log(res, res);
+          this.approveLoding = false;
+          this.getAllowance();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.approveLoding = false;
+        });
+    },
+
+    async handleWithdraw() {
+      this.withdrawLoding = true;
+      getWriteContractLoad(
+        this.$store.state.tokenShop,
+        tokenShopAbi,
+        "withdraw",
+        this.poolInfo.id,
+        ethers.utils.parseUnits(
+          new Decimal(this.stakeBalance).times(this.rate).toString(),
+          18
+        )
+        // overrides
+      )
+        .then((res) => {
+          this.withdrawLoding = false;
+          this.trade({
+            pool_id: Number(this.poolInfo.id),
+            address: this.address,
+            a_amount: new Decimal(this.stakeBalance)
+              .times(this.rate)
+              .times(0.96)
+              .toString(),
+            b_amount: String(this.amount),
+            spend_txid: res.hash,
+            order_type: 1,
+          });
+        })
+        .catch((err) => {
+          this.withdrawLoding = false;
+          console.log(err);
+        })
+        .finally(() => {
+          this.withdrawLoding = false;
+        });
+    },
+    getUserContributions() {
+      getContract(
+        this.$store.state.tokenShop,
+        tokenShopAbi,
+        "userContributions",
+        this.poolInfo.id,
+        this.address
+      ).then((res) => {
+        this.stakeBalance = Number(ethers.utils.formatUnits(res, 18)).toFixed(
+          6
+        );
+      });
+    },
+    changeAmount(rate) {
+      this.rate = rate;
+      if (this.activeTab === "buy") {
+        this.amount = new Decimal(this.BNBBalance).times(rate).toString();
+      } else {
+        this.amount = new Decimal(
+          this.stakeBalance * this.poolInfo.exchangeRate
+        )
+          .times(rate)
+          .toString();
+      }
+    },
+    async handleBuy() {
+      let parmas;
+      if (this.poolInfo.token == "BNB") {
+        parmas = [
+          this.$store.state.tokenShop,
+          tokenShopAbi,
+          "swap",
+          this.poolInfo.id,
+          ethers.utils.parseUnits(this.amount, 18),
+          { value: ethers.utils.parseEther(this.amount) },
+        ];
+      } else {
+        parmas = [
+          this.$store.state.tokenShop,
+          tokenShopAbi,
+          "swap",
+          this.poolInfo.id,
+          ethers.utils.parseUnits(this.amount, 18),
+        ];
+      }
+
+      this.buyLoding = true;
+      getWriteContractLoad(...parmas)
+        .then((res) => {
+          console.log(res, res);
+          this.buyLoding = false;
+          this.trade({
+            pool_id: Number(this.poolInfo.id),
+            address: this.address,
+            a_amount: String(this.amount),
+            b_amount: String(this.amount * this.poolInfo.exchangeRate),
+            spend_txid: res.hash,
+            order_type: 0,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          this.buyLoding = false;
+        });
+    },
+    getStatus(type) {
+      switch (type) {
+        case "0":
+          return "联合KOL";
+        case "1":
+          return "单一KOL";
+        case "2":
+          return "铭文做市商";
+      }
+    },
+    getRecordList() {
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol/meme_orders", {
+          address: this.$store.state.address,
+        })
+        .then((res) => {
+          this.orders = res?.data?.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    trade({ pool_id, address, a_amount, b_amount, spend_txid, order_type }) {
+      this.$axios
+        .post("https://smartbtc.io/bridge/kol/meme_trade", {
+          pool_id,
+          address,
+          a_amount,
+          b_amount,
+          spend_txid,
+          order_type,
+        })
+        .then((res) => {
+          console.log("res", res);
+          this.getRecordList();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getOrderStatus(status) {
+      switch (status) {
+        case 0:
+          return "";
+        case 1:
+          return "";
+        case 2:
+          return "完成交易";
+      }
+    },
+  },
+  watch: {
+    amount(value) {
+      if (this.activeTab === "buy") {
+        this.getAmount = value * this.poolInfo.exchangeRate;
+      } else {
+        this.getAmount = ((value * 0.96) / this.poolInfo.exchangeRate).toFixed(
+          6
+        );
+      }
+    },
+    activeTab() {
+      this.amount = "";
+    },
+  },
+};
+</script>
+
+<style scoped>
+input:focus {
+  outline: none;
+  border-color: #ffc519;
+}
+</style>

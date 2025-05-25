@@ -10,7 +10,7 @@ export default {
     desc2: [
       "擁有活躍的Twitter等社交帳戶，並質押至少2100個SOS，即可提交KOL認證；",
       "通過KOL認證，即可創建項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；",
-      "根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SOS數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。"
+      "根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SOS數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。",
     ],
     kolBtn: "KOL認證",
     startProject: "創建项目",
@@ -25,7 +25,7 @@ export default {
       "SOS總量的30%發行在流動池LP兌換合約，為SOS提供流動池LP添加，將獲得等價的SOS，並激活銘文空投資格，享定期參與銘文空投權益；",
       "SOS總量的10%發行在KOL線性解鎖合約，認證KOL參與社區建設，根據跨鏈兌換進度、LP添加進度和認證的KOL權重，定期獲得SOS獎勵；",
       "SOS總量的10%預留在啟動池，用於創建SOS-BTCB、SOS-BNB、SOS-USDT基礎LP，並為在SmartBTC.io創建的項目提供流動性聚合橋。 ",
-      "SmartBTC定期以網站收入和项目空投所得回購SOS並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。"
+      "SmartBTC定期以網站收入和项目空投所得回購SOS並轉入跨鏈橋合約，不斷啟動跨鏈額度直至100%，全部啟動後，雙向跨鏈同步生效。",
     ],
     title4: "技術路線圖",
     navTitle4:
@@ -33,36 +33,36 @@ export default {
     desc4: [
       {
         time: "2023年3月9日",
-        desc: "Ordinals協定首個帶有BTC字元的銘文SOS部署發布"
+        desc: "Ordinals協定首個帶有BTC字元的銘文SOS部署發布",
       },
       {
         time: "2023年5月12日",
-        desc: "總量2100萬，單次500的SOS被全部Mint近2000個地址參與"
+        desc: "總量2100萬，單次500的SOS被全部Mint近2000個地址參與",
       },
       {
         time: "2024年1月13日",
-        desc: "多家知名華人WEB3品牌共同舉辦的香港比特幣生態高峰會，共同發表SmartBTC 一專注於比特幣生態的VC DAO "
+        desc: "多家知名華人WEB3品牌共同舉辦的香港比特幣生態高峰會，共同發表SmartBTC 一專注於比特幣生態的VC DAO ",
       },
       {
         time: "2024年4月15日",
-        desc: "收購擁有超1萬錢包地址的CoinDAO，社區代幣100T可10:1置換為BSC鏈挖礦獎勵代幣100T，遷移加入SmartBTCdao,並為BRC852新資產提供基礎流動性 "
+        desc: "收購擁有超1萬錢包地址的CoinDAO，社區代幣100T可10:1置換為BSC鏈挖礦獎勵代幣100T，遷移加入SmartBTCdao,並為BRC852新資產提供基礎流動性 ",
       },
       {
         time: "2024年4月26日",
-        desc: "主網SmartBTC.io 正式發布，開通第一個跨鏈資產SOS，提供SWAP交易，推出流動池LP質押挖礦，上線以比特幣為指數銘文為權利金的永續選擇權 "
+        desc: "主網SmartBTC.io 正式發布，開通第一個跨鏈資產SOS，提供SWAP交易，推出流動池LP質押挖礦，上線以比特幣為指數銘文為權利金的永續選擇權 ",
       },
       {
         time: "2024年5月10日",
-        desc: "香港Bitcoin Asia大會，SmartBTC正式發布錨定SOS的新資產發行協議 -- BRC852協議，為比特幣生態注入新的想像空間 "
+        desc: "香港Bitcoin Asia大會，SmartBTC正式發布錨定SOS的新資產發行協議 -- BRC852協議，為比特幣生態注入新的想像空間 ",
       },
       {
         time: "2024年下半年",
-        desc: "新加坡Token2049會議期間，SmartBTC.io發布2.0版本，SmartBTC繼續整合豐富的DeFi應用，逐步向活躍比特幣銘文開放服務，SOS成為市值TOP3主流銘文"
+        desc: "新加坡Token2049會議期間，SmartBTC.io發布2.0版本，SmartBTC繼續整合豐富的DeFi應用，逐步向活躍比特幣銘文開放服務，SOS成為市值TOP3主流銘文",
       },
       {
         time: "2025年",
-        desc: "SmartBTC逐步相容主流BTC L2，並由SOS(銘文)擴展到比特幣全生態，BRC852成為主流資產發行協議，SmartBTC.io成為比特幣生態底層應用，SOS成為銘文新龍頭"
-      }
+        desc: "SmartBTC逐步相容主流BTC L2，並由SOS(銘文)擴展到比特幣全生態，BRC852成為主流資產發行協議，SmartBTC.io成為比特幣生態底層應用，SOS成為銘文新龍頭",
+      },
     ],
     myProject: "我的項目",
     revenueCollected: "待收取收益",
@@ -75,7 +75,7 @@ export default {
     toExerciseRights: "去行權",
     options: "期权",
     unstake: "解除質押",
-    unstakeDesc: "解除質押即終止KOL資格。"
+    unstakeDesc: "解除質押即終止KOL資格。",
   },
 
   voting: {
@@ -94,9 +94,9 @@ export default {
     voteBtn: "投票支持",
     voteTips: [
       "現行投票規則：",
-      "投票有效期限7天，投票門檻1 SOS，投票完成門檻100票"
+      "投票有效期限7天，投票門檻1 SOS，投票完成門檻100票",
     ],
-    voteSuccess: "投票成功"
+    voteSuccess: "投票成功",
   },
   noData: "暫無數據",
   noBalance: "SOS餘額不足",
@@ -104,12 +104,12 @@ export default {
   stakeSuccess: "质押成功",
   kol: {
     title: ["KOL認證 — 社交帳戶", "KOL認證 — 質押SOS", "KOL認證 — 成為项目方"],
-    revenueAddress: "收益地址",
+    revenueAddress: "钱包地址",
     twitter: "Twitter地址",
     desc1:
       "發布Twitter認證推文，包含SmartBTC、SOS和想認領的銘文項目信息，文案自定義，主要考察該推文24小時閱讀數、轉發數和點贊數。",
     telegram: "Telegram地址",
-    discord: "Discord地址",
+    discord: "项目网站",
     submit: "提交认证",
     submitDesc:
       "KOL貢獻分配權重計算方法：初始權重主要取決於社交帳戶總粉絲數、認證推文24小時活躍度和實際質押的SOS數量這三大維度，運營中不定期抓取認證社交帳戶（Twitter為主，Telegram、Discord為輔）對認領銘文项目與SmartBTC平台的關注與推廣數據，根據演算法提高KOL貢獻分配權重。",
@@ -119,7 +119,7 @@ export default {
     startPro: "創建項目",
     desc: [
       "認領和創建项目前，需要質押SOS，數量2100個起，質押越多，分配權重越高，可以隨時撤銷質押。",
-      "在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“創建项目”，推薦新的銘文項目，在SmartBTC SOS Launchpad創建投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL奖励。"
+      "在下方清單中選擇您支援的項目（支援模糊搜尋），一鍵「認領」綁定。如您支持的項目尚未在SmartBTC上市，可“創建项目”，推薦新的銘文項目，在SmartBTC SOS Launchpad創建投票，7天內滿100個有效投票，即取得上市資格並自動部署相關合約，同時完成KOL綁定為项目方，自動獲得該项目的KOL奖励。",
     ],
     claim: "認領",
     contentDesc: [
@@ -127,7 +127,7 @@ export default {
       "2.提交認領時，SmartBTC.io會多維度測算KOL的質押SOS數量、社交帳戶活躍度、認證推文閱讀點讚轉發數、社交帳戶歷史動態與項目的關聯度、認領地址項目代幣持倉數量等綜合因素，透過演算法自動計算出當前KOL對應的社群空投獎勵分配權重；",
       "3.一個KOL（對應認證的錢包位址）只能唯一認領一個項目，且認領完成不可更改；",
       "4.可以隨時撤銷認領，解除收回質押的SOS，一經解除KOL權益即時終止且不可申請複效；",
-      "5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。"
+      "5.認領完成後，KOL應保持對該計畫的推廣佈道，積極參與社區建設，SmartBTC.io平台演算法不定期根據KOL多維度動態數據調整其空投獎勵分配權益，並對長時間不參與社區建設的KOL暫停或終止分配權益。",
     ],
     sure: "我已閱讀並認可認領規則，同意認領此項目。",
     claimRule: "認領規則",
@@ -147,7 +147,7 @@ export default {
       "項目KOL已生效",
       "项目KOL設定執行失敗",
       "認證審核未通過",
-      "項目KOL設定為失效"
+      "項目KOL設定為失效",
     ],
     tips: [
       "請填寫正確的錢包地址",
@@ -155,9 +155,9 @@ export default {
       "認領{name}项目",
       "確認是否已發推文且以目前按讚數提交申請",
       "质押金额必须大于等于{minDeposit}SOS",
-      "已提交認證申請"
+      "已提交認證申請",
     ],
-    claimSuccess: "認領成功"
+    claimSuccess: "認領成功",
   },
   kolAdd: {
     title: "KOL認證 — 推薦新項目",
@@ -174,21 +174,21 @@ export default {
     tips: [
       "請填寫BSC代幣字符",
       "發行{name}项目",
-      "確認是否已發推文且以目前按讚數提交申請"
+      "確認是否已發推文且以目前按讚數提交申請",
     ],
     success: "申請成功",
     error: "提交資料有誤",
     descTitle: "銘文流動性創新方案",
     descNavTitle: [
       "借鑒PUMP.FUN模式，",
-      "在L2（BSC鏈）為BTC主鏈銘文創設流動池"
+      "在L2（BSC鏈）為BTC主鏈銘文創設流動池",
     ],
     descTips: [
       "認證的銘文官方社區，優先於SmartBTC.io創建同名項目，以類似PUMP.FUN的模式，低市值公平發射，任何人均可參與；",
       "項目市值增長10倍時（達到約5萬USDT市值），SmartBTC.io將開放該項目的流動池LP添加功能，快速提升流動性；",
       "流動池LP兌換進度達30%時（流動池總額達5萬USDT），SmartBTC.io將開放該項目的銘文跨鏈兌換功能，該代幣認證的創建方和KOL共同成為銘文項目方；",
-      "認證的KOL，均可參與創建任意銘文同名項目，以代幣市值增長、流動池LP添加進度兩個關鍵指標公平競爭，率先達標的代幣成為同名銘文項目方。"
-    ]
+      "認證的KOL，均可參與創建任意銘文同名項目，以代幣市值增長、流動池LP添加進度兩個關鍵指標公平競爭，率先達標的代幣成為同名銘文項目方。",
+    ],
   },
 
   community: {
@@ -196,7 +196,7 @@ export default {
     desc: [
       "*每個被邀請人完成一筆質押後均貢獻邀請算力；",
       "*只有質押算力&gt;0時，邀請算力才能提供實際收益；",
-      "*質押算力越大，邀請算力提速收益越高。"
+      "*質押算力越大，邀請算力提速收益越高。",
     ],
     btns: ["分享好友", "我的好友"],
     list: ["我的邀请者", "被我邀请者", "暫無好友數據", "我的好友"],
@@ -206,17 +206,17 @@ export default {
       "3. CoinDAO会员把100T钱包导入下载的OKX，迁移跨链到BSC链；比特币铭文SOS用户跨链转账到BSC",
       "4. 参与流动性质押挖矿，成为期权做市商 （添加流动池），参与期权交易",
       "专注比特币生态的 VC DAO",
-      "複製分享連結"
+      "複製分享連結",
     ],
     inviteSuccess: "被請求成功",
     revice: "接收邀请",
-    reviceDesc: "是否接收来自{address}的邀请？"
+    reviceDesc: "是否接收来自{address}的邀请？",
   },
   pool: {
     search: "请输入名称搜索",
     goStaking: "去挖矿",
     scale: "管理規模",
-    header: ["總流動性質押", "實时APY", "合约"]
+    header: ["總流動性質押", "實时APY", "合约"],
   },
   poolDetail: {
     goPancake: "從Pancakeswap獲取LP",
@@ -237,7 +237,7 @@ export default {
     approveSuccess: "授權成功",
     approveError: "授權失败",
     max: "最大",
-    placeHolder: "本次輸入需 ≥ 0"
+    placeHolder: "本次輸入需 ≥ 0",
   },
   withdraw: {
     title: "領取空投",
@@ -247,7 +247,7 @@ export default {
     allData: "已載入全部數據",
     withdrawSuccess: "提現成功",
     ChargeSuccess: "收取成功",
-    redemptionSuccess: "赎回成功"
+    redemptionSuccess: "赎回成功",
   },
   lpSwap: {
     title: "提供流動性發行資產",
@@ -264,14 +264,14 @@ export default {
       "收購CoinDAO",
       "LP質押挖礦",
       "流動性發行",
-      "啟動池部署"
+      "啟動池部署",
     ],
     list: ["跨鏈", "流動性發行", "啟動池", "KOL奖励"],
     swapSuccess: "兑换成功",
     swapFail: "兑换失败",
     noBalance: "余额不足",
     errorTips: "请输入正确数量的LP",
-    expected: "预计兑换出"
+    expected: "预计兑换出",
   },
   btcSwap: {
     swap: "跨鏈",
@@ -290,7 +290,7 @@ export default {
     hash: "交易Hash",
     convertHash: "跨鏈Hash",
     amount: "數量",
-    orderStatus: "訂單狀態"
+    orderStatus: "訂單狀態",
   },
 
   hecoSwap: {
@@ -310,7 +310,7 @@ export default {
     approveSuccess: "授權成功",
     min: "最小跨鏈金額為{number}",
     submitSucccess: "跨鏈提交成功",
-    placeHolder: "本次輸入需 ≥ {number}"
+    placeHolder: "本次輸入需 ≥ {number}",
   },
 
   options: {
@@ -338,7 +338,7 @@ export default {
         "交易信息",
         "期权类型",
         "开仓数量",
-        "开仓指数"
+        "开仓指数",
       ],
       desc: "当可用余额小于下一次展期需要付出的权利金时，才会被扣除。",
       max: "最大",
@@ -356,7 +356,7 @@ export default {
       approve: "授權",
       fee: "手续费",
       sure: "确认",
-      open: "开仓"
+      open: "开仓",
     },
     order: {
       title: "订单",
@@ -381,7 +381,7 @@ export default {
       positionAmount: "持仓数量",
       closingIndex: "平仓指数",
       sure: "确认",
-      closeSuccess: "平仓成功"
+      closeSuccess: "平仓成功",
     },
     info: {
       title: "信息",
@@ -394,12 +394,12 @@ export default {
         "永续期权",
         "行权",
         "手动",
-        "风险保证金"
-      ]
+        "风险保证金",
+      ],
     },
     pool: {
       title: "流动性池",
-      desc: ["私池", "可用流动性", "公池", "可用流动性"]
+      desc: ["私池", "可用流动性", "公池", "可用流动性"],
     },
     marketMaker: {
       title: "添加池子，坐享做市商收益",
@@ -407,8 +407,8 @@ export default {
         "公池",
         "通过提供储备流动性赚取溢价，向所有代币开放。",
         "私池",
-        "提供流动性以卖出永续期权，仅向专业做市商开放。"
-      ]
+        "提供流动性以卖出永续期权，仅向专业做市商开放。",
+      ],
     },
     public: {
       addLi: "添加流动性",
@@ -427,7 +427,7 @@ export default {
       selectApprove: "请选择要授权的代币",
       addLiSuccess: "添加流动性成功",
       errorTips: ["请输入正确的移除数量", "余额不足"],
-      successTips: "移除流动性成功"
+      successTips: "移除流动性成功",
     },
     private: {
       setLiq: "设置流动性成功",
@@ -439,8 +439,8 @@ export default {
       selecTradeLp: "选择交易对",
       add: "添加",
       availability: "可用率",
-      yourLp: "您的流动性"
-    }
+      yourLp: "您的流动性",
+    },
   },
 
   sure: "確認",
@@ -451,7 +451,7 @@ export default {
     bridge: "跨鏈兌換",
     swap: "LP添加",
     pool: "啟動池",
-    community: "分享項目"
+    community: "分享項目",
   },
   noWallet: "未偵測到錢包",
   connectTip: ["請選擇幣安智能鏈", "請選擇火币智能鏈"],
@@ -461,7 +461,7 @@ export default {
   bindText: [
     "激活銘文空投領取資格",
     "您綁定的BTC地址",
-    "完成至少一次LP添加，即可激活銘文空投領取資格，定期參與空投。所有參與跨鏈兌換的銘文所有權歸屬於SOS平臺幣持有者，每次空投將按SOS加權每日持有量按比例發放至對應綁定的BTC地址。"
+    "完成至少一次LP添加，即可激活銘文空投領取資格，定期參與空投。所有參與跨鏈兌換的銘文所有權歸屬於SOS平臺幣持有者，每次空投將按SOS加權每日持有量按比例發放至對應綁定的BTC地址。",
   ],
   bindModal: ["您的BSC地址", "請輸入要綁定的可接收銘文的BTC地址"],
   newData: {
@@ -485,6 +485,6 @@ export default {
     search: "搜索",
     copy: "複製",
     noData: "無數據",
-    approve: "認證"
-  }
+    approve: "認證",
+  },
 };

@@ -1,5 +1,6 @@
-// import { useClipboard } from "@vueuse/core";
 import copyMessage from "copy-to-clipboard";
+
+// import { useClipboard } from "@vueuse/core";
 
 export const copy = async (msg) => {
   copyMessage(msg);
@@ -83,6 +84,10 @@ export function formatDate(date, fmt) {
 function padLeftZero(str) {
   return ("00" + str).substr(str.length);
 }
+export function truncateTo6Decimals(num) {
+  const parsedNum = typeof num === "string" ? parseFloat(num) : num;
+  return Math.trunc(parsedNum * 1e6) / 1e6;
+}
 
 export {
   getContract,
@@ -93,4 +98,5 @@ export {
   getOkChainId,
   getChainId,
   connectWallet,
+  getBNBBalance,
 } from "./contract";

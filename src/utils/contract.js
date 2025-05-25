@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+
 import store from "../store";
 
 export const getBlockNumber = async () => {
@@ -25,9 +26,20 @@ export const connectWallet = async () => {
     .catch((err) => {
       alert(err.info.error.message);
     });
+
   if (accounts) {
     store.commit("setAddress", accounts[0]);
   }
+};
+
+export const getBNBBalance = async (address) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+  console.log("provider11111", provider);
+  const balance = await provider.getBalance(address);
+  console.log("balance", balance);
+  const balanceInBNB = ethers.utils.formatEther(balance);
+  return balanceInBNB;
 };
 
 /**
