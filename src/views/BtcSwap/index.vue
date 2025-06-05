@@ -14,6 +14,14 @@
         />
       </div>
     </div>
+    <div class="homeTop">
+      <div class="text-[18px] leading-6 px-[30px] font-medium mt-[20px]">
+        {{ $t("home.title[0]") }}<br />
+        {{ $t("home.title[1]") }}
+      </div>
+      <br />
+      <img class="w-2/3 m-auto" src="../../assets/img/homeBg.png" alt="" />
+    </div>
     <div class="btcSwapContent">
       <div class="titleBox">
         <div class="title">
@@ -191,8 +199,9 @@
 </template>
 <script>
 import { ethers } from "ethers";
-import { shortStr, copy, realIconLogo } from "../../utils";
 import { showToast } from "vant";
+
+import { shortStr, copy, realIconLogo } from "../../utils";
 
 export default {
   name: "btcSwap",
@@ -650,5 +659,11 @@ export default {
   color: #999;
   font-size: 12px;
   padding-bottom: 30px;
+}
+.homeTop {
+  padding-bottom: 20px;
+  background-image: url("../../assets/img/homeBg2.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 </style>

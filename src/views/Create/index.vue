@@ -29,10 +29,6 @@
       </div>
     </div>
     <div>
-      <div class="flex items-center gap-5">
-        <img class="w-[30px]" src="../../assets/img/1.png" alt="" />
-        <span class="text-[26px] text-[#1989FA] font-bold">KOL认证</span>
-      </div>
       <Kol />
       <div class="flex items-center gap-5">
         <img class="w-[30px]" src="../../assets/img/2.png" alt="" />
@@ -41,6 +37,9 @@
       <div>
         <div v-if="activeAmount * 1 > 0">
           <Withdraw :updateActiveAmount="getActiveAmount" />
+          <van-button class="w-full !mt-3" @click="goVoting"
+            >投票列表</van-button
+          >
         </div>
         <div v-else>
           <Deposit :updateActiveAmount="getActiveAmount" />
@@ -55,7 +54,8 @@
         <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
           <MyProject />
         </div>
-        <div v-else>
+
+        <div v-if="accountInfo.status == 1">
           <van-tabs v-model:active="active">
             <van-tab title="创建项目">
               <div class="mt-[20px]">
@@ -111,13 +111,23 @@ export default {
       address: this.$store.state.address,
     };
   },
-  components: { CreateProject, MyProject, Deposit, Withdraw, Kol, ClaimList },
+  components: {
+    CreateProject,
+    MyProject,
+    Deposit,
+    Withdraw,
+    Kol,
+    ClaimList,
+  },
 
   created() {
     this.getInfo();
     this.getActiveAmount();
   },
   methods: {
+    goVoting() {
+      this.$router.push("/voting");
+    },
     shortStr,
     connectWallet,
     changeLan(value) {

@@ -1,65 +1,93 @@
 <template>
-  <div class="mb-12">
-    <div class="text-[14px]">
-      <div class="flex items-center justify-between mt-8 gap-4">
-        <div class="flex flex-col gap-2 text-left w-full">
-          <span><span class="must">*</span>{{ $t("kol.revenueAddress") }}</span>
-          <div v-if="address">
+  <div>
+    <div class="flex items-center gap-5">
+      <img
+        class="w-[30px]"
+        :src="accountInfo ? '../assets/img/1.png' : '../assets/img/2.png'"
+        alt=""
+      />
+      <span
+        class="text-[26px] font-bold"
+        :class="accountInfo ? 'text-[#E8AD00]' : 'text-[#1989FA]'"
+        >KOL认证</span
+      >
+    </div>
+    <div class="mb-12">
+      <div class="text-[14px]">
+        <div class="flex items-center justify-between mt-8 gap-4">
+          <div class="flex flex-col gap-2 text-left w-full">
+            <span
+              ><span class="must">*</span>{{ $t("kol.revenueAddress") }}</span
+            >
+            <div v-if="address" class="relative">
+              <input
+                disabled
+                class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
+                type="text"
+                :value="registerAddress"
+              />
+              <img
+                v-if="$store.state.address"
+                class="w-[20px] h-[20px] absolute right-[10px] top-[10px]"
+                src="../assets/img/copy.png"
+                alt=""
+                @click="copyAddress($store.state.address)"
+              />
+            </div>
+            <div v-else>
+              <button
+                class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
+                @click="connectWallet"
+              >
+                连接钱包
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 text-left w-full">
+            <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
             <input
-              disabled
-              class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
               type="text"
-              :value="registerAddress"
+              class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
+              v-model="xAddress"
+              placeholder="https://x.com/xxx"
+              :disabled="!!accountInfo"
             />
           </div>
-          <div v-else>
-            <button
+        </div>
+        <div class="flex items-center justify-between mt-8 gap-4">
+          <div class="flex flex-col gap-2 text-left w-full">
+            <span>{{ $t("kol.telegram") }}</span>
+            <input
               class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-              @click="connectWallet"
-            >
-              连接钱包
-            </button>
+              type="text"
+              v-model="tgAddress"
+              placeholder="https://t.me/xxx"
+              :disabled="!!accountInfo"
+            />
+          </div>
+          <div class="flex flex-col gap-2 text-left w-full">
+            <span>{{ $t("kol.discord") }}</span>
+            <input
+              type="text"
+              v-model="disAddress"
+              class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
+              placeholder="https://xxx"
+              :disabled="!!accountInfo"
+            />
           </div>
         </div>
-        <div class="flex flex-col gap-2 text-left w-full">
-          <span><span class="must">*</span>{{ $t("kol.twitter") }}</span>
-          <input
-            type="text"
-            class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-            v-model="xAddress"
-            placeholder="https://x.com/xxx"
-            :disabled="!!accountInfo"
-          />
+        <div class="mt-4 text-[12px] text-red-500 text-left leading-4">
+          *保持与官推活跃互动，经常发布与KOLPump、
+          SmartBTC及创建（认领）项目相关推文，会提高KOL
+          指数，增加项目代币分配权重
         </div>
-      </div>
-      <div class="flex items-center justify-between mt-8 gap-4">
-        <div class="flex flex-col gap-2 text-left w-full">
-          <span>{{ $t("kol.telegram") }}</span>
-          <input
-            class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-            type="text"
-            v-model="tgAddress"
-            placeholder="https://t.me/xxx"
-            :disabled="!!accountInfo"
-          />
+        <div class="mt-8" v-if="!accountInfo">
+          <van-button
+            class="w-full h-[40px] !bg-[#FFC519] !border-0"
+            @click="register"
+            >{{ $t("kol.submit") }}</van-button
+          >
         </div>
-        <div class="flex flex-col gap-2 text-left w-full">
-          <span>{{ $t("kol.discord") }}</span>
-          <input
-            type="text"
-            v-model="disAddress"
-            class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-            placeholder="https://xxx"
-            :disabled="!!accountInfo"
-          />
-        </div>
-      </div>
-      <div class="mt-8" v-if="!accountInfo">
-        <van-button
-          class="w-full h-[40px] !bg-[#FFC519] !border-0"
-          @click="register"
-          >{{ $t("kol.submit") }}</van-button
-        >
       </div>
     </div>
   </div>
@@ -82,7 +110,6 @@ export default {
   name: "kol",
   data() {
     return {
-      address: this.$store.state.address,
       registerAddress: "",
       xAddress: "",
       tgAddress: "",
@@ -94,6 +121,11 @@ export default {
   mounted() {
     this.getInfo();
     this.registerAddress = shortStr(this.address);
+  },
+  computed: {
+    address() {
+      return this.$store.state.address;
+    },
   },
   methods: {
     connectWallet,

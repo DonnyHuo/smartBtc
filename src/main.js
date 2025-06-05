@@ -1,10 +1,3 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "./assets/css/init.css";
-import "./assets/css/tailwindcss.css";
-import "vant/lib/index.css";
 import {
   Button,
   Toast,
@@ -28,15 +21,8 @@ import {
   DropdownItem,
   Checkbox,
   Dialog,
+  Uploader,
 } from "vant";
-import axios from "axios";
-
-import { Table, Slider } from "ant-design-vue";
-import "ant-design-vue/dist/reset.css";
-import "animate.css";
-import i18n from "./language";
-
-// import * as echarts from "echarts/core";
 // import {
 //   TitleComponent,
 //   ToolboxComponent,
@@ -44,9 +30,24 @@ import i18n from "./language";
 //   GridComponent,
 //   DataZoomComponent,
 // } from "echarts/components";
+import { Table, Slider } from "ant-design-vue";
+import axios from "axios";
 // import { LineChart } from "echarts/charts";
+// import * as echarts from "echarts/core";
 // import { UniversalTransition } from "echarts/features";
 // import { CanvasRenderer } from "echarts/renderers";
+import { createApp } from "vue";
+
+import App from "./App.vue";
+import i18n from "./language";
+import router from "./router";
+import store from "./store";
+
+import "./assets/css/init.css";
+import "./assets/css/tailwindcss.css";
+import "vant/lib/index.css";
+import "ant-design-vue/dist/reset.css";
+import "animate.css";
 
 // echarts.use([
 //   TitleComponent,
@@ -87,6 +88,7 @@ app
   .use(Switch)
   .use(Empty)
   .use(Dialog)
+  .use(Uploader)
   .use(store)
   .use(router)
   .mount("#app");

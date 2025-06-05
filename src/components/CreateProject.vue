@@ -1,5 +1,18 @@
 <template>
   <div>
+    <div class="w-[200px] h-[200px] mb-[20px] m-auto">
+      <van-uploader
+        v-model="fileList"
+        :max-size="500 * 1024"
+        max-count="1"
+        preview-size="200px"
+        ><img
+          class="w-[200px] h-[200px] mb-[20px]"
+          src="../assets/img/upload.png"
+          alt=""
+      /></van-uploader>
+    </div>
+
     <div
       class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center rounded-lg p-1 text-[12px]"
     >
@@ -41,15 +54,13 @@
     <div v-if="activeIndex == 0" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">
-            {{ $t("newData.token") }}
-          </div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">代币全称</div>
           <div>
             <input
               class="w-full text-[12px]"
               type="text"
               v-model="typeOne.brc20_name"
-              :placeholder="$t('newData.sameNameAsInscription')"
+              placeholder="自定义"
             />
           </div>
         </div>
@@ -60,7 +71,7 @@
               class="w-full disabled:bg-[#f5f5f5] text-[12px]"
               type="text"
               v-model="typeOne.symbol"
-              :placeholder="$t('newData.sameNameAsInscription')"
+              placeholder="自定义"
             />
           </div>
         </div>
@@ -161,15 +172,13 @@
     <div v-if="activeIndex == 1" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">
-            {{ $t("newData.token") }}
-          </div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">代币全称</div>
           <div>
             <input
               class="w-full text-[12px]"
               type="text"
               v-model="typeTwo.brc20_name"
-              :placeholder="$t('newData.sameNameAsInscription')"
+              placeholder="自定义"
             />
           </div>
         </div>
@@ -180,7 +189,7 @@
               class="w-full text-[12px]"
               type="text"
               v-model="typeTwo.symbol"
-              :placeholder="$t('newData.equalAmountToInscription')"
+              placeholder="自定义"
             />
           </div>
         </div>
@@ -511,8 +520,11 @@ export default {
         },
       ],
       showList: false,
+      fileList: [],
+      logoUrl: "",
     };
   },
+
   methods: {
     selectTokenFun(item) {
       this.selectedToken = item;
@@ -541,7 +553,7 @@ export default {
           details: this.typeOne.details,
           percents: this.typeOne.percents.map((list) => list * 100),
           project_type: 0,
-          logo_url: "tupian",
+          logo_url: this.logoUrl,
           ...this.selectedToken,
         };
 
@@ -557,7 +569,7 @@ export default {
           percents: this.typeTwo.percents.map((list) => list * 100),
           project_type: 1,
           brc20_id: "",
-          logo_url: "tupian",
+          logo_url: this.logoUrl,
           ...this.selectedToken,
         };
       } else {
@@ -569,7 +581,7 @@ export default {
           details: this.typeThree.details,
           percents: this.typeThree.percents.map((list) => list * 100),
           project_type: 2,
-          logo_url: "tupian",
+          logo_url: this.logoUrl,
           brc20_id: "",
         };
       }
@@ -608,6 +620,41 @@ export default {
       } else {
         showToast(this.$t("kolAdd.error"));
       }
+    },
+
+    uploadImage(fileList) {
+      const formData = new FormData();
+      console.log("fileList", fileList[0]);
+      formData.append("image", fileList[0].file);
+      return this.$axios
+        .post("https://smartbtc.io/images/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          return `https://smartbtc.io${res?.data?.url}`;
+        })
+        .catch((err) => {
+          console.error("Upload failed:", err);
+          throw err;
+        });
+    },
+  },
+  watch: {
+    fileList: {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.uploadImage(newVal)
+            .then((url) => {
+              this.logoUrl = url;
+            })
+            .catch((err) => {
+              console.error("Upload failed:", err);
+            });
+        }
+      },
+      deep: true,
     },
   },
 };

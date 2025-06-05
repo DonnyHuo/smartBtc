@@ -3,7 +3,10 @@
     <!-- 币种信息卡片 -->
     <div class="bg-white rounded-xl shadow-md mx-4 mt-4">
       <img
-        src="../../assets/img/tokenDetail.png"
+        :src="
+          poolInfo.logoUrl ||
+          require('../../assets/img/tokenList/brc20-100t.png')
+        "
         alt="coin"
         class="w-full object-contain mb-4"
       />
@@ -26,12 +29,16 @@
         <div class="flex justify-end text-xs text-gray-500 mb-1 gap-2">
           <span>发射进度</span>
           <span class="text-[#000] font-bold text-[14px]"
-            >{{ poolInfo.processPercent }}%</span
+            >{{
+              Number(poolInfo.processPercent) < 0.01
+                ? "<0.01"
+                : Number(poolInfo.processPercent).toFixed(4)
+            }}%</span
           >
         </div>
         <van-progress
           class="mt-4"
-          :percentage="poolInfo.processPercent"
+          :percentage="Number(poolInfo.processPercent).toFixed(4)"
           color="#0000F3"
         />
       </div>
@@ -151,15 +158,36 @@
       </div>
     </div>
     <div class="mx-4 mt-4">
-      <van-button
-        class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
-        v-if="activeTab === 'buy'"
-        @click="handleBuy"
-        :loading="buyLoding"
-        :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
-      >
-        抢购代币
-      </van-button>
+      <div v-if="activeTab === 'buy'">
+        <div v-if="poolInfo.token === 'BNB'">
+          <van-button
+            class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+            @click="handleBuy"
+            :loading="buyLoding"
+            :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
+          >
+            抢购代币
+          </van-button>
+        </div>
+        <div v-else>
+          <van-button
+            v-if="allowance == 0"
+            class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+            @click="approveFun"
+            :loading="approveLoding"
+            >授权</van-button
+          >
+          <van-button
+            v-else
+            class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
+            @click="handleBuy"
+            :loading="buyLoding"
+            :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
+          >
+            抢购代币
+          </van-button>
+        </div>
+      </div>
       <div v-else>
         <van-button
           v-if="allowance == 0"
@@ -185,7 +213,9 @@
 
     <!-- 订单列表 -->
     <div class="mx-4 mt-6">
-      <div class="font-bold mb-2 text-left text-[14px]">我的订单</div>
+      <div v-if="orders.length" class="font-bold mb-2 text-left text-[14px]">
+        我的订单
+      </div>
       <div
         class="bg-white py-4 border-0 border-b border-solid border-[#EFEFEF]"
         v-for="order in orders"
@@ -220,10 +250,14 @@
           </div>
           <div class="flex items-center justify-between">
             <span class="text-[rgba(0,0,0,0.5)]">价格</span>
-            <span class="text-[12px] text-black"
-              >{{ order.b_amount / order.a_amount }} {{ poolInfo.symbol }} = 1
-              {{ poolInfo.token }}</span
-            >
+            <span v-if="order.order_type" class="text-[12px] text-black"
+              >1 {{ poolInfo.symbol }} ➡️ {{ order.a_amount / order.b_amount }}
+              {{ poolInfo.token }}
+            </span>
+            <span v-else class="text-[12px] text-black"
+              >1 {{ poolInfo.token }} ➡️ {{ order.b_amount / order.a_amount }}
+              {{ poolInfo.symbol }}
+            </span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-[rgba(0,0,0,0.5)]">状态</span>
@@ -241,6 +275,7 @@
 import {
   getContract,
   getWriteContractLoad,
+  getWriteContract,
   getBNBBalance,
   truncateTo6Decimals,
 } from "@/utils";
@@ -276,7 +311,9 @@ export default {
     this.getRecordList();
     this.getBalance();
     this.getUserContributions();
-    this.getAllowance();
+    if (this.activeTab === "buy" && this.poolInfo.token !== "BNB") {
+      this.getAllowance();
+    }
   },
   methods: {
     dayjs,
@@ -312,7 +349,9 @@ export default {
     },
     async getAllowance() {
       getContract(
-        this.poolInfo.contract,
+        this.activeTab === "buy"
+          ? this.poolInfo.coinMintToken
+          : this.poolInfo.contract,
         erc20ABI,
         "allowance",
         this.address,
@@ -326,7 +365,9 @@ export default {
     async approveFun() {
       this.approveLoding = true;
       getWriteContractLoad(
-        this.poolInfo.contract,
+        this.activeTab === "buy"
+          ? this.poolInfo.coinMintToken
+          : this.poolInfo.contract,
         erc20ABI,
         "approve",
         this.$store.state.tokenShop,
@@ -345,7 +386,7 @@ export default {
 
     async handleWithdraw() {
       this.withdrawLoding = true;
-      getWriteContractLoad(
+      getWriteContract(
         this.$store.state.tokenShop,
         tokenShopAbi,
         "withdraw",
@@ -425,7 +466,7 @@ export default {
       }
 
       this.buyLoding = true;
-      getWriteContractLoad(...parmas)
+      getWriteContract(...parmas)
         .then((res) => {
           console.log(res, res);
           this.buyLoding = false;
@@ -487,9 +528,9 @@ export default {
     getOrderStatus(status) {
       switch (status) {
         case 0:
-          return "";
+          return "新建";
         case 1:
-          return "";
+          return "处理中";
         case 2:
           return "完成交易";
       }
@@ -507,6 +548,9 @@ export default {
     },
     activeTab() {
       this.amount = "";
+      if (this.activeTab === "buy" && this.poolInfo.token !== "BNB") {
+        this.getAllowance();
+      }
     },
   },
 };

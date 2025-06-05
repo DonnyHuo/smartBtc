@@ -174,7 +174,7 @@ export default {
     tips: [
       "請填寫BSC代幣字符",
       "發行{name}项目",
-      "確認是否已發推文且以目前按讚數提交申請",
+      "请确认已关注官推且转发置顶推文，并核对项目相关参数，提交合约后不可修改",
     ],
     success: "申請成功",
     error: "提交資料有誤",
@@ -448,10 +448,10 @@ export default {
 
   footer: {
     mine: "創建項目",
-    bridge: "跨鏈兌換",
+    bridge: "铭文做市",
     swap: "LP添加",
     pool: "啟動池",
-    community: "分享項目",
+    community: "项目列表",
   },
   noWallet: "未偵測到錢包",
   connectTip: ["請選擇幣安智能鏈", "請選擇火币智能鏈"],

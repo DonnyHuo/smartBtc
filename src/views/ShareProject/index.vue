@@ -51,7 +51,17 @@
         >
           <div class="flex items-start justify-between">
             <div>
-              <div>{{ list.symbol }}</div>
+              <div class="flex items-center gap-2">
+                <img
+                  class="w-[30px] h-[30px] rounded-full"
+                  :src="
+                    list.logo_url ||
+                    require('../../assets/img/tokenList/brc20-100t.png')
+                  "
+                  alt=""
+                />
+                <div>{{ list.symbol }}</div>
+              </div>
               <div class="text-[#757575] text-[12px] mt-1">
                 {{ $t("newData.marketCap") }}: ${{
                   Number(list.total_supply * list.lastPrice).toFixed(0)
@@ -84,7 +94,13 @@
               <span>Telegram</span>
             </a>
             <div class="bg-[#f5f5f5] p-1 rounded-[4px]">
-              {{ list.project_type === 1 ? "铭文做市" : "MEME" }}
+              {{
+                list.project_type === 2
+                  ? "铭文做市"
+                  : list.project_type === 0
+                  ? "联合模式"
+                  : "单一模式"
+              }}
             </div>
             <div v-if="!list.details" class="ml-auto">
               <button
@@ -195,6 +211,8 @@ export default {
           token: list.display_name.split("-")[0],
           createTime: list.mint_pool_create_time,
           exchangeRate: list.exchange_rate,
+          coinMintToken: list.coin_mint_token,
+          logoUrl: list.logo_url,
         },
       });
     },

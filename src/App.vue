@@ -43,13 +43,14 @@ export default {
           iconUrlAct: require("./assets/img/daoAct.png"),
         },
         {
-          name: "btcSwap",
-          route: "/btcSwap",
-          text: this.$t("footer.bridge"),
+          name: "share",
+          route: "/share",
+          text: this.$t("footer.community"),
           active: false,
-          iconUrl: require("./assets/img/swap.png"),
-          iconUrlAct: require("./assets/img/swapAct.png"),
+          iconUrl: require("./assets/img/share.png"),
+          iconUrlAct: require("./assets/img/shareAct.png"),
         },
+
         {
           name: "lpSwap",
           route: "/lpSwap",
@@ -68,12 +69,12 @@ export default {
         //   noJump: true
         // },
         {
-          name: "share",
-          route: "/share",
-          text: this.$t("footer.community"),
+          name: "btcSwap",
+          route: "/btcSwap",
+          text: this.$t("footer.bridge"),
           active: false,
-          iconUrl: require("./assets/img/share.png"),
-          iconUrlAct: require("./assets/img/shareAct.png"),
+          iconUrl: require("./assets/img/swap.png"),
+          iconUrlAct: require("./assets/img/swapAct.png"),
         },
       ],
       netWorkError: false,
@@ -81,22 +82,68 @@ export default {
       chainId: "",
     };
   },
-  created() {
-    this.initProvider();
+  mounted() {
+    this.checkWalletConnection();
+    this.setupEventListeners();
   },
   methods: {
-    initProvider() {
-      if (!window.ethereum) return;
+    // initProvider() {
+    //   if (!window.ethereum) return;
 
-      window.ethereum.on("accountsChanged", (accounts) => {
-        if (accounts.length > 0) {
-          this.$store.commit("setAddress", accounts[0]);
-          location.reload();
-        } else {
-          this.$store.commit("setAddress", "");
-          location.reload();
+    //   window.ethereum.on("accountsChanged", (accounts) => {
+    //     if (accounts.length > 0) {
+    //       this.$store.commit("setAddress", accounts[0]);
+    //       location.reload();
+    //     } else {
+    //       this.$store.commit("setAddress", "");
+    //       location.reload();
+    //     }
+    //   });
+    // },
+
+    async checkWalletConnection() {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
+          if (accounts.length > 0) {
+            this.$store.commit("setAddress", accounts[0]);
+          }
+        } catch (error) {
+          console.error("Error checking wallet connection:", error);
         }
-      });
+      }
+    },
+
+    setupEventListeners() {
+      if (window.ethereum) {
+        window.ethereum.on("accountsChanged", this.handleAccountsChanged);
+        window.ethereum.on("chainChanged", this.handleChainChanged);
+      }
+    },
+
+    handleChainChanged(chainId) {
+      console.log("Chain changed:", chainId);
+      window.location.reload();
+    },
+
+    handleAccountsChanged(accounts) {
+      console.log(
+        "accounts1111",
+        accounts,
+        this.$store.state.address,
+        accounts[0] !== this.$store.state.address
+      );
+      if (accounts.length === 0) {
+        console.log("Please connect to MetaMask.");
+        this.$store.commit("setAddress", "");
+      } else if (accounts[0] !== this.$store.state.address) {
+        this.$store.commit("setAddress", accounts[0]);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 500);
+      }
     },
     async getChainId(
       networkId,
