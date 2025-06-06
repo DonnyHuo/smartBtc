@@ -31,8 +31,20 @@
     <div>
       <Kol />
       <div class="flex items-center gap-5">
-        <img class="w-[30px]" src="../../assets/img/2.png" alt="" />
-        <span class="text-[26px] text-[#1989FA] font-bold">SOS质押</span>
+        <img
+          class="w-[30px]"
+          :src="
+            activeAmount * 1 > 0
+              ? require('../../assets/img/success.png')
+              : require('../../assets/img/2.png')
+          "
+          alt=""
+        />
+        <span
+          class="text-[26px] font-bold"
+          :class="activeAmount * 1 > 0 ? 'text-[#E8AD00]' : 'text-[#1989FA]'"
+          >SOS质押</span
+        >
       </div>
       <div>
         <div v-if="activeAmount * 1 > 0">
@@ -46,8 +58,24 @@
         </div>
       </div>
       <div class="flex items-center gap-5 mt-10">
-        <img class="w-[30px]" src="../../assets/img/3.png" alt="" />
-        <span class="text-[26px] text-[#1989FA] font-bold">成为项目方</span>
+        <img
+          class="w-[30px]"
+          :src="
+            [4, 5].includes(accountInfo.status)
+              ? require('../../assets/img/success.png')
+              : require('../../assets/img/3.png')
+          "
+          alt=""
+        />
+        <span
+          class="text-[26px] font-bold"
+          :class="
+            [4, 5].includes(accountInfo.status)
+              ? 'text-[#E8AD00]'
+              : 'text-[#1989FA]'
+          "
+          >成为项目方</span
+        >
       </div>
       <div class="mt-10">
         <div v-if="accountInfo.status == 2">待审核</div>

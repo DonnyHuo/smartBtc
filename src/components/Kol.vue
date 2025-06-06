@@ -3,7 +3,11 @@
     <div class="flex items-center gap-5">
       <img
         class="w-[30px]"
-        :src="accountInfo ? '../assets/img/1.png' : '../assets/img/2.png'"
+        :src="
+          accountInfo
+            ? require('../assets/img/success.png')
+            : require('../assets/img/1.png')
+        "
         alt=""
       />
       <span

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-[20px] bg-white">
+  <div class="px-[20px] bg-white min-h-full">
     <shareList />
   </div>
 </template>
