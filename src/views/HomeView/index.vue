@@ -171,8 +171,8 @@
         </div>
         <div>
           <div>
-            {{ $t("home.revenueCollected") }}： {{ viewCanWithdrawValue }}
-            {{ reserveInfo?.symbol }}
+            <span> {{ $t("home.revenueCollected") }}：</span>
+            <span> {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</span>
           </div>
           <van-button
             size="small"
@@ -411,7 +411,7 @@ import {
   copy,
   connectWallet,
   getWriteContract,
-  getWriteContractLoad
+  getWriteContractLoad,
 } from "../../utils";
 import { ethers } from "ethers";
 import { showToast, showConfirmDialog } from "vant";
@@ -450,18 +450,18 @@ export default {
       reserveBalance: 0,
       option1: [
         { text: "繁体中文", value: "zh" },
-        { text: "English", value: "en" }
+        { text: "English", value: "en" },
       ],
       value1: this.$store.state.lang,
       address: this.$store.state.address,
-      adminAddress: this.$store.state.adminAddress
+      adminAddress: this.$store.state.adminAddress,
     };
   },
   components: { CreateProject },
   computed: {
     adminShow() {
       return this.adminAddress.includes(this.address.toLowerCase());
-    }
+    },
   },
   async created() {
     if (this.address) {
@@ -617,7 +617,7 @@ export default {
       this.$axios
         .post("https://smartbtc.io/bridge/kol/vote", {
           address: this.$store.state.address,
-          project_name
+          project_name,
         })
         .then((res) => {
           console.log(res);
@@ -637,7 +637,7 @@ export default {
         "https://smartbtc.io/bridge/kol/is_voted",
         {
           kol_address: this.$store.state.address,
-          project_name
+          project_name,
         }
       );
 
@@ -659,7 +659,7 @@ export default {
     getInfo() {
       this.$axios
         .post("https://smartbtc.io/bridge/kol/query_kol", {
-          address: this.$store.state.address
+          address: this.$store.state.address,
         })
         .then((res) => {
           this.accountInfo = res.data.data;
@@ -778,7 +778,7 @@ export default {
         title: `${this.$t("home.unstake")}`,
         message: `${this.$t("home.unstakeDesc")}`,
         confirmButtonText: this.$t("sure"),
-        cancelButtonText: this.$t("cancel")
+        cancelButtonText: this.$t("cancel"),
       })
         .then(async () => {
           this.quitKolLoading = true;
@@ -810,14 +810,14 @@ export default {
         .catch(() => {
           // on cancel
         });
-    }
+    },
   },
   watch: {
     reserveInfo(value) {
       value && this.getWithdraw();
       value && this.getReserveBalance();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

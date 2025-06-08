@@ -76,7 +76,7 @@ export default {
     ],
     myProject: "My Projects",
     revenueCollected: "Revenue Collected",
-    receiveBenefits: "Claim Benefits",
+    receiveBenefits: "Claim",
     crossChainProgress: "Cross-chain Progress",
     LpProgress: "LP Swap Issuance Progress",
     KOLProgress: "KOL Reward Issuance Progress",

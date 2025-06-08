@@ -5,15 +5,16 @@
       <div>{{ reserveBalance }} {{ reserveInfo?.symbol }}</div>
     </div>
     <div class="flex items-center justify-between">
-      <div>
-        {{ $t("home.revenueCollected") }}： {{ viewCanWithdrawValue }}
-        {{ reserveInfo?.symbol }}
+      <div class="flex items-center gap-2 flex-wrap">
+        <span> {{ $t("home.revenueCollected") }}：</span>
+        <span> {{ viewCanWithdrawValue }} {{ reserveInfo?.symbol }}</span>
       </div>
       <van-button
         size="small"
         :loading="withdrawLoading"
         @click="withdraw()"
         :disabled="!(viewCanWithdrawValue * 1)"
+        class="text-[12px]"
       >
         {{ $t("home.receiveBenefits") }}</van-button
       >
