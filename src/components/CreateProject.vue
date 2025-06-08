@@ -17,6 +17,10 @@
       class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center rounded-lg p-1 text-[12px]"
     >
       <div
+        v-if="
+          (activeAmount * 1 >= 1 && activeAmount * 1 < 2100) ||
+          activeAmount * 1 == 0
+        "
         class="w-1/2 h-full flex items-center justify-center"
         :class="
           activeIndex === 0
@@ -28,6 +32,7 @@
         联合KOL模式
       </div>
       <div
+        v-if="activeAmount * 1 >= 10000 || activeAmount * 1 == 0"
         class="w-1/2 h-full flex items-center justify-center"
         :class="
           activeIndex === 1
@@ -39,6 +44,10 @@
         单一KOL模式
       </div>
       <div
+        v-if="
+          (activeAmount >= 2100 && activeAmount * 1 < 10000) ||
+          activeAmount * 1 == 0
+        "
         class="w-1/2 h-full flex items-center justify-center"
         :class="
           activeIndex === 2
@@ -459,9 +468,12 @@
   </div>
 </template>
 <script>
+import { ethers } from "ethers";
 import { showToast, showConfirmDialog } from "vant";
 
-import { copy } from "@/utils";
+import { copy, getContract } from "@/utils";
+
+import depositAbi from "../abi/deposit.json";
 
 export default {
   name: "creatProject",
@@ -522,10 +534,30 @@ export default {
       showList: false,
       fileList: [],
       logoUrl: "",
+      accountInfo: this.$store.state.accountInfo,
+      activeAmount: 0,
     };
+  },
+  mounted() {
+    this.getActiveAmount();
   },
 
   methods: {
+    async getActiveAmount() {
+      const res = await getContract(
+        this.$store.state.pledgeAddress,
+        depositAbi,
+        "viewUserDepositedAmount",
+        this.$store.state.address
+      );
+      console.log("res", res);
+      this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(2);
+
+      this.$store.commit(
+        "setActiveAmount",
+        (ethers.utils.formatUnits(res, 18) * 1).toFixed(2)
+      );
+    },
     selectTokenFun(item) {
       this.selectedToken = item;
       this.showList = false;
@@ -542,6 +574,11 @@ export default {
       this.typeTwo.percents[1] = 30 - value.target.value;
     },
     newProject() {
+      if (this.accountInfo.status !== 1) {
+        showToast("请先完成KOL认证且SOS质押");
+        return;
+      }
+
       let project_info = "";
       if (this.activeIndex == 0) {
         project_info = {

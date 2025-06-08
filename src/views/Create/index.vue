@@ -82,8 +82,7 @@
         <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
           <MyProject />
         </div>
-
-        <div v-if="accountInfo.status == 1">
+        <div v-else>
           <van-tabs v-model:active="active">
             <van-tab title="创建项目">
               <div class="mt-[20px]">

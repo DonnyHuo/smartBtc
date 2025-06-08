@@ -1,6 +1,6 @@
 <template>
   <div class="mb-12">
-    <div v-if="accountInfo.status === 1">
+    <div v-if="accountInfo.status === 1 || !accountInfo.status">
       <ShareProject
         class="rounded-xl"
         page="noShare"
