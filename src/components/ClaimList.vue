@@ -129,7 +129,6 @@ export default {
       kol: 2,
       claim: 3,
       address: this.$store.state.address,
-      registerAddress: "",
       xAddress: "",
       tgAddress: "",
       disAddress: "",
@@ -160,7 +159,6 @@ export default {
   mounted() {
     this.getInfo();
     this.getProjectIssuedList();
-    this.registerAddress = shortStr(this.address);
     this.getActiveAmount();
     this.getBalance();
 

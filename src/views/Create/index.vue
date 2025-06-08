@@ -6,23 +6,41 @@
         <span class="font-[600] text-black">KOLPump.Fun</span>
       </div>
 
-      <van-dropdown-menu :overlay="false">
+      <van-popover
+        v-model:show="showPopover"
+        placement="bottom-end"
+        :actions="actions"
+        @select="changeLan"
+      >
+        <template #reference>
+          <van-button class="!h-[30px]" type="default">{{
+            value1 == "zh" ? "繁体中文" : "English"
+          }}</van-button>
+        </template>
+      </van-popover>
+
+      <!-- <van-dropdown-menu :overlay="false">
         <van-dropdown-item
           v-model="value1"
           :options="option1"
           @change="changeLan"
         />
-      </van-dropdown-menu>
+      </van-dropdown-menu> -->
     </div>
     <!-- <div @click="connectWallet">
       {{ address ? shortStr(address) : "链接钱包" }}
     </div> -->
     <div>
       <div class="mt-[40px] mb-[20px]">
-        <img src="../../assets/img/title.png" alt="" />
+        <div class="">
+          <span
+            class="text-[30px] font-[600] bg-gradient-to-r from-[#FB8018] to-[#FEC02E] bg-clip-text text-transparent"
+            >{{ $t("create.title") }}</span
+          >
+        </div>
       </div>
       <div class="text-[14px] font-[600]">
-        你的影响力(KOL指数)有多大，你占项目代币的比例就有多大
+        {{ $t("home.influence") }}
       </div>
       <div class="mt-[40px]">
         <img src="../../assets/img/homeBg3.png" alt="" />
@@ -43,15 +61,15 @@
         <span
           class="text-[26px] font-bold"
           :class="activeAmount * 1 > 0 ? 'text-[#E8AD00]' : 'text-[#1989FA]'"
-          >SOS质押</span
+          >{{ $t("home.stakeSOS") }}</span
         >
       </div>
       <div>
         <div v-if="activeAmount * 1 > 0">
           <Withdraw :updateActiveAmount="getActiveAmount" />
-          <van-button class="w-full !mt-3" @click="goVoting"
-            >投票列表</van-button
-          >
+          <van-button class="w-full !mt-3" @click="goVoting">{{
+            $t("home.voteList")
+          }}</van-button>
         </div>
         <div v-else>
           <Deposit :updateActiveAmount="getActiveAmount" />
@@ -74,22 +92,22 @@
               ? 'text-[#E8AD00]'
               : 'text-[#1989FA]'
           "
-          >成为项目方</span
+          >{{ $t("home.becomeProject") }}</span
         >
       </div>
       <div class="mt-10">
-        <div v-if="accountInfo.status == 2">待审核</div>
+        <div v-if="accountInfo.status == 2">{{ $t("home.pendingReview") }}</div>
         <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
           <MyProject />
         </div>
         <div v-else>
           <van-tabs v-model:active="active">
-            <van-tab title="创建项目">
+            <van-tab :title="$t('home.createProject')">
               <div class="mt-[20px]">
                 <CreateProject />
               </div>
             </van-tab>
-            <van-tab title="认领项目"><ClaimList /></van-tab>
+            <van-tab :title="$t('home.claimProject')"><ClaimList /></van-tab>
           </van-tabs>
         </div>
       </div>
@@ -106,7 +124,7 @@
           <img class="w-[30px]" src="../../assets/img/discord.png" alt="" />
         </a>
       </div>
-      <div class="text-[12px] mt-4">©2025 KOLPump.Fun</div>
+      <div class="text-[12px] mt-4">{{ $t("create.copyright") }}</div>
     </div>
   </div>
 </template>
@@ -128,7 +146,8 @@ export default {
   name: "Create",
   data() {
     return {
-      option1: [
+      showPopover: false,
+      actions: [
         { text: "繁体中文", value: "zh" },
         { text: "English", value: "en" },
       ],
@@ -159,7 +178,7 @@ export default {
     connectWallet,
     changeLan(value) {
       console.log("value", value);
-      this.$store.commit("setLan", value);
+      this.$store.commit("setLan", value.value);
       location.reload();
     },
     getInfo() {

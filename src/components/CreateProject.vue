@@ -29,7 +29,7 @@
         "
         @click="changeActiveIndex(0)"
       >
-        联合KOL模式
+        {{ $t("createProject.kolTypes.joint") }}
       </div>
       <div
         v-if="activeAmount * 1 >= 10000 || activeAmount * 1 == 0"
@@ -41,7 +41,7 @@
         "
         @click="changeActiveIndex(1)"
       >
-        单一KOL模式
+        {{ $t("createProject.kolTypes.single") }}
       </div>
       <div
         v-if="
@@ -56,45 +56,51 @@
         "
         @click="changeActiveIndex(2)"
       >
-        铭文做市商模式
+        {{ $t("createProject.kolTypes.marketMaking") }}
       </div>
     </div>
 
     <div v-if="activeIndex == 0" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">代币全称</div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">
+            {{ $t("createProject.tokenName") }}
+          </div>
           <div>
             <input
               class="w-full text-[12px]"
               type="text"
               v-model="typeOne.brc20_name"
-              placeholder="自定义"
+              :placeholder="$t('createProject.custom')"
             />
           </div>
         </div>
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">股票代码</div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">
+            {{ $t("createProject.stockCode") }}
+          </div>
           <div>
             <input
               class="w-full disabled:bg-[#f5f5f5] text-[12px]"
               type="text"
               v-model="typeOne.symbol"
-              placeholder="自定义"
+              :placeholder="$t('createProject.custom')"
             />
           </div>
         </div>
       </div>
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
-          代币总量10亿，按比例分配至如下合约地址
+          {{ $t("createProject.totalSupply") }}
         </div>
         <div class="flex items-center gap-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">公平发射合约</span>
-            <div>
+            <span class="text-[12px]">{{
+              $t("createProject.contracts.fairLaunch")
+            }}</span>
+            <div class="flex-shrink-0">
               {{ typeOne.percents[0] }}
               %
             </div>
@@ -102,17 +108,21 @@
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">启动池合约</span>
+            <span class="text-[12px]">{{
+              $t("createProject.contracts.launchPool")
+            }}</span>
 
-            <div>{{ typeOne.percents[3] }} %</div>
+            <div class="flex-shrink-0">{{ typeOne.percents[3] }} %</div>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">LP添加合约</span>
-            <div>
+            <span class="text-[12px]">{{
+              $t("createProject.contracts.lpAddition")
+            }}</span>
+            <div class="flex-shrink-0">
               {{ typeOne.percents[1] }}
               %
             </div>
@@ -120,8 +130,10 @@
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">KOL空投合约</span>
-            <div>
+            <span class="text-[12px]">{{
+              $t("createProject.contracts.kolAirdrop")
+            }}</span>
+            <div class="flex-shrink-0">
               {{ typeOne.percents[2] }}
               %
             </div>
@@ -135,9 +147,13 @@
         >
           <span>{{ selectedToken.mint_base_token }}</span>
           <span>
-            1 {{ selectedToken.mint_base_token }} =
-            {{ selectedToken.exchange_rate }} 代币</span
-          >
+            {{
+              $t("createProject.exchangeRate", {
+                token: selectedToken.mint_base_token,
+                rate: selectedToken.exchange_rate,
+              })
+            }}
+          </span>
           <span
             class="rounded-[20px] bg-[#FFBB00] p-1 absolute right-3 top-2.5"
           >
@@ -157,8 +173,13 @@
           >
             <span>{{ item.mint_base_token }}</span>
             <span>
-              1 {{ item.mint_base_token }} = {{ item.exchange_rate }} 代币</span
-            >
+              {{
+                $t("createProject.exchangeRate", {
+                  token: item.mint_base_token,
+                  rate: item.exchange_rate,
+                })
+              }}
+            </span>
           </div>
         </div>
       </div>
@@ -181,50 +202,43 @@
     <div v-if="activeIndex == 1" class="text-left">
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">代币全称</div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">
+            {{ $t("createProject.tokenName") }}
+          </div>
           <div>
             <input
               class="w-full text-[12px]"
               type="text"
               v-model="typeTwo.brc20_name"
-              placeholder="自定义"
+              :placeholder="$t('createProject.custom')"
             />
           </div>
         </div>
         <div class="w-1/2">
-          <div class="text-black font-bold text-[12px] mb-[10px]">股票代码</div>
+          <div class="text-black font-bold text-[12px] mb-[10px]">
+            {{ $t("createProject.stockCode") }}
+          </div>
           <div>
             <input
               class="w-full text-[12px]"
               type="text"
               v-model="typeTwo.symbol"
-              placeholder="自定义"
+              :placeholder="$t('createProject.custom')"
             />
           </div>
         </div>
       </div>
-      <!-- 
-      <div v-if="activeIndex == 1" class="mt-[20px]">
-        <div class="text-black font-bold text-[12px] mb-[10px]">
-          {{ $t("newData.deployInscriptionId") }}
-        </div>
-        <div>
-          <input
-            class="w-full text-[12px]"
-            type="text"
-            v-model="typeTwo.brc20_id"
-          />
-        </div>
-      </div> -->
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
-          代币总量10亿，按比例分配至如下合约地址
+          {{ $t("createProject.totalSupply") }}
         </div>
         <div class="flex items-center gap-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">公平发射合约</span>
+            <span class="text-[12px]">{{
+              $t("createProject.contracts.fairLaunch")
+            }}</span>
             <div>{{ typeTwo.percents[0] }}%</div>
           </div>
           <div
@@ -303,7 +317,9 @@
       </div>
       <div class="text-[12px] text-[#D90007] mt-4 leading-4">{{ text }}</div>
       <div class="mt-[20px]">
-        <div class="text-black font-bold text-[12px] mb-[10px]">代幣描述</div>
+        <div class="text-black font-bold text-[12px] mb-[10px]">
+          {{ $t("createProject.tokenDescription") }}
+        </div>
         <div>
           <input
             class="w-full text-[12px]"
@@ -376,15 +392,6 @@
               />
               %
             </div>
-            <!-- <div v-if="activeIndex === 1">
-              <input
-                class="w-[60px] !h-[30px] text-[12px]"
-                type="text"
-                v-model="typeThree.percents[0]"
-                placeholder=">=50"
-              />
-            </div>
-            <div v-else>50%</div> -->
           </div>
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
@@ -398,15 +405,6 @@
               />
               %
             </div>
-            <!-- <div v-if="activeIndex === 1">
-              <input
-                class="w-[60px] !h-[30px]"
-                type="text"
-                v-model="typeThree.percents[3]"
-                placeholder="<=20"
-              />
-            </div>
-            <div v-else>20%</div> -->
           </div>
         </div>
         <div class="flex items-center gap-2 mt-2">
@@ -507,7 +505,7 @@ export default {
         details: "",
         percents: ["", "", "", ""],
       },
-      text: "* 公平发射进度达 100% 时，合约自动将募集到的全部资金与启动池代币组合创建 LP 并转入黑洞地址销毁，开盘价约为公平发射价的 300%",
+      text: this.$t("createProject.fairLaunchNote"),
 
       selectedToken: {
         mint_base_token: "BNB",
@@ -575,7 +573,7 @@ export default {
     },
     newProject() {
       if (this.accountInfo.status !== 1) {
-        showToast("请先完成KOL认证且SOS质押");
+        showToast(this.$t("kol.tips[4]"));
         return;
       }
 

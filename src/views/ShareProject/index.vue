@@ -91,15 +91,15 @@
                 :src="require('@/assets/img/tgBlue.png')"
                 alt=""
               />
-              <span>Telegram</span>
+              <span>{{ $t("shareProject.social.telegram") }}</span>
             </a>
             <div class="bg-[#f5f5f5] p-1 rounded-[4px]">
               {{
                 list.project_type === 2
-                  ? "铭文做市"
+                  ? $t("shareProject.projectTypes.marketMaking")
                   : list.project_type === 0
-                  ? "联合模式"
-                  : "单一模式"
+                  ? $t("shareProject.projectTypes.joint")
+                  : $t("shareProject.projectTypes.single")
               }}
             </div>
             <div v-if="!list.details" class="ml-auto">
@@ -146,7 +146,9 @@
             class="text-[14px] flex items-center justify-between mt-2"
           >
             <span>
-              <span class="text-[#141414]">公平发射</span>
+              <span class="text-[#141414]">{{
+                $t("shareProject.fairLaunch")
+              }}</span>
               <span class="text-[#757575]">
                 1{{ list.display_name?.split("-")[0] }} = {{ list.exchange_rate
                 }}{{ list.symbol }}</span
@@ -156,7 +158,7 @@
               class="flex-shrink-0 text-black text-[12px] rounded-2xl py-2 px-3 border border-solid border-[#333]"
               @click="goToDetail(list)"
             >
-              抢购
+              {{ $t("shareProject.buyNow") }}
             </button>
           </div>
         </div>

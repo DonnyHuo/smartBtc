@@ -23,11 +23,11 @@
         {{ poolInfo.details }}
       </div>
       <div class="text-xs text-gray-400">
-        创建时间 {{ poolInfo.createTime }}
+        {{ $t("poolDetail.createTime") }} {{ poolInfo.createTime }}
       </div>
       <div class="w-full mt-4">
         <div class="flex justify-end text-xs text-gray-500 mb-1 gap-2">
-          <span>发射进度</span>
+          <span>{{ $t("poolDetail.launchProgress") }}</span>
           <span class="text-[#000] font-bold text-[14px]"
             >{{
               Number(poolInfo.processPercent) < 0.01
@@ -57,7 +57,7 @@
         ]"
         @click="activeTab = 'buy'"
       >
-        抢购
+        {{ $t("poolDetail.buy") }}
       </button>
       <button
         :class="[
@@ -68,7 +68,7 @@
         ]"
         @click="activeTab = 'redeem'"
       >
-        赎回
+        {{ $t("poolDetail.redeem") }}
       </button>
     </div>
 
@@ -77,7 +77,7 @@
         v-if="activeTab === 'buy'"
         class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
       >
-        <div>等量发射</div>
+        <div>{{ $t("poolDetail.equalLaunch") }}</div>
         <div>
           1 {{ poolInfo.token }} = {{ poolInfo.exchangeRate }}
           {{ poolInfo.symbol }}
@@ -88,24 +88,27 @@
         v-else
         class="flex items-center justify-center bg-[#F6F6F6] p-3 rounded-[8px] font-bold"
       >
-        内盘赎回按认购价值 96% 执行
+        {{ $t("poolDetail.redeemNote") }}
       </div>
       <div>
         <div v-if="activeTab === 'buy'" class="text-right mb-1 px-3">
-          余额：{{ BNBBalance }} {{ poolInfo.token }}
+          {{ $t("poolDetail.balance") }}：{{ BNBBalance }} {{ poolInfo.token }}
         </div>
         <div v-else class="text-right mb-1 px-3">
-          余额：{{ stakeBalance * poolInfo.exchangeRate }} {{ poolInfo.symbol }}
+          {{ $t("poolDetail.balance") }}：{{
+            stakeBalance * poolInfo.exchangeRate
+          }}
+          {{ poolInfo.symbol }}
         </div>
         <div
           class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
         >
-          <div>支付</div>
+          <div>{{ $t("poolDetail.payment") }}</div>
           <div class="flex items-center gap-2">
             <input
               type="text"
               class="bg-transparent w-[100px] text-right"
-              placeholder="输入数量"
+              :placeholder="$t('poolDetail.inputAmount')"
               v-model="amount"
             />
             <span v-if="activeTab === 'buy'">{{ poolInfo.token }}</span>
@@ -137,18 +140,18 @@
           class="flex-1 py-2 rounded-lg bg-[#F6F6F6] font-bold"
           @click="changeAmount(1)"
         >
-          梭哈
+          {{ $t("poolDetail.allIn") }}
         </button>
       </div>
       <div
         class="flex items-center justify-between bg-[#F6F6F6] p-3 rounded-[8px]"
       >
-        <div>预计获得</div>
+        <div>{{ $t("poolDetail.expectedAmount") }}</div>
         <div class="flex items-center gap-2">
           <input
             type="text"
             class="bg-transparent w-[100px] text-right"
-            placeholder="数量"
+            :placeholder="$t('poolDetail.amount')"
             :value="getAmount"
             disabled
           />
@@ -166,7 +169,7 @@
             :loading="buyLoding"
             :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
           >
-            抢购代币
+            {{ $t("poolDetail.buyToken") }}
           </van-button>
         </div>
         <div v-else>
@@ -175,7 +178,7 @@
             class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
             @click="approveFun"
             :loading="approveLoding"
-            >授权</van-button
+            >{{ $t("poolDetail.approve") }}</van-button
           >
           <van-button
             v-else
@@ -184,7 +187,7 @@
             :loading="buyLoding"
             :disabled="amount * 1 == 0 || this.BNBBalance * 1 < this.amount * 1"
           >
-            抢购代币
+            {{ $t("poolDetail.buyToken") }}
           </van-button>
         </div>
       </div>
@@ -194,7 +197,7 @@
           class="w-full h-[40px] !bg-[#FFCF02] text-[12px] font-bold rounded-xl !border-0"
           @click="approveFun"
           :loading="approveLoding"
-          >授权</van-button
+          >{{ $t("poolDetail.approve") }}</van-button
         >
         <van-button
           v-else
@@ -206,7 +209,7 @@
             this.stakeBalance * this.poolInfo.exchangeRate < this.amount * 1
           "
         >
-          提前赎回
+          {{ $t("poolDetail.earlyRedeem") }}
         </van-button>
       </div>
     </div>
@@ -214,7 +217,7 @@
     <!-- 订单列表 -->
     <div class="mx-4 mt-6">
       <div v-if="orders.length" class="font-bold mb-2 text-left text-[14px]">
-        我的订单
+        {{ $t("poolDetail.myOrders") }}
       </div>
       <div
         class="bg-white py-4 border-0 border-b border-solid border-[#EFEFEF]"
@@ -229,18 +232,22 @@
         </div>
         <div class="flex flex-col gap-2 text-[12px]">
           <div class="flex items-center justify-between h-[30px]">
-            <span class="text-[12px] text-[rgba(0,0,0,0.5)]"
-              >市单价 / 买入</span
-            >
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="text-[rgba(0,0,0,0.5)]">类型</span>
-            <span class="text-[12px] text-black">{{
-              order.order_type ? "赎回" : "抢购"
+            <span class="text-[12px] text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.marketPrice")
             }}</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[rgba(0,0,0,0.5)]">数量</span>
+            <span class="text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.type")
+            }}</span>
+            <span class="text-[12px] text-black">{{
+              order.order_type ? $t("poolDetail.redeem") : $t("poolDetail.buy")
+            }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.amount")
+            }}</span>
             <span class="text-[12px] text-black">
               <span v-if="order.order_type"
                 >{{ order.a_amount }} {{ poolInfo.token }}</span
@@ -249,7 +256,9 @@
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[rgba(0,0,0,0.5)]">价格</span>
+            <span class="text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.price")
+            }}</span>
             <span v-if="order.order_type" class="text-[12px] text-black"
               >1 {{ poolInfo.symbol }} ➡️ {{ order.a_amount / order.b_amount }}
               {{ poolInfo.token }}
@@ -260,7 +269,9 @@
             </span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-[rgba(0,0,0,0.5)]">状态</span>
+            <span class="text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.status")
+            }}</span>
             <span class="text-[12px] text-[#00D832]">{{
               getOrderStatus(order.order_state)
             }}</span>
@@ -487,11 +498,11 @@ export default {
     getStatus(type) {
       switch (type) {
         case "0":
-          return "联合KOL";
+          return this.$t("poolDetail.projectTypes.joint");
         case "1":
-          return "单一KOL";
+          return this.$t("poolDetail.projectTypes.single");
         case "2":
-          return "铭文做市商";
+          return this.$t("poolDetail.projectTypes.marketMaking");
       }
     },
     getRecordList() {
@@ -528,11 +539,11 @@ export default {
     getOrderStatus(status) {
       switch (status) {
         case 0:
-          return "新建";
+          return this.$t("poolDetail.statusTypes.new");
         case 1:
-          return "处理中";
+          return this.$t("poolDetail.statusTypes.processing");
         case 2:
-          return "完成交易";
+          return this.$t("poolDetail.statusTypes.completed");
       }
     },
   },

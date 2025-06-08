@@ -13,7 +13,7 @@
       <span
         class="text-[26px] font-bold"
         :class="accountInfo ? 'text-[#E8AD00]' : 'text-[#1989FA]'"
-        >KOL认证</span
+        >{{ $t("kol.title[0]") }}</span
       >
     </div>
     <div class="mb-12">
@@ -28,7 +28,7 @@
                 disabled
                 class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
                 type="text"
-                :value="registerAddress"
+                :value="shortStr(address)"
               />
               <img
                 v-if="$store.state.address"
@@ -43,7 +43,7 @@
                 class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
                 @click="connectWallet"
               >
-                连接钱包
+                {{ $t("connectWallet") }}
               </button>
             </div>
           </div>
@@ -53,7 +53,7 @@
               type="text"
               class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
               v-model="xAddress"
-              placeholder="https://x.com/xxx"
+              :placeholder="$t('kol.inputPlaceholder.twitter')"
               :disabled="!!accountInfo"
             />
           </div>
@@ -65,7 +65,7 @@
               class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
               type="text"
               v-model="tgAddress"
-              placeholder="https://t.me/xxx"
+              :placeholder="$t('kol.inputPlaceholder.telegram')"
               :disabled="!!accountInfo"
             />
           </div>
@@ -74,16 +74,14 @@
             <input
               type="text"
               v-model="disAddress"
+              :placeholder="$t('kol.inputPlaceholder.discord')"
               class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-              placeholder="https://xxx"
               :disabled="!!accountInfo"
             />
           </div>
         </div>
         <div class="mt-4 text-[12px] text-red-500 text-left leading-4">
-          *保持与官推活跃互动，经常发布与KOLPump、
-          SmartBTC及创建（认领）项目相关推文，会提高KOL
-          指数，增加项目代币分配权重
+          *{{ $t("kol.desc1") }}
         </div>
         <div class="mt-8" v-if="!accountInfo">
           <van-button
@@ -114,7 +112,6 @@ export default {
   name: "kol",
   data() {
     return {
-      registerAddress: "",
       xAddress: "",
       tgAddress: "",
       disAddress: "",
@@ -124,7 +121,6 @@ export default {
   components: { ShareProject },
   mounted() {
     this.getInfo();
-    this.registerAddress = shortStr(this.address);
   },
   computed: {
     address() {

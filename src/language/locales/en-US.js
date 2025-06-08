@@ -8,12 +8,12 @@ export default {
     projectDetail: "Project Details",
     title2: [
       "KOL Certification and Airdrop Rewards",
-      "Launch and Promote Projects"
+      "Launch and Promote Projects",
     ],
     desc2: [
       "Submit KOL certification by having an active Twitter or other social media account and staking at least 2100 SOS;",
       "After passing KOL certification, you can initiate project votes or select listing projects, promoting them to earn token airdrop rewards;",
-      "Token airdrop allocation weights are calculated based on Twitter follower count, engagement with certified tweets (views, comments, likes, and retweets), actual SOS staked, and considering Telegram and Discord follower counts and activity levels."
+      "Token airdrop allocation weights are calculated based on Twitter follower count, engagement with certified tweets (views, comments, likes, and retweets), actual SOS staked, and considering Telegram and Discord follower counts and activity levels.",
     ],
     kolBtn: "KOL Certification",
     startProject: "Create Project",
@@ -24,18 +24,18 @@ export default {
     liftDisposit: "Unstake",
     title3: [
       "Real-time Equivalent Cross-chain Exchange",
-      "SOS Now Supports SATS, ORDI, SBTC..."
+      "SOS Now Supports SATS, ORDI, SBTC...",
     ],
     navTitle3: [
       "Hold SOS to Enjoy Inscription Airdrops,",
-      "Stake SOS to Earn Project Rewards."
+      "Stake SOS to Earn Project Rewards.",
     ],
     desc3: [
       "50% of the total SOS is issued in the cross-chain exchange contract, supporting early fair-minted inscriptions like sats, ordi, and SBTC, enabling real-time equivalent exchange; ",
       "30% of the total SOS is issued in the liquidity pool (LP) exchange contract. Adding liquidity to the SOS LP will grant equivalent SOS and activate eligibility for inscription airdrops, allowing regular participation in inscription airdrops; ",
       "10% of the total SOS is issued in the KOL linear unlock contract. Certified KOLs participating in community building will receive SOS rewards periodically based on cross-chain exchange progress, LP addition progress, and certified KOL weight;",
       "10% of the total SOS is reserved in the launch pool, used to create SOS-BTCB, SOS-BNB, and SOS-USDT base LPs, and to provide liquidity aggregation bridges for projects created on SmartBTC.io.",
-      "SmartBTC regularly uses website revenue and project airdrop proceeds to repurchase SOS and transfer it to the cross-chain bridge contract, continuously activating cross-chain quotas until 100%. Once fully activated, bidirectional cross-chain exchange will take effect simultaneously."
+      "SmartBTC regularly uses website revenue and project airdrop proceeds to repurchase SOS and transfer it to the cross-chain bridge contract, continuously activating cross-chain quotas until 100%. Once fully activated, bidirectional cross-chain exchange will take effect simultaneously.",
     ],
     title4: "Technical Roadmap",
     navTitle4:
@@ -43,36 +43,36 @@ export default {
     desc4: [
       {
         time: "March 9, 2023",
-        desc: "Deployment of the first SOS inscription with BTC characters using the Ordinals protocol."
+        desc: "Deployment of the first SOS inscription with BTC characters using the Ordinals protocol.",
       },
       {
         time: "May 12, 2023",
-        desc: "The total supply of 21 million SOS was minted in batches of 500, involving nearly 2000 addresses."
+        desc: "The total supply of 21 million SOS was minted in batches of 500, involving nearly 2000 addresses.",
       },
       {
         time: "January 13, 2024",
-        desc: "SmartBTC, a VC DAO focused on the Bitcoin ecosystem, was jointly announced at the Hong Kong Bitcoin Ecosystem Summit hosted by several well-known Chinese Web3 brands."
+        desc: "SmartBTC, a VC DAO focused on the Bitcoin ecosystem, was jointly announced at the Hong Kong Bitcoin Ecosystem Summit hosted by several well-known Chinese Web3 brands.",
       },
       {
         time: "April 15, 2024",
-        desc: "Acquisition of CoinDAO, which has over 10,000 wallet addresses. Community tokens 100T can be swapped at a 10:1 ratio for BSC mining reward tokens 100T, migrating to SmartBTCdao, and providing basic liquidity for the new BRC852 asset."
+        desc: "Acquisition of CoinDAO, which has over 10,000 wallet addresses. Community tokens 100T can be swapped at a 10:1 ratio for BSC mining reward tokens 100T, migrating to SmartBTCdao, and providing basic liquidity for the new BRC852 asset.",
       },
       {
         time: "April 26, 2024",
-        desc: "The SmartBTC.io mainnet was officially launched, opening the first cross-chain asset SOS, offering SWAP trading, launching LP staking mining pools, and introducing perpetual options with Bitcoin index inscriptions as premiums."
+        desc: "The SmartBTC.io mainnet was officially launched, opening the first cross-chain asset SOS, offering SWAP trading, launching LP staking mining pools, and introducing perpetual options with Bitcoin index inscriptions as premiums.",
       },
       {
         time: "May 10, 2024",
-        desc: "At the Bitcoin Asia Conference in Hong Kong, SmartBTC officially launched the BRC852 protocol for issuing new assets anchored to SOS, injecting new possibilities into the Bitcoin ecosystem."
+        desc: "At the Bitcoin Asia Conference in Hong Kong, SmartBTC officially launched the BRC852 protocol for issuing new assets anchored to SOS, injecting new possibilities into the Bitcoin ecosystem.",
       },
       {
         time: "Second Half of 2024",
-        desc: "During the Token2049 conference in Singapore, SmartBTC.io launched version 2.0, continuing to integrate rich DeFi applications and gradually opening services to active Bitcoin inscriptions, making SOS one of the top 3 mainstream inscriptions by market cap."
+        desc: "During the Token2049 conference in Singapore, SmartBTC.io launched version 2.0, continuing to integrate rich DeFi applications and gradually opening services to active Bitcoin inscriptions, making SOS one of the top 3 mainstream inscriptions by market cap.",
       },
       {
         time: "2025",
-        desc: "SmartBTC will gradually become compatible with mainstream BTC L2 and expand from SOS inscriptions to the entire Bitcoin ecosystem. BRC852 will become the mainstream asset issuance protocol, and SmartBTC.io will become a core application in the Bitcoin ecosystem, with SOS becoming the leading inscription."
-      }
+        desc: "SmartBTC will gradually become compatible with mainstream BTC L2 and expand from SOS inscriptions to the entire Bitcoin ecosystem. BRC852 will become the mainstream asset issuance protocol, and SmartBTC.io will become a core application in the Bitcoin ecosystem, with SOS becoming the leading inscription.",
+      },
     ],
     myProject: "My Projects",
     revenueCollected: "Revenue Collected",
@@ -85,14 +85,22 @@ export default {
     toExerciseRights: "Exercise Rights",
     options: "Options",
     unstake: "Unstake",
-    unstakeDesc: "Unstaking the pledge will terminate the KOL qualification."
+    unstakeDesc: "Unstaking the pledge will terminate the KOL qualification.",
+    influence:
+      "Your influence (KOL index) determines your share of project tokens",
+    stakeSOS: "Stake SOS",
+    voteList: "Vote List",
+    becomeProject: "Become a Project Party",
+    pendingReview: "Pending Review",
+    createProject: "Create Project",
+    claimProject: "Claim Project",
   },
   voting: {
     name: "Token Name",
     symbol: "Token Symbol",
     issuanceNumber: "Issuance Quantity",
     issuanceRatio: "Issuance Ratio",
-    desc: "The project team (KOL) can refer to the SOS governance and buyback plan. During the project’s operational development, tokens circulating on the BSC chain can be continuously bought back and transferred into the cross-chain bridge contract, increasing the cross-chain capacity until 100%.",
+    desc: "The project team (KOL) can refer to the SOS governance and buyback plan. During the project's operational development, tokens circulating on the BSC chain can be continuously bought back and transferred into the cross-chain bridge contract, increasing the cross-chain capacity until 100%.",
     bridgeContract: "Cross-chain Bridge Contract",
     LPContract: "LP Swap Contract",
     startContract: "Startup Pool Contract",
@@ -103,9 +111,9 @@ export default {
     voteBtn: "Vote in Support",
     voteTips: [
       "Current voting rules:",
-      "Voting period is 7 days, with a threshold of 1 SOS, and 100 votes required to complete voting."
+      "Voting period is 7 days, with a threshold of 1 SOS, and 100 votes required to complete voting.",
     ],
-    voteSuccess: "Vote Successful"
+    voteSuccess: "Vote Successful",
   },
   noData: "No Data Available",
   noBalance: "Insufficient SOS Balance",
@@ -113,17 +121,23 @@ export default {
   stakeSuccess: "Stake successfully!",
   kol: {
     title: [
+      "KOL Certification",
       "KOL Certification — Social Accounts",
       "KOL Certification — Stake SOS",
-      "KOL Certification — Become a Project Party"
+      "KOL Certification — Become a Project Party",
     ],
-    revenueAddress: "Revenue Address",
+    revenueAddress: "Wallet Address",
     twitter: "Twitter Address",
     desc1:
       "Post a Twitter certification tweet containing information about SmartBTC, SOS, and the inscription project you want to claim. The content is customizable, mainly focusing on the tweet's views, retweets, and likes within 24 hours.",
     telegram: "Telegram Address",
-    discord: "Discord Address",
+    discord: "Project Website",
     submit: "Submit Certification",
+    inputPlaceholder: {
+      twitter: "https://x.com/xxx",
+      telegram: "https://t.me/xxx",
+      discord: "https://xxx",
+    },
     submitDesc:
       "KOL contribution weight calculation method: Initial weight mainly depends on three dimensions: total number of followers on social accounts, activity level of the certification tweet within 24 hours, and the actual amount of SOS staked. The platform will periodically collect data from certified social accounts (mainly Twitter, supplemented by Telegram and Discord) regarding their attention to and promotion of the claimed inscription projects and the SmartBTC platform, using algorithms to increase the KOL contribution weight.",
     kolReview: "KOL Review in Progress...",
@@ -132,7 +146,7 @@ export default {
     startPro: "Initiate Project",
     desc: [
       "Before claiming and creating a project, you need to stake SOS, starting from 2100. The more you stake, the higher the allocation weight. You can unstake at any time.",
-      "Select the projects you support from the list below (fuzzy search supported) and click 'Claim' to bind. If the project you support is not yet listed on SmartBTC, you can 'Initiate Project', recommend a new inscription project, and launch a vote on the SmartBTC SOS Launchpad. If you receive 100 valid votes within 7 days, you will qualify for listing and automatically deploy the related contracts, while completing the KOL binding as the project party and automatically receive KOL rewards for the project."
+      "Select the projects you support from the list below (fuzzy search supported) and click 'Claim' to bind. If the project you support is not yet listed on SmartBTC, you can 'Initiate Project', recommend a new inscription project, and launch a vote on the SmartBTC SOS Launchpad. If you receive 100 valid votes within 7 days, you will qualify for listing and automatically deploy the related contracts, while completing the KOL binding as the project party and automatically receive KOL rewards for the project.",
     ],
     claim: "Claim",
     contentDesc: [
@@ -140,7 +154,7 @@ export default {
       "2. When submitting a claim, SmartBTC.io will comprehensively evaluate factors such as the amount of SOS staked by the KOL, the activity level of social accounts, the views, likes, and retweets of the certification tweet, the historical dynamics of social accounts related to the project, and the token holdings of the claimed address to automatically calculate the KOL's corresponding community airdrop reward allocation weight through algorithms;",
       "3. A KOL (corresponding to the certified wallet address) can only claim one project uniquely, and once claimed, it cannot be changed;",
       "4. Claims can be revoked at any time to recover the staked SOS. Once revoked, KOL rights will be terminated immediately and cannot be reapplied for reinstatement;",
-      "5. After the claim is completed, KOLs should continue to promote the project actively and participate in community building. The SmartBTC.io platform's algorithms will periodically adjust their airdrop reward distribution rights based on the KOL's multidimensional dynamic data and may suspend or terminate the distribution rights of KOLs who do not participate in community building for an extended period."
+      "5. After the claim is completed, KOLs should continue to promote the project actively and participate in community building. The SmartBTC.io platform's algorithms will periodically adjust their airdrop reward distribution rights based on the KOL's multidimensional dynamic data and may suspend or terminate the distribution rights of KOLs who do not participate in community building for an extended period.",
     ],
     sure: "I have read and agree to the claiming rules and consent to claim this project.",
     claimRule: "Claim Rules",
@@ -160,7 +174,7 @@ export default {
       "Project KOL Activated",
       "Project KOL Setting Execution Failed",
       "Certification Review Not Passed",
-      "Project KOL Set to Inactive"
+      "Project KOL Set to Inactive",
     ],
     tips: [
       "Please enter a valid wallet address",
@@ -168,9 +182,9 @@ export default {
       "Claim the {name} project",
       "Confirm if you have tweeted and submitted the application based on the current number of likes",
       "The staking amount must be greater than or equal to {minDeposit} SOS",
-      "Certification application submitted"
+      "Certification application submitted",
     ],
-    claimSuccess: "Claimed successfully"
+    claimSuccess: "Claimed successfully",
   },
   kolAdd: {
     title: "KOL Certification — Recommend New Projects",
@@ -185,28 +199,28 @@ export default {
       "Cross-Chain Contract",
       "Liquidity Issuance Contract",
       "Launch Pool",
-      "KOL Reward Contract"
+      "KOL Reward Contract",
     ],
     submit: "Create Project",
     desc: "Note: Once the preliminary review is passed, the project will enter the community voting phase. The effective voting period is 7 days, and SOS community members can participate in the voting to recommend the project. If the project receives 100 votes, it will gain listing rights, and related contracts will be automatically deployed.",
     tips: [
       "Please fill in the BSC token symbol",
       "Issue the {name} project",
-      "Confirm if the tweet has been posted and submit the application based on the current number of likes"
+      "Confirm if the tweet has been posted and submit the application based on the current number of likes",
     ],
     success: "Application Successful",
     error: "There is an error in the submitted information",
     descTitle: "Inscription Liquidity Innovation Solution",
     descNavTitle: [
       "Inspired by the PUMP.FUN model,",
-      "creating liquidity pools for BTC mainnet inscriptions on L2 (BSC chain)."
+      "creating liquidity pools for BTC mainnet inscriptions on L2 (BSC chain).",
     ],
     descTips: [
       "Certified inscription official communities can prioritize creating同名 projects on SmartBTC.io, launching with low market cap and fair distribution, allowing anyone to participate;",
       "When a project's market cap grows 10x (reaching approximately $50,000 USD), SmartBTC.io will open the LP addition function for that project, rapidly increasing liquidity;",
       "When the LP exchange progress reaches 30% (total LP reaching $50,000 USD), SmartBTC.io will open the cross-chain exchange function for that project, and the certified initiators and KOLs will jointly become the inscription project team;",
-      "Certified KOLs can participate in creating any同名 inscription project, competing fairly based on two key metrics: token market cap growth and LP addition progress. The first token to meet the criteria becomes the official inscription project."
-    ]
+      "Certified KOLs can participate in creating any同名 inscription project, competing fairly based on two key metrics: token market cap growth and LP addition progress. The first token to meet the criteria becomes the official inscription project.",
+    ],
   },
   community: {
     title: [
@@ -214,12 +228,12 @@ export default {
       "Invited Hashrate",
       "Invitation Speed-Up",
       "Staked Hashrate",
-      "Total Pool Hashrate"
+      "Total Pool Hashrate",
     ],
     desc: [
       "*Each invited person contributes to the invited hashrate after completing a stake;",
       "*The invited hashrate can only provide actual returns when staked hashrate > 0;",
-      "*The larger the staked hashrate, the higher the returns from the invited hashrate speed-up."
+      "*The larger the staked hashrate, the higher the returns from the invited hashrate speed-up.",
     ],
     btns: ["Share with Friends", "My Friends"],
     list: ["My Inviter", "Invited by Me", "No Friend Data", "My Friends"],
@@ -229,40 +243,49 @@ export default {
       "3. CoinDAO members import the 100T wallet into the downloaded OKX, migrating cross-chain to the BSC chain; SOS users transfer cross-chain to BSC",
       "4. Participate in liquidity staking mining and become an options market maker (add liquidity pools), participate in options trading",
       "VC DAO focused on the Bitcoin ecosystem",
-      "Copy and share the link"
+      "Copy and share the link",
     ],
     inviteSuccess: "Invitation Successful",
     revice: "Accept Invitation",
-    reviceDesc: "Do you accept the invitation from {address}?"
+    reviceDesc: "Do you accept the invitation from {address}?",
   },
   pool: {
     search: "Please enter a name to search",
     goStaking: "Go Staking",
     scale: "Manage Scale",
-    header: ["Total Liquidity Staked", "Real-time APY", "Contract"]
+    header: ["Total Liquidity Staked", "Real-time APY", "Contract"],
   },
   poolDetail: {
-    goPancake: "Get LP from Pancakeswap",
-    lp: "LP Address",
-    min: "Minimum Staked Hashrate",
-    search: "Enter the amount of LP to stake",
-    search2: "Enter the amount of LP to use",
-    getLp: "Please obtain LP first",
+    createTime: "Creation Time",
+    launchProgress: "Launch Progress",
+    buy: "Buy Now",
+    redeem: "Redeem",
+    equalLaunch: "Equal Launch",
+    redeemNote: "Internal redemption executed at 96% of subscription value",
     balance: "Balance",
-    tips: ["Current value of 1 LP", "Estimated staked hashrate gained"],
-    approve: "Approve LP",
-    stake: "Stake LP",
-    unStake: "Redeem",
-    desc: [
-      "Redeemable after staking for 7 days;",
-      "If not redeemed, the hashrate remains effective and continues to earn."
-    ],
-    contractAddress: "Contract Address",
-    stakeSuccess: "Staking Successful",
-    noLp: "Insufficient LP",
-    approveSuccess: "Approve Successful",
-    max: "Max",
-    placeHolder: "This input requires ≥ 0"
+    payment: "Payment",
+    inputAmount: "Enter Amount",
+    expectedAmount: "Expected Amount",
+    buyToken: "Buy Token",
+    approve: "Approve",
+    earlyRedeem: "Early Redeem",
+    myOrders: "My Orders",
+    marketPrice: "Market Price / Buy",
+    type: "Type",
+    amount: "Amount",
+    allIn: "All In",
+    price: "Price",
+    status: "Status",
+    statusTypes: {
+      new: "New",
+      processing: "Processing",
+      completed: "Completed",
+    },
+    projectTypes: {
+      joint: "Joint KOL",
+      single: "Single KOL",
+      marketMaking: "Inscription Market Making",
+    },
   },
   withdraw: {
     title: "Claim Airdrop",
@@ -274,12 +297,12 @@ export default {
       "Redemption Block Height",
       "Redeem",
       "Pending Earnings",
-      "Receive"
+      "Receive",
     ],
     allData: "All data loaded",
     withdrawSuccess: "Withdrawal Successful",
     ChargeSuccess: "Collection Successful",
-    redemptionSuccess: "Redemption Successful"
+    redemptionSuccess: "Redemption Successful",
   },
   lpSwap: {
     title: "Provide Liquidity to Issue Assets",
@@ -296,14 +319,14 @@ export default {
       "Acquire CoinDAO",
       "LP Staking Mining",
       "Liquidity Issuance",
-      "Launch Pool Deployment"
+      "Launch Pool Deployment",
     ],
     list: ["Cross-Chain", "Liquidity Issuance", "Launch Pool", "KOL Rewards"],
     swapSuccess: "Swap Successful",
     swapFail: "Swap Failed",
     noBalance: "Insufficient Balance",
     errorTips: "Please enter the correct amount of LP",
-    expected: "Expected to redeem"
+    expected: "Expected to redeem",
   },
   btcSwap: {
     swap: "Cross-Chain",
@@ -319,13 +342,13 @@ export default {
     connect: "Please connect your BTC wallet",
     desc: [
       "Please select the mint to send",
-      "Please enter the correct receiving address"
+      "Please enter the correct receiving address",
     ],
     status: ["New", "In Progress", "Completed", "Failed", "Pending"],
     hash: "Transaction Hash",
     convertHash: "Convert Hash",
     amount: "Amount",
-    orderStatus: "Order Status"
+    orderStatus: "Order Status",
   },
   hecoSwap: {
     balance: "100T Balance",
@@ -344,7 +367,7 @@ export default {
     approveSuccess: "Approve Successful",
     min: "Minimum cross-chain amount is {number}",
     submitSuccess: "Cross-Chain Submission Successful",
-    placeHolder: "This input must be ≥ {number}"
+    placeHolder: "This input must be ≥ {number}",
   },
   options: {
     tradeTitle: "Trade",
@@ -371,7 +394,7 @@ export default {
         "Trade Information",
         "Options Type",
         "Open Position Amount",
-        "Open Position Index"
+        "Open Position Index",
       ],
       desc: "The premium will only be deducted when the available balance is less than the premium required for the next rollover.",
       max: "Max",
@@ -389,7 +412,7 @@ export default {
       approve: "Authorize",
       fee: "Transaction Fee",
       sure: "Confirm",
-      open: "Open Position"
+      open: "Open Position",
     },
     order: {
       title: "Order",
@@ -414,7 +437,7 @@ export default {
       positionAmount: "Position Amount",
       closingIndex: "Closing Index",
       sure: "Confirm",
-      closeSuccess: "Close Position Successful"
+      closeSuccess: "Close Position Successful",
     },
     info: {
       title: "Information",
@@ -427,8 +450,8 @@ export default {
         "Perpetual Options",
         "Exercise",
         "Manual",
-        "Risk Margin"
-      ]
+        "Risk Margin",
+      ],
     },
     pool: {
       title: "Liquidity Pool",
@@ -436,8 +459,8 @@ export default {
         "Private Pool",
         "Available Liquidity",
         "Public Pool",
-        "Available Liquidity"
-      ]
+        "Available Liquidity",
+      ],
     },
     marketMaker: {
       title: "Add Pool and Enjoy Market Maker Earnings",
@@ -445,8 +468,8 @@ export default {
         "Public Pool",
         "Earn premiums by providing reserve liquidity, open to all tokens.",
         "Private Pool",
-        "Provide liquidity to sell perpetual options, open only to professional market makers."
-      ]
+        "Provide liquidity to sell perpetual options, open only to professional market makers.",
+      ],
     },
     public: {
       addLi: "Add Liquidity",
@@ -466,9 +489,9 @@ export default {
       addLiSuccess: "Liquidity Added Successfully",
       errorTips: [
         "Please enter the correct amount to remove",
-        "Insufficient Balance"
+        "Insufficient Balance",
       ],
-      successTips: "Liquidity Removed Successfully"
+      successTips: "Liquidity Removed Successfully",
     },
     private: {
       setLiq: "Liquidity Set Successfully",
@@ -480,8 +503,8 @@ export default {
       selecTradeLp: "Select Trading Pair",
       add: "Add",
       availability: "Availability Rate",
-      yourLp: "Your Liquidity"
-    }
+      yourLp: "Your Liquidity",
+    },
   },
   sure: "Confirm",
   cancel: "Cancel",
@@ -491,27 +514,27 @@ export default {
     bridge: "Exchange",
     swap: "LP Add",
     pool: "Startup Pool",
-    community: "Share project"
+    community: "Share project",
   },
   noWallet: "Wallet not detected",
   connectTip: [
     "Please select Binance Smart Chain",
-    "Please select Huobi Smart Chain"
+    "Please select Huobi Smart Chain",
   ],
   messageTip: [
     "Available only to the authenticated Inscription Community,",
-    "your address is not authorized."
+    "your address is not authorized.",
   ],
   connectWallet: "Connect Wallet",
   bindSuccess: "Binding Successful",
   bindText: [
     "Activate Inscription Airdrop Qualification",
     "Your linked BTC address",
-    "Complete at least one LP addition to activate the qualification for receiving inscription airdrops and participate in airdrops regularly. All inscription ownerships involved in cross-chain exchanges belong to SOS platform token holders. Each airdrop will be distributed proportionally to the corresponding linked BTC address based on the daily weighted holdings of SOS."
+    "Complete at least one LP addition to activate the qualification for receiving inscription airdrops and participate in airdrops regularly. All inscription ownerships involved in cross-chain exchanges belong to SOS platform token holders. Each airdrop will be distributed proportionally to the corresponding linked BTC address based on the daily weighted holdings of SOS.",
   ],
   bindModal: [
     "Your BSC Address",
-    "Please enter the BTC address to bind for receiving inscriptions"
+    "Please enter the BTC address to bind for receiving inscriptions",
   ],
   newData: {
     inscriptionMarketMaker: "Inscription Market Maker",
@@ -534,6 +557,57 @@ export default {
     search: "Search",
     copy: "Copy",
     noData: "No Data",
-    approve: "Approve"
-  }
+    approve: "Approve",
+  },
+  language: {
+    zh: "繁體中文",
+    en: "English",
+  },
+  deposit: {
+    kolTypes: {
+      joint: "Joint KOL",
+      single: "Single KOL Mode",
+      marketMaking: "Inscription Market Making",
+    },
+    stakeAmount: "≥ {value} SOS",
+  },
+  createProject: {
+    kolTypes: {
+      joint: "Joint KOL Mode",
+      single: "Single KOL Mode",
+      marketMaking: "Inscription Market Making Mode",
+    },
+    tokenName: "Token Full Name",
+    stockCode: "Stock Code",
+    custom: "Custom",
+    totalSupply:
+      "Total token supply of 1 billion, allocated proportionally to the following contract addresses",
+    contracts: {
+      fairLaunch: "Fair Launch Contract",
+      launchPool: "Launch Pool Contract",
+      lpAddition: "LP Addition Contract",
+      kolAirdrop: "KOL Airdrop Contract",
+    },
+    exchangeRate: "1 {token} = {rate} tokens",
+    tokenDescription: "Token Description",
+    fairLaunchNote:
+      "* When the fair launch progress reaches 100%, the contract will automatically combine all raised funds with launch pool tokens to create LP and transfer to black hole address for burning, with an opening price of approximately 300% of the fair launch price",
+  },
+  shareProject: {
+    projectTypes: {
+      marketMaking: "Inscription Market Making",
+      joint: "Joint Mode",
+      single: "Single Mode",
+    },
+    fairLaunch: "Fair Launch",
+    buyNow: "Buy Now",
+    social: {
+      twitter: "Twitter",
+      telegram: "Telegram",
+    },
+  },
+  create: {
+    title: "KOL Custom One-Click Token Launch Platform",
+    copyright: "©2025 KOLPump.Fun",
+  },
 };

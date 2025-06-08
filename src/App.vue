@@ -140,9 +140,9 @@ export default {
         this.$store.commit("setAddress", "");
       } else if (accounts[0] !== this.$store.state.address) {
         this.$store.commit("setAddress", accounts[0]);
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 500);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
     },
     async getChainId(

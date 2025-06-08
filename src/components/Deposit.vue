@@ -9,7 +9,7 @@
         type="text"
         :placeholder="`${$t('kol.inputNumber')} >= ${activeItem.value} SOS`"
         @change="changeDepositAmount"
-        class="w-full"
+        class="w-full placeholder:text-[12px]"
       />
 
       <button size="small" class="flex-shrink-0" @click="maxFun">
@@ -20,11 +20,11 @@
       <div
         v-for="(item, index) in selectItems"
         :key="index"
-        class="flex items-center px-4 pr-16 border border-solid border-[#A1A1A1] rounded-[4px] h-[36px] justify-between text-[14px] relative"
+        class="flex items-center px-4 border border-solid border-[#A1A1A1] rounded-[4px] h-[36px] justify-between text-[14px] relative"
         @click="changeSelect(item)"
       >
         <span>{{ item.name }}</span>
-        <span>质押数 ≥ {{ item.value }} SOS</span>
+        <span>{{ $t("deposit.stakeAmount", { value: item.value }) }}</span>
 
         <img
           v-if="item.name == activeItem.name"
@@ -76,18 +76,19 @@ export default {
       },
       selectItems: [
         {
-          name: "联合KOL",
+          name: this.$t("deposit.kolTypes.joint"),
           value: 1,
         },
         {
-          name: "单一KOL模式",
+          name: this.$t("deposit.kolTypes.single"),
           value: 10000,
         },
         {
-          name: "铭文做市",
+          name: this.$t("deposit.kolTypes.marketMaking"),
           value: 2100,
         },
       ],
+      activeType: "joint",
     };
   },
   created() {
