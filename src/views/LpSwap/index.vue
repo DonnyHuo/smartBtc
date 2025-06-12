@@ -121,9 +121,11 @@
   <van-dialog
     v-model:show="dialogShow"
     :showConfirmButton="true"
-    :showCancelButton="false"
+    :showCancelButton="true"
     :confirmButtonText="$t('sure')"
-    :beforeClose="addrmapBind"
+    :cancelButtonText="$t('cancel')"
+    @confirm="addrmapBind"
+    @cancel="cancelFun"
   >
     <div class="text-left p-[20px] text-[14px]">
       <div class="mb-[30px] font-medium flex items-center justify-between">
@@ -253,6 +255,9 @@ export default {
   },
   methods: {
     shortStr,
+    cancelFun() {
+      this.dialogShow = false;
+    },
     getIcon(name) {
       if (name) {
         try {

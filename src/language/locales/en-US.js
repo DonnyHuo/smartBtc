@@ -510,11 +510,11 @@ export default {
   cancel: "Cancel",
 
   footer: {
-    mine: "Create Project",
-    bridge: "Exchange",
-    swap: "LP Add",
+    mine: "Create",
+    bridge: "Inscriptions",
+    swap: "Liquidity",
     pool: "Startup Pool",
-    community: "Share project",
+    community: "Tokens",
   },
   noWallet: "Wallet not detected",
   connectTip: [
@@ -565,9 +565,9 @@ export default {
   },
   deposit: {
     kolTypes: {
-      joint: "Joint KOL",
+      joint: "Joint KOL Mode",
       single: "Single KOL Mode",
-      marketMaking: "Inscription Market Making",
+      marketMaking: "Inscription Market Making, Claim Projects",
     },
     stakeAmount: "≥ {value} SOS",
   },

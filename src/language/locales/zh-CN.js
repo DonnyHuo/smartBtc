@@ -532,9 +532,9 @@ export default {
   },
   deposit: {
     kolTypes: {
-      joint: "聯合KOL",
+      joint: "聯合KOL模式",
       single: "單一KOL模式",
-      marketMaking: "銘文做市",
+      marketMaking: "銘文做市、认领项目",
     },
     stakeAmount: "質押數 ≥ {value} SOS",
   },

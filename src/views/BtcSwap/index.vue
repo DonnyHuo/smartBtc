@@ -71,6 +71,7 @@
           <!-- <p class="max">Max</p> -->
         </div>
       </div>
+
       <van-button
         class="sure"
         :loading="postLoading"
@@ -143,6 +144,20 @@
         </div>
         <div class="allData" v-else>{{ allData }}</div>
       </div>
+    </div>
+    <div class="mt-8 pb-8">
+      <div class="flex items-center justify-around">
+        <a href="https://t.me/SmartBTCdao" target="_blank">
+          <img class="w-[30px]" src="../../assets/img/telgram.png" alt="" />
+        </a>
+        <a href="https://twitter.com/SmartBTCdao" target="_blank">
+          <img class="w-[30px]" src="../../assets/img/twiter.png" alt="" />
+        </a>
+        <a href="https://discord.com/invite/YHx7DXgm" target="_blank">
+          <img class="w-[30px]" src="../../assets/img/discord.png" alt="" />
+        </a>
+      </div>
+      <div class="text-[12px] mt-4">@2024 SmartBTC.io</div>
     </div>
     <van-action-sheet v-model:show="show" :title="`${$t('btcSwap.select')}`">
       <div class="content">

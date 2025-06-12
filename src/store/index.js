@@ -56,7 +56,7 @@ export default createStore({
       "0xbb96c185c1df083f7c4edbdf8ae1690f2dc99060",
       "0xa744118af77e66a193601ea1456d7afb27dc7b5c",
     ],
-    lang: "zh",
+    lang: "en",
     activeAmount: 0,
     accountInfoStatus: 0,
     tokenShop: "0xfa6cf05473f5419840a6944c754a4c764f37a3d9",
