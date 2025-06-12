@@ -277,6 +277,7 @@ export default {
     approveError: "授權失敗",
     max: "最大",
     placeHolder: "本次輸入需 ≥ 0",
+    stake: "質押",
   },
   withdraw: {
     title: "領取空投",
