@@ -290,7 +290,6 @@ export default {
       txId: "交易Hash",
       time: "時間",
     },
-    redeemAmount: "折合贖回數量",
   },
   withdraw: {
     title: "領取空投",

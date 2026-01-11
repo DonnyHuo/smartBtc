@@ -311,7 +311,6 @@ export default {
       txId: "TxID",
       time: "Time",
     },
-    redeemAmount: "Converted Redeemable Amount",
   },
   withdraw: {
     title: "Claim Airdrop",
