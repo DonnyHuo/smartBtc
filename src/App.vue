@@ -190,7 +190,6 @@ export default {
       const chainId = await window.ethereum.request({ method: "eth_chainId" });
       this.chainId = chainId;
       this.$store.commit("setChainId", chainId);
-      console.log("window.location.hash", window.location.hash);
       if (window.location.hash == "#/swap") {
         if (parseInt(chainId, 16) !== 128) {
           this.netWorkError = true;

@@ -24,6 +24,14 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/PoolDetail/index.vue"),
   },
   {
+    path: "/earlyBirdDetail",
+    name: "earlyBirdDetail",
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/EarlyBirdDetail/index.vue"
+      ),
+  },
+  {
     path: "/swap",
     name: "swap",
     component: () =>

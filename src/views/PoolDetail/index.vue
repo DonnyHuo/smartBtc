@@ -95,7 +95,7 @@
           {{ $t("poolDetail.balance") }}：{{ BNBBalance }} {{ poolInfo.token }}
         </div>
         <div v-else class="text-right mb-1 px-3">
-          {{ $t("poolDetail.balance") }}：{{
+          {{ $t("poolDetail.redeemAmount") }}：{{
             stakeBalance * poolInfo.exchangeRate
           }}
           {{ poolInfo.symbol }}
@@ -276,6 +276,18 @@
               getOrderStatus(order.order_state)
             }}</span>
           </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[rgba(0,0,0,0.5)]">{{
+              $t("poolDetail.orders.txId")
+            }}</span>
+            <a
+              :href="`https://bscscan.com/tx/${order.spend_txid}`"
+              target="_blank"
+              class="text-black underline"
+            >
+              {{ shortStr(order.spend_txid) }}
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -289,6 +301,7 @@ import {
   getWriteContract,
   getBNBBalance,
   truncateTo6Decimals,
+  shortStr,
 } from "@/utils";
 import dayjs from "dayjs";
 import Decimal from "decimal.js";
@@ -322,13 +335,17 @@ export default {
     this.getRecordList();
     this.getBalance();
     this.getUserContributions();
-    if (this.activeTab === "buy" && this.poolInfo.token !== "BNB") {
+    if (
+      (this.activeTab === "buy" && this.poolInfo.token !== "BNB") ||
+      this.activeTab === "redeem"
+    ) {
       this.getAllowance();
     }
   },
   methods: {
     dayjs,
     getBNBBalance,
+    shortStr,
     async getBalance() {
       if (this.poolInfo.token == "BNB") {
         this.BNBBalance = truncateTo6Decimals(
@@ -397,6 +414,12 @@ export default {
 
     async handleWithdraw() {
       this.withdrawLoding = true;
+
+      console.log("handleWithdraw", this.stakeBalance, this.rate);
+      const overrides = {
+        gasLimit: 100000,
+        gasPrice: ethers.utils.parseUnits("5", "gwei"),
+      };
       getWriteContract(
         this.$store.state.tokenShop,
         tokenShopAbi,
@@ -405,8 +428,8 @@ export default {
         ethers.utils.parseUnits(
           new Decimal(this.stakeBalance).times(this.rate).toString(),
           18
-        )
-        // overrides
+        ),
+        overrides
       )
         .then((res) => {
           this.withdrawLoding = false;
@@ -441,6 +464,8 @@ export default {
         this.stakeBalance = Number(ethers.utils.formatUnits(res, 18)).toFixed(
           6
         );
+
+        console.log("stakeBalance", this.stakeBalance);
       });
     },
     changeAmount(rate) {
@@ -559,7 +584,10 @@ export default {
     },
     activeTab() {
       this.amount = "";
-      if (this.activeTab === "buy" && this.poolInfo.token !== "BNB") {
+      if (
+        (this.activeTab === "buy" && this.poolInfo.token !== "BNB") ||
+        this.activeTab === "redeem"
+      ) {
         this.getAllowance();
       }
     },

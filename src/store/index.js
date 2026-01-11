@@ -59,7 +59,7 @@ export default createStore({
     lang: "en",
     activeAmount: 0,
     accountInfoStatus: 0,
-    tokenShop: "0xfa6cf05473f5419840a6944c754a4c764f37a3d9",
+    tokenShop: "0xE1f445d627877F1E8Cd95003261dc81bfd81968D",
   },
   mutations: {
     setAddress(state, data) {

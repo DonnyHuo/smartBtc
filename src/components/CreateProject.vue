@@ -532,7 +532,6 @@ export default {
       showList: false,
       fileList: [],
       logoUrl: "",
-      accountInfo: this.$store.state.accountInfo,
       activeAmount: 0,
     };
   },
@@ -572,7 +571,7 @@ export default {
       this.typeTwo.percents[1] = 30 - value.target.value;
     },
     newProject() {
-      if (this.accountInfo.status !== 1) {
+      if (this.$store.state.accountInfoStatus !== 1) {
         showToast(this.$t("kol.tips[4]"));
         return;
       }

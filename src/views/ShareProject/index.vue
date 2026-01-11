@@ -154,12 +154,20 @@
                 }}{{ list.symbol }}</span
               ></span
             >
-            <button
-              class="flex-shrink-0 text-black text-[12px] rounded-2xl py-2 px-3 border border-solid border-[#333]"
-              @click="goToDetail(list)"
-            >
-              {{ $t("shareProject.buyNow") }}
-            </button>
+            <div class="flex items-center gap-2">
+              <button
+                class="flex-shrink-0 text-black text-[12px] rounded-2xl py-2 px-3 border border-solid border-[#333]"
+                @click="goToDetail(list, 'goToDetail')"
+              >
+                {{ $t("shareProject.buyNow") }}
+              </button>
+              <button
+                class="flex-shrink-0 text-black text-[12px] rounded-2xl py-2 px-3 border border-solid border-[#333]"
+                @click="goToDetail(list, 'earlyBird')"
+              >
+                {{ $t("shareProject.earlyBird") }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -195,19 +203,24 @@ export default {
     console.log("page", this.page);
   },
   methods: {
-    goToDetail(list) {
+    goToDetail(list, type) {
       this.$router.push({
-        path: "/poolDetail",
+        path: type === "goToDetail" ? "/poolDetail" : "/earlyBirdDetail",
         query: {
           id: list.mint_pool_id,
           symbol: list.symbol,
           maxValue: Number(
             ethers.utils.formatUnits(
-              list.mint_process_percent.split(",")[0],
+              type === "goToDetail"
+                ? list.mint_process_percent.split(",")[0]
+                : list.airdrop_process_percent.split(",")[0],
               18
             )
           ),
-          processPercent: list.mint_process_percent.split(",")[1],
+          processPercent:
+            type === "goToDetail"
+              ? list.mint_process_percent.split(",")[1]
+              : list.airdrop_process_percent.split(",")[1],
           type: list.project_type,
           contract: list.contract_addr,
           token: list.display_name.split("-")[0],
