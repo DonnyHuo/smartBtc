@@ -16,12 +16,9 @@
     <div
       class="h-[40px] border border-solid border-[#E2E2E2] bg-[#FCFCFC] flex items-center rounded-lg p-1 text-[12px]"
     >
+      <!-- 联合KOL -->
       <div
-        v-if="
-          (activeAmount * 1 >= 1 && activeAmount * 1 < 2100) ||
-          activeAmount * 1 == 0
-        "
-        class="w-1/2 h-full flex items-center justify-center"
+        class="w-1/3 h-full flex items-center justify-center cursor-pointer"
         :class="
           activeIndex === 0
             ? 'bg-[#FEE540] rounded-[4px] border border-black border-solid'
@@ -31,9 +28,9 @@
       >
         {{ $t("createProject.kolTypes.joint") }}
       </div>
+      <!-- 单一KOL -->
       <div
-        v-if="activeAmount * 1 >= 10000 || activeAmount * 1 == 0"
-        class="w-1/2 h-full flex items-center justify-center"
+        class="w-1/3 h-full flex items-center justify-center cursor-pointer"
         :class="
           activeIndex === 1
             ? 'bg-[#FEE540] rounded-[4px] border border-black border-solid'
@@ -43,12 +40,9 @@
       >
         {{ $t("createProject.kolTypes.single") }}
       </div>
+      <!-- 銘文做市 -->
       <div
-        v-if="
-          (activeAmount >= 2100 && activeAmount * 1 < 10000) ||
-          activeAmount * 1 == 0
-        "
-        class="w-1/2 h-full flex items-center justify-center"
+        class="w-1/3 h-full flex items-center justify-center cursor-pointer"
         :class="
           activeIndex === 2
             ? 'bg-[#FEE540] rounded-[4px] border border-black border-solid'
@@ -140,48 +134,11 @@
           </div>
         </div>
       </div>
-      <div class="relative">
-        <div
-          class="border border-solid border-[#000] rounded-[4px] h-[40px] flex items-center gap-4 px-4 text-[14px] my-4 relative"
-          @click="this.showList = true"
-        >
-          <span>{{ selectedToken.mint_base_token }}</span>
-          <span>
-            {{
-              $t("createProject.exchangeRate", {
-                token: selectedToken.mint_base_token,
-                rate: selectedToken.exchange_rate,
-              })
-            }}
-          </span>
-          <span
-            class="rounded-[20px] bg-[#FFBB00] p-1 absolute right-3 top-2.5"
-          >
-            <img class="w-[10px]" src="../assets/img/arrowDown.png" alt="" />
-          </span>
-        </div>
-
-        <div
-          v-if="showList"
-          class="border border-solid border-[#333] rounded-sm absolute top-[40px] left-0 w-full bg-white px-4"
-        >
-          <div
-            v-for="(item, index) in selectTokenList"
-            :key="index"
-            class="text-[14px] h-[40px] flex items-center gap-4"
-            @click="selectTokenFun(item)"
-          >
-            <span>{{ item.mint_base_token }}</span>
-            <span>
-              {{
-                $t("createProject.exchangeRate", {
-                  token: item.mint_base_token,
-                  rate: item.exchange_rate,
-                })
-              }}
-            </span>
-          </div>
-        </div>
+      <div class="my-4">
+        <TokenSelect
+          v-model="selectedTokenOne"
+          :options="selectTokenList"
+        />
       </div>
       <div class="text-[12px] text-[#D90007] mt-4 leading-4">{{ text }}</div>
       <div class="mt-[20px]">
@@ -294,39 +251,11 @@
           
         </div>
       </div>
-      <div class="relative">
-        <div
-          class="border border-solid border-[#000] rounded-[4px] h-[40px] flex items-center gap-4 px-4 text-[14px] my-4 relative"
-          @click="this.showList = true"
-        >
-          <span>{{ selectedToken.mint_base_token }}</span>
-          <span>
-            1 {{ selectedToken.mint_base_token }} =
-            {{ selectedToken.exchange_rate }} 代币</span
-          >
-          <span
-            class="rounded-[20px] bg-[#FFBB00] p-1 absolute right-3 top-2.5"
-          >
-            <img class="w-[10px]" src="../assets/img/arrowDown.png" alt="" />
-          </span>
-        </div>
-
-        <div
-          v-if="showList"
-          class="border border-solid border-[#333] rounded-sm absolute top-[40px] left-0 w-full bg-white px-4"
-        >
-          <div
-            v-for="(item, index) in selectTokenList"
-            :key="index"
-            class="text-[14px] h-[40px] flex items-center gap-4"
-            @click="selectTokenFun(item)"
-          >
-            <span>{{ item.mint_base_token }}</span>
-            <span>
-              1 {{ item.mint_base_token }} = {{ item.exchange_rate }} 代币</span
-            >
-          </div>
-        </div>
+      <div class="my-4">
+        <TokenSelect
+          v-model="selectedTokenTwo"
+          :options="selectTokenList"
+        />
       </div>
       <div class="text-[12px] text-[#D90007] mt-4 leading-4">{{ text }}</div>
       <div class="mt-[20px]">
@@ -477,6 +406,9 @@
         >{{ $t("kolAdd.submit") }}</van-button
       >
     </div>
+    <div class="text-left text-[12px] text-red-500">
+      * {{ $t("createProject.submitTip") }}
+    </div>
   </div>
 </template>
 <script>
@@ -486,9 +418,13 @@ import { showToast, showConfirmDialog } from "vant";
 import { copy, getContract } from "@/utils";
 
 import depositAbi from "../abi/deposit.json";
+import TokenSelect from "./TokenSelect.vue";
 
 export default {
   name: "creatProject",
+  components: {
+    TokenSelect,
+  },
   data() {
     return {
       activeIndex: 0,
@@ -521,7 +457,12 @@ export default {
       },
       text: this.$t("createProject.fairLaunchNote"),
 
-      selectedToken: {
+      selectedTokenOne: {
+        mint_base_token: "BNB",
+        mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
+        exchange_rate: "9000000",
+      },
+      selectedTokenTwo: {
         mint_base_token: "BNB",
         mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
         exchange_rate: "9000000",
@@ -546,15 +487,20 @@ export default {
       showList: false,
       fileList: [],
       logoUrl: "",
-      activeAmount: 0,
     };
   },
+  computed: {
+    // 从 store 读取质押数量，实时响应变化
+    activeAmount() {
+      return this.$store.state.activeAmount * 1;
+    },
+  },
   mounted() {
-    this.getActiveAmount();
+    this.refreshActiveAmount();
   },
 
   methods: {
-    async getActiveAmount() {
+    async refreshActiveAmount() {
       const res = await getContract(
         this.$store.state.pledgeAddress,
         depositAbi,
@@ -562,8 +508,6 @@ export default {
         this.$store.state.address
       );
       console.log("res", res);
-      this.activeAmount = (ethers.utils.formatUnits(res, 18) * 1).toFixed(2);
-
       this.$store.commit(
         "setActiveAmount",
         (ethers.utils.formatUnits(res, 18) * 1).toFixed(2)
@@ -585,8 +529,31 @@ export default {
       this.typeTwo.percents[1] = 30 - value.target.value;
     },
     newProject() {
+      // 校验质押数量是否满足当前模式要求
+      const amount = this.activeAmount * 1;
+      const modeRequirements = [
+        { min: 100, max: 2099, name: this.$t("createProject.kolTypes.joint") },
+        { min: 10000, max: Infinity, name: this.$t("createProject.kolTypes.single") },
+        { min: 2100, max: 9999, name: this.$t("createProject.kolTypes.marketMaking") },
+      ];
+      const req = modeRequirements[this.activeIndex];
+      
+      if (amount < req.min || amount > req.max) {
+        const tip = this.activeIndex === 1 
+          ? this.$t("createProject.stakeRequirement.min", { mode: req.name, min: req.min })
+          : this.$t("createProject.stakeRequirement.range", { mode: req.name, min: req.min, max: req.max });
+        showToast(tip);
+        return;
+      }
+
+      // 检测是否上传了图片
+      if (!this.logoUrl) {
+        showToast(this.$t("createProject.uploadLogoRequired"));
+        return;
+      }
+
       if (this.$store.state.accountInfoStatus !== 1) {
-        showToast(this.$t("kol.tips[4]"));
+        showToast(this.$t("createProject.notCertified"));
         return;
       }
 
@@ -602,7 +569,7 @@ export default {
           percents: this.typeOne.percents.map((list) => list * 100),
           project_type: 0,
           logo_url: this.logoUrl,
-          ...this.selectedToken,
+          ...this.selectedTokenOne,
         };
 
         console.log("project_info", project_info);
@@ -618,7 +585,7 @@ export default {
           project_type: 1,
           brc20_id: "",
           logo_url: this.logoUrl,
-          ...this.selectedToken,
+          ...this.selectedTokenTwo,
         };
       } else {
         project_info = {

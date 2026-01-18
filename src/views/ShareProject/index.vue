@@ -47,7 +47,7 @@
       <div v-for="(list, index) in searchList">
         <div
           :key="index"
-          class="py-[20px] text-left border-0 border-b border-solid border-[#AAAAAA]"
+          class="py-[20px] text-left border-0 border-b border-solid border-[#eae9e9]"
         >
           <div class="flex items-start justify-between">
             <div>

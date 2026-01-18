@@ -11,7 +11,7 @@ export default {
       "Launch and Promote Projects",
     ],
     desc2: [
-      "Submit KOL certification by having an active Twitter or other social media account and staking at least 2100 SOS;",
+      "Submit KOL certification by having an active Twitter or other social media account and staking at least 100 SOS;",
       "After passing KOL certification, you can initiate project votes or select listing projects, promoting them to earn token airdrop rewards;",
       "Token airdrop allocation weights are calculated based on Twitter follower count, engagement with certified tweets (views, comments, likes, and retweets), actual SOS staked, and considering Telegram and Discord follower counts and activity levels.",
     ],
@@ -146,7 +146,7 @@ export default {
     search: "Search for Project Name",
     startPro: "Initiate Project",
     desc: [
-      "Before claiming and creating a project, you need to stake SOS, starting from 2100. The more you stake, the higher the allocation weight. You can unstake at any time.",
+      "Before claiming and creating a project, you need to stake SOS, starting from 100. The more you stake, the higher the allocation weight. You can unstake at any time.",
       "Select the projects you support from the list below (fuzzy search supported) and click 'Claim' to bind. If the project you support is not yet listed on SmartBTC, you can 'Initiate Project', recommend a new inscription project, and launch a vote on the SmartBTC SOS Launchpad. If you receive 100 valid votes within 7 days, you will qualify for listing and automatically deploy the related contracts, while completing the KOL binding as the project party and automatically receive KOL rewards for the project.",
     ],
     claim: "Claim",
@@ -584,7 +584,7 @@ export default {
     search: "Search",
     copy: "Copy",
     noData: "No Data",
-    approve: "Approve",
+    approve: "Claim & Bind",
   },
   language: {
     zh: "繁體中文",
@@ -597,6 +597,10 @@ export default {
       marketMaking: "Inscription Market Making, Claim Projects",
     },
     stakeAmount: "≥ {value} SOS",
+    stakeNote: "The more SOS staked, the more tokens allocated to KOL, and the faster the unlock",
+    kolCertificationRequired: "Please complete KOL certification first",
+    approveSuccess: "Approval Successful",
+    approveFailed: "Approval Failed",
   },
   createProject: {
     kolTypes: {
@@ -613,12 +617,19 @@ export default {
       fairLaunch: "Fair Launch Contract",
       launchPool: "Launch Pool Contract",
       lpAddition: "LP Addition Contract",
-      kolAirdrop: "KOL Airdrop Contract",
+      kolAirdrop: "KOL Linear Unlock Contract",
     },
     exchangeRate: "1 {token} = {rate} tokens",
     tokenDescription: "Token Description",
     fairLaunchNote:
       "* When the fair launch progress reaches 100%, the contract will automatically combine all raised funds with launch pool tokens to create LP and transfer to black hole address for burning, with an opening price of approximately 300% of the fair launch price",
+    stakeRequirement: {
+      min: "{mode} requires staking at least {min} SOS",
+      range: "{mode} requires staking {min} - {max} SOS",
+    },
+    notCertified: "Please complete KOL certification first",
+    uploadLogoRequired: "Please upload project logo",
+    submitTip: "When creating a project, please follow the official Twitter {'@'}kolpump_fun and retweet the pinned tweet. This affects your KOL index and token allocation.",
   },
   shareProject: {
     projectTypes: {
@@ -637,6 +648,7 @@ export default {
   create: {
     title: "KOL Custom One-Click Token Launch Platform",
     subtitle: "The greater your influence, the greater your share of project tokens",
+    rewardTip: "Create project and enjoy 1% reward of internal market fundraising",
     bannerTitle: "The first to integrate MEME community culture and RWA value",
     bannerSubtitle: "Anchored influence asset issuance platform",
     features: {
@@ -646,5 +658,8 @@ export default {
       kolUnlock: "KOL share linear unlock",
     },
     copyright: "©2025 KOLPumpFun",
+  },
+  tokenSelect: {
+    token: "Token",
   },
 };

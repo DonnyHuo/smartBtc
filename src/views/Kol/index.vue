@@ -457,7 +457,7 @@ export default {
     userDeposit() {
       if (this.depositAmount * 1 < this.minDeposit * 1) {
         return showToast(
-          `${this.$t("kol.tips[4]", { name: this.minDeposit })}`
+          `${this.$t("kol.tips[4]", { minDeposit: this.minDeposit })}`
         );
       }
       if (this.depositAmount * 1 > this.sBtcBalance * 1) {

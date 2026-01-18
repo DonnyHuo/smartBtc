@@ -8,7 +8,7 @@ export default {
     projectDetail: "项目详情",
     title2: ["KOL認證與空投獎勵", "創建项目與推廣項目"],
     desc2: [
-      "擁有活躍的Twitter等社交帳戶，並質押至少2100個SOS，即可提交KOL認證；",
+      "擁有活躍的Twitter等社交帳戶，並質押至少100個SOS，即可提交KOL認證；",
       "通過KOL認證，即可創建項目投票或選擇上幣項目，推廣項目以獲得代幣空投獎勵；",
       "根據推特粉絲數，認證推文的閱讀、評論、按讚和轉發數，以及實際質押的SOS數量，並參考Telegram、Discord帳戶粉絲數和活躍度，綜合計算綁定項目的代幣空投分配權重。",
     ],
@@ -136,7 +136,7 @@ export default {
     search: "输入项目名称搜索",
     startPro: "創建項目",
     desc: [
-      "認領和創建项目前，需要質押SOS，數量2100個起，質押越多，分配權重越高，可以隨時撤銷質押。",
+      "認領和創建项目前，需要質押SOS，數量100個起，質押越多，分配權重越高，可以隨時撤銷質押。",
     ],
     claim: "認領",
     contentDesc: [
@@ -171,7 +171,7 @@ export default {
       "請填寫正確的X位址",
       "認領{name}项目",
       "確認是否已發推文且以目前按讚數提交申請",
-      "质押金额必须大于等于{minDeposit}SOS",
+      "质押金额必须大于等于 {minDeposit} SOS",
       "已提交認證申請",
     ],
     claimSuccess: "認領成功",
@@ -539,7 +539,7 @@ export default {
     search: "搜索",
     copy: "複製",
     noData: "無數據",
-    approve: "認證",
+    approve: "認領綁定",
   },
   language: {
     zh: "繁體中文",
@@ -552,6 +552,10 @@ export default {
       marketMaking: "銘文做市、认领项目",
     },
     stakeAmount: "質押數 ≥ {value} SOS",
+    stakeNote: "SOS質押數量越多，KOL分配代幣越多，解鎖越快",
+    kolCertificationRequired: "請先完成KOL認證",
+    approveSuccess: "授權成功",
+    approveFailed: "授權失敗",
   },
   createProject: {
     kolTypes: {
@@ -567,12 +571,19 @@ export default {
       fairLaunch: "公平發射合約",
       launchPool: "啟動池合約",
       lpAddition: "LP添加合約",
-      kolAirdrop: "KOL空投合約",
+      kolAirdrop: "KOL線性解鎖合約",
     },
     exchangeRate: "1 {token} = {rate} 代幣",
     tokenDescription: "代幣描述",
     fairLaunchNote:
       "* 公平發射進度達 100% 時，合約自動將募集到的全部資金與啟動池代幣組合創建 LP 並轉入黑洞地址銷毀，開盤價約為公平發射價的 300%",
+    stakeRequirement: {
+      min: "{mode}需要質押至少 {min} SOS",
+      range: "{mode}需要質押 {min} - {max} SOS",
+    },
+    notCertified: "請先完成KOL認證",
+    uploadLogoRequired: "請上傳項目Logo",
+    submitTip: "創建項目時請同步關注官方推特{'@'}kolpump_fun，並轉發官推置頂推文，這關乎您的KOL指數和代幣分配。",
   },
   shareProject: {
     projectTypes: {
@@ -591,6 +602,7 @@ export default {
   create: {
     title: "KOL自定義一鍵發幣平台",
     subtitle: "你的影響力有多大，你占項目代幣的份額就有多大",
+    rewardTip: "創建項目享內盤募集資金1%獎勵",
     bannerTitle: "首個融合MEME社群文化與RWA價值",
     bannerSubtitle: "錨定的影響力資產發行平臺",
     features: {
@@ -600,5 +612,8 @@ export default {
       kolUnlock: "KOL份額線性解鎖",
     },
     copyright: "©2025 KOLPumpFun",
+  },
+  tokenSelect: {
+    token: "代幣",
   },
 };

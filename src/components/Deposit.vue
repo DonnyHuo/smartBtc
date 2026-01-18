@@ -7,7 +7,7 @@
       <input
         v-model="depositAmount"
         type="text"
-        :placeholder="`${$t('kol.inputNumber')} >= ${activeItem.value} SOS`"
+        :placeholder="`${$t('kol.inputNumber')} >= ${minDeposit} SOS`"
         @change="changeDepositAmount"
         class="w-full placeholder:text-[12px]"
       />
@@ -16,23 +16,8 @@
         {{ $t("kol.max") }}
       </button>
     </div>
-    <div class="flex flex-col gap-2 mt-4">
-      <div
-        v-for="(item, index) in selectItems"
-        :key="index"
-        class="flex items-center px-4 border border-solid border-[#A1A1A1] rounded-[4px] h-[36px] justify-between text-[14px] relative"
-        @click="changeSelect(item)"
-      >
-        <span>{{ item.name }}</span>
-        <span>{{ $t("deposit.stakeAmount", { value: item.value }) }}</span>
-
-        <img
-          v-if="item.name == activeItem.name"
-          src="../assets/img/selected.png"
-          class="w-[16px] absolute right-4 top-2"
-          alt=""
-        />
-      </div>
+    <div class="text-left text-[12px] text-red-500 mt-2">
+      * {{ $t("deposit.stakeNote") }}
     </div>
     <van-button
       v-if="!allowance"
@@ -68,16 +53,16 @@ export default {
       depositAmount: "",
       sBtcDecimals: "",
       allowance: 0,
-      minDeposit: 2100,
+      minDeposit: 100,
       activeLoading: false,
       activeItem: {
         name: "联合KOL",
-        value: 1,
+        value: 100,
       },
       selectItems: [
         {
           name: this.$t("deposit.kolTypes.joint"),
-          value: 1,
+          value: 100,
         },
         {
           name: this.$t("deposit.kolTypes.single"),
@@ -93,7 +78,7 @@ export default {
   },
   created() {
     this.getBalance();
-    this.getActiveAmount();
+    this.getAllowance();
   },
   methods: {
     changeSelect(item) {
@@ -115,20 +100,7 @@ export default {
       this.sBtcBalance = ethers.utils.formatUnits(balance, decimals) * 1;
     },
 
-    async getActiveAmount() {
-      const decimals = await getContract(
-        this.$store.state.sBtc,
-        erc20ABI,
-        "decimals"
-      );
-      const res = await getContract(
-        this.$store.state.pledgeAddress,
-        depositAbi,
-        "viewUserDepositedAmount",
-        this.$store.state.address
-      );
-      this.activeAmount = ethers.utils.formatUnits(res, decimals) * 1;
-
+    async getAllowance() {
       const allowance = await getContract(
         this.$store.state.sBtc,
         erc20ABI,
@@ -151,11 +123,13 @@ export default {
         .then((res) => {
           console.log(res);
           this.approveLoading = false;
-          this.getActiveAmount();
+          showToast(this.$t("deposit.approveSuccess"));
+          this.getAllowance();
         })
         .catch((err) => {
           console.log(err);
           this.approveLoading = false;
+          showToast(this.$t("deposit.approveFailed"));
         });
     },
     maxFun() {
@@ -180,9 +154,13 @@ export default {
       this.minDeposit = ethers.utils.formatUnits(minDeposit, decimals) * 1;
     },
     userDeposit() {
-      if (this.depositAmount * 1 < this.activeItem.value * 1) {
+      // 检测是否完成KOL认证
+      if (this.$store.state.accountInfoStatus !== 1) {
+        return showToast(this.$t("deposit.kolCertificationRequired"));
+      }
+      if (this.depositAmount * 1 < this.minDeposit * 1) {
         return showToast(
-          `${this.$t("kol.tips[4]", { name: this.activeItem.value })}`
+          `${this.$t("kol.tips[4]", { minDeposit: this.minDeposit })}`
         );
       }
       if (this.depositAmount * 1 > this.sBtcBalance * 1) {
@@ -214,7 +192,9 @@ export default {
           this.activeLoading = false;
           this.activeModal = false;
           showToast(this.$t("stakeSuccess"));
-          this.getActiveAmount();
+          // 刷新余额
+          this.getBalance();
+          // 更新父组件和 store 中的质押金额
           this.updateActiveAmount();
         })
         .catch(() => {

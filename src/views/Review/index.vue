@@ -18,19 +18,50 @@
         <div v-for="(item, index) in kolWaitAgreeList" class="form">
           <div class="list" :key="index">
             <span>认证地址</span>
-            <span>{{ shortStr(item.address) }}</span>
+            <span>
+              <a
+                :href="`https://bscscan.com/address/${item.address}`"
+                target="_blank"
+                class="text-[#1989fa] underline"
+                :title="item.address"
+              >{{ shortStr(item.address) }}</a>
+            </span>
           </div>
           <div class="list">
             <span>Twitter地址</span>
-            <span>{{ item.twitter_account }}</span>
+            <span v-if="item.twitter_account && isUrl(item.twitter_account)">
+              <a
+                :href="item.twitter_account"
+                target="_blank"
+                class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                :title="item.twitter_account"
+              >{{ truncateStr(item.twitter_account) }}</a>
+            </span>
+            <span v-else>{{ item.twitter_account || '--' }}</span>
           </div>
           <div class="list">
             <span>Telegram地址</span>
-            <span>{{ item.tg_account || "--" }}</span>
+            <span v-if="item.tg_account && isUrl(item.tg_account)">
+              <a
+                :href="item.tg_account"
+                target="_blank"
+                class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                :title="item.tg_account"
+              >{{ truncateStr(item.tg_account) }}</a>
+            </span>
+            <span v-else>{{ item.tg_account || '--' }}</span>
           </div>
           <div class="list">
-            <span>Discord地址</span>
-            <span>{{ item.discord_account || "--" }}</span>
+            <span>币安广场</span>
+            <span v-if="item.discord_account && isUrl(item.discord_account)">
+              <a
+                :href="item.discord_account"
+                target="_blank"
+                class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                :title="item.discord_account"
+              >{{ truncateStr(item.discord_account) }}</a>
+            </span>
+            <span v-else>{{ item.discord_account || '--' }}</span>
           </div>
           <div class="list">
             <span>状态</span>
@@ -132,11 +163,50 @@
             </div>
             <div class="list">
               <span>认领地址</span>
-              <span>{{ shortStr(item.address) }}</span>
+              <span>
+                <a
+                  :href="`https://bscscan.com/address/${item.address}`"
+                  target="_blank"
+                  class="text-[#1989fa] underline"
+                  :title="item.address"
+                >{{ shortStr(item.address) }}</a>
+              </span>
             </div>
             <div class="list">
-              <span>twitter地址</span>
-              <span>{{ item.twitter_account }}</span>
+              <span>Twitter地址</span>
+              <span v-if="item.twitter_account && isUrl(item.twitter_account)">
+                <a
+                  :href="item.twitter_account"
+                  target="_blank"
+                  class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                  :title="item.twitter_account"
+                >{{ truncateStr(item.twitter_account) }}</a>
+              </span>
+              <span v-else>{{ item.twitter_account || '--' }}</span>
+            </div>
+            <div class="list">
+              <span>Telegram地址</span>
+              <span v-if="item.tg_account && isUrl(item.tg_account)">
+                <a
+                  :href="item.tg_account"
+                  target="_blank"
+                  class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                  :title="item.tg_account"
+                >{{ truncateStr(item.tg_account) }}</a>
+              </span>
+              <span v-else>{{ item.tg_account || '--' }}</span>
+            </div>
+            <div class="list">
+              <span>币安广场</span>
+              <span v-if="item.discord_account && isUrl(item.discord_account)">
+                <a
+                  :href="item.discord_account"
+                  target="_blank"
+                  class="text-[#1989fa] underline truncate max-w-[150px] inline-block align-bottom"
+                  :title="item.discord_account"
+                >{{ truncateStr(item.discord_account) }}</a>
+              </span>
+              <span v-else>{{ item.discord_account || '--' }}</span>
             </div>
             <div class="list">
               <span>创建时间</span>
@@ -342,6 +412,14 @@ export default {
   methods: {
     shortStr,
     formatDate,
+    isUrl(str) {
+      if (!str) return false;
+      return str.startsWith('http://') || str.startsWith('https://');
+    },
+    truncateStr(str, maxLen = 30) {
+      if (!str) return '--';
+      return str.length > maxLen ? str.slice(0, maxLen) + '...' : str;
+    },
     changeTabs(number) {
       this.active = number;
     },
@@ -401,11 +479,16 @@ export default {
           aggree: agree
         })
         .then((res) => {
+          if (res.data.message) {
+            showToast(res.data.message);
+            return;
+          }
           showToast(agree ? "审核通过" : "审核不通过");
           this.getInfo();
         })
         .catch((err) => {
           console.log(err);
+          showToast(err.response?.data?.message || err.message || "操作失败");
         });
     },
     getProjectWaitAgreeList() {
@@ -426,11 +509,16 @@ export default {
           aggree: agree
         })
         .then((res) => {
+          if (res.data.message) {
+            showToast(res.data.message);
+            return;
+          }
           showToast(agree ? "审核通过" : "审核不通过");
           this.getProjectWaitAgreeList();
         })
         .catch((err) => {
           console.log(err);
+          showToast(err.response?.data?.message || err.message || "操作失败");
         });
     },
     getBindProjectWaitList() {
@@ -453,12 +541,17 @@ export default {
           percent
         })
         .then((res) => {
+          if (res.data.message) {
+            showToast(res.data.message);
+            return;
+          }
           showToast(aggree ? "审核通过" : "审核不通过");
           this.getBindProjectWaitList();
           this.model = false;
         })
         .catch((err) => {
           console.log(err);
+          showToast(err.response?.data?.message || err.message || "操作失败");
         });
     },
     openModel(item) {

@@ -43,6 +43,9 @@
         <div class="text-[12px] text-[#4B5563] mt-2">
           {{ $t("create.subtitle") }}
         </div>
+        <div class="text-[12px] text-[#FB8018] mt-1">
+          {{ $t("create.rewardTip") }}
+        </div>
       </div>
       <div
         class="py-[60px] bg-no-repeat bg-center bg-cover mx-[-16px]"
@@ -170,7 +173,8 @@
       <div>
         <div v-if="activeAmount * 1 > 0">
           <Withdraw :updateActiveAmount="getActiveAmount" />
-          <van-button class="w-full !mt-3" @click="goVoting">{{
+          <!-- 投票列表入口暂时隐藏 -->
+          <van-button v-if="false" class="w-full !mt-3" @click="goVoting">{{
             $t("home.voteList")
           }}</van-button>
         </div>
@@ -199,7 +203,8 @@
         >
       </div>
       <div class="mt-10">
-        <div v-if="accountInfo.status == 2">{{ $t("home.pendingReview") }}</div>
+        <!-- 待审核状态暂时隐藏 -->
+        <div v-if="false && accountInfo.status == 2">{{ $t("home.pendingReview") }}</div>
         <div v-if="[4, 5].includes(accountInfo.status)" class="reserve">
           <MyProject />
         </div>

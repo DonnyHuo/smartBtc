@@ -248,23 +248,33 @@ export default {
   async mounted() {
     Chart.register(...registerables);
 
+    // 优先使用缓存数据快速渲染
     const exchangeTokens = JSON.parse(localStorage.getItem("exchangeTokens"));
     const selectToken = JSON.parse(localStorage.getItem("selectToken"));
     if (exchangeTokens && selectToken) {
       this.exchangeTokens = exchangeTokens;
       this.selectToken = selectToken;
-    }
-
-    try {
-      const minTime = new Promise((resolve) => setTimeout(resolve, 1500));
-      await Promise.all([this.getChangeList(), minTime]);
-    } finally {
+      // 有缓存时立即关闭 loading，先展示图表
       this.loading = false;
       this.$nextTick(() => {
         this.chartPie = markRaw(
           new Chart(this.$refs.myChart, this.chartConfig)
         );
       });
+      // 后台静默刷新数据
+      this.getChangeList();
+    } else {
+      // 无缓存时等待数据加载
+      try {
+        await this.getChangeList();
+      } finally {
+        this.loading = false;
+        this.$nextTick(() => {
+          this.chartPie = markRaw(
+            new Chart(this.$refs.myChart, this.chartConfig)
+          );
+        });
+      }
     }
   },
   methods: {
@@ -294,27 +304,33 @@ export default {
         lpExchangeABI,
         "getExchangeTokens"
       );
-      const tokensInfo = [];
 
       console.log("getExchangeTokens", getExchangeTokens);
 
-      for (let i = 0; i < getExchangeTokens.length; i++) {
-        if (
-          getExchangeTokens[i].toLowerCase() ==
-          "0x1d887f723f77b2f8c99bed8b94f4e3ba71baf70e"
-        ) {
-          const tokenInfo = {
+      // 过滤出目标 token
+      const targetTokens = getExchangeTokens.filter(
+        (addr) =>
+          addr.toLowerCase() === "0x1d887f723f77b2f8c99bed8b94f4e3ba71baf70e"
+      );
+
+      // 并行获取所有 token 信息
+      const tokensInfo = await Promise.all(
+        targetTokens.map(async (tokenAddr, i) => {
+          // 并行获取 symbol, decimals, exchangePairs
+          const [name, decimals, index] = await Promise.all([
+            getContract(tokenAddr, erc20ABI, "symbol"),
+            getContract(tokenAddr, erc20ABI, "decimals"),
+            this.getExchangePairs(tokenAddr),
+          ]);
+          return {
             id: i,
-            address: getExchangeTokens[i],
-            name: await getContract(getExchangeTokens[i], erc20ABI, "symbol"),
-            decimals: (
-              await getContract(getExchangeTokens[i], erc20ABI, "decimals")
-            ).toString(),
-            index: await this.getExchangePairs(getExchangeTokens[i]),
+            address: tokenAddr,
+            name,
+            decimals: decimals.toString(),
+            index,
           };
-          tokensInfo.push(tokenInfo);
-        }
-      }
+        })
+      );
 
       console.log("tokensInfo.length", tokensInfo.length);
 
@@ -337,27 +353,28 @@ export default {
     },
 
     async getPairs(index) {
-      const pairsInfo = [];
-      for (let i = 0; i < index.length; i++) {
-        console.log("index[i]", index[i]);
-        const getPairs = await getContract(
-          this.$store.state.lpExchange,
-          lpExchangeABI,
-          "pairs",
-          index[i].toString()
-        );
-        const pairInfo = {
-          pairId: index[i].toString(),
-          baseTokenIsToken0: getPairs.baseTokenIsToken0,
-          changeToken: getPairs.changeToken,
-          disPlayName: getPairs.disPlayNmae,
-          isOpen: getPairs.isOpen,
-          lpToken: getPairs.lpToken,
-          pairName: getPairs.pairName,
-          rate: getPairs.rate.toString() / 200,
-        };
-        pairsInfo.push(pairInfo);
-      }
+      // 并行获取所有 pair 信息
+      const pairsInfo = await Promise.all(
+        index.map(async (pairIndex) => {
+          console.log("pairIndex", pairIndex);
+          const getPairs = await getContract(
+            this.$store.state.lpExchange,
+            lpExchangeABI,
+            "pairs",
+            pairIndex.toString()
+          );
+          return {
+            pairId: pairIndex.toString(),
+            baseTokenIsToken0: getPairs.baseTokenIsToken0,
+            changeToken: getPairs.changeToken,
+            disPlayName: getPairs.disPlayNmae,
+            isOpen: getPairs.isOpen,
+            lpToken: getPairs.lpToken,
+            pairName: getPairs.pairName,
+            rate: getPairs.rate.toString() / 200,
+          };
+        })
+      );
       this.selectPair = pairsInfo;
     },
 

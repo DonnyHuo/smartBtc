@@ -164,6 +164,9 @@ export default {
           this.xAddress = res.data.data.twitter_account;
           this.tgAddress = res.data.data.tg_account;
           this.disAddress = res.data.data.discord_account;
+
+          // 同步更新 store 中的认证状态
+          this.$store.commit("setAccountInfoStatus", res.data.data.status);
         })
         .catch((err) => {
           this.accountInfo = "";
