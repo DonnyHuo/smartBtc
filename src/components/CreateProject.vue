@@ -112,7 +112,7 @@
               $t("createProject.contracts.launchPool")
             }}</span>
 
-            <div class="flex-shrink-0">{{ typeOne.percents[3] }} %</div>
+            <div class="flex-shrink-0">{{ typeOne.percents[2] }} %</div>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-2">
@@ -134,7 +134,7 @@
               $t("createProject.contracts.kolAirdrop")
             }}</span>
             <div class="flex-shrink-0">
-              {{ typeOne.percents[2] }}
+              {{ typeOne.percents[3] }}
               %
             </div>
           </div>
@@ -200,6 +200,7 @@
     </div>
 
     <div v-if="activeIndex == 1" class="text-left">
+     
       <div class="flex items-center justify-between mt-[20px] gap-2">
         <div class="w-1/2">
           <div class="text-black font-bold text-[12px] mb-[10px]">
@@ -214,6 +215,7 @@
             />
           </div>
         </div>
+        
         <div class="w-1/2">
           <div class="text-black font-bold text-[12px] mb-[10px]">
             {{ $t("createProject.stockCode") }}
@@ -228,6 +230,8 @@
           </div>
         </div>
       </div>
+
+      
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
           {{ $t("createProject.totalSupply") }}
@@ -241,14 +245,19 @@
             }}</span>
             <div>{{ typeTwo.percents[0] }}%</div>
           </div>
+
+          
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
+            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
 
-            <div>{{ typeTwo.percents[3] }}%</div>
+            <div>{{ typeTwo.percents[2] }}%</div>
+           
           </div>
         </div>
+
+        
         <div class="flex items-center gap-2 mt-2">
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
@@ -264,21 +273,25 @@
               %
             </div>
           </div>
+          
           <div
             class="border border-solid border-[#202325] h-[52px] p-[10px] rounded-lg w-1/2 flex items-center justify-between"
           >
-            <span class="text-[12px]">{{ $t("newData.launchPool") }}</span>
+            <span class="text-[12px]">{{ $t("newData.kolRewards") }}</span>
+
             <div>
               <input
                 class="w-[60px] !h-[30px] text-[12px] text-right"
                 type="text"
-                v-model="typeTwo.percents[2]"
+                v-model="typeTwo.percents[3]"
                 placeholder="> 0"
                 @change="changeStartPool"
               />
               %
             </div>
           </div>
+        
+          
         </div>
       </div>
       <div class="relative">
@@ -360,6 +373,7 @@
           </div>
         </div>
       </div>
+      
 
       <div class="mt-[20px]">
         <div class="text-black font-bold text-[12px] mb-[10px]">
@@ -485,7 +499,7 @@ export default {
         symbol: "",
         totalSupply: "",
         details: "",
-        percents: ["45", "20", "20", "15"],
+        percents: ["45", "20", "15", "20"],
       },
       typeTwo: {
         brc20_name: "",
@@ -494,7 +508,7 @@ export default {
         symbol: "",
         totalSupply: "",
         details: "",
-        percents: ["45", "", "", "15"],
+        percents: ["45", "", "15", ""],
       },
       typeThree: {
         brc20_name: "",
@@ -510,23 +524,23 @@ export default {
       selectedToken: {
         mint_base_token: "BNB",
         mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
-        exchange_rate: "22500000",
+        exchange_rate: "9000000",
       },
       selectTokenList: [
         {
           mint_base_token: "BNB",
           mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
-          exchange_rate: "22500000",
+          exchange_rate: "9000000",
         },
         {
           mint_base_token: "USDT",
           mint_base_token_addr: "0x55d398326f99059ff775485246999027b3197955",
-          exchange_rate: "1000",
+          exchange_rate: "10000",
         },
         {
-          mint_base_token: "SOS",
-          mint_base_token_addr: "0x1d887F723F77b2F8C99BED8B94F4e3BA71BAF70e",
-          exchange_rate: "200",
+          mint_base_token: "BTCB",
+          mint_base_token_addr: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+          exchange_rate: "900000000",
         },
       ],
       showList: false,

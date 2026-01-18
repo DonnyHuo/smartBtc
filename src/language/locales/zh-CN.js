@@ -121,7 +121,8 @@ export default {
     desc1:
       "發布Twitter認證推文，包含SmartBTC、SOS和想認領的銘文項目信息，文案自定義，主要考察該推文24小時閱讀數、轉發數和點贊數。",
     telegram: "Telegram地址",
-    discord: "項目網站",
+    discord: "幣安廣場",
+    view: "查看",
     submit: "提交認證",
     inputPlaceholder: {
       twitter: "https://x.com/xxx",
@@ -588,6 +589,15 @@ export default {
   },
   create: {
     title: "KOL自定義一鍵發幣平台",
-    copyright: "©2025 KOLPump.Fun",
+    subtitle: "你的影響力有多大，你占項目代幣的份額就有多大",
+    bannerTitle: "首個融合MEME社群文化與RWA價值",
+    bannerSubtitle: "錨定的影響力資產發行平臺",
+    features: {
+      earlyBird: "前1%享早鳥價",
+      fairLaunch: "公平發射(內盤可贖回)",
+      rewardLp: "獎勵流動性提供者",
+      kolUnlock: "KOL份額線性解鎖",
+    },
+    copyright: "©2025 KOLPumpFun",
   },
 };

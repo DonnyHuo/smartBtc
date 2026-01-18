@@ -71,13 +71,23 @@
           </div>
           <div class="flex flex-col gap-2 text-left w-full">
             <span>{{ $t("kol.discord") }}</span>
-            <input
-              type="text"
-              v-model="disAddress"
-              :placeholder="$t('kol.inputPlaceholder.discord')"
-              class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
-              :disabled="!!accountInfo"
-            />
+            <div class="relative">
+              <input
+                type="text"
+                v-model="disAddress"
+                :placeholder="$t('kol.inputPlaceholder.discord')"
+                class="border border-solid border-[#a1a1a1] w-full h-[40px] text-[12px] rounded-[4px] px-2"
+                :disabled="true"
+              />
+              <a
+                v-if="disAddress"
+                :href="disAddress"
+                target="_blank"
+                class="absolute right-[10px] top-[10px] w-full h-full text-[#1989fa] underline text-[12px]"
+              >
+               
+              </a>
+            </div>
           </div>
         </div>
         <div class="mt-4 text-[12px] text-red-500 text-left leading-4">
@@ -114,7 +124,7 @@ export default {
     return {
       xAddress: "",
       tgAddress: "",
-      disAddress: "",
+      disAddress: "https://accounts.binance.com/zh-CN/login?return_to=aHR0cHM6Ly93d3cuYmluYW5jZS5jb20vemgtQ04vc3F1YXJl",
       accountInfo: "",
     };
   },

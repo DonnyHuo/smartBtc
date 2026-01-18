@@ -22,6 +22,7 @@ import {
   Checkbox,
   Dialog,
   Uploader,
+  Skeleton
 } from "vant";
 // import {
 //   TitleComponent,
@@ -89,6 +90,7 @@ app
   .use(Empty)
   .use(Dialog)
   .use(Uploader)
+  .use(Skeleton)
   .use(store)
   .use(router)
   .mount("#app");

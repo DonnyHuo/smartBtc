@@ -325,6 +325,7 @@ export default {
     async getPairs(index) {
       const pairsInfo = [];
       for (let i = 0; i < index.length; i++) {
+        console.log("index[i]", index[i]);
         const getPairs = await getContract(
           this.$store.state.lpExchange,
           lpExchangeABI,
@@ -433,7 +434,7 @@ export default {
             this.bindAddress = res.data.data.btc_addr;
           })
           .catch(() => {
-            this.dialogShow = true;
+            this.dialogShow = false;
           });
       }
     },
@@ -450,7 +451,7 @@ export default {
             message.success(this.$t("bindSuccess"));
           });
       } else {
-        this.dialogShow = true;
+        this.dialogShow = false;
       }
     },
     readText() {

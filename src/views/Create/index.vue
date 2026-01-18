@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-1">
         <img class="w-8 h-8" src="../../assets/img/logo.png" alt="" />
-        <span class="font-[600] text-black">KOLPump.Fun</span>
+        <span class="font-[600] text-black">KOLPumpFun</span>
       </div>
 
       <van-popover
@@ -30,24 +30,127 @@
     <!-- <div @click="connectWallet">
       {{ address ? shortStr(address) : "链接钱包" }}
     </div> -->
+
+
     <div>
-      <div class="mt-[40px] mb-[20px]">
+      <div class="mt-[40px] mb-[10px]">
         <div class="">
           <span
             class="text-[30px] font-[600] bg-gradient-to-r from-[#FB8018] to-[#FEC02E] bg-clip-text text-transparent"
             >{{ $t("create.title") }}</span
           >
         </div>
+        <div class="text-[12px] text-[#4B5563] mt-2">
+          {{ $t("create.subtitle") }}
+        </div>
       </div>
-      <div class="text-[14px] font-[600]">
-        {{ $t("home.influence") }}
+      <div
+        class="py-[60px] bg-no-repeat bg-center bg-cover mx-[-16px]"
+        :style="{
+          backgroundImage: `url(${require('../../assets/img/homeBgTitle.png')})`,
+        }"
+      >
+        <div class="text-[20px] font-[800] text-[#1F2937]">
+          {{ $t("create.bannerTitle") }}
+        </div>
+        <div class="text-[20px] font-[800] text-[#1F2937]">
+          {{ $t("create.bannerSubtitle") }}
+        </div>
+        <div
+          class="flex items-center justify-center gap-2 text-[#4B5563] mt-3 font-[500]  text-[8px]"
+        >
+          <span>{{ $t("create.features.earlyBird") }}</span> |
+          <span>{{ $t("create.features.fairLaunch") }}</span> |
+          <span>{{ $t("create.features.rewardLp") }}</span> |
+          <span>{{ $t("create.features.kolUnlock") }}</span>
+        </div>
       </div>
-      <div class="mt-[40px]">
-        <img src="../../assets/img/homeBg3.png" alt="" />
+
+     
+    </div>
+   
+    <div v-if="loading" class="mt-8">
+      <!-- Kol Section Skeleton -->
+      <div class="mb-10">
+        <!-- Title -->
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+          <div class="h-8 bg-gray-200 rounded w-32"></div>
+        </div>
+
+        <!-- Input Row 1 -->
+        <div class="flex gap-4 mb-4">
+          <div class="w-1/2">
+            <div class="h-4 bg-gray-200 rounded w-20 mb-2"></div>
+            <div class="h-10 bg-gray-200 rounded w-full"></div>
+          </div>
+          <div class="w-1/2">
+            <div class="h-4 bg-gray-200 rounded w-20 mb-2"></div>
+            <div class="h-10 bg-gray-200 rounded w-full"></div>
+          </div>
+        </div>
+
+        <!-- Input Row 2 -->
+        <div class="flex gap-4 mb-4">
+          <div class="w-1/2">
+            <div class="h-4 bg-gray-200 rounded w-20 mb-2"></div>
+            <div class="h-10 bg-gray-200 rounded w-full"></div>
+          </div>
+          <div class="w-1/2">
+            <div class="h-4 bg-gray-200 rounded w-20 mb-2"></div>
+            <div class="h-10 bg-gray-200 rounded w-full"></div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="space-y-2 mt-4">
+          <div class="h-3 bg-gray-200 rounded w-full"></div>
+          <div class="h-3 bg-gray-200 rounded w-5/6"></div>
+          <div class="h-3 bg-gray-200 rounded w-4/6"></div>
+        </div>
+      </div>
+
+      <!-- Stake SOS Section Skeleton -->
+      <div class="mb-10">
+        <!-- Title -->
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+          <div class="h-8 bg-gray-200 rounded w-32"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="mb-2 h-4 bg-gray-200 rounded w-20"></div>
+        <!-- Label -->
+        <div class="h-12 bg-gray-200 rounded w-full mb-4"></div>
+        <!-- Value Box -->
+
+        <div class="h-3 bg-gray-200 rounded w-3/4 mb-6"></div>
+        <!-- Warning -->
+
+        <!-- Buttons -->
+        <div class="space-y-3">
+          <div class="h-10 bg-gray-200 rounded w-full"></div>
+          <div class="h-10 bg-gray-200 rounded w-full"></div>
+        </div>
+      </div>
+
+      <!-- Become Project Section Skeleton -->
+      <div>
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-8 h-8 rounded-full bg-gray-200"></div>
+          <div class="h-8 bg-gray-200 rounded w-40"></div>
+        </div>
+        <!-- Tabs -->
+        <div class="flex gap-8 mb-4 border-b border-gray-100 pb-2">
+          <div class="h-6 bg-gray-200 rounded w-20"></div>
+          <div class="h-6 bg-gray-200 rounded w-20"></div>
+        </div>
+        <div class="h-60 bg-gray-200 rounded w-full"></div>
       </div>
     </div>
-    <div>
+    <div v-else>
       <Kol />
+      
       <div class="flex items-center gap-5">
         <img
           class="w-[30px]"
@@ -155,6 +258,7 @@ export default {
       accountInfo: "",
       activeAmount: 0,
       address: this.$store.state.address,
+      loading: false,
     };
   },
   components: {
@@ -167,10 +271,27 @@ export default {
   },
 
   created() {
-    this.getInfo();
-    this.getActiveAmount();
+    this.initData();
   },
   methods: {
+    async initData() {
+      this.loading = true;
+      try {
+        // 强制延迟1.5秒以展示骨架屏效果
+        const minLoadingTime = new Promise((resolve) =>
+          setTimeout(resolve, 1500)
+        );
+        await Promise.all([
+          this.getInfo(),
+          this.getActiveAmount(),
+          minLoadingTime,
+        ]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
+    },
     goVoting() {
       this.$router.push("/voting");
     },
@@ -182,7 +303,7 @@ export default {
       location.reload();
     },
     getInfo() {
-      this.$axios
+      return this.$axios
         .post("https://smartbtc.io/bridge/kol/query_kol", {
           address: this.$store.state.address,
         })

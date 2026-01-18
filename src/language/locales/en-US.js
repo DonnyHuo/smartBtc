@@ -131,7 +131,8 @@ export default {
     desc1:
       "Post a Twitter certification tweet containing information about SmartBTC, SOS, and the inscription project you want to claim. The content is customizable, mainly focusing on the tweet's views, retweets, and likes within 24 hours.",
     telegram: "Telegram Address",
-    discord: "Project Website",
+    discord: "Binance Square",
+    view: "View",
     submit: "Submit Certification",
     inputPlaceholder: {
       twitter: "https://x.com/xxx",
@@ -634,6 +635,15 @@ export default {
   },
   create: {
     title: "KOL Custom One-Click Token Launch Platform",
-    copyright: "©2025 KOLPump.Fun",
+    subtitle: "The greater your influence, the greater your share of project tokens",
+    bannerTitle: "The first to integrate MEME community culture and RWA value",
+    bannerSubtitle: "Anchored influence asset issuance platform",
+    features: {
+      earlyBird: "Top 1% enjoy early bird price",
+      fairLaunch: "Fair launch (redeemable in internal market)",
+      rewardLp: "Reward liquidity providers",
+      kolUnlock: "KOL share linear unlock",
+    },
+    copyright: "©2025 KOLPumpFun",
   },
 };
