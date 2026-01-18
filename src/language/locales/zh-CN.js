@@ -291,6 +291,7 @@ export default {
       txId: "交易Hash",
       time: "時間",
     },
+    contractAddress: "合約地址",
   },
   withdraw: {
     title: "領取空投",

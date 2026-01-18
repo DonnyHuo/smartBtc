@@ -312,6 +312,7 @@ export default {
       txId: "TxID",
       time: "Time",
     },
+    contractAddress: "Contract Address",
   },
   withdraw: {
     title: "Claim Airdrop",

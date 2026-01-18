@@ -75,7 +75,12 @@
       </div>
       <van-progress :percentage="percentage" stroke-width="8" />
     </div>
-    <div v-if="selectPair.length > 0" class="lpList">
+    <div v-if="loading" class="space-y-4 mt-5">
+      <div class="h-24 bg-gray-200 rounded-lg"></div>
+      <div class="h-24 bg-gray-200 rounded-lg"></div>
+      <div class="h-24 bg-gray-200 rounded-lg"></div>
+    </div>
+    <div v-else-if="selectPair.length > 0" class="lpList">
       <div>
         <div v-for="(list, index) in selectPair" :key="index">
           <div>
@@ -237,9 +242,10 @@ export default {
       dialogShow: false,
       bindAddress: "",
       address: this.$store.state.address,
+      loading: true,
     };
   },
-  mounted() {
+  async mounted() {
     Chart.register(...registerables);
 
     const exchangeTokens = JSON.parse(localStorage.getItem("exchangeTokens"));
@@ -249,9 +255,17 @@ export default {
       this.selectToken = selectToken;
     }
 
-    this.chartPie = markRaw(new Chart(this.$refs.myChart, this.chartConfig));
-
-    this.getChangeList();
+    try {
+      const minTime = new Promise((resolve) => setTimeout(resolve, 1500));
+      await Promise.all([this.getChangeList(), minTime]);
+    } finally {
+      this.loading = false;
+      this.$nextTick(() => {
+        this.chartPie = markRaw(
+          new Chart(this.$refs.myChart, this.chartConfig)
+        );
+      });
+    }
   },
   methods: {
     shortStr,
@@ -367,7 +381,7 @@ export default {
           this.$t("lpSwap.list[3]"),
         ];
       }
-      this.chartPie.update();
+      if (this.chartPie) this.chartPie.update();
       const totalSupply = await getContract(
         value.address,
         erc20ABI,
