@@ -43,7 +43,7 @@
         <div class="text-[12px] text-[#4B5563] mt-2">
           {{ $t("create.subtitle") }}
         </div>
-        <div class="text-[12px] text-[#FB8018] mt-1">
+        <div class="text-[12px] text-[#4B5563] mt-1">
           {{ $t("create.rewardTip") }}
         </div>
       </div>
